@@ -4,12 +4,9 @@ There is a ton of great JS drawing libraries for the web, and favorites like [D3
 
 The main goals of this project is:
 
-- **SVG** Simplify rendering by only focusing on SVG output. SVG is great for generative design projects that end up as printed products.
-- 
-
-
-A JavaScript SVG drawing library for the web
-
-Features include:
-
-- 
+- **SVG**. Simplify rendering by only focusing on SVG output. SVG is great for generative design projects that end up as printed products, as well as web-native projects.
+- **Simple syntax**.
+- **Virtual dom**.
+- **Scene Graph**
+- **Computational Geometry**
+- **Typography**
