@@ -16,10 +16,6 @@ My main goal for the project is to make `rune.js` the best library for making vi
 
 `rune.js` is very much inspired by Bonsai.js and Two.js.
 
-## Scene graph
-
-Some functions automatically adds the object to the stage? Some doesn't?
-
 ## Feature comparison
 
 Here's a small list of things that make `rune.js` different from competitors:
@@ -27,6 +23,7 @@ Here's a small list of things that make `rune.js` different from competitors:
 #### Most frameworks
 
 - `rune.js` uses virtual-dom, which at least in theory should speed things up quite a bit.
+- `rune.js` uses a behind-the-scenes scene graph where you don't specifically call things like `addChild`. Inspired by `Two.js`, all new objects are automatically added to the graph, and can be moved by using groups. ALl objects also come with a `.lifetime()` function that can be used to remove that object after a certain number of frames.
 
 #### bonsai.js
 
