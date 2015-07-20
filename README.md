@@ -8,10 +8,10 @@ My main goal for the project is to make `rune.js` the best library for making vi
 
 - **No knowledge about SVG required**. One should not need to know about SVG paths to use the library.
 - **SVG only**. Simplify rendering by only focusing on SVG output. SVG is great for both generative design projects that end up as printed products, and web-native projects.
-- **Scene Graph**. Make a powerful scene graph with a simple API that gets out of the way for beginners.
+- **Scene graph**. Make a powerful scene graph with a simple API that gets out of the way for beginners.
 - **Virtual dom**. In order to optimize for speed, update the SVG element via a virtual DOM like React.
 - **Color modes**. Support both RGB and HSB, and make color generation and conversion dead simple.
-- **Computational Geometry**. Provide native functions to help with complicated geometry calculations, like hit tests and polygon diffing.
+- **Computational geometry**. Provide native functions to help with complicated geometry calculations, like hit tests and polygon diffing.
 - **Typography**. Provide lower-level access to webfont vectors.
 
 `rune.js` is very much inspired by Bonsai.js and Two.js.
