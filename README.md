@@ -23,7 +23,7 @@ Here's a small list of things that make `rune.js` different from competitors:
 #### Most frameworks
 
 - `rune.js` uses virtual-dom, which at least in theory should speed things up quite a bit.
-- `rune.js` uses a behind-the-scenes scene graph where you don't specifically call things like `addChild`. Inspired by `Two.js`, all new objects are automatically added to the graph, and can be reassigned using groups. All objects also come with a `.lifetime()` function that can be used to remove that object after a certain number of frames.
+- `rune.js` uses a behind-the-scenes scene graph where you don't specifically call things like `addChild`. Inspired by `Two.js`, all new objects are automatically added to the graph, and can be reassigned using groups. All objects also come with a `.lifetime()` function that can be used to remove an object after a certain number of frames.
 
 #### bonsai.js
 
