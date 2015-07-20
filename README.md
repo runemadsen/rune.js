@@ -1,5 +1,7 @@
 # rune.js
 
+### THIS IS A REPO I CURRENTLY USE FOR BRAINSTORMING. THERE IS NO LIBRARY RIGHT NOW.
+
 There are a ton of great open source JavaScript drawing libraries on web, and favorites like [D3.js](http://d3js.org/), [p5.js](http://p5js.org/) and [Two.js](https://jonobr1.github.io/two.js/) is a great fit for many projects.
 
 However, while teaching [my algorithmic graphic design course](http://printingcode.runemadsen.com) I have run into issues where the syntax is either too difficult for my students, the renderer supports canvas only, or there is a lack of support for the features I care about (typography, computational geometry, etc). That's why I decided to write `rune.js`.
@@ -18,24 +20,18 @@ My main goal for the project is to make `rune.js` the best library for making vi
 
 ## Feature comparison
 
-Here's a small list of things that make `rune.js` different from competitors:
-
-#### Most frameworks
-
-- `rune.js` uses virtual-dom, which at least in theory should speed things up quite a bit.
-- `rune.js` uses a behind-the-scenes scene graph where you don't specifically call things like `addChild`. Inspired by `Two.js`, all new objects are automatically added to the graph, and can be reassigned using groups. All objects also come with a `.lifetime()` function that can be used to remove an object after a certain number of frames.
+Here's a small list of things that made me think about creating a new library.
 
 #### bonsai.js
 
-- `rune.js` doesn't add global functions to `window`. Everything is namespaced to the `Rune` global or instances of `Rune`.
-- `rune.js` doesn't have runners or contexts, which is a bit hairy to understand for the beginner, and makes things complex architecture-wise.
-- `bonsai.js` uses CSS string representations for colors. `rune.js` doesn't require familiarity with CSS, as object > string conversion happens automatically.
-- `bonsai.js` was originally used for Flash conversion, and the API is a bit complex because of that.
+- Uses CSS string represenations for colors. I don't want to assume that my students know about CSS.
+- Has a bit of a complex API because of it's history of being tied to SWF conversion.
+- Runners and contexts are a bit hard to understand if you *just* want to code.
 
 #### snap.svg
 
-- `rune.js` is completely open-source and doesn't require CLA's :)
+- Apache licensed and requires CLA for contributing.
 
 #### two.js
 
-- `rune.js` remove the complexity of supporting 3 renderers (SVG, canvas and WebGL) with a a single SVG renderer. This makes it possible to simplify the architecture quite a bit.
+- Constructing polygons from scratch are very hard.
