@@ -24,21 +24,21 @@ Some functions automatically adds the object to the stage? Some doesn't?
 
 Here's a small list of things that make `rune.js` different from competitors:
 
-### Most frameworks
+#### Most frameworks
 
 - `rune.js` uses virtual-dom.
 
-### bonsai.js
+#### bonsai.js
 
 - `rune.js` doesn't add global functions to `window`. Everything is namespaced in `Rune`.
 - `rune.js` doesn't have runners and contexts, which is a bit hairy to understand for the beginner, and makes things a bit complex architecture-wise.
 - `bonsai.js` uses CSS string representations for colors. `rune.js` doesn't require familiarity with CSS, as everything is abstracted into the `Rune.Color` functions.
 - `bonsai.js` was originally used for Flash conversion, and the source has a bit of that legacy.
 
-### snap.svg
+#### snap.svg
 
 - `rune.js` is completely open-source and doesn't require CLA's :)
 
-### two.js
+#### two.js
 
 - `rune.js` remove the complexity of supporting 3 renderers (SVG, canvas and WebGL) with a a single SVG renderer. This makes it possible to simplify the architecture quite a bit.
