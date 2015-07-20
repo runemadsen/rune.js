@@ -30,9 +30,9 @@ Here's a small list of things that make `rune.js` different from competitors:
 
 #### bonsai.js
 
-- `rune.js` doesn't add global functions to `window`. Everything is namespaced in `Rune`.
-- `rune.js` doesn't have runners and contexts, which is a bit hairy to understand for the beginner, and makes things a bit complex architecture-wise.
-- `bonsai.js` uses CSS string representations for colors. `rune.js` doesn't require familiarity with CSS, as everything is abstracted into the `Rune.Color` functions.
+- `rune.js` doesn't add global functions to `window`. Everything is namespaced to the `Rune` global or instances of `Rune`.
+- `rune.js` doesn't have runners or contexts, which is a bit hairy to understand for the beginner, and makes things complex architecture-wise.
+- `bonsai.js` uses CSS string representations for colors. `rune.js` doesn't require familiarity with CSS, as object > string conversion happens automatically.
 - `bonsai.js` was originally used for Flash conversion, and the source has a bit of that legacy.
 
 #### snap.svg
