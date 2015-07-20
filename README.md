@@ -8,8 +8,37 @@ My main goal for the project is to make `rune.js` the best library for making vi
 
 - **No knowledge about SVG required**. One should not need to know about SVG paths to use the library.
 - **SVG only**. Simplify rendering by only focusing on SVG output. SVG is great for both generative design projects that end up as printed products, and web-native projects.
-- **Scene Graph**. Make simple syntax without the need for beginners to use things like `addChild` and layering, yet provide a powerful scene graph for advanced use.
+- **Scene Graph**. Make a powerful scene graph with a simple API that gets out of the way for beginners.
 - **Virtual dom**. In order to optimize for speed, update the SVG element via a virtual DOM like React.
 - **Color modes**. Support both RGB and HSB, and make color generation and conversion dead simple.
 - **Computational Geometry**. Provide a full-featured set of functions for things like hit-testing and polygon subtraction, without the need for students to code these functions themselves. 
 - **Typography**. Provide lower-level access to webfont vectors.
+
+`rune.js` is very much inspired by Bonsai.js and Two.js.
+
+## Scene graph
+
+Some functions automatically adds the object to the stage? Some doesn't?
+
+## Feature comparison
+
+Here's a small list of things that make `rune.js` different from competitors:
+
+### Most frameworks
+
+- `rune.js` uses virtual-dom.
+
+### bonsai.js
+
+- `rune.js` doesn't add global functions to `window`. Everything is namespaced in `Rune`.
+- `rune.js` doesn't have runners and contexts, which is a bit hairy to understand for the beginner, and makes things a bit complex architecture-wise.
+- `bonsai.js` uses CSS string representations for colors. `rune.js` doesn't require familiarity with CSS, as everything is abstracted into the `Rune.Color` functions.
+- `bonsai.js` was originally used for Flash conversion, and the source has a bit of that legacy.
+
+### snap.svg
+
+- `rune.js` is completely open-source and doesn't require CLA's :)
+
+### two.js
+
+- `rune.js` remove the complexity of supporting 3 renderers (SVG, canvas and WebGL) with a a single SVG renderer. This makes it possible to simplify the architecture quite a bit.
