@@ -26,7 +26,7 @@ Here's a small list of things that make `rune.js` different from competitors:
 
 #### Most frameworks
 
-- `rune.js` uses virtual-dom.
+- `rune.js` uses virtual-dom, which at least in theory should speed things up quite a bit.
 
 #### bonsai.js
 
