@@ -22,20 +22,9 @@ gulp.task("test", ["compile"], function() {
   gulp.watch("./src/**/*.js", ["compile"]);
 });
 
-
-
 gulp.task("browserify", function() {
-
-  browserify({
-    entries : [
-      "node_modules/virtual-dom/diff.js",
-      "node_modules/virtual-dom/patch.js",
-      "node_modules/virtual-dom/create-element.js",
-      "node_modules/virtual-dom/h.js",
-      "node_modules/virtual-dom/virtual-hyperscript/svg.js"
-    ]
-  }).bundle()
+  browserify("browserify/virtual-dom.js")
+    .bundle()
     .pipe(source('virtual-dom.js'))
     .pipe(gulp.dest('./vendor'));
-
 })

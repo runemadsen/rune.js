@@ -70,7 +70,8 @@
       // then add to document.
 
     }
-  );
+
+  });
 
 })();
 
