@@ -1,3 +1,10 @@
+// Instantiation
+// --------------------------------------------
+
+var r = new Rune({el: '#myContainer', width: 286, height: 200})
+  .on('setup', setup)
+  .on('draw', draw)
+
 // Shapes
 // --------------------------------------------
 
