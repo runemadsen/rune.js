@@ -64,6 +64,10 @@
 
   _.extend(Rune.prototype, {
 
+    getEl: function() {
+      return this.renderer.el;
+    },
+
     appendTo: function(el) {
       el.appendChild(this.renderer.el);
       return this;
@@ -80,7 +84,7 @@
 //=require events.js
 //=require group.js
 //=require vector.js
-//=require render.js
+//=require svg_render.js
 //=require shapes/rect.js
 //=require shapes/ellipse.js
 //=require shapes/circle.js

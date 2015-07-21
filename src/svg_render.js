@@ -1,6 +1,6 @@
 (function(Rune) {
 
-  var Render = Rune.Render = function(params) {
+  var SVGRender = Rune.SVGRender = function(params) {
 
     this.params = params
 
@@ -13,7 +13,7 @@
 
   }
 
-  _.extend(Render, {
+  _.extend(SVGRender, {
 
     render: function(stage) {
 
