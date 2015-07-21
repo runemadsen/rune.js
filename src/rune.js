@@ -49,6 +49,12 @@
       var circ = new Rune.Circle(x, y,radius);
       this.addFromParam(circ, group);
       return circ;
+    },
+
+    line: function(x1, y1, x2, y2, group) {
+      var line = new Rune.Line(x1, y1, x2, y2);
+      this.addFromParam(line, group);
+      return line;
     }
 
   });
@@ -57,9 +63,11 @@
 
 //=require events.js
 //=require group.js
+//=require vector.js
 //=require shapes/rect.js
 //=require shapes/ellipse.js
 //=require shapes/circle.js
+//=require shapes/line.js
 
 _.extend(Rune.prototype, Rune.Events)
 
