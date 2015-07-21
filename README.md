@@ -1,6 +1,6 @@
 # rune.js
 
-### THIS IS A REPO I CURRENTLY USE FOR BRAINSTORMING. THERE IS NO LIBRARY RIGHT NOW.
+### THIS IS JUST FOR BRAINSTORMING
 
 There are a ton of great open source JavaScript drawing libraries on web, and favorites like [D3.js](http://d3js.org/), [p5.js](http://p5js.org/) and [Two.js](https://jonobr1.github.io/two.js/) is a great fit for many projects.
 
@@ -10,13 +10,22 @@ My main goal for the project is to make `rune.js` the best library for making vi
 
 - **No knowledge about SVG required**. One should not need to know about SVG paths to use the library.
 - **SVG only**. Simplify rendering by only focusing on SVG output. SVG is great for both generative design projects that end up as printed products, and web-native projects.
-- **Scene graph**. Make a powerful scene graph with a simple API that gets out of the way for beginners.
+- **Scene graph**. Make a powerful scene graph with a simple API that gets out of the way for beginners. Functions like `addXXXX` will automatically add new objects to the scene graph.
+- **Chaining syntax**. Inspired by jQuery and D3.
 - **Virtual dom**. In order to optimize for speed, update the SVG element via a virtual DOM like React.
 - **Color modes**. Support both RGB and HSB, and make color generation and conversion dead simple.
 - **Computational geometry**. Provide native functions to help with complicated geometry calculations, like hit tests and polygon diffing.
 - **Typography**. Provide lower-level access to webfont vectors.
+- **Plugins** infrastructure. Things like SVG parsers and other extra functionality lies in separate plugins that can be compiled into the build. 
 
 `rune.js` is very much inspired by Bonsai.js and Two.js.
+
+## Random ideas
+
+- Ability to toggle `debug` mode to see the bezier handles?
+- Only draw things on screen if they are in the viewport?
+- Setters should flag that the object changed, and update should only recompile if flag is set (or object is in changed array?)
+- Ability to render to string
 
 ## Feature comparison
 
@@ -34,4 +43,4 @@ Here's a small list of things that made me think about creating a new library.
 
 #### two.js
 
-- Constructing polygons from scratch are very hard.
+- Constructing polygons from scratch is pretty hard.

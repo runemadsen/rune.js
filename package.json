@@ -1,0 +1,11 @@
+{
+  "name": "rune.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/runemadsen/rune.js"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "underscore": "^1.7.0"
+  }
+}
