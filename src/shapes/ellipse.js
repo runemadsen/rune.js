@@ -7,4 +7,8 @@
 
   };
 
+  _.extend(Ellipse.prototype, {
+    type: "ellipse"
+  });
+
 })();

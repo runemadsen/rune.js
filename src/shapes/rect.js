@@ -18,6 +18,10 @@
 
   };
 
+  _.extend(Rectangle.prototype, {
+    type: "rectangle"
+  });
+
   //_.extend(Rectangle.prototype, Path.prototype);
   //Path.MakeObservable(Rectangle.prototype);
 

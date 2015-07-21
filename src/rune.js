@@ -55,6 +55,18 @@
       var line = new Rune.Line(x1, y1, x2, y2);
       this.addFromParam(line, group);
       return line;
+    },
+
+    polygon: function(group) {
+      var poly = new Rune.Polygon();
+      this.addFromParam(poly, group);
+      return poly;
+    },
+
+    path: function(group) {
+      var path = new Rune.Path();
+      this.addFromParam(path, group);
+      return path;
     }
 
   });
@@ -84,11 +96,14 @@
 //=require events.js
 //=require group.js
 //=require vector.js
+//=require anchor.js
 //=require svg_render.js
 //=require shapes/rect.js
 //=require shapes/ellipse.js
 //=require shapes/circle.js
 //=require shapes/line.js
+//=require shapes/polygon.js
+//=require shapes/path.js
 
 _.extend(Rune.prototype, Rune.Events)
 

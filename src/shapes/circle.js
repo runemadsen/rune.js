@@ -7,4 +7,8 @@
 
   };
 
+  _.extend(Circle.prototype, {
+    type: "circle"
+  });
+
 })();
