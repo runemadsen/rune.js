@@ -20,21 +20,15 @@ My main goal for the project is to make `rune.js` the best library for making 2D
 
 `rune.js` is very much inspired by Two.js.
 
-## Random ideas
-
-- Ability to toggle `debug` mode to see the bezier handles?
-- Only draw things on screen if they are in the viewport?
-- Setters should flag that the object changed, and update should only recompile if flag is set (or object is in changed array?)
-- Ability to render to string
 
 ## Feature comparison
 
-Here's a small list of things that made me think about creating a new library.
+Here's why I didn't just use the following libraries.
 
 #### bonsai.js
 
 - Uses CSS string represenations for colors. I don't want to assume that my students know about CSS.
-- Has a bit of a complex API because of it's history of being tied to SWF conversion.
+- Has a a complex API bound to its history as a Flash conversion tool.
 - Runners and contexts are a bit hard to understand if you *just* want to code.
 
 #### snap.svg
@@ -43,4 +37,4 @@ Here's a small list of things that made me think about creating a new library.
 
 #### two.js
 
-- Constructing polygons from scratch is pretty hard.
+- The drawing API is not super pleasant when creating shapes from scratch.
