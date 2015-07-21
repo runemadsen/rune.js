@@ -1,6 +1,6 @@
 # rune.js
 
-### THIS IS JUST FOR BRAINSTORMING
+### I'm actively working on the `0.0.1` release of this library.
 
 There are a ton of great open source JavaScript drawing libraries on web, and favorites like [D3.js](http://d3js.org/), [p5.js](http://p5js.org/) and [Two.js](https://jonobr1.github.io/two.js/) is a great fit for many projects.
 
