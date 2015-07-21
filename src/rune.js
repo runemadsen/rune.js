@@ -12,7 +12,7 @@
       height: 480
     });
 
-    this.el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    this.renderer = new Rune.SVGRender(params);
     this.stage = new Rune.Group();
   }
 
@@ -64,11 +64,13 @@
 
   _.extend(Rune.prototype, {
 
+    appendTo: function(el) {
+      el.appendChild(this.renderer.el);
+      return this;
+    },
+
     draw: function() {
-
-      // render main group as a vdom object,
-      // then add to document.
-
+      this.renderer.render(this.stage);
     }
 
   });
