@@ -2,7 +2,6 @@
 // --------------------------------------------
 
 var r = new Rune({width: 286, height: 200})
-  .on('setup', setup)
   .on('draw', draw)
   .appendTo('#myContainer')
 

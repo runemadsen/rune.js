@@ -2,6 +2,9 @@
 
   var root = this;
 
+  // Constructor
+  // --------------------------------------------------
+
   var Rune = root.Rune = function(options) {
 
     var params = _.defaults(options || {}, {
@@ -9,9 +12,54 @@
       height: 480
     });
 
-    // Create default SVG element
     this.el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-
+    this.stage = new Rune.Group();
   }
 
+  // Shape functions
+  // --------------------------------------------------
+
+  _.extend(Rune.prototype, {
+
+    addFromParam: function(child, group) {
+
+      // if group is undefined, add to the
+      // main stage group.
+      if(_.isUndefined(group))
+        this.stage.add(child)
+      // if group is not false or undefined,
+      // add to the specificed group.
+      else if(group !== false)
+        group.add(child)
+    },
+
+    rect: function(x, y, width, height, group) {
+      var rect = new Rune.Rectangle(x, y, width, height);
+      this.addFromParam(rect, group);
+      return rect;
+    },
+
+    ellipse: function(x, y, width, height, group) {
+      var ell = new Rune.Ellipse(x, y, width, height);
+      this.addFromParam(ell, group);
+      return ell;
+    },
+
+    circle: function(x, y, radius, group) {
+      var circ = new Rune.Circle(x, y,radius);
+      this.addFromParam(circ, group);
+      return circ;
+    }
+
+  });
+
 })();
+
+//=require events.js
+//=require group.js
+//=require shapes/rect.js
+//=require shapes/ellipse.js
+//=require shapes/circle.js
+
+_.extend(Rune.prototype, Rune.Events)
+
