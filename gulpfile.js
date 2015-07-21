@@ -1,25 +1,18 @@
 var gulp = require('gulp');
 var connect = require('gulp-connect');
+var concat = require('gulp-concat');
 var _ = require('underscore');
 
 gulp.task("compile", function() {
-
-})
-
-
-gulp.task("test", ["compile"], function() {
-
+  gulp.src(["vendor/**.js", "src/**/*.js"])
+    .pipe(concat('rune.js'))
+    .pipe(gulp.dest("test/build"))
 });
 
-gulp.task("server", ["compile"], function() {
-
+gulp.task("test", ["compile"], function() {
   connect.server({
     port: 9898,
-    root: 'build',
-    fallback: 'public/index.html',
-    livereload: {
-      port: 35730
-    }
+    root: 'test'
   });
-  return gulp.watch(['./templates/**/*.mustache', './templates/**/*.json', './data/**/*.json', './data/models/*.html'], ['navigation', 'assets:jst']);
+  gulp.watch("./src/**/*.js", ["compile"]);
 });
