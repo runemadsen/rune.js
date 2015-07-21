@@ -38,3 +38,7 @@ Here's why I didn't just use the following libraries.
 #### two.js
 
 - The drawing API is not super pleasant when creating shapes from scratch.
+
+#### paper.js
+
+- Renders to canvas wtih export option to SVG.
