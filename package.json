@@ -9,6 +9,9 @@
     "underscore": "^1.7.0",
     "gulp-connect": "^2.0.6",
     "gulp-concat": "^2.6.0",
-    "gulp-include": "^2.0.2"
+    "gulp-include": "^2.0.2",
+    "virtual-dom": "^2.0.1",
+    "browserify": "^11.0.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

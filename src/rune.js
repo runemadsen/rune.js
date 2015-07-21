@@ -59,11 +59,25 @@
 
   });
 
+  // Render functions
+  // --------------------------------------------------
+
+  _.extend(Rune.prototype, {
+
+    draw: function() {
+
+      // render main group as a vdom object,
+      // then add to document.
+
+    }
+  );
+
 })();
 
 //=require events.js
 //=require group.js
 //=require vector.js
+//=require render.js
 //=require shapes/rect.js
 //=require shapes/ellipse.js
 //=require shapes/circle.js
