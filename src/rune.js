@@ -102,5 +102,5 @@
 //=require shapes/polygon.js
 //=require shapes/path.js
 
-_.extend(Rune.prototype, Rune.Events)
+//_.extend(Rune.prototype, Rune.Events)
 

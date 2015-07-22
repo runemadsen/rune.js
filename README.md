@@ -18,7 +18,7 @@ My main goal for the project is to make `rune.js` the best library for making 2D
 - **Typography**. Take advantage of the native browser webfont support, as well as supporting lower-level access to webfont vectors.
 - **Plugins** Expand the code base via plugins that can be compiled into the build. Keep the core library small. 
 
-`rune.js` is very much inspired by Two.js.
+`rune.js` is very much inspired by Two.js, and uses [Color.js](https://github.com/harthur/color) for color handling.
 
 
 ## Feature comparison

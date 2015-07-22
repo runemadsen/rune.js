@@ -11,6 +11,11 @@
     Sizeable : {
       width: 0,
       height: 0
+    },
+
+    Styleable : {
+      fillColor: 0,
+      strokeColor: 0
     }
 
   };

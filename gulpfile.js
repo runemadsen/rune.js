@@ -22,9 +22,16 @@ gulp.task("test", ["compile"], function() {
   gulp.watch("./src/**/*.js", ["compile"]);
 });
 
-gulp.task("browserify", function() {
+gulp.task("vendor", function() {
+
   browserify("browserify/virtual-dom.js")
     .bundle()
     .pipe(source('virtual-dom.js'))
     .pipe(gulp.dest('./vendor'));
+
+  browserify("browserify/color.js")
+    .bundle()
+    .pipe(source('color.js'))
+    .pipe(gulp.dest('./vendor'));
+
 })

@@ -38,7 +38,10 @@ wave.translate(100, 100)
 
 rect.fill("#ff0000");
 rect.fill(255, 0, 0);
-rect.fill(r.HSB, 360, 100, 100)
+rect.fill(Rune.HSB, 360, 100, 100)
+
+rect.fill(another.fillColor.lighten())
+
 rect.fillColor.lighten(0.5).desaturate(0.1);
 
 
@@ -91,10 +94,10 @@ _.each(poly.anchors, function(v) {
 });
 
 // automatically added to the stage
-var poly = wave.toPolygon(r.UNIFORM, 25);
+var poly = wave.toPolygon(Rune.UNIFORM, 25);
 
 // or manual
-var poly = new r.Polygon(line, r.UNIFORM, 25);
+var poly = new r.Polygon(line, Rune.UNIFORM, 25);
 
 // polygons have vectors
 _.each(poly.vertices, function(p) {
