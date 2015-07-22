@@ -8,7 +8,7 @@
   };
 
   _.extend(Rectangle.prototype,
-    Rune.Mixins.Translatable,
+    Rune.Mixins.Moveable,
     Rune.Mixins.Sizeable,
     { type: "rectangle"}
   );

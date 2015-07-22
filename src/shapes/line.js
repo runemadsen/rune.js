@@ -8,7 +8,7 @@
   };
 
   _.extend(Line.prototype,
-    Rune.Mixins.Translatable,
+    Rune.Mixins.Moveable,
     { type: "line" }
   );
 

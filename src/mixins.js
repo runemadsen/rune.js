@@ -2,10 +2,21 @@
 
   var Mixins = Rune.Mixins = {
 
-    Translatable : {
+    Moveable : {
+
       x: 0,
       y: 0,
-      rotation: 0
+      move: function(x, y, relative) {
+        this.x = relative ? this.x + x : x;
+        this.y = relative ? this.y + y : y;
+        return this;
+      },
+
+      rotation: 0,
+      rotate: function(deg, relative) {
+        this.rotation = relative ? this.rotation + deg : deg;
+        return this;
+      }
     },
 
     Sizeable : {

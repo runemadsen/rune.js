@@ -6,16 +6,56 @@ describe("Rune.Mixins", function() {
 
   var m;
 
-  describe("Translatable", function() {
+  describe("Moveable", function() {
 
     beforeEach(function() {
-      m = newModule(Rune.Mixins.Translatable);
+      m = newModule(Rune.Mixins.Moveable);
     });
 
     it("creates variables", function() {
       expect(m.x).toEqual(0);
       expect(m.y).toEqual(0);
       expect(m.rotation).toEqual(0);
+    });
+
+    describe("move()", function() {
+
+      it("moves absolute", function() {
+        m.x = 100;
+        m.y = 105;
+        var res = m.move(200, 205);
+        expect(m.x).toEqual(200);
+        expect(m.y).toEqual(205);
+        expect(m).toEqual(res);
+      });
+
+      it("moves relative", function() {
+        m.x = 100;
+        m.y = 105;
+        var res = m.move(200, 205, true);
+        expect(m.x).toEqual(300);
+        expect(m.y).toEqual(310);
+        expect(m).toEqual(res);
+      });
+
+    });
+
+    describe("rotate()", function() {
+
+      it("rotates absolute", function() {
+        m.rotation = 45;
+        var res = m.rotate(45);
+        expect(m.rotation).toEqual(45);
+        expect(m).toEqual(res);
+      });
+
+      it("rotates relative", function() {
+        m.rotation = 45;
+        var res = m.rotate(45, true);
+        expect(m.rotation).toEqual(90);
+        expect(m).toEqual(res);
+      });
+
     });
 
   });
@@ -44,11 +84,10 @@ describe("Rune.Mixins", function() {
       expect(m.strokeColor).toEqual(new Color());
     });
 
-    it("fill()", function() {
+    it("creates fill()", function() {
       var res = m.fill("#ff0000");
       expect(m.fillColor).toEqual(new Color().rgb(255, 0, 0));
       expect(m).toEqual(res);
-
     });
 
   });

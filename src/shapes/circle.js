@@ -7,7 +7,7 @@
   };
 
   _.extend(Circle.prototype,
-    Rune.Mixins.Translatable,
+    Rune.Mixins.Moveable,
     { type: "circle" }
   );
 
