@@ -1,14 +1,14 @@
 (function() {
 
   var Circle = Rune.Circle = function(x, y, radius) {
-
-    this.loc = new Rune.Vector(x, y);
+    this.x = x;
+    this.y = y;
     this.radius = radius;
-
   };
 
-  _.extend(Circle.prototype, {
-    type: "circle"
-  });
+  _.extend(Circle.prototype,
+    Rune.Mixins.Translatable,
+    { type: "circle" }
+  );
 
 })();

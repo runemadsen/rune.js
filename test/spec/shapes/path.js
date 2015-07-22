@@ -35,9 +35,6 @@ describe("Rune.Path", function() {
     expect(p.anchors[10]).toBeVectorQuad(136, 137, false);
     expect(p.anchors[11]).toBeVectorQuad(138, 139, true);
 
-
-
-
   });
 
 });

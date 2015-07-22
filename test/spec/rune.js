@@ -11,10 +11,10 @@ describe("Rune", function() {
     it("should create rect", function() {
       var rectangle = r.rect(10, 15, 200, 100);
       expect(rectangle.type).toEqual("rectangle")
-      expect(rectangle.loc.x).toEqual(10);
-      expect(rectangle.loc.y).toEqual(15);
-      expect(rectangle.siz.x).toEqual(200);
-      expect(rectangle.siz.y).toEqual(100);
+      expect(rectangle.x).toEqual(10);
+      expect(rectangle.y).toEqual(15);
+      expect(rectangle.width).toEqual(200);
+      expect(rectangle.height).toEqual(100);
     });
 
     it("should add to stage", function() {
@@ -41,10 +41,10 @@ describe("Rune", function() {
     it("should create ellipse", function() {
       var ellipse = r.ellipse(10, 15, 200, 100);
       expect(ellipse.type).toEqual("ellipse")
-      expect(ellipse.loc.x).toEqual(10);
-      expect(ellipse.loc.y).toEqual(15);
-      expect(ellipse.siz.x).toEqual(200);
-      expect(ellipse.siz.y).toEqual(100);
+      expect(ellipse.x).toEqual(10);
+      expect(ellipse.y).toEqual(15);
+      expect(ellipse.width).toEqual(200);
+      expect(ellipse.height).toEqual(100);
     });
 
     it("should add to stage", function() {
@@ -71,8 +71,8 @@ describe("Rune", function() {
     it("should create circle", function() {
       var circ = r.circle(10, 15, 200);
       expect(circ.type).toEqual("circle")
-      expect(circ.loc.x).toEqual(10);
-      expect(circ.loc.y).toEqual(15);
+      expect(circ.x).toEqual(10);
+      expect(circ.y).toEqual(15);
       expect(circ.radius).toEqual(200);
     });
 
@@ -100,10 +100,10 @@ describe("Rune", function() {
     it("should create line", function() {
       var line = r.line(10, 15, 100, 105);
       expect(line.type).toEqual("line")
-      expect(line.loc.x).toEqual(10);
-      expect(line.loc.y).toEqual(15);
-      expect(line.end.x).toEqual(100);
-      expect(line.end.y).toEqual(105);
+      expect(line.x).toEqual(10);
+      expect(line.y).toEqual(15);
+      expect(line.x2).toEqual(100);
+      expect(line.y2).toEqual(105);
     });
 
     it("should add to stage", function() {

@@ -1,28 +1,16 @@
 (function() {
 
-  //var Path = Two.Path;
-
   var Rectangle = Rune.Rectangle = function(x, y, width, height) {
-
-    this.loc = new Rune.Vector(x, y);
-    this.siz = new Rune.Vector(width, height);
-
-    //Path.call(this, [
-    //  new Two.Anchor(-w2, -h2),
-    //  new Two.Anchor(w2, -h2),
-    //  new Two.Anchor(w2, h2),
-    //  new Two.Anchor(-w2, h2)
-    //], true);
-
-    //this.translation.set(x, y);
-
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
   };
 
-  _.extend(Rectangle.prototype, {
-    type: "rectangle"
-  });
-
-  //_.extend(Rectangle.prototype, Path.prototype);
-  //Path.MakeObservable(Rectangle.prototype);
+  _.extend(Rectangle.prototype,
+    Rune.Mixins.Translatable,
+    Rune.Mixins.Sizeable,
+    { type: "rectangle"}
+  );
 
 })();

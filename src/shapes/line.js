@@ -1,14 +1,15 @@
 (function(Rune) {
 
-  var Line = Rune.Line = function(x1, y1, x2, y2) {
-
-    this.loc = new Rune.Vector(x1, y1);
-    this.end = new Rune.Vector(x2, y2);
-
+  var Line = Rune.Line = function(x, y, x2, y2) {
+    this.x = x;
+    this.y = y;
+    this.x2 = x2;
+    this.y2 = y2;
   };
 
-  _.extend(Line.prototype, {
-    type: "line"
-  });
+  _.extend(Line.prototype,
+    Rune.Mixins.Translatable,
+    { type: "line" }
+  );
 
 })(Rune);

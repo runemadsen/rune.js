@@ -16,10 +16,10 @@
     this.stage = new Rune.Group();
   }
 
-  // Shape functions
-  // --------------------------------------------------
-
   _.extend(Rune.prototype, {
+
+    // Shape functions
+    // --------------------------------------------------
 
     addFromParam: function(child, group) {
 
@@ -67,14 +67,10 @@
       var path = new Rune.Path();
       this.addFromParam(path, group);
       return path;
-    }
+    },
 
-  });
-
-  // Render functions
-  // --------------------------------------------------
-
-  _.extend(Rune.prototype, {
+    // Render functions
+    // --------------------------------------------------
 
     getEl: function() {
       return this.renderer.el;
@@ -97,6 +93,7 @@
 //=require group.js
 //=require vector.js
 //=require anchor.js
+//=require mixins.js
 //=require svg_render.js
 //=require shapes/rect.js
 //=require shapes/ellipse.js
