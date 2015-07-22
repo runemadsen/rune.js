@@ -1,22 +1,47 @@
 describe("Rune.SVGRender", function() {
 
-  it("should create SVG element", function() {
-    var r = new Rune({width:200, height:300});
-    var el = r.getEl();
-    expect(el.tagName).toEqual('svg');
-    expect($(el).attr('width')).toEqual("200");
-    expect($(el).attr('height')).toEqual("300");
+  var r;
+  var el;
+  var jel;
+
+  beforeEach(function() {
+    r = new Rune({width:200, height:300});
+    el = r.getEl();
+    jel = $(el);
   });
 
-  // all of these should have
-  // fill, stroke, strokewidth, strokeCap, position, rotation
-  it("should render rect");
-  it("should render ellipse");
-  it("should render circle");
-  it("should render line");
-  it("should render polygon");
-  it("should render path");
+  it("should create SVG element", function() {
+    expect(el.tagName).toEqual('svg');
+    expect(jel.attr('width')).toEqual("200");
+    expect(jel.attr('height')).toEqual("300");
+  });
 
-  it("should render nested groups and shapes");
+  describe("Rune.Rectangle", function() {
+
+    it("should render rectangle", function() {
+      r.rect(100, 105, 300, 400);
+      r.draw();
+      var rect = jel.find('rect')
+      expect(rect.length).toEqual(1);
+      expect(rect.attr("x")).toEqual("100");
+      expect(rect.attr("y")).toEqual("105");
+      expect(rect.attr("width")).toEqual("300");
+      expect(rect.attr("height")).toEqual("400");
+    });
+
+  });
+
+  // all of these should have all the properties of the objects
+  //it("should render rect");
+  //it("should render ellipse");
+  //it("should render circle");
+  //it("should render line");
+  //it("should render polygon");
+  //it("should render path");
+  //it("should render nested group");
+
+  // and a complex thing here just checking the order,
+  // not the translation.
+  it("try a complex example here")
 
 });

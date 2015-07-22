@@ -13,7 +13,7 @@
 
   }
 
-  _.extend(SVGRender, {
+  _.extend(SVGRender.prototype, {
 
     render: function(stage) {
 
