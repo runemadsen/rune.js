@@ -90,6 +90,7 @@
 })();
 
 //=require events.js
+//=require color.js
 //=require group.js
 //=require vector.js
 //=require anchor.js

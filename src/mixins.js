@@ -14,8 +14,14 @@
     },
 
     Styleable : {
-      fillColor: 0,
-      strokeColor: 0
+
+      fillColor: new Color(),
+      fill: function(color) {
+        this.fillColor = new Color(color);
+        return this;
+      },
+
+      strokeColor: new Color()
     }
 
   };
