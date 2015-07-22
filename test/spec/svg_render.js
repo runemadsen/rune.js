@@ -1,4 +1,4 @@
-describe("SVG Render", function() {
+describe("Rune.SVGRender", function() {
 
   it("should create SVG element", function() {
     var r = new Rune({width:200, height:300});
