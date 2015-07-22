@@ -6,19 +6,23 @@ beforeEach(function () {
       return {
         compare: function (vector, x, y, relative) {
 
+          var a = new Rune.Anchor();
+          a.command = Rune.MOVE;
+          a.relative = relative;
+          a.vec1 = new Rune.Vector(x, y);
+
           var msg = "";
-          var pass = true;
-          pass = pass && vector.command == Rune.MOVE;
-          pass = pass && vector.relative == relative;
-          pass = pass && vector.vec1.x == x;
-          pass = pass && vector.vec1.y == y;
+          var pass = vector.command == a.command;
+          pass = pass && vector.relative == a.relative;
+          pass = pass && vector.vec1.x == a.vec1.x;
+          pass = pass && vector.vec1.y == a.vec1.y;
           pass = pass && _.isUndefined(vector.vec2);
           pass = pass && _.isUndefined(vector.vec3);
 
           if (pass) {
             msg = "Expected not to match";
           } else {
-            msg = "Expected to match";
+            msg = "Expected " + JSON.stringify(vector) + " to match " + JSON.stringify(a);
           }
 
           return {
@@ -33,19 +37,23 @@ beforeEach(function () {
       return {
         compare: function (vector, x, y, relative) {
 
+          var a = new Rune.Anchor();
+          a.command = Rune.LINE;
+          a.relative = relative;
+          a.vec1 = new Rune.Vector(x, y);
+
           var msg = "";
-          var pass = true;
-          pass = pass && vector.command == Rune.LINE;
-          pass = pass && vector.relative == relative;
-          pass = pass && vector.vec1.x == x;
-          pass = pass && vector.vec1.y == y;
+          var pass = vector.command == a.command;
+          pass = pass && vector.relative == a.relative;
+          pass = pass && vector.vec1.x == a.vec1.x;
+          pass = pass && vector.vec1.y == a.vec1.y;
           pass = pass && _.isUndefined(vector.vec2);
           pass = pass && _.isUndefined(vector.vec3);
 
           if (pass) {
             msg = "Expected not to match";
           } else {
-            msg = "Expected to match";
+            msg = "Expected " + JSON.stringify(vector) + " to match " + JSON.stringify(a);
           }
 
           return {
@@ -60,29 +68,34 @@ beforeEach(function () {
       return {
         compare: function (vector, a, b, c, d, e, f, g) {
 
-          var msg = "";
-          var pass = true;
-          pass = pass && vector.command == Rune.CUBIC;
+          var an = new Rune.Anchor();
+          an.command = Rune.CUBIC;
+          an.vec1 = new Rune.Vector(a, b);
+          an.vec2 = new Rune.Vector(c, d);
 
-          pass = pass && vector.vec1.x == a;
-          pass = pass && vector.vec1.y == b;
-          pass = pass && vector.vec2.x == c;
-          pass = pass && vector.vec2.y == d;
+          var msg = "";
+          var pass = vector.command == an.command;
+          pass = pass && vector.vec1.x == an.vec1.x;
+          pass = pass && vector.vec1.y == an.vec1.y;
+          pass = pass && vector.vec2.x == an.vec2.x;
+          pass = pass && vector.vec2.y == an.vec2.y;
 
           if(_.isNumber(e)) {
-            pass = pass && vector.vec3.x == e;
-            pass = pass && vector.vec3.y == f;
-            pass = pass && vector.relative == g;
+            an.relative = g;
+            an.vec3 = new Rune.Vector(e, f)
+            pass = pass && vector.vec3.x == an.vec3.x;
+            pass = pass && vector.vec3.y == an.vec3.y;
           } else {
-            pass = pass && vector.relative == e;
+            an.relative = e;
             pass = pass && _.isUndefined(vector.vec3);
           }
 
+          pass = pass && vector.relative == an.relative;
 
           if (pass) {
             msg = "Expected not to match";
           } else {
-            msg = "Expected to match";
+            msg = "Expected " + JSON.stringify(vector) + " to match " + JSON.stringify(an);
           }
 
           return {
@@ -98,9 +111,7 @@ beforeEach(function () {
         compare: function (vector, a, b, c, d, e) {
 
           var msg = "";
-          var pass = true;
-          pass = pass && vector.command == Rune.QUAD;
-
+          var pass = vector.command == Rune.QUAD;
           pass = pass && vector.vec1.x == a;
           pass = pass && vector.vec1.y == b;
 
