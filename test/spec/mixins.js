@@ -83,17 +83,38 @@ describe("Rune.Mixins", function() {
       expect(m.strokeColor).toEqual(new Color());
     });
 
-    it("creates fill()", function() {
-      var res = m.fill("#ff0000");
-      expect(m.fillColor).toEqual(new Color().rgb(255, 0, 0));
-      expect(m).toEqual(res);
+    describe("fill()", function() {
+
+      it("sets fill to color", function() {
+        var res = m.fill("#ff0000");
+        expect(m.fillColor).toEqual(new Color().rgb(255, 0, 0));
+        expect(m).toEqual(res);
+      });
+
+      it("sets fill to false", function() {
+        m.fill(false);
+        expect(m.fillColor).toEqual(false);
+      });
+
     });
 
-    it("creates stroke()", function() {
-      var res = m.stroke("#ff0000");
-      expect(m.strokeColor).toEqual(new Color().rgb(255, 0, 0));
-      expect(m).toEqual(res);
+    describe("stroke()", function() {
+
+      it("sets stroke to color", function() {
+        var res = m.stroke("#ff0000");
+        expect(m.strokeColor).toEqual(new Color().rgb(255, 0, 0));
+        expect(m).toEqual(res);
+      });
+
+      it("sets stroke to false", function() {
+        m.stroke(false);
+        expect(m.strokeColor).toEqual(false);
+      });
+
     });
+
+
+
 
   });
 

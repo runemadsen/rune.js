@@ -32,13 +32,15 @@
 
       fillColor: new Color(),
       fill: function(a, b, c, d) {
-        this.fillColor = Rune.Color.inputToColor(a, b, c, d);
+        if(a === false) this.fillColor = false;
+        else            this.fillColor = Rune.Color.inputToColor(a, b, c, d);
         return this;
       },
 
       strokeColor: new Color(),
       stroke: function(a, b, c, d) {
-        this.strokeColor = Rune.Color.inputToColor(a, b, c, d);
+        if(a === false) this.strokeColor = false;
+        else            this.strokeColor = Rune.Color.inputToColor(a, b, c, d);
         return this;
       }
     }

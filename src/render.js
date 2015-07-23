@@ -122,8 +122,8 @@
     },
 
     styleableAttributes: function(object, attr) {
-      attr.fill = object.fillColor.hexString();
-      attr.stroke = object.strokeColor.hexString();
+      if(object.fillColor)    attr.fill = object.fillColor.hexString();
+      if(object.strokeColor)  attr.stroke = object.strokeColor.hexString();
     },
 
     // Single attributes

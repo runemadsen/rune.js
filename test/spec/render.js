@@ -19,6 +19,21 @@ describe("Rune.Render", function() {
     expect(jel.attr('height')).toEqual("300");
   });
 
+  describe("All shapes", function() {
+
+    // using rectangle here, but I'm testing shared functionality
+
+    it("should not render stroke or fill if false", function() {
+      var s = r.rect(0, 0, 0, 0).fill(false).stroke(false);
+      r.draw();
+      var jshape = jel.children().first();
+      expect(jshape).toBeTag("rect");
+      expect(jshape.attr('fill')).toBeUndefined()
+      expect(jshape.attr('stroke')).toBeUndefined()
+    });
+
+  });
+
   describe("Rune.Rectangle", function() {
 
     it("should render rectangle", function() {
