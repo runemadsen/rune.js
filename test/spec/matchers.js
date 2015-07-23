@@ -22,7 +22,7 @@ beforeEach(function () {
       };
     },
 
-    toHaveAttribute : function() {
+    toHaveAttr : function() {
       return {
         compare: function (jel, k, v) {
           var result = {
@@ -38,7 +38,7 @@ beforeEach(function () {
       };
     },
 
-    toHaveAttributes : function() {
+    toHaveAttrs : function() {
       return {
         compare: function (jel, attrs) {
           var result = {
@@ -49,6 +49,22 @@ beforeEach(function () {
               result.message = "Attribute " + k + " with value " + jel.attr(k) + " did not match " + v;
             return jel.attr(k) == v
           });
+          return result;
+        }
+      };
+    },
+
+    toHaveRotation : function() {
+      return {
+        compare: function (jel, rotation) {
+          var result = {
+            pass: true,
+            message: "yup"
+          }
+          if(jel.attr("transform").indexOf("rotate("+rotation+")") < 0) {
+            result.pass = false;
+            result.message = "Transform does not have rotation";
+          }
           return result;
         }
       };

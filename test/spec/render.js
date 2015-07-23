@@ -30,15 +30,15 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("rect");
-      expect(jshape).toHaveAttributes({
+      expect(jshape).toHaveAttrs({
         x: s.x,
         y: s.y,
         width: s.width,
         height: s.height
       });
       expect(jshape).toHaveRotation(s.rotation);
-      expect(jshape).toHaveAttribute("fill", "#FF0000");
-      expect(jshape).toHaveAttribute("stroke", "#00FF00");
+      expect(jshape).toHaveAttr("fill", "#FF0000");
+      expect(jshape).toHaveAttr("stroke", "#00FF00");
     });
 
   });
@@ -54,15 +54,15 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("ellipse");
-      expect(jshape).toHaveAttributes({
+      expect(jshape).toHaveAttrs({
         cx: s.x,
         cy: s.y,
         rx: s.width,
         ry: s.height
       });
       expect(jshape).toHaveRotation(s.rotation);
-      expect(jshape).toHaveAttribute("fill", "#FF0000");
-      expect(jshape).toHaveAttribute("stroke", "#00FF00");
+      expect(jshape).toHaveAttr("fill", "#FF0000");
+      expect(jshape).toHaveAttr("stroke", "#00FF00");
     });
 
   });
@@ -78,14 +78,14 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("circle");
-      expect(jshape).toHaveAttributes({
+      expect(jshape).toHaveAttrs({
         cx: s.x,
         cy: s.y,
         r: s.radius
       });
       expect(jshape).toHaveRotation(45);
-      expect(jshape).toHaveAttribute("fill", "#FF0000");
-      expect(jshape).toHaveAttribute("stroke", "#00FF00");
+      expect(jshape).toHaveAttr("fill", "#FF0000");
+      expect(jshape).toHaveAttr("stroke", "#00FF00");
     });
 
   });
@@ -101,15 +101,15 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("line");
-      expect(jshape).toHaveAttributes({
+      expect(jshape).toHaveAttrs({
         x1: s.x,
         y1: s.y,
         x2: s.x2,
         y2: s.y2
       });
       expect(jshape).toHaveRotation(s.rotation);
-      expect(jshape).toHaveAttribute("fill", "#FF0000");
-      expect(jshape).toHaveAttribute("stroke", "#00FF00");
+      expect(jshape).toHaveAttr("fill", "#FF0000");
+      expect(jshape).toHaveAttr("stroke", "#00FF00");
     });
 
   });
@@ -128,10 +128,10 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("polygon");
-      expect(jshape).toHaveAttribute("points", "100 101 200 201 300 301")
+      expect(jshape).toHaveAttr("points", "100 101 200 201 300 301")
       expect(jshape).toHaveRotation(s.rotation);
-      expect(jshape).toHaveAttribute("fill", "#FF0000");
-      expect(jshape).toHaveAttribute("stroke", "#00FF00");
+      expect(jshape).toHaveAttr("fill", "#FF0000");
+      expect(jshape).toHaveAttr("stroke", "#00FF00");
     });
 
   });
@@ -148,10 +148,10 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("path");
-      expect(jshape).toHaveAttribute("d", "M 100 101 m 102 103 L 104 105 l 106 107 C 108 109 110 111 112 113 c 114 115 116 117 118 119 S 120 121 122 123 s 124 125 126 127 Q 128 129 130 131 q 132 133 134 135 T 136 137 t 138 139")
+      expect(jshape).toHaveAttr("d", "M 100 101 m 102 103 L 104 105 l 106 107 C 108 109 110 111 112 113 c 114 115 116 117 118 119 S 120 121 122 123 s 124 125 126 127 Q 128 129 130 131 q 132 133 134 135 T 136 137 t 138 139")
       expect(jshape).toHaveRotation(s.rotation);
-      expect(jshape).toHaveAttribute("fill", "#FF0000");
-      expect(jshape).toHaveAttribute("stroke", "#00FF00");
+      expect(jshape).toHaveAttr("fill", "#FF0000");
+      expect(jshape).toHaveAttr("stroke", "#00FF00");
     });
 
   });
