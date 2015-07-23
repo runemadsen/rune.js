@@ -8,17 +8,18 @@ However, while teaching [my algorithmic graphic design course](http://printingco
 
 My main goal for the project is to make `rune.js` the best library for making 2D design systems in code. Here's a quick overview of what I'm working towards:
 
-- **Beautiful drawing API**. Make it pleasant to draw any type of shape via code. Do not require knowledge about SVG.
+- **Beautiful drawing API**. Make it pleasant to draw any type of shape via code.
 - **Vector output**. Focus on SVG output, which is a great fit for both print and digital designers.
 - **Scene graph**. Make a powerful scene graph that beginners can easily ignore, and advanced users will grow to love.
-- **Chaining syntax**. Inspired by jQuery and D3, let people chain away.
+- **Chaining syntax**. Inspired by jQuery and D3, let people draw shapes by chaining their methods.
 - **Virtual dom**. Update the SVG element via [virtual-dom](https://github.com/Matt-Esch/virtual-dom) to optimize for speed.
-- **Polygon math**. Provide native functions to help with complicated geometry calculations like hit testing, polygon diffing, and point-on-curve.
+- **Geometry helpers**. Provide native functions to help with complicated geometry calculations like hit testing, polygon diffing, and point-on-curve.
 - **Advanced color support**. Make something designers will want to use for generative color designs.
-- **Typography**. Take advantage of the native browser webfont support, as well as supporting lower-level access to webfont vectors.
+- **Typography**. Take advantage of the native browser webfont support, while supporting lower-level access to webfont vectors.
 - **Plugins** Expand the code base via plugins that can be compiled into the build. Keep the core library small. 
+- **Beautiful output**. Generate SVG elements that are readable.
 
-`rune.js` is very much inspired by Two.js, and uses [Color.js](https://github.com/harthur/color) for color handling.
+`rune.js` was inspired by the Two.js scene graph, Processing's drawing functions, and Geomerative for geometry and color handling. Uses [Color.js](https://github.com/harthur/color) for color support, [virtual-dom](https://github.com/Matt-Esch/virtual-dom) for DOM diffing, and [underscore.js](http://underscorejs.org/).
 
 
 ## Why not ...?
