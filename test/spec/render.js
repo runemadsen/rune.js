@@ -106,6 +106,26 @@ describe("Rune.Render", function() {
 
   });
 
+  describe("Rune.Polygon", function() {
+
+    it("should render polygon", function() {
+      var s = r.polygon()
+        .lineTo(100, 101)
+        .lineTo(200, 201)
+        .lineTo(300, 301);
+      setMoveable(s);
+      setStyleable(s);
+      r.draw();
+      var jshape = jel.children().first();
+      expect(jel.children().length).toEqual(1);
+      expect(jshape).toBeTag("polygon");
+      expect(jshape).toHaveAttribute("points", "100 101 200 201 300 301")
+      expect(jshape).toHaveMoveableAttributes(s);
+      expect(jshape).toHaveStyleableAttributes(s);
+    });
+
+  });
+
   describe("Rune.Path", function() {
 
     it("should render path", function() {

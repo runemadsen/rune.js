@@ -4,7 +4,7 @@
     this.vectors = [];
   };
 
-  _.extend(Polygon.prototype, {
+  _.extend(Polygon.prototype, Rune.Mixins.Moveable, Rune.Mixins.Styleable, {
 
     type: "polygon",
 

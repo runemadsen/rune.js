@@ -88,6 +88,17 @@
       return virtualdom.svg('line', attr);
     },
 
+    polygonToSVG: function(polygon) {
+      var attr = {
+        points: _.map(polygon.vectors, function(vec) {
+          return vec.x + " " + vec.y;
+        }).join(" ")
+      };
+      this.rotateAttribute(polygon, attr);
+      this.styleableAttributes(polygon, attr);
+      return virtualdom.svg('polygon', attr);
+    },
+
     pathToSVG: function(path) {
       var attr = {};
       this.dAttribute(path, attr);
