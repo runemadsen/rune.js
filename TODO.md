@@ -1,0 +1,2 @@
+- [ ] `.rotate` function should take optional x,y to rotate around given axis
+- [ ] Group translation

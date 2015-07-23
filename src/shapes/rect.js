@@ -10,6 +10,7 @@
   _.extend(Rectangle.prototype,
     Rune.Mixins.Moveable,
     Rune.Mixins.Sizeable,
+    Rune.Mixins.Styleable,
     { type: "rectangle"}
   );
 

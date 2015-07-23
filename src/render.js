@@ -29,9 +29,12 @@
       console.log(this.el)
     },
 
+    // Shape converters
+    // --------------------------------------------------
+
     objectToSVG: function(object) {
       if(this[object.type + "ToSVG"])
-        return this[object.type + "ToSVG"](object)
+        return this[object.type + "ToSVG"](object);
       else
         console.error("Rune.Render: Object not recognized", object)
     },
@@ -45,12 +48,35 @@
     },
 
     rectangleToSVG: function(rect) {
-      return virtualdom.svg('rect', {
-        x: rect.x,
-        y: rect.y,
-        width: rect.width,
-        height: rect.height
-      });
+      var attr = {}
+      this.mixinAttributes(rect, attr);
+      return virtualdom.svg('rect', attr);
+    },
+
+    // Mixin converters
+    // --------------------------------------------------
+
+    mixinAttributes: function(object, attr) {
+      if(object.moveable)  this.moveableAttributes(object, attr);
+      if(object.sizeable)  this.sizeableAttributes(object, attr);
+      if(object.styleable) this.styleableAttributes(object, attr);
+    },
+
+    moveableAttributes: function(object, attr) {
+      attr.x = object.x;
+      attr.y = object.y;
+      if(object.rotation > 0)
+        attr.transform = "rotate(" + object.rotation + ")";
+    },
+
+    sizeableAttributes: function(object, attr) {
+      attr.width = object.width;
+      attr.height = object.height;
+    },
+
+    styleableAttributes: function(object, attr) {
+      attr.fill = object.fillColor.hexString();
+      attr.stroke = object.strokeColor.hexString();
     }
 
   });
