@@ -113,9 +113,6 @@ describe("Rune.Mixins", function() {
 
     });
 
-
-
-
   });
 
 });

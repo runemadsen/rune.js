@@ -22,7 +22,6 @@
 
     Sizeable : {
       sizeable: true,
-
       width: 0,
       height: 0
     },
