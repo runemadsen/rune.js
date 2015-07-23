@@ -10,6 +10,7 @@
   _.extend(Ellipse.prototype,
     Rune.Mixins.Moveable,
     Rune.Mixins.Sizeable,
+    Rune.Mixins.Styleable,
     { type: "ellipse" }
   );
 

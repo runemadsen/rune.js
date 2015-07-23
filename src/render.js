@@ -53,6 +53,19 @@
       return virtualdom.svg('rect', attr);
     },
 
+    ellipseToSVG: function(ellipse) {
+      var attr = {
+        cx: ellipse.x,
+        cy: ellipse.y,
+        rx: ellipse.width,
+        ry: ellipse.height
+      }
+      if(ellipse.rotation > 0)
+        attr.transform = "rotate(" + ellipse.rotation + ")";
+      this.styleableAttributes(ellipse, attr);
+      return virtualdom.svg('ellipse', attr);
+    },
+
     // Mixin converters
     // --------------------------------------------------
 

@@ -35,24 +35,43 @@ describe("Rune.Render", function() {
       setMoveable(s);
       setStyleable(s);
       r.draw();
-      var rect = jel.children().first();
+      var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
-      expect(rect).toBeTag("rect");
-      expect(rect).toBeMoveableTag(s);
-      expect(rect).toBeSizeableTag(s);
-      expect(rect).toBeStyleableTag(s);
+      expect(jshape).toBeTag("rect");
+      expect(jshape).toBeMoveableTag(s);
+      expect(jshape).toBeSizeableTag(s);
+      expect(jshape).toBeStyleableTag(s);
+    });
+
+  });
+
+  describe("Rune.Ellipse", function() {
+
+    it("should render ellipse", function() {
+      var s = r.ellipse(100, 105, 300, 400);
+      setMoveable(s);
+      setStyleable(s);
+      r.draw();
+      var jshape = jel.children().first();
+      expect(jel.children().length).toEqual(1);
+      expect(jshape).toBeTag("ellipse");
+      expect(jshape.attr("cx")).toEqual(s.x + "");
+      expect(jshape.attr("cy")).toEqual(s.y + "");
+      expect(jshape.attr("transform")).toEqual("rotate("+s.rotation+")");
+      expect(jshape.attr("rx")).toEqual(s.width + "");
+      expect(jshape.attr("ry")).toEqual(s.height + "");
+      expect(jshape).toBeStyleableTag(s);
     });
 
   });
 
   // all of these should have all the properties of the objects
-  //it("should render rect");
   //it("should render ellipse");
   //it("should render circle");
   //it("should render line");
   //it("should render polygon");
   //it("should render path");
-  //it("should render nested group");
+  //it("should render group with translation n stuff");
 
   // and a complex thing here just checking the order,
   // not the translation.
