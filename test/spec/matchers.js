@@ -70,6 +70,22 @@ beforeEach(function () {
       };
     },
 
+    toHaveTranslation : function() {
+      return {
+        compare: function (jel, x, y) {
+          var result = {
+            pass: true,
+            message: "yup"
+          }
+          if(jel.attr("transform").indexOf("translate("+ x + " " + y +")") < 0) {
+            result.pass = false;
+            result.message = "Transform does not have translation";
+          }
+          return result;
+        }
+      };
+    },
+
     toBeVectorMove: function () {
       return {
         compare: function (vector, x, y, relative) {

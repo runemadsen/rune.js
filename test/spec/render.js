@@ -117,7 +117,7 @@ describe("Rune.Render", function() {
   describe("Rune.Polygon", function() {
 
     it("should render polygon", function() {
-      var s = r.polygon()
+      var s = r.polygon(10, 15)
         .lineTo(100, 101)
         .lineTo(200, 201)
         .lineTo(300, 301)
@@ -129,6 +129,7 @@ describe("Rune.Render", function() {
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("polygon");
       expect(jshape).toHaveAttr("points", "100 101 200 201 300 301")
+      expect(jshape).toHaveTranslation(10, 15);
       expect(jshape).toHaveRotation(s.rotation);
       expect(jshape).toHaveAttr("fill", "#FF0000");
       expect(jshape).toHaveAttr("stroke", "#00FF00");
@@ -139,7 +140,7 @@ describe("Rune.Render", function() {
   describe("Rune.Path", function() {
 
     it("should render path", function() {
-      var s = r.path()
+      var s = r.path(10, 15)
         .rotate(45)
         .fill(255, 0, 0)
         .stroke(0, 255, 0);
@@ -149,6 +150,7 @@ describe("Rune.Render", function() {
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("path");
       expect(jshape).toHaveAttr("d", "M 100 101 m 102 103 L 104 105 l 106 107 C 108 109 110 111 112 113 c 114 115 116 117 118 119 S 120 121 122 123 s 124 125 126 127 Q 128 129 130 131 q 132 133 134 135 T 136 137 t 138 139")
+      expect(jshape).toHaveTranslation(10, 15);
       expect(jshape).toHaveRotation(s.rotation);
       expect(jshape).toHaveAttr("fill", "#FF0000");
       expect(jshape).toHaveAttr("stroke", "#00FF00");

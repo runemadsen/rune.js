@@ -92,7 +92,7 @@
           return vec.x + " " + vec.y;
         }).join(" ")
       };
-      this.transformAttribute(attr, polygon.rotation);
+      this.transformAttribute(attr, polygon.rotation, polygon.x, polygon.y);
       this.styleableAttributes(polygon, attr);
       return virtualdom.svg('polygon', attr);
     },
@@ -100,7 +100,7 @@
     pathToSVG: function(path) {
       var attr = {};
       this.dAttribute(path, attr);
-      this.transformAttribute(attr, path.rotation);
+      this.transformAttribute(attr, path.rotation, path.x, path.y);
       this.styleableAttributes(path, attr);
       return virtualdom.svg('path', attr);
     },

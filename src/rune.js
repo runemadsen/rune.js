@@ -57,14 +57,14 @@
       return line;
     },
 
-    polygon: function(group) {
-      var poly = new Rune.Polygon();
+    polygon: function(x, y, group) {
+      var poly = new Rune.Polygon(x, y);
       this.addFromParam(poly, group);
       return poly;
     },
 
-    path: function(group) {
-      var path = new Rune.Path();
+    path: function(x, y, group) {
+      var path = new Rune.Path(x, y);
       this.addFromParam(path, group);
       return path;
     },

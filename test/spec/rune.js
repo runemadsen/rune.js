@@ -128,7 +128,9 @@ describe("Rune", function() {
   describe(".polygon()", function() {
 
     it("should create polygon", function() {
-      var polygon = r.polygon();
+      var polygon = r.polygon(10, 15);
+      expect(polygon.x).toEqual(10);
+      expect(polygon.y).toEqual(15);
       expect(polygon.type).toEqual("polygon")
     });
 
@@ -139,13 +141,13 @@ describe("Rune", function() {
 
     it("should add to group", function() {
       var group = new Rune.Group();
-      var polygon = r.polygon(group);
+      var polygon = r.polygon(0, 0, group);
       expect(r.stage.children.length).toEqual(0);
       expect(group.children.length).toEqual(1);
     });
 
     it("should not add", function() {
-      var polygon = r.polygon(false);
+      var polygon = r.polygon(0, 0, false);
       expect(r.stage.children.length).toEqual(0)
     });
 
@@ -154,7 +156,9 @@ describe("Rune", function() {
   describe(".shape()", function() {
 
     it("should create path", function() {
-      var path = r.path();
+      var path = r.path(10, 15);
+      expect(path.x).toEqual(10);
+      expect(path.y).toEqual(15);
       expect(path.type).toEqual("path")
     });
 
@@ -165,13 +169,13 @@ describe("Rune", function() {
 
     it("should add to group", function() {
       var group = new Rune.Group();
-      var path = r.path(group);
+      var path = r.path(0, 0, group);
       expect(r.stage.children.length).toEqual(0);
       expect(group.children.length).toEqual(1);
     });
 
     it("should not add", function() {
-      var path = r.path(false);
+      var path = r.path(0, 0, false);
       expect(r.stage.children.length).toEqual(0)
     });
 
