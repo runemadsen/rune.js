@@ -12,7 +12,7 @@
       height: 480
     });
 
-    this.renderer = new Rune.SVGRender(params);
+    this.renderer = new Rune.Render(params);
     this.stage = new Rune.Group();
   }
 
@@ -95,7 +95,7 @@
 //=require vector.js
 //=require anchor.js
 //=require mixins.js
-//=require svg_render.js
+//=require render.js
 //=require shapes/rect.js
 //=require shapes/ellipse.js
 //=require shapes/circle.js

@@ -12,6 +12,8 @@
 
   _.extend(Group.prototype, {
 
+    type: "group",
+
     add: function(child) {
       this.children.push(child);
     }

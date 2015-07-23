@@ -1,4 +1,4 @@
-describe("Rune.SVGRender", function() {
+describe("Rune.Render", function() {
 
   var r;
   var el;
@@ -21,12 +21,14 @@ describe("Rune.SVGRender", function() {
     it("should render rectangle", function() {
       r.rect(100, 105, 300, 400);
       r.draw();
-      var rect = jel.find('rect')
-      expect(rect.length).toEqual(1);
+      expect(jel.find('rect').length).toEqual(1);
+      var rect = jel.children().first();
+      expect(rect.prop("tagName")).toEqual("rect")
       expect(rect.attr("x")).toEqual("100");
       expect(rect.attr("y")).toEqual("105");
       expect(rect.attr("width")).toEqual("300");
       expect(rect.attr("height")).toEqual("400");
+      // rotation
     });
 
   });
