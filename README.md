@@ -21,24 +21,34 @@ My main goal for the project is to make `rune.js` the best library for making 2D
 `rune.js` is very much inspired by Two.js, and uses [Color.js](https://github.com/harthur/color) for color handling.
 
 
-## Feature comparison
+## Why not ...?
 
 Here's why I didn't just use the following libraries.
 
 #### bonsai.js
 
-- Uses CSS string represenations for colors. I don't want to assume that my students know about CSS.
-- Has a a complex API bound to its history as a Flash conversion tool.
-- Runners and contexts are a bit hard to understand if you *just* want to code.
+- Utilizes CSS color strings
+- Complex API because of history as a Flash conversion tool.
+- Requires knowledge about CSS colors
 
 #### snap.svg
 
 - Apache licensed and requires CLA for contributing.
+- Requires knowledge about SVG structure
+- Requires knowledge about CSS colors
 
 #### two.js
 
-- The drawing API is not super pleasant when creating shapes from scratch.
+- Utilizes CSS color strings
+- Drawing API cannot mix curves and lines in same shape
+- Hard to construct complex shapes from scratch
 
 #### paper.js
 
-- Renders to canvas wtih export option to SVG.
+- Renders to canvas only with export option to SVG.
+- A bit too explicit (`new Rectangle(new Point(0, 0), new Size(0,0))`)
+
+#### p5.js
+
+- Renders to canvas only.
+- No scene graph
