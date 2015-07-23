@@ -1,7 +1,3 @@
-function newModule(mixin) {
-  return new _.extend(function(){}.prototype, mixin);
-}
-
 describe("Rune.Mixins", function() {
 
   var m;

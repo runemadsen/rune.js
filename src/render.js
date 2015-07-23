@@ -88,6 +88,14 @@
       return virtualdom.svg('line', attr);
     },
 
+    pathToSVG: function(path) {
+      var attr = {};
+      this.dAttribute(path, attr);
+      this.rotateAttribute(path, attr);
+      this.styleableAttributes(path, attr);
+      return virtualdom.svg('path', attr);
+    },
+
     // Mixin converters
     // --------------------------------------------------
 
@@ -113,9 +121,36 @@
       attr.stroke = object.strokeColor.hexString();
     },
 
+    // Single attributes
+    // --------------------------------------------------
+
     rotateAttribute: function(object, attr) {
       if(object.rotation > 0)
         attr.transform = "rotate(" + object.rotation + ")";
+    },
+
+    dAttribute: function(object, attr) {
+      attr.d = _.map(object.anchors, function(a) {
+
+        if(a.command == Rune.MOVE) {
+          return (a.relative ? "m" : "M") + " " + [a.vec1.x, a.vec1.y].join(' ');
+        }
+        else if(a.command == Rune.LINE) {
+          return (a.relative ? "l" : "L") + " " + [a.vec1.x, a.vec1.y].join(' ');
+        }
+        else if(a.command == Rune.CUBIC && !_.isUndefined(a.vec3)){
+          return (a.relative ? "c" : "C") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y, a.vec3.x, a.vec3.y].join(' ');
+        }
+        else if(a.command == Rune.CUBIC){
+          return (a.relative ? "s" : "S") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y].join(' ');
+        }
+        else if(a.command == Rune.QUAD && !_.isUndefined(a.vec2)){
+          return (a.relative ? "q" : "Q") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y].join(' ');
+        }
+        else if(a.command == Rune.QUAD){
+          return (a.relative ? "t" : "T") + " " + [a.vec1.x, a.vec1.y].join(' ');
+        }
+      }).join(" ").trim();
     }
 
   });

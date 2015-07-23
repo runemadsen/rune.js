@@ -31,7 +31,7 @@ beforeEach(function () {
           }
           if(jel.attr(k) != v + "") {
             result.pass = false;
-            result.message = k + " did not match " + v;
+            result.message = "Attribute " + k + " with value " + jel.attr(k) + " did not match " + v;
           }
           return result;
         }
@@ -46,7 +46,7 @@ beforeEach(function () {
           }
           result.pass = _.all(attrs, function(v, k) {
             if(jel.attr(k) != v + "")
-              result.message = k + " did not match " + v;
+              result.message = "Attribute " + k + " with value " + jel.attr(k) + " did not match " + v;
             return jel.attr(k) == v
           });
           return result;

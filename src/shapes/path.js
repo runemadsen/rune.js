@@ -7,7 +7,7 @@
   // Drawing functions
   // --------------------------------------------------
 
-  _.extend(Path.prototype, {
+  _.extend(Path.prototype, Rune.Mixins.Moveable, Rune.Mixins.Styleable, {
 
     type: "path",
 
