@@ -93,8 +93,51 @@ describe("Rune.Render", function() {
 
   });
 
+  describe("Rune.Line", function() {
+
+    it("should render line", function() {
+      var s = r.line(100, 105, 200, 205);
+      setMoveable(s);
+      setStyleable(s);
+      r.draw();
+      var jshape = jel.children().first();
+      expect(jel.children().length).toEqual(1);
+      expect(jshape).toBeTag("line");
+      expect(jshape).toHaveAttributes({
+        x1: s.x,
+        y1: s.y,
+        x2: s.x2,
+        y2: s.y2
+      });
+      expect(jshape).toHaveMoveableAttributes(s);
+      expect(jshape).toHaveStyleableAttributes(s);
+    });
+
+  });
+
+  //describe("Rune.Path", function() {
+//
+  //  it("should render path", function() {
+  //    var s = r.path(100, 105, 200, 205);
+  //    setMoveable(s);
+  //    setStyleable(s);
+  //    r.draw();
+  //    var jshape = jel.children().first();
+  //    expect(jel.children().length).toEqual(1);
+  //    expect(jshape).toBeTag("path");
+  //    //expect(jshape).toHaveAttributes({
+  //    //  x1: s.x,
+  //    //  y1: s.y,
+  //    //  x2: s.x2,
+  //    //  y2: s.y2
+  //    //});
+  //    //expect(jshape).toHaveMoveableAttributes(s);
+  //    //expect(jshape).toHaveStyleableAttributes(s);
+  //  });
+//
+  //});
+
   // all of these should have all the properties of the objects
-  //it("should render line");
   //it("should render polygon");
   //it("should render path");
   //it("should render group with translation n stuff");

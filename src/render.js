@@ -76,6 +76,18 @@
       return virtualdom.svg('circle', attr);
     },
 
+    lineToSVG: function(line) {
+      var attr = {
+        x1: line.x,
+        y1: line.y,
+        x2: line.x2,
+        y2: line.y2
+      }
+      this.rotateAttribute(line, attr);
+      this.styleableAttributes(line, attr);
+      return virtualdom.svg('line', attr);
+    },
+
     // Mixin converters
     // --------------------------------------------------
 

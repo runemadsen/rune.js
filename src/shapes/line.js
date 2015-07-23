@@ -9,6 +9,7 @@
 
   _.extend(Line.prototype,
     Rune.Mixins.Moveable,
+    Rune.Mixins.Styleable,
     { type: "line" }
   );
 

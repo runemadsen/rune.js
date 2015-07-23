@@ -22,6 +22,22 @@ beforeEach(function () {
       };
     },
 
+    toHaveAttribute : function() {
+      return {
+        compare: function (jel, k, v) {
+          var result = {
+            pass: true,
+            message: "yup"
+          }
+          if(jel.attr(k) != v + "") {
+            result.pass = false;
+            result.message = k + " did not match " + v;
+          }
+          return result;
+        }
+      };
+    },
+
     toHaveAttributes : function() {
       return {
         compare: function (jel, attrs) {
