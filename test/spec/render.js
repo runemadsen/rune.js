@@ -38,9 +38,14 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("rect");
-      expect(jshape).toBeMoveableTag(s);
-      expect(jshape).toBeSizeableTag(s);
-      expect(jshape).toBeStyleableTag(s);
+      expect(jshape).toHaveAttributes({
+        x: s.x,
+        y: s.y,
+        width: s.width,
+        height: s.height
+      });
+      expect(jshape).toHaveMoveableAttributes(s);
+      expect(jshape).toHaveStyleableAttributes(s);
     });
 
   });
@@ -55,12 +60,14 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("ellipse");
-      expect(jshape.attr("cx")).toEqual(s.x + "");
-      expect(jshape.attr("cy")).toEqual(s.y + "");
-      expect(jshape.attr("transform")).toEqual("rotate("+s.rotation+")");
-      expect(jshape.attr("rx")).toEqual(s.width + "");
-      expect(jshape.attr("ry")).toEqual(s.height + "");
-      expect(jshape).toBeStyleableTag(s);
+      expect(jshape).toHaveAttributes({
+        cx: s.x,
+        cy: s.y,
+        rx: s.width,
+        ry: s.height
+      });
+      expect(jshape).toHaveMoveableAttributes(s);
+      expect(jshape).toHaveStyleableAttributes(s);
     });
 
   });
@@ -75,17 +82,18 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("circle");
-      expect(jshape.attr("cx")).toEqual(s.x + "");
-      expect(jshape.attr("cy")).toEqual(s.y + "");
-      expect(jshape.attr("transform")).toEqual("rotate("+s.rotation+")");
-      expect(jshape.attr("r")).toEqual(s.radius + "");
-      expect(jshape).toBeStyleableTag(s);
+      expect(jshape).toHaveAttributes({
+        cx: s.x,
+        cy: s.y,
+        r: s.radius
+      });
+      expect(jshape).toHaveMoveableAttributes(s);
+      expect(jshape).toHaveStyleableAttributes(s);
     });
 
   });
 
   // all of these should have all the properties of the objects
-  //it("should render circle");
   //it("should render line");
   //it("should render polygon");
   //it("should render path");
