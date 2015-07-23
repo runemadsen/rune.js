@@ -61,7 +61,7 @@ beforeEach(function () {
             pass: true,
             message: "yup"
           }
-          if(jel.attr("transform").indexOf("rotate("+rotation+")") < 0) {
+          if(!jel.attr("transform") || jel.attr("transform").indexOf("rotate("+rotation+")") < 0) {
             result.pass = false;
             result.message = "Transform does not have rotation";
           }
@@ -77,7 +77,7 @@ beforeEach(function () {
             pass: true,
             message: "yup"
           }
-          if(jel.attr("transform").indexOf("translate("+ x + " " + y +")") < 0) {
+          if(!jel.attr("transform") || jel.attr("transform").indexOf("translate("+ x + " " + y +")") < 0) {
             result.pass = false;
             result.message = "Transform does not have translation";
           }

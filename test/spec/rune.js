@@ -6,6 +6,34 @@ describe("Rune", function() {
     r = new Rune();
   });
 
+  describe(".group()", function() {
+
+    it("should create group", function() {
+      var group = r.group(10, 15);
+      expect(group.type).toEqual("group")
+      expect(group.x).toEqual(10);
+      expect(group.y).toEqual(15);
+    });
+
+    it("should add to stage", function() {
+      var group = r.group(10, 15);
+      expect(r.stage.children.length).toEqual(1);
+    });
+
+    it("should add to group", function() {
+      var parent = new Rune.Group();
+      var child = r.group(10, 15, parent);
+      expect(r.stage.children.length).toEqual(0);
+      expect(parent.children.length).toEqual(1);
+    });
+
+    it("should not add", function() {
+      var group = r.group(10, 15, false);
+      expect(r.stage.children.length).toEqual(0)
+    });
+
+  });
+
   describe(".rect()", function() {
 
     it("should create rect", function() {

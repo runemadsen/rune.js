@@ -33,6 +33,12 @@
         group.add(child)
     },
 
+    group: function(x, y, parent) {
+      var group = new Rune.Group(x, y);
+      this.addFromParam(group, parent);
+      return group;
+    },
+
     rect: function(x, y, width, height, group) {
       var rect = new Rune.Rectangle(x, y, width, height);
       this.addFromParam(rect, group);
@@ -89,12 +95,12 @@
 
 })();
 
+//=require mixins.js
 //=require events.js
 //=require color.js
 //=require group.js
 //=require vector.js
 //=require anchor.js
-//=require mixins.js
 //=require render.js
 //=require shapes/rect.js
 //=require shapes/ellipse.js

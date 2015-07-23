@@ -3,14 +3,18 @@
   // Constructor
   // --------------------------------------------------
 
-  var Group = Rune.Group = function() {
+  var Group = Rune.Group = function(x, y) {
+
     this.children = [];
+
+    if(x > 0) this.x = x;
+    if(y > 0) this.y = y;
   };
 
   // Group functions
   // --------------------------------------------------
 
-  _.extend(Group.prototype, {
+  _.extend(Group.prototype, Rune.Mixins.Moveable, {
 
     type: "group",
 

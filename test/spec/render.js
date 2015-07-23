@@ -158,6 +158,20 @@ describe("Rune.Render", function() {
 
   });
 
+  describe("Rune.Group", function() {
+
+    it("should render group", function() {
+      var g = r.group(10, 15)
+        .rotate(45);
+      r.draw();
+      var jgroup = jel.children().first();
+      expect(jel.children().length).toEqual(1);
+      expect(jgroup).toHaveTranslation(10, 15);
+      expect(jgroup).toHaveRotation(g.rotation);
+    });
+
+  });
+
   //it("should render group with translationsf");
 
   // and a complex thing here just checking the order,

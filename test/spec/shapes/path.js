@@ -1,11 +1,5 @@
 describe("Rune.Path", function() {
 
-  var r;
-
-  beforeEach(function() {
-    r = new Rune();
-  });
-
   it("should create anchors", function() {
 
     var p = new Rune.Path();

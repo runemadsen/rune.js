@@ -1,11 +1,5 @@
 describe("Rune.Polygon", function() {
 
-  var r;
-
-  beforeEach(function() {
-    r = new Rune();
-  });
-
   it("should create vectors", function() {
 
     var p = new Rune.Polygon()

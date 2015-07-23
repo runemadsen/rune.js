@@ -46,8 +46,14 @@
     },
 
     rectangleToSVG: function(rect) {
-      var attr = {}
-      this.mixinAttributes(rect, attr);
+      var attr = {
+        x: rect.x,
+        y: rect.y,
+        width: rect.width,
+        height: rect.height
+      }
+      this.transformAttribute(attr, rect.rotation);
+      this.styleableAttributes(rect, attr);
       return virtualdom.svg('rect', attr);
     },
 
@@ -107,18 +113,6 @@
 
     // Mixin converters
     // --------------------------------------------------
-
-    mixinAttributes: function(object, attr) {
-      if(object.moveable)  this.moveableAttributes(object, attr);
-      if(object.sizeable)  this.sizeableAttributes(object, attr);
-      if(object.styleable) this.styleableAttributes(object, attr);
-    },
-
-    moveableAttributes: function(object, attr) {
-      attr.x = object.x;
-      attr.y = object.y;
-      this.transformAttribute(attr, object.rotation);
-    },
 
     sizeableAttributes: function(object, attr) {
       attr.width = object.width;

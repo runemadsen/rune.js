@@ -1,2 +1,15 @@
-// TEST THAT TRANSFORMATIONS GET SET ON ALL CHILDREN AND CHILD GROUPS.
-// ALL OBJECTS SHOULD HOW A TRUE X, TRUE Y, AND TRUE ROTATION.
+describe("Rune.Group", function() {
+
+  it("should have optional x and y", function() {
+
+    var g1 = new Rune.Group();
+    expect(g1.x).toEqual(0);
+    expect(g1.y).toEqual(0);
+
+    var g2 = new Rune.Group(100, 101);
+    expect(g2.x).toEqual(100);
+    expect(g2.y).toEqual(101);
+
+  });
+
+});
