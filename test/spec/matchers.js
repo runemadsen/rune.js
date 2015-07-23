@@ -54,37 +54,6 @@ beforeEach(function () {
       };
     },
 
-    toHaveMoveableAttributes : function() {
-      return {
-        compare: function (jel, expected) {
-          var pass = jel.attr("transform") == "rotate("+expected.rotation+")";
-          if(!pass) {
-            msg = "Expected " + jel.prop('outerHTML') + " to match " + JSON.stringify(expected);
-          }
-          return {
-            pass: pass,
-            message: msg
-          };
-        }
-      };
-    },
-
-    toHaveStyleableAttributes : function() {
-      return {
-        compare: function (jel, expected) {
-          var pass = jel.attr("fill") == expected.fillColor.hexString();
-          pass = jel.attr("stroke") == expected.strokeColor.hexString();
-          if(!pass) {
-            msg = "Expected " + jel.prop('outerHTML') + " to match " + JSON.stringify(expected);
-          }
-          return {
-            pass: pass,
-            message: msg
-          };
-        }
-      };
-    },
-
     toBeVectorMove: function () {
       return {
         compare: function (vector, x, y, relative) {

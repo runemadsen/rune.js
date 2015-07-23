@@ -4,18 +4,6 @@ function newModule(mixin) {
   return new _.extend(function(){}.prototype, mixin);
 }
 
-// Provides an easy way to assign values to
-// different shapes with mixins.
-
-function setMoveable(object) {
-  object.rotate(45);
-}
-
-function setStyleable(object) {
-  object.fill(255, 0, 0).stroke(0, 255, 0);
-}
-
-
 function drawAllAnchors(path) {
   path.moveTo(100, 101)
     .moveTo(102, 103, true)

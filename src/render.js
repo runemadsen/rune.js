@@ -25,8 +25,6 @@
       var diff = virtualdom.diff(this.tree, newTree);
       this.el = virtualdom.patch(this.el, diff);
       this.tree = newTree;
-
-      console.log(this.el)
     },
 
     // Shape converters
@@ -60,7 +58,7 @@
         rx: ellipse.width,
         ry: ellipse.height
       }
-      this.rotateAttribute(ellipse, attr);
+      this.transformAttribute(attr, ellipse.rotation);
       this.styleableAttributes(ellipse, attr);
       return virtualdom.svg('ellipse', attr);
     },
@@ -71,7 +69,7 @@
         cy: circle.y,
         r: circle.radius
       }
-      this.rotateAttribute(circle, attr);
+      this.transformAttribute(attr, circle.rotation);
       this.styleableAttributes(circle, attr);
       return virtualdom.svg('circle', attr);
     },
@@ -83,7 +81,7 @@
         x2: line.x2,
         y2: line.y2
       }
-      this.rotateAttribute(line, attr);
+      this.transformAttribute(attr, line.rotation);
       this.styleableAttributes(line, attr);
       return virtualdom.svg('line', attr);
     },
@@ -94,7 +92,7 @@
           return vec.x + " " + vec.y;
         }).join(" ")
       };
-      this.rotateAttribute(polygon, attr);
+      this.transformAttribute(attr, polygon.rotation);
       this.styleableAttributes(polygon, attr);
       return virtualdom.svg('polygon', attr);
     },
@@ -102,7 +100,7 @@
     pathToSVG: function(path) {
       var attr = {};
       this.dAttribute(path, attr);
-      this.rotateAttribute(path, attr);
+      this.transformAttribute(attr, path.rotation);
       this.styleableAttributes(path, attr);
       return virtualdom.svg('path', attr);
     },
@@ -119,7 +117,7 @@
     moveableAttributes: function(object, attr) {
       attr.x = object.x;
       attr.y = object.y;
-      this.rotateAttribute(object, attr);
+      this.transformAttribute(attr, object.rotation);
     },
 
     sizeableAttributes: function(object, attr) {
@@ -135,9 +133,11 @@
     // Single attributes
     // --------------------------------------------------
 
-    rotateAttribute: function(object, attr) {
-      if(object.rotation > 0)
-        attr.transform = "rotate(" + object.rotation + ")";
+    transformAttribute: function(attr, rotation, x, y) {
+      var strings = []
+      if(rotation > 0)    strings.push("rotate(" + rotation + ")");
+      if(x > 0 || y > 0)  strings.push("translate(" + x + " " + y + ")");
+      attr.transform = strings.join(" ").trim();
     },
 
     dAttribute: function(object, attr) {
