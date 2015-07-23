@@ -8,6 +8,7 @@
 
   _.extend(Circle.prototype,
     Rune.Mixins.Moveable,
+    Rune.Mixins.Styleable,
     { type: "circle" }
   );
 

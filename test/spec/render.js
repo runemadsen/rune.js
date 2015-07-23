@@ -65,8 +65,26 @@ describe("Rune.Render", function() {
 
   });
 
+  describe("Rune.Circle", function() {
+
+    it("should render circle", function() {
+      var s = r.circle(100, 105, 300);
+      setMoveable(s);
+      setStyleable(s);
+      r.draw();
+      var jshape = jel.children().first();
+      expect(jel.children().length).toEqual(1);
+      expect(jshape).toBeTag("circle");
+      expect(jshape.attr("cx")).toEqual(s.x + "");
+      expect(jshape.attr("cy")).toEqual(s.y + "");
+      expect(jshape.attr("transform")).toEqual("rotate("+s.rotation+")");
+      expect(jshape.attr("r")).toEqual(s.radius + "");
+      expect(jshape).toBeStyleableTag(s);
+    });
+
+  });
+
   // all of these should have all the properties of the objects
-  //it("should render ellipse");
   //it("should render circle");
   //it("should render line");
   //it("should render polygon");

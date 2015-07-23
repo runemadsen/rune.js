@@ -66,6 +66,18 @@
       return virtualdom.svg('ellipse', attr);
     },
 
+    circleToSVG: function(circle) {
+      var attr = {
+        cx: circle.x,
+        cy: circle.y,
+        r: circle.radius
+      }
+      if(circle.rotation > 0)
+        attr.transform = "rotate(" + circle.rotation + ")";
+      this.styleableAttributes(circle, attr);
+      return virtualdom.svg('circle', attr);
+    },
+
     // Mixin converters
     // --------------------------------------------------
 
