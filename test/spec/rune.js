@@ -6,6 +6,16 @@ describe("Rune", function() {
     r = new Rune();
   });
 
+  describe("instantiation", function() {
+
+    it("should save width and height", function() {
+      var r = new Rune({width: 100, height: 105});
+      expect(r.width).toEqual(100);
+      expect(r.height).toEqual(105);
+    })
+
+  });
+
   describe(".group()", function() {
 
     it("should create group", function() {

@@ -1,3 +1,5 @@
+- [ ] How do I disable stroke????
+- [ ] `strokeWeigth`
 - [ ] `.rotate` and axis? It's support in SVG
 - [ ] Group translation
 - [ ] SVG parser

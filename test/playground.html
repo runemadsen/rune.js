@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Runes test page</title>
+  <script type="text/javascript" src="build/rune.js"></script>
+</head>
+<body>
+  <div class="container"></div>
+
+  <script type="text/javascript">
+
+    var r = new Rune({
+      container: ".container",
+      width: 500,
+      height: 400
+    });
+
+    // back
+    r.rect(0, 0, r.width, r.height)
+      .fill("#f5f5f5");
+
+    // front
+    r.rect(100, 100, 300, 200)
+      .fill("#FF0000")
+      .stroke(0, 0, 0);
+
+    // draw
+    r.draw();
+
+  </script>
+
+</body>
+</html>

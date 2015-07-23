@@ -12,8 +12,23 @@
       height: 480
     });
 
+    this.width = params.width;
+    this.height = params.height;
     this.renderer = new Rune.Render(params);
     this.stage = new Rune.Group();
+
+    if(params.container) {
+
+      if(_.isString(params.container)) {
+        params.container = document.querySelector(params.container);
+      }
+
+      if(params.container) {
+        this.appendTo(params.container);
+      } else {
+        console.error("Container element not found");
+      }
+    }
   }
 
   _.extend(Rune.prototype, {
@@ -82,8 +97,8 @@
       return this.renderer.el;
     },
 
-    appendTo: function(el) {
-      el.appendChild(this.renderer.el);
+    appendTo: function(container) {
+      container.appendChild(this.renderer.el);
       return this;
     },
 
