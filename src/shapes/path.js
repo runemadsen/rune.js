@@ -1,7 +1,10 @@
 (function(Rune) {
 
-  var Path = Rune.Path = function() {
+  var Path = Rune.Path = function(x, y) {
     this.anchors = [];
+
+    if(x > 0) this.x = x;
+    if(y > 0) this.y = y;
   };
 
   // Drawing functions

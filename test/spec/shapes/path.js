@@ -25,4 +25,16 @@ describe("Rune.Path", function() {
     expect(p.anchors[11]).toBeVectorQuad(138, 139, true);
   });
 
+  it("should have optional x and y", function() {
+
+    var p1 = new Rune.Path();
+    expect(p1.x).toEqual(0);
+    expect(p1.y).toEqual(0);
+
+    var p2 = new Rune.Path(100, 101);
+    expect(p2.x).toEqual(100);
+    expect(p2.y).toEqual(101);
+
+  });
+
 });

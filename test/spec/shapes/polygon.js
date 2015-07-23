@@ -22,4 +22,16 @@ describe("Rune.Polygon", function() {
 
   });
 
+  it("should have optional x and y", function() {
+
+    var p1 = new Rune.Polygon();
+    expect(p1.x).toEqual(0);
+    expect(p1.y).toEqual(0);
+
+    var p2 = new Rune.Polygon(100, 101);
+    expect(p2.x).toEqual(100);
+    expect(p2.y).toEqual(101);
+
+  });
+
 });
