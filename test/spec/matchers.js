@@ -2,6 +2,84 @@ beforeEach(function () {
 
   jasmine.addMatchers({
 
+    toBeTag: function () {
+      return {
+        compare: function (jel, tagname) {
+
+          var pass = jel.prop("tagName") == tagname;
+
+          if (pass) {
+            msg = "Expected not to be tag " + tagname;
+          } else {
+            msg = "Expected to be tag " + tagname;
+          }
+
+          return {
+            pass: pass,
+            message: msg
+          };
+        }
+      };
+    },
+
+    toBeMoveableTag : function() {
+      return {
+        compare: function (jel, expected) {
+
+          var pass = jel.attr("x") == expected.x + "";
+          pass = jel.attr("y") == expected.y + "";
+          pass = jel.attr("transform") == "rotate("+expected.rotation+")";
+
+          if(!pass) {
+            msg = "Expected " + jel.prop('outerHTML') + " to match " + JSON.stringify(expected);
+          }
+
+          return {
+            pass: pass,
+            message: msg
+          };
+        }
+      };
+    },
+
+    toBeSizeableTag : function() {
+      return {
+        compare: function (jel, expected) {
+
+          var pass = jel.attr("width") == expected.width + "";
+          pass = jel.attr("height") == expected.height + "";
+
+          if(!pass) {
+            msg = "Expected " + jel.prop('outerHTML') + " to match " + JSON.stringify(expected);
+          }
+
+          return {
+            pass: pass,
+            message: msg
+          };
+        }
+      };
+    },
+
+    toBeStyleableTag : function() {
+      return {
+        compare: function (jel, expected) {
+
+          var pass = jel.attr("fill") == expected.fillColor.hexString();
+          pass = jel.attr("stroke") == expected.strokeColor.hexString();
+
+          if(!pass) {
+            msg = "Expected " + jel.prop('outerHTML') + " to match " + JSON.stringify(expected);
+          }
+
+          return {
+            pass: pass,
+            message: msg
+          };
+        }
+      };
+    },
+
     toBeVectorMove: function () {
       return {
         compare: function (vector, x, y, relative) {
