@@ -1,2 +1,3 @@
 - [ ] `.rotate` function should take optional x,y to rotate around given axis
 - [ ] Group translation
+- [ ] Paths and polygons should be able to translate without putting them in a group

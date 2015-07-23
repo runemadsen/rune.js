@@ -124,9 +124,8 @@ describe("Rune.Render", function() {
 
   });
 
-  // all of these should have all the properties of the objects
   //it("should render polygon");
-  //it("should render group with translation n stuff");
+  //it("should render group with translationsf");
 
   // and a complex thing here just checking the order,
   // not the translation.
