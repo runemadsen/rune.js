@@ -60,8 +60,7 @@
         rx: ellipse.width,
         ry: ellipse.height
       }
-      if(ellipse.rotation > 0)
-        attr.transform = "rotate(" + ellipse.rotation + ")";
+      this.rotateAttribute(ellipse, attr);
       this.styleableAttributes(ellipse, attr);
       return virtualdom.svg('ellipse', attr);
     },
@@ -72,8 +71,7 @@
         cy: circle.y,
         r: circle.radius
       }
-      if(circle.rotation > 0)
-        attr.transform = "rotate(" + circle.rotation + ")";
+      this.rotateAttribute(circle, attr);
       this.styleableAttributes(circle, attr);
       return virtualdom.svg('circle', attr);
     },
@@ -90,8 +88,7 @@
     moveableAttributes: function(object, attr) {
       attr.x = object.x;
       attr.y = object.y;
-      if(object.rotation > 0)
-        attr.transform = "rotate(" + object.rotation + ")";
+      this.rotateAttribute(object, attr);
     },
 
     sizeableAttributes: function(object, attr) {
@@ -102,6 +99,11 @@
     styleableAttributes: function(object, attr) {
       attr.fill = object.fillColor.hexString();
       attr.stroke = object.strokeColor.hexString();
+    },
+
+    rotateAttribute: function(object, attr) {
+      if(object.rotation > 0)
+        attr.transform = "rotate(" + object.rotation + ")";
     }
 
   });
