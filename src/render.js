@@ -42,7 +42,9 @@
     },
 
     groupToSVG: function(group) {
-      return virtualdom.svg('g', {}, this.objectsToSVG(group.children));
+      var attr = {}
+      this.transformAttribute(attr, group.rotation, group.x, group.y);
+      return virtualdom.svg('g', attr, this.objectsToSVG(group.children));
     },
 
     rectangleToSVG: function(rect) {
