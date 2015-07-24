@@ -187,10 +187,7 @@ describe("Rune.Render", function() {
 
   });
 
-  //it("should render group with translationsf");
-
-  // and a complex thing here just checking the order,
-  // not the translation.
-  it("try a complex example here")
+  // MAKE A COMPLEX TEST THAT HAS A BUNCH OF GROUPS
+  // NESTED IN EACH OTHER, etc.
 
 });
