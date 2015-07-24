@@ -1,6 +1,4 @@
-- [ ] `strokeWeigth`
-- [ ] `.rotate` and axis? It's support in SVG
-- [ ] Group translation
+- [ ] `.rotate` and axis? It's supported in SVG
 - [ ] SVG parser
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
 - [ ] Add `copy` functions to shapes
