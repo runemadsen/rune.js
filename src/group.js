@@ -5,10 +5,11 @@
 
   var Group = Rune.Group = function(x, y) {
 
+    this.moveable();
     this.children = [];
 
-    if(x > 0) this.x = x;
-    if(y > 0) this.y = y;
+    if(x > 0) this.vars.x = x;
+    if(y > 0) this.vars.y = y;
   };
 
   // Group functions

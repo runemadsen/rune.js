@@ -21,8 +21,8 @@ describe("Rune", function() {
     it("should create group", function() {
       var group = r.group(10, 15);
       expect(group.type).toEqual("group")
-      expect(group.x).toEqual(10);
-      expect(group.y).toEqual(15);
+      expect(group.vars.x).toEqual(10);
+      expect(group.vars.y).toEqual(15);
     });
 
     it("should add to stage", function() {
@@ -49,10 +49,10 @@ describe("Rune", function() {
     it("should create rect", function() {
       var rectangle = r.rect(10, 15, 200, 100);
       expect(rectangle.type).toEqual("rectangle")
-      expect(rectangle.x).toEqual(10);
-      expect(rectangle.y).toEqual(15);
-      expect(rectangle.width).toEqual(200);
-      expect(rectangle.height).toEqual(100);
+      expect(rectangle.vars.x).toEqual(10);
+      expect(rectangle.vars.y).toEqual(15);
+      expect(rectangle.vars.width).toEqual(200);
+      expect(rectangle.vars.height).toEqual(100);
     });
 
     it("should add to stage", function() {
@@ -79,10 +79,10 @@ describe("Rune", function() {
     it("should create ellipse", function() {
       var ellipse = r.ellipse(10, 15, 200, 100);
       expect(ellipse.type).toEqual("ellipse")
-      expect(ellipse.x).toEqual(10);
-      expect(ellipse.y).toEqual(15);
-      expect(ellipse.width).toEqual(200);
-      expect(ellipse.height).toEqual(100);
+      expect(ellipse.vars.x).toEqual(10);
+      expect(ellipse.vars.y).toEqual(15);
+      expect(ellipse.vars.width).toEqual(200);
+      expect(ellipse.vars.height).toEqual(100);
     });
 
     it("should add to stage", function() {
@@ -109,9 +109,9 @@ describe("Rune", function() {
     it("should create circle", function() {
       var circ = r.circle(10, 15, 200);
       expect(circ.type).toEqual("circle")
-      expect(circ.x).toEqual(10);
-      expect(circ.y).toEqual(15);
-      expect(circ.radius).toEqual(200);
+      expect(circ.vars.x).toEqual(10);
+      expect(circ.vars.y).toEqual(15);
+      expect(circ.vars.radius).toEqual(200);
     });
 
     it("should add to stage", function() {
@@ -138,10 +138,10 @@ describe("Rune", function() {
     it("should create line", function() {
       var line = r.line(10, 15, 100, 105);
       expect(line.type).toEqual("line")
-      expect(line.x).toEqual(10);
-      expect(line.y).toEqual(15);
-      expect(line.x2).toEqual(100);
-      expect(line.y2).toEqual(105);
+      expect(line.vars.x).toEqual(10);
+      expect(line.vars.y).toEqual(15);
+      expect(line.vars.x2).toEqual(100);
+      expect(line.vars.y2).toEqual(105);
     });
 
     it("should add to stage", function() {
@@ -167,8 +167,8 @@ describe("Rune", function() {
 
     it("should create polygon", function() {
       var polygon = r.polygon(10, 15);
-      expect(polygon.x).toEqual(10);
-      expect(polygon.y).toEqual(15);
+      expect(polygon.vars.x).toEqual(10);
+      expect(polygon.vars.y).toEqual(15);
       expect(polygon.type).toEqual("polygon")
     });
 
@@ -195,8 +195,8 @@ describe("Rune", function() {
 
     it("should create path", function() {
       var path = r.path(10, 15);
-      expect(path.x).toEqual(10);
-      expect(path.y).toEqual(15);
+      expect(path.vars.x).toEqual(10);
+      expect(path.vars.y).toEqual(15);
       expect(path.type).toEqual("path")
     });
 

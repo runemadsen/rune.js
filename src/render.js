@@ -43,64 +43,64 @@
 
     groupToSVG: function(group) {
       var attr = {}
-      this.transformAttribute(attr, group.rotation, group.x, group.y);
+      this.transformAttribute(attr, group.vars.rotation, group.vars.x, group.vars.y);
       return virtualdom.svg('g', attr, this.objectsToSVG(group.children));
     },
 
     rectangleToSVG: function(rect) {
       var attr = {
-        x: rect.x,
-        y: rect.y,
-        width: rect.width,
-        height: rect.height
+        x: rect.vars.x,
+        y: rect.vars.y,
+        width: rect.vars.width,
+        height: rect.vars.height
       }
-      this.transformAttribute(attr, rect.rotation);
+      this.transformAttribute(attr, rect.vars.rotation);
       this.styleableAttributes(rect, attr);
       return virtualdom.svg('rect', attr);
     },
 
     ellipseToSVG: function(ellipse) {
       var attr = {
-        cx: ellipse.x,
-        cy: ellipse.y,
-        rx: ellipse.width,
-        ry: ellipse.height
+        cx: ellipse.vars.x,
+        cy: ellipse.vars.y,
+        rx: ellipse.vars.width,
+        ry: ellipse.vars.height
       }
-      this.transformAttribute(attr, ellipse.rotation);
+      this.transformAttribute(attr, ellipse.vars.rotation);
       this.styleableAttributes(ellipse, attr);
       return virtualdom.svg('ellipse', attr);
     },
 
     circleToSVG: function(circle) {
       var attr = {
-        cx: circle.x,
-        cy: circle.y,
-        r: circle.radius
+        cx: circle.vars.x,
+        cy: circle.vars.y,
+        r: circle.vars.radius
       }
-      this.transformAttribute(attr, circle.rotation);
+      this.transformAttribute(attr, circle.vars.rotation);
       this.styleableAttributes(circle, attr);
       return virtualdom.svg('circle', attr);
     },
 
     lineToSVG: function(line) {
       var attr = {
-        x1: line.x,
-        y1: line.y,
-        x2: line.x2,
-        y2: line.y2
+        x1: line.vars.x,
+        y1: line.vars.y,
+        x2: line.vars.x2,
+        y2: line.vars.y2
       }
-      this.transformAttribute(attr, line.rotation);
+      this.transformAttribute(attr, line.vars.rotation);
       this.styleableAttributes(line, attr);
       return virtualdom.svg('line', attr);
     },
 
     polygonToSVG: function(polygon) {
       var attr = {
-        points: _.map(polygon.vectors, function(vec) {
+        points: _.map(polygon.vars.vectors, function(vec) {
           return vec.x + " " + vec.y;
         }).join(" ")
       };
-      this.transformAttribute(attr, polygon.rotation, polygon.x, polygon.y);
+      this.transformAttribute(attr, polygon.vars.rotation, polygon.vars.x, polygon.vars.y);
       this.styleableAttributes(polygon, attr);
       return virtualdom.svg('polygon', attr);
     },
@@ -108,7 +108,7 @@
     pathToSVG: function(path) {
       var attr = {};
       this.dAttribute(path, attr);
-      this.transformAttribute(attr, path.rotation, path.x, path.y);
+      this.transformAttribute(attr, path.vars.rotation, path.vars.x, path.vars.y);
       this.styleableAttributes(path, attr);
       return virtualdom.svg('path', attr);
     },
@@ -117,13 +117,13 @@
     // --------------------------------------------------
 
     sizeableAttributes: function(object, attr) {
-      attr.width = object.width;
-      attr.height = object.height;
+      attr.width = object.vars.width;
+      attr.height = object.vars.height;
     },
 
     styleableAttributes: function(object, attr) {
-      if(object.fillColor)    attr.fill = object.fillColor.hexString();
-      if(object.strokeColor)  attr.stroke = object.strokeColor.hexString();
+      if(object.vars.fill)    attr.fill = object.vars.fill.hexString();
+      if(object.vars.stroke)  attr.stroke = object.vars.stroke.hexString();
     },
 
     // Single attributes
@@ -137,7 +137,7 @@
     },
 
     dAttribute: function(object, attr) {
-      attr.d = _.map(object.anchors, function(a) {
+      attr.d = _.map(object.vars.anchors, function(a) {
 
         if(a.command == Rune.MOVE) {
           return (a.relative ? "m" : "M") + " " + [a.vec1.x, a.vec1.y].join(' ');

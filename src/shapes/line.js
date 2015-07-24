@@ -1,10 +1,14 @@
 (function(Rune) {
 
   var Line = Rune.Line = function(x, y, x2, y2) {
-    this.x = x;
-    this.y = y;
-    this.x2 = x2;
-    this.y2 = y2;
+
+    this.moveable();
+    this.styleable();
+
+    this.vars.x = x;
+    this.vars.y = y;
+    this.vars.x2 = x2;
+    this.vars.y2 = y2;
   };
 
   _.extend(Line.prototype,

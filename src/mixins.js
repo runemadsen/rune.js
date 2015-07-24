@@ -1,45 +1,66 @@
 (function() {
 
+  Rune.BUTT = "butt";
+  Rune.ROUND = "round";
+  Rune.SQUARE = "square";
+  Rune.MITER = "miter";
+  Rune.BEVEL = "bevel";
+
   var Mixins = Rune.Mixins = {
 
     Moveable : {
-      moveable: true,
 
-      x: 0,
-      y: 0,
+      moveable: function() {
+        this.vars = this.vars || {};
+        this.vars.x = 0;
+        this.vars.y = 0;
+        this.vars.rotation = 0;
+      },
+
       move: function(x, y, relative) {
-        this.x = relative ? this.x + x : x;
-        this.y = relative ? this.y + y : y;
+        this.vars.x = relative ? this.vars.x + x : x;
+        this.vars.y = relative ? this.vars.y + y : y;
         return this;
       },
 
-      rotation: 0,
       rotate: function(deg, relative) {
-        this.rotation = relative ? this.rotation + deg : deg;
+        this.vars.rotation = relative ? this.vars.rotation + deg : deg;
         return this;
       }
     },
 
     Sizeable : {
-      sizeable: true,
-      width: 0,
-      height: 0
+
+      sizeable: function() {
+        this.vars = this.vars || {};
+        this.vars.width = 0;
+        this.vars.height = 0;
+      }
+
     },
 
     Styleable : {
-      styleable: true,
 
-      fillColor: new Color(),
+      styleable: function() {
+        this.vars = this.vars || {};
+        this.vars.fill = new Color();
+        this.vars.stroke = new Color();
+        this.vars.strokeWidth = false;
+        this.vars.strokeCap = false;
+        this.vars.strokeJoin = false;
+        this.vars.strokeMiterlimit = false;
+        this.vars.strokeDash = false;
+      },
+
       fill: function(a, b, c, d) {
-        if(a === false) this.fillColor = false;
-        else            this.fillColor = Rune.Color.inputToColor(a, b, c, d);
+        if(a === false) this.vars.fill = false;
+        else            this.vars.fill = Rune.Color.inputToColor(a, b, c, d);
         return this;
       },
 
-      strokeColor: new Color(),
       stroke: function(a, b, c, d) {
-        if(a === false) this.strokeColor = false;
-        else            this.strokeColor = Rune.Color.inputToColor(a, b, c, d);
+        if(a === false) this.vars.stroke = false;
+        else            this.vars.stroke = Rune.Color.inputToColor(a, b, c, d);
         return this;
       }
     }

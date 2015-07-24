@@ -1,10 +1,15 @@
 (function() {
 
   var Ellipse = Rune.Ellipse = function(x, y, width, height) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
+
+    this.moveable();
+    this.sizeable();
+    this.styleable();
+
+    this.vars.x = x;
+    this.vars.y = y;
+    this.vars.width = width;
+    this.vars.height = height;
   };
 
   _.extend(Ellipse.prototype,

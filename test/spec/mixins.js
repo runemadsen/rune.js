@@ -6,32 +6,33 @@ describe("Rune.Mixins", function() {
 
     beforeEach(function() {
       m = newModule(Rune.Mixins.Moveable);
+      m.moveable();
     });
 
     it("creates variables", function() {
-      expect(m.moveable).toEqual(true);
-      expect(m.x).toEqual(0);
-      expect(m.y).toEqual(0);
-      expect(m.rotation).toEqual(0);
+      expect(typeof m.moveable).toEqual("function");
+      expect(m.vars.x).toEqual(0);
+      expect(m.vars.y).toEqual(0);
+      expect(m.vars.rotation).toEqual(0);
     });
 
     describe("move()", function() {
 
       it("moves absolute", function() {
-        m.x = 100;
-        m.y = 105;
+        m.vars.x = 100;
+        m.vars.y = 105;
         var res = m.move(200, 205);
-        expect(m.x).toEqual(200);
-        expect(m.y).toEqual(205);
+        expect(m.vars.x).toEqual(200);
+        expect(m.vars.y).toEqual(205);
         expect(m).toEqual(res);
       });
 
       it("moves relative", function() {
-        m.x = 100;
-        m.y = 105;
+        m.vars.x = 100;
+        m.vars.y = 105;
         var res = m.move(200, 205, true);
-        expect(m.x).toEqual(300);
-        expect(m.y).toEqual(310);
+        expect(m.vars.x).toEqual(300);
+        expect(m.vars.y).toEqual(310);
         expect(m).toEqual(res);
       });
 
@@ -40,16 +41,16 @@ describe("Rune.Mixins", function() {
     describe("rotate()", function() {
 
       it("rotates absolute", function() {
-        m.rotation = 45;
+        m.vars.rotation = 45;
         var res = m.rotate(45);
-        expect(m.rotation).toEqual(45);
+        expect(m.vars.rotation).toEqual(45);
         expect(m).toEqual(res);
       });
 
       it("rotates relative", function() {
-        m.rotation = 45;
+        m.vars.rotation = 45;
         var res = m.rotate(45, true);
-        expect(m.rotation).toEqual(90);
+        expect(m.vars.rotation).toEqual(90);
         expect(m).toEqual(res);
       });
 
@@ -61,12 +62,13 @@ describe("Rune.Mixins", function() {
 
     beforeEach(function() {
       m = newModule(Rune.Mixins.Sizeable);
+      m.sizeable();
     });
 
     it("creates variables", function() {
-      expect(m.sizeable).toEqual(true);
-      expect(m.width).toEqual(0);
-      expect(m.height).toEqual(0);
+      expect(typeof m.sizeable).toEqual("function");
+      expect(m.vars.width).toEqual(0);
+      expect(m.vars.height).toEqual(0);
     });
 
   });
@@ -75,25 +77,31 @@ describe("Rune.Mixins", function() {
 
     beforeEach(function() {
       m = newModule(Rune.Mixins.Styleable);
+      m.styleable();
     });
 
     it("creates variables", function() {
-      expect(m.styleable).toEqual(true);
-      expect(m.fillColor).toEqual(new Color());
-      expect(m.strokeColor).toEqual(new Color());
+      expect(typeof m.styleable).toEqual("function");
+      expect(m.vars.fill).toEqual(new Color());
+      expect(m.vars.stroke).toEqual(new Color());
+      expect(m.vars.strokeWidth).toEqual(false);
+      expect(m.vars.strokeCap).toEqual(false);
+      expect(m.vars.strokeJoin).toEqual(false);
+      expect(m.vars.strokeMiterlimit).toEqual(false);
+      expect(m.vars.strokeDash).toEqual(false);
     });
 
     describe("fill()", function() {
 
       it("sets fill to color", function() {
         var res = m.fill("#ff0000");
-        expect(m.fillColor).toEqual(new Color().rgb(255, 0, 0));
+        expect(m.vars.fill).toEqual(new Color().rgb(255, 0, 0));
         expect(m).toEqual(res);
       });
 
       it("sets fill to false", function() {
         m.fill(false);
-        expect(m.fillColor).toEqual(false);
+        expect(m.vars.fill).toEqual(false);
       });
 
     });
@@ -102,13 +110,13 @@ describe("Rune.Mixins", function() {
 
       it("sets stroke to color", function() {
         var res = m.stroke("#ff0000");
-        expect(m.strokeColor).toEqual(new Color().rgb(255, 0, 0));
+        expect(m.vars.stroke).toEqual(new Color().rgb(255, 0, 0));
         expect(m).toEqual(res);
       });
 
       it("sets stroke to false", function() {
         m.stroke(false);
-        expect(m.strokeColor).toEqual(false);
+        expect(m.vars.stroke).toEqual(false);
       });
 
     });
