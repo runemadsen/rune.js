@@ -122,8 +122,15 @@
     },
 
     styleableAttributes: function(object, attr) {
-      if(object.vars.fill)    attr.fill = object.vars.fill.hexString();
-      if(object.vars.stroke)  attr.stroke = object.vars.stroke.hexString();
+      if(object.vars.fill)              attr.fill = object.vars.fill.hexString();
+      if(object.vars.stroke)            attr.stroke = object.vars.stroke.hexString();
+      if(object.vars.fill)              attr.fill = object.vars.fill.hexString();
+      if(object.vars.strokeWidth)       attr["stroke-width"] = object.vars.strokeWidth;
+      if(object.vars.strokeCap)         attr["stroke-linecap"] = object.vars.strokeCap;
+      if(object.vars.strokeJoin)        attr["stroke-linejoin"] = object.vars.strokeJoin;
+      if(object.vars.strokeMiterlimit)  attr["stroke-miterlimit"] = object.vars.strokeMiterlimit;
+      if(object.vars.strokeDash)        attr["stroke-dasharray"] = object.vars.strokeDash;
+      if(object.vars.strokeDashOffset)  attr["stroke-dashoffset"] = object.vars.strokeDashOffset;
     },
 
     // Single attributes

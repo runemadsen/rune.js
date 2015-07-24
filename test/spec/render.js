@@ -1,6 +1,31 @@
 // Helpers
 // --------------------------------------------------
 
+function drawShared(shape) {
+  shape.rotate(45)
+    .fill(255, 0, 0)
+    .stroke(0, 255, 0)
+    .strokeWidth(5)
+    .strokeCap(Rune.ROUND)
+    .strokeJoin(Rune.MITER)
+    .strokeMiterlimit(7)
+    .strokeDash("3,4,5")
+    .strokeDashOffset(10)
+}
+
+function expectShared(jshape) {
+  expect(jshape).toHaveRotation(45);
+  expect(jshape).toHaveAttr("fill", "#FF0000");
+  expect(jshape).toHaveAttr("stroke", "#00FF00");
+  expect(jshape).toHaveAttr("stroke-width", "5");
+  expect(jshape).toHaveAttr("stroke-linecap", "round");
+  expect(jshape).toHaveAttr("stroke-linejoin", "miter");
+  expect(jshape).toHaveAttr("stroke-miterlimit", "7");
+  expect(jshape).toHaveAttr("stroke-dasharray", "3,4,5");
+  expect(jshape).toHaveAttr("stroke-dashoffset", "10");
+}
+
+
 describe("Rune.Render", function() {
 
   var r;
@@ -51,10 +76,8 @@ describe("Rune.Render", function() {
   describe("Rune.Rectangle", function() {
 
     it("should render rectangle", function() {
-      var s = r.rect(100, 105, 300, 400)
-        .rotate(45)
-        .fill(255, 0, 0)
-        .stroke(0, 255, 0);
+      var s = r.rect(100, 105, 300, 400);
+      drawShared(s);
       r.draw();
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
@@ -65,9 +88,7 @@ describe("Rune.Render", function() {
         width: s.vars.width,
         height: s.vars.height
       });
-      expect(jshape).toHaveRotation(s.vars.rotation);
-      expect(jshape).toHaveAttr("fill", "#FF0000");
-      expect(jshape).toHaveAttr("stroke", "#00FF00");
+      expectShared(jshape);
     });
 
   });
@@ -75,10 +96,8 @@ describe("Rune.Render", function() {
   describe("Rune.Ellipse", function() {
 
     it("should render ellipse", function() {
-      var s = r.ellipse(100, 105, 300, 400)
-        .rotate(45)
-        .fill(255, 0, 0)
-        .stroke(0, 255, 0);
+      var s = r.ellipse(100, 105, 300, 400);
+      drawShared(s);
       r.draw();
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
@@ -89,9 +108,7 @@ describe("Rune.Render", function() {
         rx: s.vars.width,
         ry: s.vars.height
       });
-      expect(jshape).toHaveRotation(s.vars.rotation);
-      expect(jshape).toHaveAttr("fill", "#FF0000");
-      expect(jshape).toHaveAttr("stroke", "#00FF00");
+      expectShared(jshape);
     });
 
   });
@@ -99,10 +116,8 @@ describe("Rune.Render", function() {
   describe("Rune.Circle", function() {
 
     it("should render circle", function() {
-      var s = r.circle(100, 105, 300)
-        .rotate(45)
-        .fill(255, 0, 0)
-        .stroke(0, 255, 0);
+      var s = r.circle(100, 105, 300);
+      drawShared(s);
       r.draw();
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
@@ -112,9 +127,7 @@ describe("Rune.Render", function() {
         cy: s.vars.y,
         r: s.vars.radius
       });
-      expect(jshape).toHaveRotation(45);
-      expect(jshape).toHaveAttr("fill", "#FF0000");
-      expect(jshape).toHaveAttr("stroke", "#00FF00");
+      expectShared(jshape);
     });
 
   });
@@ -122,10 +135,8 @@ describe("Rune.Render", function() {
   describe("Rune.Line", function() {
 
     it("should render line", function() {
-      var s = r.line(100, 105, 200, 205)
-        .rotate(45)
-        .fill(255, 0, 0)
-        .stroke(0, 255, 0);
+      var s = r.line(100, 105, 200, 205);
+      drawShared(s);
       r.draw();
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
@@ -136,9 +147,7 @@ describe("Rune.Render", function() {
         x2: s.vars.x2,
         y2: s.vars.y2
       });
-      expect(jshape).toHaveRotation(s.vars.rotation);
-      expect(jshape).toHaveAttr("fill", "#FF0000");
-      expect(jshape).toHaveAttr("stroke", "#00FF00");
+      expectShared(jshape);
     });
 
   });
@@ -149,19 +158,15 @@ describe("Rune.Render", function() {
       var s = r.polygon(10, 15)
         .lineTo(100, 101)
         .lineTo(200, 201)
-        .lineTo(300, 301)
-        .rotate(45)
-        .fill(255, 0, 0)
-        .stroke(0, 255, 0);
+        .lineTo(300, 301);
+      drawShared(s);
       r.draw();
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("polygon");
       expect(jshape).toHaveAttr("points", "100 101 200 201 300 301")
       expect(jshape).toHaveTranslation(10, 15);
-      expect(jshape).toHaveRotation(s.vars.rotation);
-      expect(jshape).toHaveAttr("fill", "#FF0000");
-      expect(jshape).toHaveAttr("stroke", "#00FF00");
+      expectShared(jshape);
     });
 
   });
@@ -169,10 +174,8 @@ describe("Rune.Render", function() {
   describe("Rune.Path", function() {
 
     it("should render path", function() {
-      var s = r.path(10, 15)
-        .rotate(45)
-        .fill(255, 0, 0)
-        .stroke(0, 255, 0);
+      var s = r.path(10, 15);
+      drawShared(s);
       drawAllAnchors(s);
       r.draw();
       var jshape = jel.children().first();
@@ -180,9 +183,7 @@ describe("Rune.Render", function() {
       expect(jshape).toBeTag("path");
       expect(jshape).toHaveAttr("d", "M 100 101 m 102 103 L 104 105 l 106 107 C 108 109 110 111 112 113 c 114 115 116 117 118 119 S 120 121 122 123 s 124 125 126 127 Q 128 129 130 131 q 132 133 134 135 T 136 137 t 138 139")
       expect(jshape).toHaveTranslation(10, 15);
-      expect(jshape).toHaveRotation(s.vars.rotation);
-      expect(jshape).toHaveAttr("fill", "#FF0000");
-      expect(jshape).toHaveAttr("stroke", "#00FF00");
+      expectShared(jshape);
     });
 
   });
