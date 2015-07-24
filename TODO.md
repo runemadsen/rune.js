@@ -1,8 +1,15 @@
-- [ ] Add `copy` function to groups
+## Codebase
+
+### Must
+
+- [ ] `draw` function
 - [ ] `.rotate` and axis? It's supported in SVG
-- [ ] SVG parser
+- [ ] Add `copy` function to groups
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
 
+### Nice to have 
+
+- [ ] SVG parser
 
 ## Documentation
 
