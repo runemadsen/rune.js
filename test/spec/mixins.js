@@ -2,26 +2,7 @@ describe("Rune.Mixins", function() {
 
   var m;
 
-  // THIS GOES IN SHAPEABLE MIXIN TEST
-   //it("adds copy to original group", function() {
-   //  expect(g.children.length).toEqual(1);
-   //  s.copy();
-   //  expect(g.children.length).toEqual(2);
-   //});
-
-   //it("adds copy to specified group", function() {
-   //  var g2 = new Rune.Group();
-   //  expect(g.children.length).toEqual(1);
-   //  s.copy(g2);
-   //  expect(g.children.length).toEqual(1);
-   //  expect(g2.children.length).toEqual(1);
-   //});
-
-   //it("does not add to group", function() {
-   //  expect(g.children.length).toEqual(1);
-   //  s.copy(false);
-   //  expect(g.children.length).toEqual(1);
-   //});
+  describe("Shapeable", function() {});
 
   describe("Moveable", function() {
 

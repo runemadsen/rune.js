@@ -1,9 +1,7 @@
-- [ ] Add `copy` functions to shapes
+- [ ] Add `copy` function to groups
 - [ ] `.rotate` and axis? It's supported in SVG
 - [ ] SVG parser
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
-- [ ] Make Medium-like header image for docs
-- [ ] When you add a shape to a group that is already in another group, it should be removed from the former group.
 
 
 ## Documentation
