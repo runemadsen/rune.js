@@ -5,15 +5,30 @@ describe("Rune.Mixins", function() {
   describe("Moveable", function() {
 
     beforeEach(function() {
-      m = newModule(Rune.Mixins.Moveable);
+      m = newMixin(Rune.Mixins.Moveable);
       m.moveable();
     });
 
-    it("creates variables", function() {
-      expect(typeof m.moveable).toEqual("function");
-      expect(m.vars.x).toEqual(0);
-      expect(m.vars.y).toEqual(0);
-      expect(m.vars.rotation).toEqual(0);
+    describe("moveable()", function() {
+
+      it("assigns default variables", function() {
+        expect(typeof m.moveable).toEqual("function");
+        expect(m.vars.x).toEqual(0);
+        expect(m.vars.y).toEqual(0);
+        expect(m.vars.rotation).toEqual(0);
+      });
+
+      it("copies variables from object", function() {
+        m.vars.x = 10;
+        m.vars.y = 10;
+        m.vars.rotation = 45;
+        var m2 = newMixin(Rune.Mixins.Moveable);
+        m2.moveable(m);
+        expect(m2.vars.x).toEqual(10);
+        expect(m2.vars.y).toEqual(10);
+        expect(m2.vars.rotation).toEqual(45);
+      });
+
     });
 
     describe("move()", function() {
@@ -61,30 +76,59 @@ describe("Rune.Mixins", function() {
   describe("Sizeable", function() {
 
     beforeEach(function() {
-      m = newModule(Rune.Mixins.Sizeable);
+      m = newMixin(Rune.Mixins.Sizeable);
       m.sizeable();
     });
 
-    it("creates variables", function() {
-      expect(typeof m.sizeable).toEqual("function");
-      expect(m.vars.width).toEqual(0);
-      expect(m.vars.height).toEqual(0);
+    describe("sizeable()", function() {
+
+      it("assigns default variables", function() {
+        expect(typeof m.sizeable).toEqual("function");
+        expect(m.vars.width).toEqual(0);
+        expect(m.vars.height).toEqual(0);
+      });
+
+      it("copies variables from object", function() {
+        m.vars.width = 10;
+        m.vars.height = 15;
+        var m2 = newMixin(Rune.Mixins.Sizeable);
+        m2.sizeable(m);
+        expect(m2.vars.width).toEqual(10);
+        expect(m2.vars.height).toEqual(15);
+      });
+
     });
+
+
 
   });
 
   describe("Styleable", function() {
 
     beforeEach(function() {
-      m = newModule(Rune.Mixins.Styleable);
+      m = newMixin(Rune.Mixins.Styleable);
       m.styleable();
     });
 
-    it("creates variables", function() {
-      expect(typeof m.styleable).toEqual("function");
-      expect(m.vars.fill).toEqual(new Color());
-      expect(m.vars.stroke).toEqual(new Color());
+    describe("styleable()", function() {
+
+      it("assigns default variable", function() {
+        expect(typeof m.styleable).toEqual("function");
+        expect(m.vars.fill).toEqual(new Color());
+        expect(m.vars.stroke).toEqual(new Color());
+      });
+
+      it("copies variables from object", function() {
+        m.fill("#FF0000").stroke("#00FF00")
+        var m2 = newMixin(Rune.Mixins.Styleable);
+        m2.styleable(m);
+        expect(m2.vars.fill).toEqual(new Color().rgb(255, 0, 0));
+        expect(m2.vars.stroke).toEqual(new Color().rgb(0, 255, 0));
+      });
+
     });
+
+
 
     describe("fill()", function() {
 

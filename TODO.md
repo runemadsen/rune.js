@@ -1,4 +1,3 @@
-- [ ] closeShape
 - [ ] Add `copy` functions to shapes
 - [ ] `.rotate` and axis? It's supported in SVG
 - [ ] SVG parser

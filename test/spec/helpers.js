@@ -1,7 +1,11 @@
 // Provides an easy way to extend a mixin into a
 // an object for testing.
-function newModule(mixin) {
-  return new _.extend(function(){}.prototype, mixin);
+function newMixin() {
+  var Mixed = function() {};
+  _.each(arguments, function(mixin) {
+    _.extend(Mixed.prototype, mixin);
+  });
+  return new Mixed();
 }
 
 function drawAllAnchors(path) {

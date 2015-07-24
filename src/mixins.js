@@ -10,11 +10,11 @@
 
     Moveable : {
 
-      moveable: function() {
+      moveable: function(copy) {
         this.vars = this.vars || {};
-        this.vars.x = 0;
-        this.vars.y = 0;
-        this.vars.rotation = 0;
+        this.vars.x = copy ? copy.vars.x : 0;
+        this.vars.y = copy ? copy.vars.y : 0;
+        this.vars.rotation = copy ? copy.vars.rotation : 0;
       },
 
       move: function(x, y, relative) {
@@ -31,20 +31,20 @@
 
     Sizeable : {
 
-      sizeable: function() {
+      sizeable: function(copy) {
         this.vars = this.vars || {};
-        this.vars.width = 0;
-        this.vars.height = 0;
+        this.vars.width = copy ? copy.vars.width : 0;
+        this.vars.height = copy ? copy.vars.height : 0;
       }
 
     },
 
     Styleable : {
 
-      styleable: function() {
+      styleable: function(copy) {
         this.vars = this.vars || {};
-        this.vars.fill = new Color();
-        this.vars.stroke = new Color();
+        this.vars.fill = copy ? copy.vars.fill.clone() : new Color();
+        this.vars.stroke = copy ? copy.vars.stroke.clone() : new Color();
       },
 
       fill: function(a, b, c, d) {
