@@ -84,11 +84,6 @@ describe("Rune.Mixins", function() {
       expect(typeof m.styleable).toEqual("function");
       expect(m.vars.fill).toEqual(new Color());
       expect(m.vars.stroke).toEqual(new Color());
-      expect(m.vars.strokeWidth).toEqual(false);
-      expect(m.vars.strokeCap).toEqual(false);
-      expect(m.vars.strokeJoin).toEqual(false);
-      expect(m.vars.strokeMiterlimit).toEqual(false);
-      expect(m.vars.strokeDash).toEqual(false);
     });
 
     describe("fill()", function() {
@@ -118,6 +113,19 @@ describe("Rune.Mixins", function() {
         m.stroke(false);
         expect(m.vars.stroke).toEqual(false);
       });
+
+    });
+
+    describe("Basic setters", function() {
+
+      it("sets the var value", function() {
+        var funcs = ["strokeWidth", "strokeCap", "strokeJoin", "strokeMiterlimit", "strokeDash", "strokeDashOffset"]
+        _.each(funcs, function(func) {
+          var res = m[func](5);
+          expect(m.vars[func]).toEqual(5)
+          expect(m).toEqual(res);
+        });
+      })
 
     });
 

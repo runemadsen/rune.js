@@ -45,11 +45,6 @@
         this.vars = this.vars || {};
         this.vars.fill = new Color();
         this.vars.stroke = new Color();
-        this.vars.strokeWidth = false;
-        this.vars.strokeCap = false;
-        this.vars.strokeJoin = false;
-        this.vars.strokeMiterlimit = false;
-        this.vars.strokeDash = false;
       },
 
       fill: function(a, b, c, d) {
@@ -62,7 +57,14 @@
         if(a === false) this.vars.stroke = false;
         else            this.vars.stroke = Rune.Color.inputToColor(a, b, c, d);
         return this;
-      }
+      },
+
+      strokeWidth:      function(val) { this.vars.strokeWidth = val; return this; },
+      strokeCap:        function(val) { this.vars.strokeCap = val; return this; },
+      strokeJoin:       function(val) { this.vars.strokeJoin = val; return this; },
+      strokeMiterlimit: function(val) { this.vars.strokeMiterlimit = val; return this; },
+      strokeDash:       function(val) { this.vars.strokeDash = val; return this; },
+      strokeDashOffset: function(val) { this.vars.strokeDashOffset= val; return this; }
     }
 
   };

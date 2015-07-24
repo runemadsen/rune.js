@@ -23,13 +23,27 @@ describe("Rune.Render", function() {
 
     // using rectangle here, but I'm testing shared functionality
 
-    it("should not render stroke or fill if false", function() {
-      var s = r.rect(0, 0, 0, 0).fill(false).stroke(false);
+    it("should not render false vars", function() {
+      var s = r.rect(0, 0, 0, 0)
+        .fill(false)
+        .stroke(false)
+        .strokeWidth(false)
+        .strokeCap(false)
+        .strokeJoin(false)
+        .strokeMiterlimit(false)
+        .strokeDash(false)
+        .strokeDashOffset(false)
       r.draw();
       var jshape = jel.children().first();
       expect(jshape).toBeTag("rect");
       expect(jshape.attr('fill')).toBeUndefined()
       expect(jshape.attr('stroke')).toBeUndefined()
+      expect(jshape.attr('stroke-width')).toBeUndefined()
+      expect(jshape.attr('stroke-linecap')).toBeUndefined()
+      expect(jshape.attr('stroke-linejoin')).toBeUndefined()
+      expect(jshape.attr('stroke-miterlimit')).toBeUndefined()
+      expect(jshape.attr('stroke-dasharray')).toBeUndefined()
+      expect(jshape.attr('stroke-dashoffset')).toBeUndefined()
     });
 
   });
