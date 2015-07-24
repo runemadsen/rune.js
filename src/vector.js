@@ -12,6 +12,10 @@
     set: function(x, y) {
       this.x = x;
       this.y = y;
+    },
+
+    copy: function() {
+      return new Rune.Vector(this.x, this.y);
     }
 
   });

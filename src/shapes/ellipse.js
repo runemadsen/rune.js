@@ -12,11 +12,16 @@
     this.vars.height = height;
   };
 
-  _.extend(Ellipse.prototype,
-    Rune.Mixins.Moveable,
-    Rune.Mixins.Sizeable,
-    Rune.Mixins.Styleable,
-    { type: "ellipse" }
-  );
+  _.extend(Ellipse.prototype, Rune.Mixins.Shapeable, Rune.Mixins.Moveable, Rune.Mixins.Sizeable, Rune.Mixins.Styleable, {
+
+    type: "ellipse",
+
+    copy: function(group) {
+      var e = new Rune.Ellipse();
+      this.shapeCopy(e, group);
+      return e;
+    }
+
+  });
 
 })();

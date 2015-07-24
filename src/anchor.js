@@ -15,6 +15,16 @@
 
   _.extend(Anchor.prototype, {
 
+    copy: function() {
+      var a = new Rune.Anchor();
+      a.relative = this.relative;
+      a.command = this.command;
+      if(this.vec1) a.vec1 = this.vec1.copy();
+      if(this.vec2) a.vec2 = this.vec2.copy();
+      if(this.vec3) a.vec3 = this.vec3.copy();
+      return a;
+    },
+
     setMove: function(x, y, relative) {
       this.command = Rune.MOVE;
       this.vec1 = new Rune.Vector(x, y);

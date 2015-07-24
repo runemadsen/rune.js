@@ -8,8 +8,22 @@ function newMixin() {
   return new Mixed();
 }
 
-// Provides an easy way to set variables on shapes
-// that mix in the mixins.
+// In order to not constantly keep track of what mixins each
+// object has, we can call this helper that automatically
+// checks what mixins the shape has, and sets some default
+// values for each mixin property.
+
+function setMixinVars(shape) {
+  if(shape.moveable) {
+    setMoveableVars(shape)
+  }
+  if(shape.sizeable) {
+    setSizeableVars(shape)
+  }
+  if(shape.styleable) {
+    setStyleableVars(shape)
+  }
+}
 
 function setMoveableVars(shape) {
   shape.vars.x = 10;
@@ -27,7 +41,7 @@ function setStyleableVars(shape) {
   shape.vars.stroke = new Color().rgb(0, 255, 0);
 }
 
-function drawAllAnchors(path) {
+function setAllAnchors(path) {
   path.moveTo(100, 101)
     .moveTo(102, 103, true)
     .lineTo(104, 105)

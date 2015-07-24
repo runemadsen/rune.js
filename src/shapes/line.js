@@ -11,10 +11,18 @@
     this.vars.y2 = y2;
   };
 
-  _.extend(Line.prototype,
-    Rune.Mixins.Moveable,
-    Rune.Mixins.Styleable,
-    { type: "line" }
-  );
+  _.extend(Line.prototype, Rune.Mixins.Shapeable, Rune.Mixins.Moveable, Rune.Mixins.Styleable, {
+
+    type: "line",
+
+    copy: function(group) {
+      var e = new Rune.Line();
+      e.vars.x2 = this.vars.x2;
+      e.vars.y2 = this.vars.y2;
+      this.shapeCopy(e, group);
+      return e;
+    }
+
+  });
 
 })(Rune);

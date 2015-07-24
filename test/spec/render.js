@@ -176,7 +176,7 @@ describe("Rune.Render", function() {
     it("should render path", function() {
       var s = r.path(10, 15);
       drawShared(s);
-      drawAllAnchors(s);
+      setAllAnchors(s);
       r.draw();
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);

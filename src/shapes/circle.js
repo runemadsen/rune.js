@@ -10,16 +10,14 @@
     this.vars.radius = radius;
   };
 
-  _.extend(Circle.prototype, Rune.Mixins.Moveable, Rune.Mixins.Styleable, {
+  _.extend(Circle.prototype, Rune.Mixins.Shapeable, Rune.Mixins.Moveable, Rune.Mixins.Styleable, {
 
       type: "circle",
 
       copy: function(group) {
         var c = new Rune.Circle();
-        c.moveable(this);
-        c.styleable(this);
         c.vars.radius = this.vars.radius;
-        Rune.addToGroup(c, this.parent, group);
+        this.shapeCopy(c, group);
         return c;
       }
 

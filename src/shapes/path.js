@@ -10,10 +10,7 @@
     if(y > 0) this.vars.y = y;
   };
 
-  // Drawing functions
-  // --------------------------------------------------
-
-  _.extend(Path.prototype, Rune.Mixins.Moveable, Rune.Mixins.Styleable, {
+  _.extend(Path.prototype, Rune.Mixins.Shapeable, Rune.Mixins.Moveable, Rune.Mixins.Styleable, {
 
     type: "path",
 
@@ -34,6 +31,13 @@
 
     closeShape: function() {
       this.vars.anchors.push(new Rune.Anchor().setClose());
+    },
+
+    copy: function(group) {
+      var s = new Rune.Path();
+      s.vars.anchors = _.map(this.vars.anchors, function(a) { return a.copy(); });
+      this.shapeCopy(s, group);
+      return s;
     }
 
   });

@@ -6,7 +6,21 @@ describe("Rune.Anchor", function() {
     r = new Rune();
   });
 
-  describe(".setMove()", function() {
+  describe("copy()", function() {
+
+    it("copies the anchor", function() {
+      var a = new Rune.Anchor().setCurve(100, 105, 200, 205, 300, 305);
+      var b = a.copy();
+      expect(a).toEqual(b);
+      expect(a === b).toBe(false);
+      expect(a.vec1 === b.vec1).toBe(false);
+      expect(a.vec2 === b.vec2).toBe(false);
+      expect(a.vec3 === b.vec3).toBe(false);
+    });
+
+  });
+
+  describe("setMove()", function() {
 
     it("creates move absolute", function() {
       var a = new Rune.Anchor().setMove(100, 105);
@@ -20,7 +34,7 @@ describe("Rune.Anchor", function() {
 
   });
 
-  describe(".setLine()", function() {
+  describe("setLine()", function() {
 
     it("creates line absolute", function() {
       var a = new Rune.Anchor().setLine(100, 105);
@@ -34,7 +48,7 @@ describe("Rune.Anchor", function() {
 
   });
 
-  describe(".setCurve()", function() {
+  describe("setCurve()", function() {
 
     it("creates cubic absolute", function() {
       var a = new Rune.Anchor().setCurve(100, 105, 200, 205, 300, 305);
@@ -78,7 +92,7 @@ describe("Rune.Anchor", function() {
 
   });
 
-  describe(".setClose()", function() {
+  describe("setClose()", function() {
 
     it("creates close", function() {
       var a = new Rune.Anchor().setClose();
