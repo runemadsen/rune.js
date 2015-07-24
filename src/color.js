@@ -11,11 +11,11 @@
     // object.
     inputToColor: function(a, b, c, d) {
       if(a == Rune.HSB)
-        return new Color().hsv(b, c, d);
+        return new Color({h:b, s:c, v:d});
       else if(_.isString(a))
         return new Color(a);
       else
-        return new Color().rgb(a, b, c);
+        return new Color({r:a, g:b, b:c});
     }
 
   };

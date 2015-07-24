@@ -20,7 +20,14 @@
     type: "group",
 
     add: function(child) {
+      if(child.parent) child.parent.remove(child);
       this.children.push(child);
+      child.parent = this;
+    },
+
+    remove: function(child) {
+      this.children = _.without(this.children, child);
+      child.parent = false;
     }
 
   });

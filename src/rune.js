@@ -104,7 +104,7 @@
     addToGroup: function(child, fallback, group) {
 
       // if group is undefined, add to fallback
-      if(_.isUndefined(group))
+      if(_.isUndefined(group) && fallback.type == "group")
         fallback.add(child)
       // if group is specified, add to group
       else if(group && group.type == "group")

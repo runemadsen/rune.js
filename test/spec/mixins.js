@@ -109,16 +109,23 @@ describe("Rune.Mixins", function() {
 
       it("assigns default variable", function() {
         expect(typeof m.styleable).toEqual("function");
-        expect(m.vars.fill).toEqual(new Color());
-        expect(m.vars.stroke).toEqual(new Color());
+        expect(m.vars.fill).toEqual(new Color().rgb(128, 128, 128));
+        expect(m.vars.stroke).toEqual(new Color().rgb(0, 0, 0));
       });
 
       it("copies variables from object", function() {
         setStyleableVars(m);
         var m2 = newMixin(Rune.Mixins.Styleable);
         m2.styleable(m);
-        expect(m2.vars.fill).toEqual(new Color().rgb(255, 0, 0));
-        expect(m2.vars.stroke).toEqual(new Color().rgb(0, 255, 0));
+        expect(m2.vars.fill).toEqual(m.vars.fill);
+        expect(m2.vars.stroke).toEqual(m.vars.stroke);
+      });
+
+      it("copies zero colors", function() {
+        var m2 = newMixin(Rune.Mixins.Styleable);
+        m2.styleable(m);
+        expect(m2.vars.fill).toEqual(m.vars.fill);
+        expect(m2.vars.stroke).toEqual(m.vars.stroke);
       });
 
     });

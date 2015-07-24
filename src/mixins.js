@@ -43,8 +43,8 @@
 
       styleable: function(copy) {
         this.vars = this.vars || {};
-        this.vars.fill = copy ? new Color(copy.vars.fill) : new Color();
-        this.vars.stroke = copy ? new Color(copy.vars.stroke) : new Color();
+        this.vars.fill = copy ? copy.vars.fill.clone() : new Color().rgb(128, 128, 128);
+        this.vars.stroke = copy ? copy.vars.stroke.clone() : new Color().rgb(0, 0, 0);
       },
 
       fill: function(a, b, c, d) {

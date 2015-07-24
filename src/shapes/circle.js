@@ -14,11 +14,12 @@
 
       type: "circle",
 
-      copy: function() {
+      copy: function(group) {
         var c = new Rune.Circle();
         c.moveable(this);
         c.styleable(this);
         c.vars.radius = this.vars.radius;
+        Rune.addToGroup(c, this.parent, group);
         return c;
       }
 
