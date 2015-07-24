@@ -86,7 +86,7 @@ beforeEach(function () {
       };
     },
 
-    toBeVectorMove: function () {
+    toBeAnchorMove: function () {
       return {
         compare: function (vector, x, y, relative) {
 
@@ -117,7 +117,7 @@ beforeEach(function () {
       };
     },
 
-    toBeVectorLine: function () {
+    toBeAnchorLine: function () {
       return {
         compare: function (vector, x, y, relative) {
 
@@ -148,7 +148,7 @@ beforeEach(function () {
       };
     },
 
-    toBeVectorCubic: function () {
+    toBeAnchorCubic: function () {
       return {
         compare: function (vector, a, b, c, d, e, f, g) {
 
@@ -190,7 +190,7 @@ beforeEach(function () {
       };
     },
 
-    toBeVectorQuad: function () {
+    toBeAnchorQuad: function () {
       return {
         compare: function (vector, a, b, c, d, e) {
 
@@ -210,6 +210,27 @@ beforeEach(function () {
 
           pass = pass && _.isUndefined(vector.vec3);
 
+
+          if (pass) {
+            msg = "Expected not to match";
+          } else {
+            msg = "Expected to match";
+          }
+
+          return {
+            pass: pass,
+            message: msg
+          };
+        }
+      };
+    },
+
+    toBeAnchorClose: function () {
+      return {
+        compare: function (vector) {
+
+          var msg = "";
+          var pass = vector.command == Rune.CLOSE;
 
           if (pass) {
             msg = "Expected not to match";

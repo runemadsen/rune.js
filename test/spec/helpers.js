@@ -17,4 +17,5 @@ function drawAllAnchors(path) {
     .curveTo(Rune.QUAD, 132, 133, 134, 135, true)
     .curveTo(Rune.QUAD, 136, 137)
     .curveTo(Rune.QUAD, 138, 139, true)
+    .closeShape();
 }

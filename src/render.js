@@ -164,6 +164,9 @@
         else if(a.command == Rune.QUAD){
           return (a.relative ? "t" : "T") + " " + [a.vec1.x, a.vec1.y].join(' ');
         }
+        else if(a.command == Rune.CLOSE){
+          return "Z";
+        }
       }).join(" ").trim();
     }
 

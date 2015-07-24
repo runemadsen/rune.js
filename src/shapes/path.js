@@ -30,6 +30,10 @@
     curveTo: function(a, b, c, d, e, f, g) {
       this.vars.anchors.push(new Rune.Anchor().setCurve(a, b, c, d, e, f, g));
       return this;
+    },
+
+    closeShape: function() {
+      this.vars.anchors.push(new Rune.Anchor().setClose());
     }
 
   });
