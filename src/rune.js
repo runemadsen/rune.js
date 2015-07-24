@@ -36,57 +36,45 @@
     // Shape functions
     // --------------------------------------------------
 
-    addFromParam: function(child, group) {
-
-      // if group is undefined, add to the
-      // main stage group.
-      if(_.isUndefined(group))
-        this.stage.add(child)
-      // if group is not false or undefined,
-      // add to the specificed group.
-      else if(group !== false)
-        group.add(child)
-    },
-
     group: function(x, y, parent) {
       var group = new Rune.Group(x, y);
-      this.addFromParam(group, parent);
+      Rune.addToGroup(group, this.stage, parent);
       return group;
     },
 
     rect: function(x, y, width, height, group) {
       var rect = new Rune.Rectangle(x, y, width, height);
-      this.addFromParam(rect, group);
+      Rune.addToGroup(rect, this.stage, group);
       return rect;
     },
 
     ellipse: function(x, y, width, height, group) {
       var ell = new Rune.Ellipse(x, y, width, height);
-      this.addFromParam(ell, group);
+      Rune.addToGroup(ell, this.stage, group);
       return ell;
     },
 
     circle: function(x, y, radius, group) {
       var circ = new Rune.Circle(x, y,radius);
-      this.addFromParam(circ, group);
+      Rune.addToGroup(circ, this.stage, group);
       return circ;
     },
 
     line: function(x1, y1, x2, y2, group) {
       var line = new Rune.Line(x1, y1, x2, y2);
-      this.addFromParam(line, group);
+      Rune.addToGroup(line, this.stage, group);
       return line;
     },
 
     polygon: function(x, y, group) {
       var poly = new Rune.Polygon(x, y);
-      this.addFromParam(poly, group);
+      Rune.addToGroup(poly, this.stage, group);
       return poly;
     },
 
     path: function(x, y, group) {
       var path = new Rune.Path(x, y);
-      this.addFromParam(path, group);
+      Rune.addToGroup(path, this.stage, group);
       return path;
     },
 
@@ -104,6 +92,24 @@
 
     draw: function() {
       this.renderer.render(this.stage);
+    }
+
+  });
+
+  // Static functions
+  // --------------------------------------------------
+
+  _.extend(Rune, {
+
+    addToGroup: function(child, fallback, group) {
+
+      // if group is undefined, add to fallback
+      if(_.isUndefined(group))
+        fallback.add(child)
+      // if group is specified, add to group
+      else if(group && group.type == "group")
+        group.add(child)
+      // otherwise don't add to anything
     }
 
   });

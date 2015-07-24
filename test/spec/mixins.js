@@ -19,13 +19,11 @@ describe("Rune.Mixins", function() {
       });
 
       it("copies variables from object", function() {
-        m.vars.x = 10;
-        m.vars.y = 10;
-        m.vars.rotation = 45;
+        setMoveableVars(m);
         var m2 = newMixin(Rune.Mixins.Moveable);
         m2.moveable(m);
         expect(m2.vars.x).toEqual(10);
-        expect(m2.vars.y).toEqual(10);
+        expect(m2.vars.y).toEqual(15);
         expect(m2.vars.rotation).toEqual(45);
       });
 
@@ -34,8 +32,7 @@ describe("Rune.Mixins", function() {
     describe("move()", function() {
 
       it("moves absolute", function() {
-        m.vars.x = 100;
-        m.vars.y = 105;
+        setMoveableVars(m);
         var res = m.move(200, 205);
         expect(m.vars.x).toEqual(200);
         expect(m.vars.y).toEqual(205);
@@ -43,11 +40,10 @@ describe("Rune.Mixins", function() {
       });
 
       it("moves relative", function() {
-        m.vars.x = 100;
-        m.vars.y = 105;
+        setMoveableVars(m);
         var res = m.move(200, 205, true);
-        expect(m.vars.x).toEqual(300);
-        expect(m.vars.y).toEqual(310);
+        expect(m.vars.x).toEqual(210);
+        expect(m.vars.y).toEqual(220);
         expect(m).toEqual(res);
       });
 
@@ -56,14 +52,14 @@ describe("Rune.Mixins", function() {
     describe("rotate()", function() {
 
       it("rotates absolute", function() {
-        m.vars.rotation = 45;
+        setMoveableVars(m);
         var res = m.rotate(45);
         expect(m.vars.rotation).toEqual(45);
         expect(m).toEqual(res);
       });
 
       it("rotates relative", function() {
-        m.vars.rotation = 45;
+        setMoveableVars(m);
         var res = m.rotate(45, true);
         expect(m.vars.rotation).toEqual(90);
         expect(m).toEqual(res);
@@ -89,12 +85,11 @@ describe("Rune.Mixins", function() {
       });
 
       it("copies variables from object", function() {
-        m.vars.width = 10;
-        m.vars.height = 15;
+        setSizeableVars(m);
         var m2 = newMixin(Rune.Mixins.Sizeable);
         m2.sizeable(m);
-        expect(m2.vars.width).toEqual(10);
-        expect(m2.vars.height).toEqual(15);
+        expect(m2.vars.width).toEqual(300);
+        expect(m2.vars.height).toEqual(305);
       });
 
     });
@@ -119,7 +114,7 @@ describe("Rune.Mixins", function() {
       });
 
       it("copies variables from object", function() {
-        m.fill("#FF0000").stroke("#00FF00")
+        setStyleableVars(m);
         var m2 = newMixin(Rune.Mixins.Styleable);
         m2.styleable(m);
         expect(m2.vars.fill).toEqual(new Color().rgb(255, 0, 0));
@@ -127,8 +122,6 @@ describe("Rune.Mixins", function() {
       });
 
     });
-
-
 
     describe("fill()", function() {
 

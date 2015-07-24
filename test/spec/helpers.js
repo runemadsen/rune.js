@@ -8,6 +8,25 @@ function newMixin() {
   return new Mixed();
 }
 
+// Provides an easy way to set variables on shapes
+// that mix in the mixins.
+
+function setMoveableVars(shape) {
+  shape.vars.x = 10;
+  shape.vars.y = 15;
+  shape.vars.rotation = 45;
+}
+
+function setSizeableVars(shape) {
+  shape.vars.width = 300;
+  shape.vars.height = 305;
+}
+
+function setStyleableVars(shape) {
+  shape.vars.fill = new Color().rgb(255, 0, 0);
+  shape.vars.stroke = new Color().rgb(0, 255, 0);
+}
+
 function drawAllAnchors(path) {
   path.moveTo(100, 101)
     .moveTo(102, 103, true)
