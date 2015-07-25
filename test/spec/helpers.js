@@ -44,10 +44,10 @@ function setStyleableVars(shape) {
 }
 
 function setAllAnchors(path) {
-  path.moveTo(100, 101)
-    .moveTo(102, 103, true)
-    .lineTo(104, 105)
+  path.lineTo(104, 105)
     .lineTo(106, 107, true)
+    .moveTo(100, 101)
+    .moveTo(102, 103, true)
     .curveTo(108, 109, 110, 111, 112, 113)
     .curveTo(114, 115, 116, 117, 118, 119, true)
     .curveTo(120, 121, 122, 123)

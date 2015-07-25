@@ -2,12 +2,15 @@
 
 ### Must
 
-- [ ] Groups should bubble down changes to children, so all children know their true x and y
+- [ ] paths must start with a move command
+- [ ] mouseX and mouseY
 
 ### Nice to have 
 
+- [ ] Groups should bubble down changes to children, so all children know their true x and y
 - [ ] SVG parser
 - [ ] Framerate
+- [ ] frameCount
 
 ## Documentation
 
