@@ -2,7 +2,6 @@
 
 ### Must
 
-- [ ] Add `copy` function to groups
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
 
 ### Nice to have 
