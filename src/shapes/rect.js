@@ -12,7 +12,7 @@
     this.vars.height = height;
   };
 
-  _.extend(Rectangle.prototype, Rune.Mixins.Shapeable, Rune.Mixins.Moveable, Rune.Mixins.Sizeable, Rune.Mixins.Styleable, {
+  _.extend(Rectangle.prototype, Rune.Shapeable, Rune.Moveable, Rune.Sizeable, Rune.Styleable, {
 
     type: "rectangle",
 

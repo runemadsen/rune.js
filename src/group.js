@@ -15,7 +15,7 @@
   // Group functions
   // --------------------------------------------------
 
-  _.extend(Group.prototype, Rune.Mixins.Moveable, {
+  _.extend(Group.prototype, Rune.Moveable, {
 
     type: "group",
 

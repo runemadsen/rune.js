@@ -10,7 +10,7 @@
     if(y > 0) this.vars.y = y;
   };
 
-  _.extend(Path.prototype, Rune.Mixins.Shapeable, Rune.Mixins.Moveable, Rune.Mixins.Styleable, {
+  _.extend(Path.prototype, Rune.Shapeable, Rune.Moveable, Rune.Styleable, {
 
     type: "path",
 

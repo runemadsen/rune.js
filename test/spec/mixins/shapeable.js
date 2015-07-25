@@ -1,0 +1,3 @@
+describe("Rune.Shapeable", function() {
+
+});

@@ -10,7 +10,7 @@
     this.vars.radius = radius;
   };
 
-  _.extend(Circle.prototype, Rune.Mixins.Shapeable, Rune.Mixins.Moveable, Rune.Mixins.Styleable, {
+  _.extend(Circle.prototype, Rune.Shapeable, Rune.Moveable, Rune.Styleable, {
 
       type: "circle",
 

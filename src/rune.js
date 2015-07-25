@@ -31,6 +31,20 @@
     }
   }
 
+  Rune.RGB = "rgb";
+  Rune.HSB = "hsb";
+  Rune.MOVE = "move"
+  Rune.LINE = "line"
+  Rune.CUBIC = "cubic"
+  Rune.QUAD = "quad"
+  Rune.CLOSE = "close"
+  Rune.BUTT = "butt";
+  Rune.ROUND = "round";
+  Rune.SQUARE = "square";
+  Rune.MITER = "miter";
+  Rune.BEVEL = "bevel";
+
+
   _.extend(Rune.prototype, {
 
     // Shape functions
@@ -116,7 +130,7 @@
 
 })();
 
-//=require mixins.js
+//=require mixins/*.js
 //=require events.js
 //=require color.js
 //=require group.js

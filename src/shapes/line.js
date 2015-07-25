@@ -11,7 +11,7 @@
     this.vars.y2 = y2;
   };
 
-  _.extend(Line.prototype, Rune.Mixins.Shapeable, Rune.Mixins.Moveable, Rune.Mixins.Styleable, {
+  _.extend(Line.prototype, Rune.Shapeable, Rune.Moveable, Rune.Styleable, {
 
     type: "line",
 

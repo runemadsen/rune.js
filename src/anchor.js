@@ -1,11 +1,5 @@
 (function(Rune) {
 
-  Rune.MOVE = "move"
-  Rune.LINE = "line"
-  Rune.CUBIC = "cubic"
-  Rune.QUAD = "quad"
-  Rune.CLOSE = "close"
-
   var Anchor = Rune.Anchor = function() {
     this.relative = false;
   };

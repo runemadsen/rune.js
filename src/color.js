@@ -1,8 +1,5 @@
 (function(Rune) {
 
-  Rune.RGB = "rgb";
-  Rune.HSB = "hsb";
-
   Rune.Color = {
 
     // This is a proxy function to make a nicer color API
