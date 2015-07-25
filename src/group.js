@@ -15,7 +15,7 @@
   // Group functions
   // --------------------------------------------------
 
-  _.extend(Group.prototype, Rune.Moveable, {
+  _.extend(Group.prototype, Rune.Shapeable, Rune.Moveable, {
 
     type: "group",
 
@@ -28,6 +28,15 @@
     remove: function(child) {
       this.children = _.without(this.children, child);
       child.parent = false;
+    },
+
+    copy: function(group) {
+      var g = new Rune.Group();
+      this.shapeCopy(g, group);
+      _.each(this.children, function(child) {
+        child.copy(g);
+      });
+      return g;
     }
 
   });

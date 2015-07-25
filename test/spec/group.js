@@ -54,4 +54,36 @@ describe("Rune.Group", function() {
 
   });
 
+  describe("copy()", function() {
+
+    it("copies the object", function() {
+      var parent = new Rune.Group();
+      var parentEllipse = new Rune.Circle(10, 15, 300);
+      var child = new Rune.Group();
+      var childEllipse = new Rune.Circle(10, 15, 300);
+      setMixinVars(parent);
+      setMixinVars(parentEllipse);
+      setMixinVars(child);
+      setMixinVars(childEllipse);
+      parent.add(parentEllipse);
+      parent.add(child)
+      child.add(childEllipse);
+
+      var copy = parent.copy();
+      expect(copy === parent).toEqual(false);
+      expect(copy.children[0] === parentEllipse).toEqual(false);
+      expect(copy.children[1] === child).toEqual(false);
+      expect(copy.children[1].children[0] === childEllipse).toEqual(false);
+      expect(copy).toEqual(parent);
+    });
+
+    it("calls shapeCopy", function() {
+      var parent = new Rune.Group();
+      spyOn(parent, "shapeCopy");
+      parent.copy();
+      expect(parent.shapeCopy).toHaveBeenCalled();
+    });
+
+  });
+
 });

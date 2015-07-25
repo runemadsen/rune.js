@@ -16,9 +16,6 @@ describe("Rune", function() {
 
   });
 
-  // play????
-  // pause???
-
   describe("on()", function() {
 
     describe("draw", function() {
