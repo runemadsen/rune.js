@@ -29,6 +29,8 @@ function setMoveableVars(shape) {
   shape.vars.x = 10;
   shape.vars.y = 15;
   shape.vars.rotation = 45;
+  shape.vars.rotationX = 100;
+  shape.vars.rotationY = 105;
 }
 
 function setSizeableVars(shape) {

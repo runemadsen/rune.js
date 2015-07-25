@@ -43,7 +43,7 @@
 
     groupToSVG: function(group) {
       var attr = {}
-      this.transformAttribute(attr, group.vars.rotation, group.vars.x, group.vars.y);
+      this.transformAttribute(attr, group);
       return virtualdom.svg('g', attr, this.objectsToSVG(group.children));
     },
 
@@ -54,7 +54,7 @@
         width: rect.vars.width,
         height: rect.vars.height
       }
-      this.transformAttribute(attr, rect.vars.rotation);
+      this.transformAttribute(attr, rect);
       this.styleableAttributes(rect, attr);
       return virtualdom.svg('rect', attr);
     },
@@ -66,7 +66,7 @@
         rx: ellipse.vars.width,
         ry: ellipse.vars.height
       }
-      this.transformAttribute(attr, ellipse.vars.rotation);
+      this.transformAttribute(attr, ellipse);
       this.styleableAttributes(ellipse, attr);
       return virtualdom.svg('ellipse', attr);
     },
@@ -77,7 +77,7 @@
         cy: circle.vars.y,
         r: circle.vars.radius
       }
-      this.transformAttribute(attr, circle.vars.rotation);
+      this.transformAttribute(attr, circle);
       this.styleableAttributes(circle, attr);
       return virtualdom.svg('circle', attr);
     },
@@ -89,7 +89,7 @@
         x2: line.vars.x2,
         y2: line.vars.y2
       }
-      this.transformAttribute(attr, line.vars.rotation);
+      this.transformAttribute(attr, line);
       this.styleableAttributes(line, attr);
       return virtualdom.svg('line', attr);
     },
@@ -100,7 +100,7 @@
           return vec.x + " " + vec.y;
         }).join(" ")
       };
-      this.transformAttribute(attr, polygon.vars.rotation, polygon.vars.x, polygon.vars.y);
+      this.transformAttribute(attr, polygon);
       this.styleableAttributes(polygon, attr);
       return virtualdom.svg('polygon', attr);
     },
@@ -108,7 +108,7 @@
     pathToSVG: function(path) {
       var attr = {};
       this.dAttribute(path, attr);
-      this.transformAttribute(attr, path.vars.rotation, path.vars.x, path.vars.y);
+      this.transformAttribute(attr, path);
       this.styleableAttributes(path, attr);
       return virtualdom.svg('path', attr);
     },
@@ -136,10 +136,22 @@
     // Single attributes
     // --------------------------------------------------
 
-    transformAttribute: function(attr, rotation, x, y) {
-      var strings = []
-      if(rotation > 0)    strings.push("rotate(" + rotation + ")");
-      if(x > 0 || y > 0)  strings.push("translate(" + x + " " + y + ")");
+    transformAttribute: function(attr, shape) {
+
+      var vars = shape.vars;
+      var strings = [];
+
+      if(vars.rotation) {
+        var rot = "rotate(" + vars.rotation;
+        if(vars.rotationX || vars.rotationY)
+          rot += " " + vars.rotationX + " " + vars.rotationY;
+        strings.push(rot + ")");
+      }
+
+      if(vars.x || vars.y) {
+        strings.push("translate(" + vars.x + " " + vars.y + ")");
+      }
+
       attr.transform = strings.join(" ").trim();
     },
 

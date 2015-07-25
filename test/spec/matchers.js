@@ -56,12 +56,18 @@ beforeEach(function () {
 
     toHaveRotation : function() {
       return {
-        compare: function (jel, rotation) {
+        compare: function (jel, rotation, rotationX, rotationY) {
           var result = {
             pass: true,
             message: "yup"
           }
-          if(!jel.attr("transform") || jel.attr("transform").indexOf("rotate("+rotation+")") < 0) {
+
+          var attr = "rotate(" + rotation;
+          if(rotationX || rotationY)
+            attr += " " + rotationX + " " + rotationY;
+          attr += ")";
+
+          if(!jel.attr("transform") || jel.attr("transform").indexOf(attr) < 0) {
             result.pass = false;
             result.message = "Transform does not have rotation";
           }

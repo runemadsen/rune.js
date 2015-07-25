@@ -51,15 +51,19 @@ describe("Rune.Moveable", function() {
 
     it("rotates absolute", function() {
       setMoveableVars(m);
-      var res = m.rotate(45);
+      var res = m.rotate(45, 100, 105);
       expect(m.vars.rotation).toEqual(45);
+      expect(m.vars.rotationX).toEqual(100);
+      expect(m.vars.rotationY).toEqual(105);
       expect(m).toEqual(res);
     });
 
     it("rotates relative", function() {
       setMoveableVars(m);
-      var res = m.rotate(45, true);
+      var res = m.rotate(45, 100, 105, true);
       expect(m.vars.rotation).toEqual(90);
+      expect(m.vars.rotationX).toEqual(200);
+      expect(m.vars.rotationY).toEqual(210);
       expect(m).toEqual(res);
     });
 

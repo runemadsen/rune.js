@@ -2,7 +2,7 @@
 // --------------------------------------------------
 
 function drawShared(shape) {
-  shape.rotate(45)
+  shape.rotate(45, 100, 105)
     .fill(255, 0, 0)
     .stroke(0, 255, 0)
     .strokeWidth(5)
@@ -14,7 +14,7 @@ function drawShared(shape) {
 }
 
 function expectShared(jshape) {
-  expect(jshape).toHaveRotation(45);
+  expect(jshape).toHaveRotation(45, 100, 105);
   expect(jshape).toHaveAttr("fill", "#FF0000");
   expect(jshape).toHaveAttr("stroke", "#00FF00");
   expect(jshape).toHaveAttr("stroke-width", "5");
