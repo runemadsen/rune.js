@@ -2,14 +2,13 @@
 
 ### Must
 
-- [ ] `draw` function
-- [ ] `.rotate` with x and y axis
 - [ ] Add `copy` function to groups
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
 
 ### Nice to have 
 
 - [ ] SVG parser
+- [ ] Framerate
 
 ## Documentation
 
@@ -18,3 +17,4 @@
 - chaining and `.vars`
 - Path and `closePath()`. You can have multiple subpaths in one
 - rotation
+- `draw` event

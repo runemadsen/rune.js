@@ -31,6 +31,7 @@
     }
   }
 
+  Rune.DRAW = "draw";
   Rune.RGB = "rgb";
   Rune.HSB = "hsb";
   Rune.MOVE = "move"
@@ -92,6 +93,19 @@
       return path;
     },
 
+    // Playhead
+    // --------------------------------------------------
+
+    play: function() {
+      this.trigger(Rune.DRAW);
+      this.animationFrame = requestAnimationFrame(_.bind(this.play, this));
+      this.draw();
+    },
+
+    pause: function() {
+      cancelAnimationFrame(this.animationFrame);
+    },
+
     // Render functions
     // --------------------------------------------------
 
@@ -144,5 +158,5 @@
 //=require shapes/polygon.js
 //=require shapes/path.js
 
-//_.extend(Rune.prototype, Rune.Events)
+_.extend(Rune.prototype, Rune.Events)
 

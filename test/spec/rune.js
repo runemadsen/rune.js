@@ -16,6 +16,30 @@ describe("Rune", function() {
 
   });
 
+  // play????
+  // pause???
+
+  describe("on()", function() {
+
+    describe("draw", function() {
+
+      it("triggers draw event every 60fps", function(done) {
+        var mock = { draw: function(){} };
+        spyOn(mock, 'draw');
+        var r = new Rune();
+        r.on('draw', mock.draw);
+        r.play();
+        setTimeout(function() {
+          expect(mock.draw.calls.count() > 55).toBe(true)
+          expect(mock.draw.calls.count() < 65).toBe(true)
+          done();
+        }, 1000);
+      }, 1010);
+
+    });
+
+  });
+
   describe(".group()", function() {
 
     it("should create group", function() {
