@@ -2,11 +2,14 @@
 
 ### Must
 
-- [ ] paths must start with a move command
+- [ ] Download SVG file
+- [ ] Random functions like Processing
+- [ ] Singular values should be grayscale colors
 - [ ] mouseX and mouseY
 
 ### Nice to have 
 
+- [ ] Debug mode with all groups showing borders and all curves showing control points.
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
 - [ ] SVG parser
 - [ ] Framerate

@@ -120,6 +120,17 @@
 
     draw: function() {
       this.renderer.render(this.stage);
+    },
+
+    // Utils
+    // --------------------------------------------------
+
+    random: function(a, b) {
+      if(_.isUndefined(b)) {
+        b = a;
+        a = 0;
+      }
+      return a + (Math.random() * b);
     }
 
   });

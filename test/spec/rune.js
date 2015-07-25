@@ -170,6 +170,22 @@ describe("Rune", function() {
 
   });
 
+  describe("random()", function() {
+
+    it("works with only high", function() {
+      var ran = r.random(500);
+      expect(ran >= 0).toBe(true);
+      expect(ran <= 500).toBe(true);
+    });
+
+    it("works with low and high", function() {
+      var ran = r.random(500, 1000);
+      expect(ran >= 500).toBe(true);
+      expect(ran <= 1000).toBe(true);
+    });
+
+  });
+
   describe("Rune.addToGroup", function() {
 
     var child;
