@@ -59,7 +59,7 @@ beforeEach(function () {
         compare: function (jel, rotation, rotationX, rotationY) {
           var result = {
             pass: true,
-            message: "yup"
+            message: "Has rotation when it shouldn't"
           }
 
           var attr = "rotate(" + rotation;
@@ -81,7 +81,7 @@ beforeEach(function () {
         compare: function (jel, x, y) {
           var result = {
             pass: true,
-            message: "yup"
+            message: "Has translation when it shouldn't"
           }
           if(!jel.attr("transform") || jel.attr("transform").indexOf("translate("+ x + " " + y +")") < 0) {
             result.pass = false;

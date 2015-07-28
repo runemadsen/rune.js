@@ -88,6 +88,7 @@ describe("Rune.Render", function() {
         width: s.vars.width,
         height: s.vars.height
       });
+      expect(jshape).not.toHaveTranslation(100, 105);
       expectShared(jshape);
     });
 
@@ -108,6 +109,7 @@ describe("Rune.Render", function() {
         rx: s.vars.width,
         ry: s.vars.height
       });
+      expect(jshape).not.toHaveTranslation(100, 105);
       expectShared(jshape);
     });
 
@@ -127,6 +129,7 @@ describe("Rune.Render", function() {
         cy: s.vars.y,
         r: s.vars.radius
       });
+      expect(jshape).not.toHaveTranslation(100, 105);
       expectShared(jshape);
     });
 
@@ -147,6 +150,7 @@ describe("Rune.Render", function() {
         x2: s.vars.x2,
         y2: s.vars.y2
       });
+      expect(jshape).not.toHaveTranslation(100, 105);
       expectShared(jshape);
     });
 

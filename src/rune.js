@@ -130,7 +130,7 @@
         b = a;
         a = 0;
       }
-      return a + (Math.random() * b);
+      return a + (Math.random() * (b-a));
     }
 
   });

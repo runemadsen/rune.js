@@ -148,7 +148,7 @@
         strings.push(rot + ")");
       }
 
-      if(vars.x || vars.y) {
+      if((shape.type == "group" || shape.type == "path" || shape.type == "polygon") && (vars.x || vars.y)) {
         strings.push("translate(" + vars.x + " " + vars.y + ")");
       }
 
