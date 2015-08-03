@@ -2,8 +2,6 @@
 
 ### Must
 
-- [ ] mouseX and mouseY
-
 ### Nice to have 
 
 - [ ] Singular values should be grayscale colors
@@ -23,3 +21,4 @@
 - rotation
 - `draw` event
 - `random`
+- mousemove

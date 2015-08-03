@@ -29,6 +29,8 @@
         console.error("Container element not found");
       }
     }
+
+    this.initEvents();
   }
 
   Rune.DRAW = "draw";
@@ -47,6 +49,24 @@
 
 
   _.extend(Rune.prototype, {
+
+    // Events
+    // --------------------------------------------------
+
+    initEvents : function() {
+      this.initMouseMove();
+    },
+
+    initMouseMove : function() {
+      var mouseMove = _.bind(function(e) {
+        var bounds = this.renderer.el.getBoundingClientRect();
+        this.trigger('mousemove', {
+          x: e.pageX - bounds.left,
+          y: e.pageY - bounds.top
+        });
+      }, this);
+      document.addEventListener('mousemove', mouseMove, false);
+    },
 
     // Shape functions
     // --------------------------------------------------
@@ -131,6 +151,14 @@
         a = 0;
       }
       return a + (Math.random() * (b-a));
+    },
+
+    degrees: function(radians) {
+      return radians * (180/Math.PI);
+    },
+
+    radians: function(degrees) {
+      return degrees * (Math.PI/180);
     }
 
   });

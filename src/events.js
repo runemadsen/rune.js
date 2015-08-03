@@ -25,8 +25,7 @@
     trigger: function(name) {
       if (this._events && this._events[name]) {
         var theseEvents = this._events[name];
-        var args = (arguments.length > 1) ? arguments[1] : [];
-
+        var args = (arguments.length > 1) ? [arguments[1]] : [];
         var i = theseEvents.length;
         while (i--) {
           theseEvents[i].apply(this, args);
