@@ -12,6 +12,7 @@
 
 ## Documentation
 
+- Constructor options (width, height, framerate, etc)
 - Different shape types
 - The way `.move` works for all polygons and shapes, as well as x, y and translate
 - chaining and `.vars`
