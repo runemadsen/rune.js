@@ -10,7 +10,8 @@
     var params = _.defaults(options || {}, {
       width: 640,
       height: 480,
-      debug: false
+      debug: false,
+      frameRate: 60
     });
 
     this.width = params.width;
@@ -19,6 +20,7 @@
     this.stage = new Rune.Group();
     this.debug = params.debug;
     this.frameCount = 1;
+    this.frameRate = params.frameRate;
 
     if(params.container) {
 
@@ -120,6 +122,11 @@
     // --------------------------------------------------
 
     play: function() {
+      if(this.frameRate >= 60)  this.playNow();
+      else                      setTimeout(_.bind(this.playNow, this), 1000 / this.frameRate);
+    },
+
+    playNow: function() {
       this.trigger(Rune.DRAW, { frameCount: this.frameCount });
       this.animationFrame = requestAnimationFrame(_.bind(this.play, this));
       this.draw();
