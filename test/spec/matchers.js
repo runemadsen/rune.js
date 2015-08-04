@@ -156,41 +156,23 @@ beforeEach(function () {
 
     toBeAnchorCubic: function () {
       return {
-        compare: function (vector, a, b, c, d, e, f, g) {
+        compare: function (anchor, a, b, c, d, e, f, g) {
 
-          var an = new Rune.Anchor();
-          an.command = Rune.CUBIC;
-          an.vec1 = new Rune.Vector(a, b);
-          an.vec2 = new Rune.Vector(c, d);
-
-          var msg = "";
-          var pass = vector.command == an.command;
-          pass = pass && vector.vec1.x == an.vec1.x;
-          pass = pass && vector.vec1.y == an.vec1.y;
-          pass = pass && vector.vec2.x == an.vec2.x;
-          pass = pass && vector.vec2.y == an.vec2.y;
+          var expected = new Rune.Anchor();
+          expected.command = Rune.CUBIC;
+          expected.vec1 = new Rune.Vector(a, b);
+          expected.vec2 = new Rune.Vector(c, d);
 
           if(_.isNumber(e)) {
-            an.relative = g;
-            an.vec3 = new Rune.Vector(e, f)
-            pass = pass && vector.vec3.x == an.vec3.x;
-            pass = pass && vector.vec3.y == an.vec3.y;
+            expected.relative = g;
+            expected.vec3 = new Rune.Vector(e, f)
           } else {
-            an.relative = e;
-            pass = pass && _.isUndefined(vector.vec3);
-          }
-
-          pass = pass && vector.relative == an.relative;
-
-          if (pass) {
-            msg = "Expected not to match";
-          } else {
-            msg = "Expected " + JSON.stringify(vector) + " to match " + JSON.stringify(an);
+            expected.relative = e;
           }
 
           return {
-            pass: pass,
-            message: msg
+            pass: _.isEqual(anchor, expected),
+            message: "Actual: " + JSON.stringify(anchor) + ", expected: " + JSON.stringify(expected)
           };
         }
       };
@@ -198,35 +180,22 @@ beforeEach(function () {
 
     toBeAnchorQuad: function () {
       return {
-        compare: function (vector, a, b, c, d, e) {
+        compare: function (anchor, a, b, c, d, e) {
 
-          var msg = "";
-          var pass = vector.command == Rune.QUAD;
-          pass = pass && vector.vec1.x == a;
-          pass = pass && vector.vec1.y == b;
-
+          var expected = new Rune.Anchor();
+          expected.command = Rune.QUAD;
+          expected.vec1 = new Rune.Vector(a, b);
           if(_.isNumber(c)) {
-            pass = pass && vector.vec2.x == c;
-            pass = pass && vector.vec2.y == d;
-            pass = pass && vector.relative == e;
+            expected.vec2 = new Rune.Vector(c, d);
+            expected.relative = e === true;
           } else {
-            pass = pass && vector.relative == c;
-            pass = pass && _.isUndefined(vector.vec2);
-          }
-
-          pass = pass && _.isUndefined(vector.vec3);
-
-
-          if (pass) {
-            msg = "Expected not to match";
-          } else {
-            msg = "Expected to match";
+            expected.relative = c === true;
           }
 
           return {
-            pass: pass,
-            message: msg
-          };
+            pass: _.isEqual(anchor, expected),
+            message: "Actual: " + JSON.stringify(anchor) + ", expected: " + JSON.stringify(expected)
+          }
         }
       };
     },

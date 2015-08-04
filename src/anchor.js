@@ -35,25 +35,31 @@
 
     setCurve: function(a, b, c, d, e, f, g) {
 
-      if(a == Rune.QUAD) {
-        this.command = Rune.QUAD;
-        this.vec1 = new Rune.Vector(b, c);
-        if(_.isNumber(d)) {
-          this.vec2 = new Rune.Vector(d, e);
-          if(f) this.relative = true;
-        } else {
-          if(d) this.relative = true;
-        }
-      } else {
+      // if we have 6 or more arguments, we create
+      // a cubic bezier with 2 control points.
+      if(!_.isUndefined(f)) {
         this.command = Rune.CUBIC;
         this.vec1 = new Rune.Vector(a, b);
         this.vec2 = new Rune.Vector(c, d);
-        if(_.isNumber(e)) {
-          this.vec3 = new Rune.Vector(e, f);
-          if(g) this.relative = true;
-        } else {
-          if(e === true) this.relative = true;
-        }
+        this.vec3 = new Rune.Vector(e, f);
+        if(g === true)  this.relative = true;
+      }
+
+      // else if we have 4 or more arguments, we create
+      // a quad bezier with 1 control point.
+      else if(!_.isUndefined(d)) {
+        this.command = Rune.QUAD;
+        this.vec1 = new Rune.Vector(a, b);
+        this.vec2 = new Rune.Vector(c, d);
+        if(e === true)  this.relative = true;
+      }
+
+      // else we create an automatic quad bezier
+      // with no control points.
+      else {
+        this.vec1 = new Rune.Vector(a, b);
+        this.command = Rune.QUAD;
+        if(c === true)  this.relative = true;
       }
 
       return this;

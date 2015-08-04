@@ -8,6 +8,7 @@ However, while teaching [my algorithmic graphic design course](http://printingco
 
 My main goal for the project is to make `rune.js` the best library for making 2D design systems in code. Here's a quick overview of what I'm working towards:
 
+- **No DOM or CSS knowledge required**. Like Processing or P5, the library should abstract DOM-specifics into the API.
 - **Beautiful drawing API**. Make it pleasant to draw any type of shape via code.
 - **Vector output**. Focus on SVG output, which is a great fit for both print and digital designers.
 - **Scene graph**. Make a powerful scene graph that beginners can ignore, and advanced users will grow to love.
