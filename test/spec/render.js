@@ -206,6 +206,31 @@ describe("Rune.Render", function() {
 
   });
 
+  describe("Debug mode", function() {
+
+    it("should not render if debug false");
+
+    it("should render cubic curve helpers", function() {
+      r.debug = true;
+      var p = r.path();
+      p.curveTo(100, 105, 200, 205, 300, 305).closeShape();
+      r.draw();
+
+      expect(jel.find('line').length).toBe(2);
+      expect(jel.find('line')[0]).toHaveAttrs({x1: 0, y1: 0, x2:100, y2:105});
+      expect(jel.find('line')[1]).toHaveAttrs({x1: 200, y1: 205, x2:300, y2:305});
+
+      expect(jel.find('circle').length).toBe(4);
+      expect(jel.find('circle')[0]).toHaveAttrs({cx: 0, cy: 0});
+      expect(jel.find('circle')[1]).toHaveAttrs({cx: 100, cy: 105});
+      expect(jel.find('circle')[2]).toHaveAttrs({cx: 200, cy: 205});
+      expect(jel.find('circle')[3]).toHaveAttrs({cx: 300, cy: 305});
+    });
+
+    it("should render quad curve helpers");
+
+  })
+
   // MAKE A COMPLEX TEST THAT HAS A BUNCH OF GROUPS
   // NESTED IN EACH OTHER, etc.
 

@@ -57,8 +57,8 @@
       // else we create an automatic quad bezier
       // with no control points.
       else {
-        this.vec1 = new Rune.Vector(a, b);
         this.command = Rune.QUAD;
+        this.vec1 = new Rune.Vector(a, b);
         if(c === true)  this.relative = true;
       }
 

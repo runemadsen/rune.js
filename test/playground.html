@@ -17,25 +17,18 @@
     var r = new Rune({
       container: ".container",
       width: 500,
-      height: 400
+      height: 400,
+      debug: true
     });
 
-    // back
-    r.rect(0, 0, r.width, r.height)
-      .fill("#f5f5f5")
-      .stroke(false);
+    var wave = r.path(100, 100)
+      .curveTo(0, 0, 50, -100, 100, 0)
+      .curveTo(100, 0, 150, 100, 200, 0)
+      .curveTo(200, 0, 250, -100, 300, 0)
+      .lineTo(300, 200)
+      .lineTo(0, 200)
+      .closeShape();
 
-    // front
-    r.rect(100, 100, 300, 200)
-      .fill("#FF0000")
-      .stroke(0, 0, 0)
-      .strokeWidth(7);
-
-    r.on('mousemove', function(mouse) {
-      console.log(mouse.x, mouse.y);
-    });
-
-    // draw
     r.draw();
 
   </script>

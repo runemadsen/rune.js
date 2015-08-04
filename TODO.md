@@ -2,11 +2,12 @@
 
 ### Must
 
+- [ ] Debug mode with all groups showing borders and all curves showing control points.
+
 ### Nice to have 
 
 - [ ] Singular values should be grayscale colors
 - [ ] Download SVG file (use SVG Crowbar)
-- [ ] Debug mode with all groups showing borders and all curves showing control points.
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
 - [ ] SVG parser
 - [ ] Framerate
@@ -22,3 +23,4 @@
 - `draw` event
 - `random`
 - mousemove
+- debug mode

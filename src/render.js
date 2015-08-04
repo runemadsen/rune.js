@@ -15,12 +15,12 @@
 
   _.extend(Render.prototype, {
 
-    render: function(stage) {
+    render: function(stage, opts) {
 
       var newTree = virtualdom.svg('svg', {
         width: this.params.width,
         height: this.params.height
-      }, [this.objectsToSVG(stage.children)]);
+      }, [this.objectsToSVG(stage.children, opts)]);
 
       var diff = virtualdom.diff(this.tree, newTree);
       this.el = virtualdom.patch(this.el, diff);
@@ -30,15 +30,18 @@
     // Shape converters
     // --------------------------------------------------
 
-    objectToSVG: function(object) {
+    objectToSVG: function(object, opts) {
       if(this[object.type + "ToSVG"])
-        return this[object.type + "ToSVG"](object);
+        return this[object.type + "ToSVG"](object, opts);
       else
         console.error("Rune.Render: Object not recognized", object)
     },
 
-    objectsToSVG: function(objects) {
-      return _.map(objects, _.bind(this.objectToSVG, this));
+    objectsToSVG: function(objects, opts) {
+      var objects = _.map(objects, _.bind(function(object) {
+        return this.objectToSVG(object, opts);
+      }, this));
+      return _.flatten(objects, true);
     },
 
     groupToSVG: function(group) {
@@ -105,12 +108,49 @@
       return virtualdom.svg('polygon', attr);
     },
 
-    pathToSVG: function(path) {
+    pathToSVG: function(path, opts) {
       var attr = {};
       this.dAttribute(path, attr);
       this.transformAttribute(attr, path);
       this.styleableAttributes(path, attr);
-      return virtualdom.svg('path', attr);
+
+      var els = [
+        virtualdom.svg('path', attr)
+      ];
+
+      if(opts && opts.debug) els = els.concat(this.debugPathToSVG(path));
+      return els;
+    },
+
+    // Debug
+    // --------------------------------------------------
+
+    debugPathToSVG: function(path) {
+
+      var t = this;
+      var els = [];
+
+      _.each(path.vars.anchors, function(a, i) {
+        if(a.command == Rune.CUBIC){
+
+          // beginning anchor
+          var begin = path.vars.anchors[i - 1];
+          els.push(t.circleToSVG(new Rune.Circle(begin.vec1.x, begin.vec1.y, 5)));
+
+          // all other anchors
+          for(var i = 1; i < 4; i++) {
+            els.push(t.circleToSVG(new Rune.Circle(a["vec"+i].x, a["vec"+i].y, 5)));
+          }
+
+          els.push(t.lineToSVG(new Rune.Line(begin.vec1.x, begin.vec1.y, a.vec1.x, a.vec1.y)));
+          els.push(t.lineToSVG(new Rune.Line(a.vec2.x, a.vec2.y, a.vec3.x, a.vec3.y)));
+        }
+        else if(a.command == Rune.QUAD){
+          //return (a.relative ? "q" : "Q") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y].join(' ');
+        }
+      });
+
+      return els;
     },
 
     // Mixin converters
@@ -152,7 +192,8 @@
         strings.push("translate(" + vars.x + " " + vars.y + ")");
       }
 
-      attr.transform = strings.join(" ").trim();
+      if(strings.length > 0)
+        attr.transform = strings.join(" ").trim();
     },
 
     dAttribute: function(object, attr) {

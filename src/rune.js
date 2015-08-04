@@ -9,13 +9,15 @@
 
     var params = _.defaults(options || {}, {
       width: 640,
-      height: 480
+      height: 480,
+      debug: false
     });
 
     this.width = params.width;
     this.height = params.height;
     this.renderer = new Rune.Render(params);
     this.stage = new Rune.Group();
+    this.debug = params.debug;
 
     if(params.container) {
 
@@ -139,7 +141,7 @@
     },
 
     draw: function() {
-      this.renderer.render(this.stage);
+      this.renderer.render(this.stage, { debug: this.debug });
     },
 
     // Utils

@@ -25,6 +25,7 @@ beforeEach(function () {
     toHaveAttr : function() {
       return {
         compare: function (jel, k, v) {
+          jel = $(jel);
           var result = {
             pass: true,
             message: "yup"
@@ -41,6 +42,7 @@ beforeEach(function () {
     toHaveAttrs : function() {
       return {
         compare: function (jel, attrs) {
+          jel = $(jel);
           var result = {
             message: ""
           }
