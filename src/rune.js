@@ -18,6 +18,7 @@
     this.renderer = new Rune.Render(params);
     this.stage = new Rune.Group();
     this.debug = params.debug;
+    this.frameCount = 1;
 
     if(params.container) {
 
@@ -119,7 +120,7 @@
     // --------------------------------------------------
 
     play: function() {
-      this.trigger(Rune.DRAW);
+      this.trigger(Rune.DRAW, { frameCount: this.frameCount });
       this.animationFrame = requestAnimationFrame(_.bind(this.play, this));
       this.draw();
     },
@@ -142,6 +143,7 @@
 
     draw: function() {
       this.renderer.render(this.stage, { debug: this.debug });
+      this.frameCount += 1;
     },
 
     // Utils

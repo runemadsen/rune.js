@@ -3,8 +3,8 @@
 
 function drawShared(shape) {
   shape.rotate(45, 100, 105)
-    .fill(255, 0, 0)
-    .stroke(0, 255, 0)
+    .fill(255, 0, 0, 0.5)
+    .stroke(0, 255, 0, 0.6)
     .strokeWidth(5)
     .strokeCap(Rune.ROUND)
     .strokeJoin(Rune.MITER)
@@ -15,8 +15,8 @@ function drawShared(shape) {
 
 function expectShared(jshape) {
   expect(jshape).toHaveRotation(45, 100, 105);
-  expect(jshape).toHaveAttr("fill", "#FF0000");
-  expect(jshape).toHaveAttr("stroke", "#00FF00");
+  expect(jshape).toHaveAttr("fill", "rgba(255, 0, 0, 0.5)");
+  expect(jshape).toHaveAttr("stroke", "rgba(0, 255, 0, 0.6)");
   expect(jshape).toHaveAttr("stroke-width", "5");
   expect(jshape).toHaveAttr("stroke-linecap", "round");
   expect(jshape).toHaveAttr("stroke-linejoin", "miter");
@@ -48,7 +48,7 @@ describe("Rune.Render", function() {
 
     // using rectangle here, but I'm testing shared functionality
 
-    it("should not render false vars", function() {
+    it("should handle false vars", function() {
       var s = r.rect(0, 0, 0, 0)
         .fill(false)
         .stroke(false)
@@ -61,8 +61,8 @@ describe("Rune.Render", function() {
       r.draw();
       var jshape = jel.children().first();
       expect(jshape).toBeTag("rect");
-      expect(jshape.attr('fill')).toBeUndefined()
-      expect(jshape.attr('stroke')).toBeUndefined()
+      expect(jshape.attr('fill')).toEqual("none");
+      expect(jshape.attr('stroke')).toEqual("none");
       expect(jshape.attr('stroke-width')).toBeUndefined()
       expect(jshape.attr('stroke-linecap')).toBeUndefined()
       expect(jshape.attr('stroke-linejoin')).toBeUndefined()

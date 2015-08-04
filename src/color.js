@@ -6,13 +6,24 @@
     // for Rune, while using Color.js objects. It takes
     // the input for any color functions and return a color
     // object.
-    inputToColor: function(a, b, c, d) {
-      if(a == Rune.HSB)
-        return new Color({h:b, s:c, v:d});
-      else if(_.isString(a))
-        return new Color(a);
-      else
-        return new Color({r:a, g:b, b:c});
+    inputToColor: function(a, b, c, d, e) {
+
+      var color;
+
+      if(a == Rune.HSB) {
+        color = new Color({h:b, s:c, v:d});
+        if(e) color.alpha(e);
+      }
+      else if(_.isString(a)) {
+        color = new Color(a);
+        if(b) color.alpha(b);
+      }
+      else {
+        color = new Color({r:a, g:b, b:c});
+        if(d) color.alpha(d);
+      }
+
+      return color;
     }
 
   };

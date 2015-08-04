@@ -2,8 +2,8 @@ var Styleable = Rune.Styleable = {
 
   styleable: function(copy) {
     this.vars = this.vars || {};
-    this.vars.fill = copy ? copy.vars.fill.clone() : new Color().rgb(128, 128, 128);
-    this.vars.stroke = copy ? copy.vars.stroke.clone() : new Color().rgb(0, 0, 0);
+    this.vars.fill = copy && copy.vars.fill ? copy.vars.fill.clone() : new Color().rgb(128, 128, 128);
+    this.vars.stroke = copy && copy.vars.stroke ? copy.vars.stroke.clone() : new Color().rgb(0, 0, 0);
   },
 
   fill: function(a, b, c, d) {

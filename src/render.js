@@ -171,9 +171,14 @@
     },
 
     styleableAttributes: function(object, attr) {
-      if(object.vars.fill)              attr.fill = object.vars.fill.hexString();
-      if(object.vars.stroke)            attr.stroke = object.vars.stroke.hexString();
-      if(object.vars.fill)              attr.fill = object.vars.fill.hexString();
+
+      if(object.vars.fill === false)    attr.fill = "none";
+      else if(object.vars.fill)         attr.fill = object.vars.fill.rgbString();
+
+      if(object.vars.stroke === false)  attr.stroke = "none";
+      else if(object.vars.stroke)       attr.stroke = object.vars.stroke.rgbString();
+
+      if(object.vars.fill)              attr.fill = object.vars.fill.rgbString();
       if(object.vars.strokeWidth)       attr["stroke-width"] = object.vars.strokeWidth;
       if(object.vars.strokeCap)         attr["stroke-linecap"] = object.vars.strokeCap;
       if(object.vars.strokeJoin)        attr["stroke-linejoin"] = object.vars.strokeJoin;

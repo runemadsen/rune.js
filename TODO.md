@@ -2,8 +2,6 @@
 
 ### Must
 
-- [ ] Debug mode with all groups showing borders and all curves showing control points.
-
 ### Nice to have 
 
 - [ ] Singular values should be grayscale colors
@@ -11,7 +9,6 @@
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
 - [ ] SVG parser
 - [ ] Framerate
-- [ ] frameCount
 
 ## Documentation
 
@@ -20,7 +17,7 @@
 - chaining and `.vars`
 - Path and `closePath()`. You can have multiple subpaths in one
 - rotation
-- `draw` event
+- `draw` event and `play` and `pause`
 - `random`
 - mousemove
 - debug mode
