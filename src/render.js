@@ -132,16 +132,17 @@
 
       _.each(path.vars.anchors, function(a, i) {
         if(a.command == Rune.CUBIC){
-
           els.push(t.debugLine(path.vars.x + a.vec1.x, path.vars.y + a.vec1.y, path.vars.x + a.vec3.x, path.vars.y + a.vec3.y));
           els.push(t.debugLine(path.vars.x + a.vec2.x, path.vars.y + a.vec2.y, path.vars.x + a.vec3.x, path.vars.y + a.vec3.y));
           for(var i = 1; i < 4; i++) {
             els.push(t.debugCircle(path.vars.x + a["vec"+i].x, path.vars.y + a["vec"+i].y))
           }
-
         }
-        else if(a.command == Rune.QUAD){
-          //return (a.relative ? "q" : "Q") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y].join(' ');
+        else if(a.command == Rune.QUAD && !_.isUndefined(a.vec2)){
+          els.push(t.debugLine(path.vars.x + a.vec1.x, path.vars.y + a.vec1.y, path.vars.x + a.vec2.x, path.vars.y + a.vec2.y));
+          for(var i = 1; i < 3; i++) {
+            els.push(t.debugCircle(path.vars.x + a["vec"+i].x, path.vars.y + a["vec"+i].y))
+          }
         }
       });
 

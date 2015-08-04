@@ -208,9 +208,16 @@ describe("Rune.Render", function() {
 
   describe("Debug mode", function() {
 
-    it("should not render if debug false");
+    it("should not render if debug false", function() {
+      var p = r.path(10, 10);
+      p.curveTo(100, 105, 200, 205, 300, 305).closeShape();
+      r.draw();
+      expect(jel.find('line').length).toBe(0);
+      expect(jel.find('circle').length).toBe(0);
+    });
 
     it("should render cubic curve helpers", function() {
+
       r.debug = true;
       var p = r.path(10, 10);
       p.curveTo(100, 105, 200, 205, 300, 305).closeShape();
@@ -226,7 +233,21 @@ describe("Rune.Render", function() {
       expect(jel.find('circle')[2]).toHaveAttrs({cx: 310, cy: 315});
     });
 
-    it("should render quad curve helpers");
+    it("should render quad curve helpers", function() {
+
+      r.debug = true;
+      var p = r.path(10, 10);
+      p.curveTo(200, 205, 300, 305).closeShape();
+      r.draw();
+
+      expect(jel.find('line').length).toBe(1);
+      expect(jel.find('line')[0]).toHaveAttrs({x1: 210, y1: 215, x2:310, y2:315});
+
+      expect(jel.find('circle').length).toBe(2);
+      expect(jel.find('circle')[0]).toHaveAttrs({cx: 210, cy: 215});
+      expect(jel.find('circle')[1]).toHaveAttrs({cx: 310, cy: 315});
+
+    });
 
   })
 
