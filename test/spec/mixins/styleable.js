@@ -23,6 +23,15 @@ describe("Rune.Styleable", function() {
       expect(m2.vars.stroke).toEqual(m.vars.stroke);
     });
 
+    it("copies false variables from object", function() {
+      m.fill(false);
+      m.stroke(false);
+      var m2 = newMixin(Rune.Styleable);
+      m2.styleable(m);
+      expect(m2.vars.fill).toBe(false);
+      expect(m2.vars.stroke).toBe(false);
+    });
+
     it("copies zero colors", function() {
       var m2 = newMixin(Rune.Styleable);
       m2.styleable(m);
