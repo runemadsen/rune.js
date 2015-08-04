@@ -133,17 +133,12 @@
       _.each(path.vars.anchors, function(a, i) {
         if(a.command == Rune.CUBIC){
 
-          // beginning anchor
-          var begin = path.vars.anchors[i - 1];
-          els.push(t.circleToSVG(new Rune.Circle(begin.vec1.x, begin.vec1.y, 5)));
-
-          // all other anchors
+          els.push(t.debugLine(path.vars.x + a.vec1.x, path.vars.y + a.vec1.y, path.vars.x + a.vec3.x, path.vars.y + a.vec3.y));
+          els.push(t.debugLine(path.vars.x + a.vec2.x, path.vars.y + a.vec2.y, path.vars.x + a.vec3.x, path.vars.y + a.vec3.y));
           for(var i = 1; i < 4; i++) {
-            els.push(t.circleToSVG(new Rune.Circle(a["vec"+i].x, a["vec"+i].y, 5)));
+            els.push(t.debugCircle(path.vars.x + a["vec"+i].x, path.vars.y + a["vec"+i].y))
           }
 
-          els.push(t.lineToSVG(new Rune.Line(begin.vec1.x, begin.vec1.y, a.vec1.x, a.vec1.y)));
-          els.push(t.lineToSVG(new Rune.Line(a.vec2.x, a.vec2.y, a.vec3.x, a.vec3.y)));
         }
         else if(a.command == Rune.QUAD){
           //return (a.relative ? "q" : "Q") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y].join(' ');
@@ -151,6 +146,19 @@
       });
 
       return els;
+    },
+
+    debugCircle : function(x, y) {
+      var c = new Rune.Circle(x, y, 4)
+        .fill(212, 18, 229)
+        .stroke(false);
+      return this.circleToSVG(c);
+    },
+
+    debugLine : function(x1, y1, x2, y2) {
+      var l = new Rune.Line(x1, y1, x2, y2)
+        .stroke(212, 18, 229);
+      return this.lineToSVG(l);
     },
 
     // Mixin converters

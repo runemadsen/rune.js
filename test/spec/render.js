@@ -212,19 +212,18 @@ describe("Rune.Render", function() {
 
     it("should render cubic curve helpers", function() {
       r.debug = true;
-      var p = r.path();
+      var p = r.path(10, 10);
       p.curveTo(100, 105, 200, 205, 300, 305).closeShape();
       r.draw();
 
       expect(jel.find('line').length).toBe(2);
-      expect(jel.find('line')[0]).toHaveAttrs({x1: 0, y1: 0, x2:100, y2:105});
-      expect(jel.find('line')[1]).toHaveAttrs({x1: 200, y1: 205, x2:300, y2:305});
+      expect(jel.find('line')[0]).toHaveAttrs({x1: 110, y1: 115, x2:310, y2:315});
+      expect(jel.find('line')[1]).toHaveAttrs({x1: 210, y1: 215, x2:310, y2:315});
 
-      expect(jel.find('circle').length).toBe(4);
-      expect(jel.find('circle')[0]).toHaveAttrs({cx: 0, cy: 0});
-      expect(jel.find('circle')[1]).toHaveAttrs({cx: 100, cy: 105});
-      expect(jel.find('circle')[2]).toHaveAttrs({cx: 200, cy: 205});
-      expect(jel.find('circle')[3]).toHaveAttrs({cx: 300, cy: 305});
+      expect(jel.find('circle').length).toBe(3);
+      expect(jel.find('circle')[0]).toHaveAttrs({cx: 110, cy: 115});
+      expect(jel.find('circle')[1]).toHaveAttrs({cx: 210, cy: 215});
+      expect(jel.find('circle')[2]).toHaveAttrs({cx: 310, cy: 315});
     });
 
     it("should render quad curve helpers");
