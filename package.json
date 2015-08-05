@@ -14,6 +14,7 @@
     "virtual-dom": "^2.0.1",
     "browserify": "^11.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "color": "^0.10.1"
+    "color-convert": "^0.5.3",
+    "color-string": "^0.3.0"
   }
 }

@@ -11,8 +11,8 @@ describe("Rune.Styleable", function() {
 
     it("assigns default variable", function() {
       expect(typeof m.styleable).toEqual("function");
-      expect(m.vars.fill).toEqual(new Color().rgb(128, 128, 128));
-      expect(m.vars.stroke).toEqual(new Color().rgb(0, 0, 0));
+      expect(m.vars.fill.rgbArray()).toEqual([128, 128, 128]);
+      expect(m.vars.stroke.rgbArray()).toEqual([0, 0, 0]);
     });
 
     it("copies variables from object", function() {
@@ -45,7 +45,7 @@ describe("Rune.Styleable", function() {
 
     it("sets fill to color", function() {
       var res = m.fill("#ff0000");
-      expect(m.vars.fill).toEqual(new Color().rgb(255, 0, 0));
+      expect(m.vars.fill.rgbArray()).toEqual([255, 0, 0]);
       expect(m).toEqual(res);
     });
 
@@ -60,7 +60,7 @@ describe("Rune.Styleable", function() {
 
     it("sets stroke to color", function() {
       var res = m.stroke("#ff0000");
-      expect(m.vars.stroke).toEqual(new Color().rgb(255, 0, 0));
+      expect(m.vars.stroke.rgbArray()).toEqual([255, 0, 0]);
       expect(m).toEqual(res);
     });
 

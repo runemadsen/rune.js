@@ -3,27 +3,27 @@ var Styleable = Rune.Styleable = {
   styleable: function(copy) {
 
     this.vars = this.vars || {};
-    this.vars.fill = new Color().rgb(128, 128, 128);
-    this.vars.stroke = new Color().rgb(0, 0, 0);
+    this.vars.fill = new Rune.Color(128);
+    this.vars.stroke = new Rune.Color(0);
 
     if(copy) {
       if(copy.vars.fill === false)  this.vars.fill = false;
-      else if(copy.vars.fill)       this.vars.fill = copy.vars.fill.clone();
+      else if(copy.vars.fill)       this.vars.fill = copy.vars.fill.copy();
 
       if(copy.vars.stroke === false)  this.vars.stroke = false;
-      else if(copy.vars.stroke)       this.vars.stroke = copy.vars.stroke.clone();
+      else if(copy.vars.stroke)       this.vars.stroke = copy.vars.stroke.copy();
     }
   },
 
-  fill: function(a, b, c, d) {
+  fill: function(a, b, c, d, e) {
     if(a === false) this.vars.fill = false;
-    else            this.vars.fill = Rune.Color.inputToColor(a, b, c, d);
+    else            this.vars.fill = new Rune.Color(a, b, c, d, e);
     return this;
   },
 
-  stroke: function(a, b, c, d) {
+  stroke: function(a, b, c, d, e) {
     if(a === false) this.vars.stroke = false;
-    else            this.vars.stroke = Rune.Color.inputToColor(a, b, c, d);
+    else            this.vars.stroke = new Rune.Color(a, b, c, d, e);
     return this;
   },
 

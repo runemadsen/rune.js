@@ -2,9 +2,13 @@
 
 ### Must
 
+- [ ] Colors should `%` if values higher than needed
+- [ ] Be able to pass a Color into fill and stroke
+- [ ] All `Rune.` constants should be accessible as `r.`
+
 ### Nice to have 
 
-- [ ] Singular values should be grayscale colors
+- [ ] Default styleable settings
 - [ ] Download SVG file (use SVG Crowbar)
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
 - [ ] SVG parser
@@ -24,3 +28,4 @@
 - `random`
 - mousemove
 - debug mode
+- Link to color documentation

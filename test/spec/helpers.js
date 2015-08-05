@@ -39,8 +39,8 @@ function setSizeableVars(shape) {
 }
 
 function setStyleableVars(shape) {
-  shape.vars.fill = new Color().rgb(255, 0, 0);
-  shape.vars.stroke = new Color().rgb(0, 255, 0);
+  shape.vars.fill = new Rune.Color(255, 0, 0);
+  shape.vars.stroke = new Rune.Color(0, 255, 0);
 }
 
 function setAllAnchors(path) {

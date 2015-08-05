@@ -1,1 +1,2 @@
-window.Color = require('color');
+window.colorConvert = require('color-convert');
+window.colorString = require('color-string');

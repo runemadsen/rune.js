@@ -1,41 +1,92 @@
 describe("Rune.Color", function() {
 
-  describe(".inputToColor", function() {
+  // ADD ALL TESTS FROM COLOR.JS
+
+  describe("constructor", function() {
 
     it("works from hex", function() {
-      var col1 = Rune.Color.inputToColor("#FF0000");
-      var col2 = new Color().rgb(255, 0, 0);
-      expect(col1).toEqual(col2);
+      var col1 = new Rune.Color("#FF0000");
+      expect(col1.rgb()).toEqual({
+        r:255,
+        g:0,
+        b:0
+      });
     });
 
     it("works from hex alpha", function() {
-      var col1 = Rune.Color.inputToColor("#FF0000", 0.5);
-      var col2 = new Color().rgb(255, 0, 0).alpha(0.5);
-      expect(col1).toEqual(col2);
+      var col1 = new Rune.Color("#FF0000", 0.5);
+      expect(col1.rgb()).toEqual({
+        r:255,
+        g:0,
+        b:0,
+        a:0.5
+      });
+    });
+
+    it("works from grayscale", function() {
+      var col1 = new Rune.Color(120);
+      expect(col1.rgb()).toEqual({
+        r:120,
+        g:120,
+        b:120
+      });
+    });
+
+    it("works from grayscale alpha", function() {
+      var col1 = new Rune.Color(120, 0.5);
+      expect(col1.rgb()).toEqual({
+        r:120,
+        g:120,
+        b:120,
+        a:0.5
+      });
     });
 
     it("works from rgb", function() {
-      var col1 = Rune.Color.inputToColor(255, 0, 0);
-      var col2 = new Color().rgb(255, 0, 0);
-      expect(col1).toEqual(col2);
+      var col1 = new Rune.Color(255, 0, 0);
+      expect(col1.rgb()).toEqual({
+        r:255,
+        g:0,
+        b:0
+      });
     });
 
     it("works from rgba", function() {
-      var col1 = Rune.Color.inputToColor(255, 0, 0, 0.5);
-      var col2 = new Color().rgb(255, 0, 0).alpha(0.5);
-      expect(col1).toEqual(col2);
+      var col1 = new Rune.Color(255, 0, 0, 0.5);
+      expect(col1.rgb()).toEqual({
+        r:255,
+        g:0,
+        b:0,
+        a:0.5
+      });
     });
 
     it("works from hsb", function() {
-      var col1 = Rune.Color.inputToColor(Rune.HSB, 0, 100, 100);
-      var col2 = new Color().rgb(255, 0, 0);
-      expect(col1).toEqual(col2);
+      var col1 = new Rune.Color(Rune.HSB, 0, 100, 100);
+      expect(col1.rgb()).toEqual({
+        r:255,
+        g:0,
+        b:0
+      });
     });
 
     it("works from hsba", function() {
-      var col1 = Rune.Color.inputToColor(Rune.HSB, 0, 100, 100, 0.5);
-      var col2 = new Color().rgb(255, 0, 0).alpha(0.5);
-      expect(col1).toEqual(col2);
+      var col1 = new Rune.Color(Rune.HSB, 0, 100, 100, 0.5);
+      expect(col1.rgb()).toEqual({
+        r:255,
+        g:0,
+        b:0,
+        a:0.5
+      });
+    });
+
+    it("wraps around hue", function() {
+      var col1 = new Rune.Color(Rune.HSB, 480, 100, 100);
+      expect(col1.rgb()).toEqual({
+        r:0,
+        g:255,
+        b:0,
+      });
     });
 
   });
