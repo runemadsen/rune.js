@@ -49,24 +49,29 @@ describe("Rune.Moveable", function() {
 
   describe("rotate()", function() {
 
-    it("rotates absolute", function() {
-      setMoveableVars(m);
-      var res = m.rotate(45, 100, 105);
+    it("rotates on degree", function() {
+      var res = m.rotate(45);
+      expect(m.vars.rotation).toEqual(45);
+      expect(m.vars.rotationX).toEqual(0);
+      expect(m.vars.rotationY).toEqual(0);
+      expect(m).toEqual(res);
+    });
+
+    it("rotates on degree and xy", function() {
+      m.rotate(45, 100, 105);
       expect(m.vars.rotation).toEqual(45);
       expect(m.vars.rotationX).toEqual(100);
       expect(m.vars.rotationY).toEqual(105);
-      expect(m).toEqual(res);
     });
 
-    it("rotates relative", function() {
-      setMoveableVars(m);
-      var res = m.rotate(45, 100, 105, true);
-      expect(m.vars.rotation).toEqual(90);
-      expect(m.vars.rotationX).toEqual(200);
-      expect(m.vars.rotationY).toEqual(210);
-      expect(m).toEqual(res);
+    it("rotates relative to own xy", function() {
+      m.move(10, 15)
+      m.rotate(45, 100, 105, true);
+      expect(m.vars.rotation).toEqual(45);
+      expect(m.vars.rotationX).toEqual(110);
+      expect(m.vars.rotationY).toEqual(120);
     });
 
   });
 
-  });
+});

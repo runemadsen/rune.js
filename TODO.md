@@ -14,7 +14,9 @@
 
 - Constructor options (width, height, framerate, etc)
 - Different shape types
+- Polygon closes automatically
 - The way `.move` works for all polygons and shapes, as well as x, y and translate
+- `rotate` relative and rotationX and rotationY
 - chaining and `.vars`
 - Path and `closePath()`. You can have multiple subpaths in one
 - rotation
