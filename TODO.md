@@ -2,6 +2,8 @@
 
 ### Must
 
+- [ ] `keypressed`
+
 ### Nice to have 
 
 - [ ] All `Rune.` constants should be accessible as `r.`
@@ -25,4 +27,5 @@
 - `random`
 - mousemove
 - debug mode
-- Link to color documentation
+- Link to color documentation.
+- Sharing the same color across multiple objects (pass color into fill).
