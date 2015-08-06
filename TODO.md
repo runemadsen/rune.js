@@ -2,7 +2,6 @@
 
 ### Must
 
-- [ ] Colors should `%` if values higher than needed
 - [ ] Be able to pass a Color into fill and stroke
 - [ ] All `Rune.` constants should be accessible as `r.`
 
