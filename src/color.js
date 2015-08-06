@@ -14,8 +14,13 @@
       alpha: 1
     }
 
+    // COLOR
+    if(a instanceof Rune.Color) {
+      return a;
+    }
+
     // HSB
-    if(a == Rune.HSB) {
+    else if(a == Rune.HSV) {
       this.setValues("hsv", {h:b % 360, s:c, v:d});
       if(e) this.setValues("alpha", e);
     }

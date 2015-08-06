@@ -40,7 +40,7 @@
 
   Rune.DRAW = "draw";
   Rune.RGB = "rgb";
-  Rune.HSB = "hsb";
+  Rune.HSV = "hsv";
   Rune.MOVE = "move"
   Rune.LINE = "line"
   Rune.CUBIC = "cubic"

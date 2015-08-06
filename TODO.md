@@ -2,11 +2,9 @@
 
 ### Must
 
-- [ ] Be able to pass a Color into fill and stroke
-- [ ] All `Rune.` constants should be accessible as `r.`
-
 ### Nice to have 
 
+- [ ] All `Rune.` constants should be accessible as `r.`
 - [ ] Default styleable settings
 - [ ] Download SVG file (use SVG Crowbar)
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
