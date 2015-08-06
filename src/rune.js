@@ -118,6 +118,12 @@
       return path;
     },
 
+    grid: function(options, parent) {
+      var grid = new Rune.Grid(options);
+      Rune.addToGroup(grid, this.stage, parent);
+      return grid;
+    },
+
     // Playhead
     // --------------------------------------------------
 
@@ -198,6 +204,7 @@
 //=require events.js
 //=require color.js
 //=require group.js
+//=require grid.js
 //=require vector.js
 //=require anchor.js
 //=require render.js

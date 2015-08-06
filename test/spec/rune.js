@@ -203,6 +203,24 @@ describe("Rune", function() {
 
   });
 
+  describe(".grid()", function() {
+
+    it("should create group", function() {
+      var grid = r.grid({x:10, y:15});
+      expect(grid.type).toEqual("grid")
+      expect(grid.vars.x).toEqual(10);
+      expect(grid.vars.y).toEqual(15);
+    });
+
+    it("should call addToGroup()", function() {
+      var group = new Rune.Group();
+      spyOn(Rune, "addToGroup");
+      var s = r.grid({}, group);
+      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+    });
+
+  });
+
   describe("random()", function() {
 
     it("works with only high", function() {

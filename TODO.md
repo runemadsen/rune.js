@@ -3,6 +3,8 @@
 ### Must
 
 - [ ] `keypressed`
+- [ ] Grid system (one class). Should be display object or used without being on stage for computation.
+- [ ] Debug grid system
 
 ### Nice to have 
 
@@ -18,7 +20,7 @@
 - Constructor options (width, height, framerate, etc)
 - Different shape types
 - Polygon closes automatically
-- The way `.move` works for all polygons and shapes, as well as x, y and translate
+- The way `.move` works for all polygons and shapes, as well as x, y and translate PLUS relative
 - `rotate` relative and rotationX and rotationY
 - chaining and `.vars`
 - Path and `closePath()`. You can have multiple subpaths in one
@@ -29,3 +31,4 @@
 - debug mode
 - Link to color documentation.
 - Sharing the same color across multiple objects (pass color into fill).
+- Grids, nested grids, rotation, etc

@@ -206,6 +206,27 @@ describe("Rune.Render", function() {
 
   });
 
+  describe("Rune.Grid", function() {
+
+    it("should render grid", function() {
+      var g = r.grid({
+        gutterX: 10,
+        gutterY: 20,
+        moduleWidth: 50,
+        moduleHeight: 40,
+        columns: 4,
+        rows: 5
+      }).rotate(45);
+      r.draw();
+      expect(true).toBe(false);
+      //var jgroup = jel.children().first();
+      //expect(jel.children().length).toEqual(1);
+      //expect(jgroup).toHaveTranslation(10, 15);
+      //expect(jgroup).toHaveRotation(g.vars.rotation);
+    });
+
+  });
+
   describe("Debug mode", function() {
 
     it("should not render if debug false", function() {

@@ -37,7 +37,7 @@ describe("Rune.Group", function() {
       expect(s.parent).toBe(g2);
       expect(g1.children.length).toBe(0);
       expect(g2.children[0]).toBe(s);
-    })
+    });
 
   });
 
