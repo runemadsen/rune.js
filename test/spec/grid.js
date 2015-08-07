@@ -16,21 +16,7 @@ describe("Rune.Grid", function() {
       expect(grid.vars.moduleHeight).toEqual(0);
     });
 
-    it("calculates input vars", function() {
-      var grid = new Rune.Grid({
-        gutter: 15,
-        width: 600,
-        height: 500,
-        columns: 10,
-        rows: 5
-      });
-      expect(grid.vars.gutterX).toEqual(15);
-      expect(grid.vars.gutterY).toEqual(15);
-      expect(grid.vars.moduleWidth).toEqual(46.5);
-      expect(grid.vars.moduleHeight).toEqual(88);
-    });
-
-    it("creates modules based on input", function() {
+    it("works with all variables", function() {
       var grid = new Rune.Grid({
         gutterX: 15,
         gutterY: 20,
@@ -47,6 +33,33 @@ describe("Rune.Grid", function() {
       expect(grid.modules[2][2].type).toEqual("group");
       expect(grid.modules[2][2].vars.x).toEqual(130);
       expect(grid.modules[2][2].vars.y).toEqual(120);
+    });
+
+    it("works with gutter shorthand", function() {
+      var grid = new Rune.Grid({
+        gutter: 15,
+        width: 600,
+        height: 500,
+        columns: 10,
+        rows: 5
+      });
+      expect(grid.vars.gutterX).toEqual(15);
+      expect(grid.vars.gutterY).toEqual(15);
+      expect(grid.vars.moduleWidth).toEqual(46.5);
+      expect(grid.vars.moduleHeight).toEqual(88);
+    });
+
+    it("works with no gutter", function() {
+      var grid = new Rune.Grid({
+        width: 600,
+        height: 500,
+        columns: 10,
+        rows: 5
+      });
+      expect(grid.vars.gutterX).toEqual(0);
+      expect(grid.vars.gutterY).toEqual(0);
+      expect(grid.vars.moduleWidth).toEqual(60);
+      expect(grid.vars.moduleHeight).toEqual(100);
     });
 
   });

@@ -45,6 +45,7 @@ Here's why I didn't just use the following libraries.
 - Utilizes CSS color strings
 - Drawing API cannot mix curves and lines in same shape
 - Hard to construct complex shapes from scratch
+- No support for typography or images
 
 #### paper.js
 

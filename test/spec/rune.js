@@ -61,7 +61,6 @@ describe("Rune", function() {
       r.on('draw', mock.draw);
       r.play();
       setTimeout(function() {
-        console.log(mock.draw.calls.count())
         expect(mock.draw.calls.count() > 1).toBe(true)
         expect(mock.draw.calls.count() < 3).toBe(true)
         done();

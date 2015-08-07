@@ -12,24 +12,30 @@
       x:0,
       y:0,
       columns:12,
-      rows:1
-    });
-
-    // do some calculations if grid was instantiated with
-    // gutter shorthand or grid dimensions
-    if(req.gutter && !req.gutterX)      req.gutterX = req.gutter;
-    if(req.gutter && !req.gutterY)      req.gutterY = req.gutter;
-    if(req.width && !req.moduleWidth)   req.moduleWidth = (req.width - ((req.columns-1) * req.gutterX)) / req.columns;
-    if(req.height && !req.moduleHeight) req.moduleHeight = (req.height - ((req.rows-1) * req.gutterY)) / req.rows;
-
-    var defaults = _.defaults(req, {
-      gutterX:0,
-      gutterY:0,
+      rows:1,
+      gutterX: 0,
+      gutterY: 0,
       moduleWidth:100,
       moduleHeight:0
     });
 
-    _.extend(this.vars, defaults);
+    // if gutter is set, override gutterX and gutterY
+    if(!_.isUndefined(req.gutter)) {
+      req.gutterX = req.gutter;
+      req.gutterY = req.gutter;
+    }
+
+    // if width is set, override moduleWidth
+    if(!_.isUndefined(req.width)) {
+      req.moduleWidth = (req.width - ((req.columns-1) * req.gutterX)) / req.columns;
+    }
+
+    // if height is set, override moduleWidth
+    if(!_.isUndefined(req.height)) {
+      req.moduleHeight = (req.height - ((req.rows-1) * req.gutterY)) / req.rows;
+    }
+
+    _.extend(this.vars, req);
 
     this.computeGrid();
   };
