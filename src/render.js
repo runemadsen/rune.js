@@ -44,12 +44,6 @@
       return _.flatten(objects, true);
     },
 
-    groupToSVG: function(group) {
-      var attr = {}
-      this.transformAttribute(attr, group);
-      return virtualdom.svg('g', attr, this.objectsToSVG(group.children));
-    },
-
     rectangleToSVG: function(rect) {
       var attr = {
         x: rect.vars.x,
@@ -120,6 +114,25 @@
 
       if(opts && opts.debug) els = els.concat(this.debugPathToSVG(path));
       return els;
+    },
+
+    groupToSVG: function(group) {
+      if(_.isEmpty(group.children)) return;
+      var attr = {}
+      this.transformAttribute(attr, group);
+      return virtualdom.svg('g', attr, this.objectsToSVG(group.children));
+    },
+
+    gridToSVG: function(grid) {
+      var attr = {}
+      this.transformAttribute(attr, grid);
+
+      var groups = [];
+      _.each(grid.modules, _.bind(function(column) {
+        groups.push(this.objectsToSVG(column))
+      }, this));
+
+      return virtualdom.svg('g', attr, _.flatten(groups, true));
     },
 
     // Debug
@@ -202,7 +215,7 @@
         strings.push(rot + ")");
       }
 
-      if((shape.type == "group" || shape.type == "path" || shape.type == "polygon") && (vars.x || vars.y)) {
+      if((shape.type == "group" || shape.type == "path" || shape.type == "polygon" || shape.type == "grid") && (vars.x || vars.y)) {
         strings.push("translate(" + vars.x + " " + vars.y + ")");
       }
 

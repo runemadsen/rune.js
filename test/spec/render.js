@@ -197,12 +197,31 @@ describe("Rune.Render", function() {
     it("should render group", function() {
       var g = r.group(10, 15)
         .rotate(45);
+      var e = new Rune.Circle(10, 15, 100);
+      g.add(e)
       r.draw();
+
       var jgroup = jel.children().first();
       expect(jel.children().length).toEqual(1);
+      expect(jgroup).toBeTag("g");
       expect(jgroup).toHaveTranslation(10, 15);
       expect(jgroup).toHaveRotation(g.vars.rotation);
+
+      var jellipse = jgroup.children().first();
+      expect(jellipse).toBeTag("circle");
+      expect(jellipse).toHaveAttrs({
+        cx: 10,
+        cy: 15,
+        r: 100
+      });
     });
+
+    it("should not render if empty", function() {
+      var g = r.group(10, 15);
+      r.draw();
+      var jgroup = jel.children().first();
+      expect(jel.children().length).toEqual(0);
+    })
 
   });
 
@@ -210,19 +229,37 @@ describe("Rune.Render", function() {
 
     it("should render grid", function() {
       var g = r.grid({
-        gutterX: 10,
-        gutterY: 20,
-        moduleWidth: 50,
-        moduleHeight: 40,
+        x: 10,
+        y: 15,
+        gutterX: 20,
+        gutterY: 30,
+        moduleWidth: 40,
+        moduleHeight: 50,
         columns: 4,
-        rows: 5
+        rows: 3
       }).rotate(45);
+      var ellipse = new Rune.Circle(10, 15, 100);
+      g.add(ellipse, 2, 3)
       r.draw();
-      expect(true).toBe(false);
-      //var jgroup = jel.children().first();
-      //expect(jel.children().length).toEqual(1);
-      //expect(jgroup).toHaveTranslation(10, 15);
-      //expect(jgroup).toHaveRotation(g.vars.rotation);
+
+      var jgrid = jel.children().first();
+      expect(jel.children().length).toEqual(1);
+      expect(jgrid).toBeTag("g")
+      expect(jgrid).toHaveTranslation(10, 15);
+      expect(jgrid).toHaveRotation(45);
+
+      var jmodule = jgrid.children().first();
+      expect(jmodule).toBeTag("g");
+      expect(jmodule).toHaveTranslation(60, 160);
+
+      var jellipse = jmodule.children().first();
+      expect(jellipse).toBeTag("circle");
+      expect(jellipse).toHaveAttrs({
+        cx: 10,
+        cy: 15,
+        r: 100
+      });
+
     });
 
   });

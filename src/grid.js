@@ -42,6 +42,10 @@
     type: "grid",
 
     add: function(child, column, row) {
+
+      if(!column) column = 1;
+      if(!row) row = 1;
+
       if(this.modules[column-1] && this.modules[column-1][row-1]) {
         this.modules[column-1][row-1].add(child);
       }

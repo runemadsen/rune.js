@@ -11,7 +11,7 @@ beforeEach(function () {
           if (pass) {
             msg = "Expected not to be tag " + tagname;
           } else {
-            msg = "Expected to be tag " + tagname;
+            msg = "Expected " + jel.prop("tagName") + " to be tag " + tagname;
           }
 
           return {
