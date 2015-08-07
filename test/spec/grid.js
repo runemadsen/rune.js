@@ -10,10 +10,12 @@ describe("Rune.Grid", function() {
       expect(grid.vars.y).toEqual(0);
       expect(grid.vars.gutterX).toEqual(0);
       expect(grid.vars.gutterY).toEqual(0);
-      expect(grid.vars.columns).toEqual(12);
+      expect(grid.vars.columns).toEqual(10);
       expect(grid.vars.rows).toEqual(1);
-      expect(grid.vars.moduleWidth).toEqual(100);
-      expect(grid.vars.moduleHeight).toEqual(0);
+      expect(grid.vars.moduleWidth).toEqual(50);
+      expect(grid.vars.moduleHeight).toEqual(500);
+      expect(grid.vars.width).toEqual(500);
+      expect(grid.vars.height).toEqual(500);
     });
 
     it("works with all variables", function() {
@@ -25,6 +27,18 @@ describe("Rune.Grid", function() {
         columns: 10,
         rows: 5
       });
+
+      expect(grid.vars.x).toEqual(0);
+      expect(grid.vars.y).toEqual(0);
+      expect(grid.vars.gutterX).toEqual(15);
+      expect(grid.vars.gutterY).toEqual(20);
+      expect(grid.vars.columns).toEqual(10);
+      expect(grid.vars.rows).toEqual(5);
+      expect(grid.vars.moduleWidth).toEqual(50);
+      expect(grid.vars.moduleHeight).toEqual(40);
+      expect(grid.vars.width).toEqual(635);
+      expect(grid.vars.height).toEqual(280);
+
       expect(grid.modules.length).toBe(10);
       expect(grid.modules[0].length).toBe(5);
       expect(grid.modules[0][0].type).toEqual("group");
@@ -43,10 +57,16 @@ describe("Rune.Grid", function() {
         columns: 10,
         rows: 5
       });
+      expect(grid.vars.x).toEqual(0);
+      expect(grid.vars.y).toEqual(0);
       expect(grid.vars.gutterX).toEqual(15);
       expect(grid.vars.gutterY).toEqual(15);
+      expect(grid.vars.columns).toEqual(10);
+      expect(grid.vars.rows).toEqual(5);
       expect(grid.vars.moduleWidth).toEqual(46.5);
       expect(grid.vars.moduleHeight).toEqual(88);
+      expect(grid.vars.width).toEqual(600);
+      expect(grid.vars.height).toEqual(500);
     });
 
     it("works with no gutter", function() {
@@ -56,10 +76,16 @@ describe("Rune.Grid", function() {
         columns: 10,
         rows: 5
       });
+      expect(grid.vars.x).toEqual(0);
+      expect(grid.vars.y).toEqual(0);
       expect(grid.vars.gutterX).toEqual(0);
       expect(grid.vars.gutterY).toEqual(0);
+      expect(grid.vars.columns).toEqual(10);
+      expect(grid.vars.rows).toEqual(5);
       expect(grid.vars.moduleWidth).toEqual(60);
       expect(grid.vars.moduleHeight).toEqual(100);
+      expect(grid.vars.width).toEqual(600);
+      expect(grid.vars.height).toEqual(500);
     });
 
   });

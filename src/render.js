@@ -123,7 +123,7 @@
       return virtualdom.svg('g', attr, this.objectsToSVG(group.children));
     },
 
-    gridToSVG: function(grid) {
+    gridToSVG: function(grid, opts) {
       var attr = {}
       this.transformAttribute(attr, grid);
 
@@ -131,6 +131,8 @@
       _.each(grid.modules, _.bind(function(column) {
         groups.push(this.objectsToSVG(column))
       }, this));
+
+      if(opts && opts.debug) groups = groups.concat(this.debugGridToSVG(grid));
 
       return virtualdom.svg('g', attr, _.flatten(groups, true));
     },
@@ -162,11 +164,42 @@
       return els;
     },
 
+    debugGridToSVG: function(grid) {
+
+      var t = this;
+      var els = [];
+
+      // draw container rect
+      els.push(this.debugRect(0, 0, grid.vars.width, grid.vars.height));
+
+      // draw lines for columns
+      for(var i = 1; i < grid.vars.columns; i++) {
+        var right = grid.vars.moduleWidth * i;
+        els.push(this.debugLine(right, 0, right, grid.vars.height));
+        els.push(this.debugLine(right + grid.vars.gutterX, 0, right + grid.vars.gutterX, grid.vars.height));
+      }
+
+      // draw lines for rows
+      for(var i = 1; i < grid.vars.rows; i++) {
+        var bottom = grid.vars.moduleHeight * i;
+        els.push(this.debugLine(0, bottom, grid.vars.width, bottom));
+        els.push(this.debugLine(0, bottom + grid.vars.gutterY, grid.vars.width, bottom + grid.vars.gutterY));
+      }
+
+      return els;
+    },
+
     debugCircle : function(x, y) {
       var c = new Rune.Circle(x, y, 4)
         .fill(212, 18, 229)
         .stroke(false);
       return this.circleToSVG(c);
+    },
+
+    debugRect : function(x, y, width, height) {
+      var r = new Rune.Rectangle(x, y, width, height)
+        .stroke(212, 18, 229).fill(false);
+      return this.rectangleToSVG(r);
     },
 
     debugLine : function(x1, y1, x2, y2) {

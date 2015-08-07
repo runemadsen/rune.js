@@ -275,7 +275,6 @@ describe("Rune.Render", function() {
     });
 
     it("should render cubic curve helpers", function() {
-
       r.debug = true;
       var p = r.path(10, 10);
       p.curveTo(100, 105, 200, 205, 300, 305).closeShape();
@@ -292,7 +291,6 @@ describe("Rune.Render", function() {
     });
 
     it("should render quad curve helpers", function() {
-
       r.debug = true;
       var p = r.path(10, 10);
       p.curveTo(200, 205, 300, 305).closeShape();
@@ -305,6 +303,33 @@ describe("Rune.Render", function() {
       expect(jel.find('circle')[0]).toHaveAttrs({cx: 210, cy: 215});
       expect(jel.find('circle')[1]).toHaveAttrs({cx: 310, cy: 315});
 
+    });
+
+    it("should render grid helpers", function() {
+      r.debug = true;
+      var grid = r.grid({
+        x: 10,
+        y: 15,
+        gutter: 20,
+        moduleWidth: 25,
+        moduleHeight: 30,
+        columns: 2,
+        rows: 2
+      });
+      r.draw();
+
+      var jgrid = jel.children().first();
+      expect(jgrid).toBeTag("g");
+      expect(jgrid).toHaveTranslation(10, 15);
+
+      expect(jgrid.find('rect').length).toBe(1);
+      expect(jgrid.find('rect')[0]).toHaveAttrs({x: 0, y: 0, width:70, height:80});
+
+      expect(jgrid.find('line').length).toBe(4);
+      expect(jgrid.find('line')[0]).toHaveAttrs({x1: 25, y1: 0, x2:25, y2:80});
+      expect(jgrid.find('line')[1]).toHaveAttrs({x1: 45, y1: 0, x2:45, y2:80});
+      expect(jgrid.find('line')[2]).toHaveAttrs({x1: 0, y1: 30, x2:70, y2:30});
+      expect(jgrid.find('line')[3]).toHaveAttrs({x1: 0, y1: 50, x2:70, y2:50});
     });
 
   })

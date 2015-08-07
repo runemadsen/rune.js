@@ -2,9 +2,8 @@
 
 ### Must
 
-- [ ] `keypressed`
-- [ ] Grid system (one class). Should be display object or used without being on stage for computation.
 - [ ] Debug grid system
+- [ ] `keypressed`
 
 ### Nice to have 
 

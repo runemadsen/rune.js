@@ -11,12 +11,12 @@
     var req = _.defaults(options || {}, {
       x:0,
       y:0,
-      columns:12,
+      columns:10,
       rows:1,
       gutterX: 0,
       gutterY: 0,
-      moduleWidth:100,
-      moduleHeight:0
+      moduleWidth:50,
+      moduleHeight:500
     });
 
     // if gutter is set, override gutterX and gutterY
@@ -28,11 +28,15 @@
     // if width is set, override moduleWidth
     if(!_.isUndefined(req.width)) {
       req.moduleWidth = (req.width - ((req.columns-1) * req.gutterX)) / req.columns;
+    } else {
+      req.width = (req.moduleWidth * req.columns) + (req.gutterX * (req.columns-1))
     }
 
     // if height is set, override moduleWidth
     if(!_.isUndefined(req.height)) {
       req.moduleHeight = (req.height - ((req.rows-1) * req.gutterY)) / req.rows;
+    } else {
+      req.height = (req.moduleHeight * req.rows) + (req.gutterY * (req.rows-1))
     }
 
     _.extend(this.vars, req);
