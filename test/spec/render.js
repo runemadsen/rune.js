@@ -313,8 +313,8 @@ describe("Rune.Render", function() {
         gutter: 20,
         moduleWidth: 25,
         moduleHeight: 30,
-        columns: 2,
-        rows: 2
+        columns: 3,
+        rows: 3
       });
       r.draw();
 
@@ -323,13 +323,17 @@ describe("Rune.Render", function() {
       expect(jgrid).toHaveTranslation(10, 15);
 
       expect(jgrid.find('rect').length).toBe(1);
-      expect(jgrid.find('rect')[0]).toHaveAttrs({x: 0, y: 0, width:70, height:80});
+      expect(jgrid.find('rect')[0]).toHaveAttrs({x: 0, y: 0, width:115, height:130});
 
-      expect(jgrid.find('line').length).toBe(4);
-      expect(jgrid.find('line')[0]).toHaveAttrs({x1: 25, y1: 0, x2:25, y2:80});
-      expect(jgrid.find('line')[1]).toHaveAttrs({x1: 45, y1: 0, x2:45, y2:80});
-      expect(jgrid.find('line')[2]).toHaveAttrs({x1: 0, y1: 30, x2:70, y2:30});
-      expect(jgrid.find('line')[3]).toHaveAttrs({x1: 0, y1: 50, x2:70, y2:50});
+      expect(jgrid.find('line').length).toBe(8);
+      expect(jgrid.find('line')[0]).toHaveAttrs({x1: 25, y1: 0, x2:25, y2:grid.vars.height});
+      expect(jgrid.find('line')[1]).toHaveAttrs({x1: 45, y1: 0, x2:45, y2:grid.vars.height});
+      expect(jgrid.find('line')[2]).toHaveAttrs({x1: 70, y1: 0, x2:70, y2:grid.vars.height});
+      expect(jgrid.find('line')[3]).toHaveAttrs({x1: 90, y1: 0, x2:90, y2:grid.vars.height});
+      expect(jgrid.find('line')[4]).toHaveAttrs({x1: 0, y1: 30, x2:grid.vars.width, y2:30});
+      expect(jgrid.find('line')[5]).toHaveAttrs({x1: 0, y1: 50, x2:grid.vars.width, y2:50});
+      expect(jgrid.find('line')[6]).toHaveAttrs({x1: 0, y1: 80, x2:grid.vars.width, y2:80});
+      expect(jgrid.find('line')[7]).toHaveAttrs({x1: 0, y1: 100, x2:grid.vars.width, y2:100});
     });
 
   })

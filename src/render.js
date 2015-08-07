@@ -173,17 +173,21 @@
       els.push(this.debugRect(0, 0, grid.vars.width, grid.vars.height));
 
       // draw lines for columns
-      for(var i = 1; i < grid.vars.columns; i++) {
-        var right = grid.vars.moduleWidth * i;
-        els.push(this.debugLine(right, 0, right, grid.vars.height));
-        els.push(this.debugLine(right + grid.vars.gutterX, 0, right + grid.vars.gutterX, grid.vars.height));
+      var x = 0;
+      for(var i = 0; i < grid.vars.columns-1; i++) {
+        x += grid.vars.moduleWidth;
+        els.push(this.debugLine(x, 0, x, grid.vars.height));
+        x += grid.vars.gutterX;
+        els.push(this.debugLine(x, 0, x, grid.vars.height));
       }
 
       // draw lines for rows
-      for(var i = 1; i < grid.vars.rows; i++) {
-        var bottom = grid.vars.moduleHeight * i;
-        els.push(this.debugLine(0, bottom, grid.vars.width, bottom));
-        els.push(this.debugLine(0, bottom + grid.vars.gutterY, grid.vars.width, bottom + grid.vars.gutterY));
+      var y = 0;
+      for(var i = 0; i < grid.vars.rows-1; i++) {
+        y += grid.vars.moduleHeight;
+        els.push(this.debugLine(0, y, grid.vars.width, y));
+        y += grid.vars.gutterY;
+        els.push(this.debugLine(0, y, grid.vars.width, y));
       }
 
       return els;
