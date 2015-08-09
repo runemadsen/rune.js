@@ -17,10 +17,10 @@ My main goal for the project is to make `rune.js` the best library for making 2D
 - **Geometry helpers**. Provide native functions to help with complicated geometry calculations like hit tests, polygon diffing, and point-on-curve.
 - **Advanced color support**. Make something designers will want to use for generative color designs.
 - **Typography**. Take advantage of the native browser webfont support, while supporting lower-level access to webfont vectors.
-- **Grid System**. Built-in grid system functionality that allows you to create many different kinds of grid system.
-- **Debug mode**. Turn on debug mode and get a visual representation of things like bezier curves and used grid systems.
-- **Plugins** Expand the code base via plugins that can be compiled into the build. Keep the core library small. 
-- **Beautiful output**. Generate SVG elements that are readable.
+- **Grid System**. Create a powerful grid system on top of the scene graph.
+- **Debug mode**. Turn on debug mode and get a visual representation of things like bezier curves and grid systems.
+- **Plugins** Expand the code base via plugins. Keep the core library small. 
+- **Beautiful output**. Generate readable SVG elements.
 
 `rune.js` was inspired by the Two.js scene graph, Processing's drawing functions, and Geomerative's geometry and color classes. It uses [Color.js](https://github.com/harthur/color) for color support, [virtual-dom](https://github.com/Matt-Esch/virtual-dom) for DOM diffing, and [underscore.js](http://underscorejs.org/) for enumerables.
 

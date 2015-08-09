@@ -2,7 +2,8 @@
 
 ### Must
 
-- [ ] Debug grid system
+- [ ] Text element
+- [ ] Font element
 - [ ] `keypressed`
 
 ### Nice to have 
