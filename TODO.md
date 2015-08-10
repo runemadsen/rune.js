@@ -5,6 +5,8 @@
 - [ ] Text element
 - [ ] Font element
 - [ ] `keypressed`
+- [ ] masking / clipping
+- [ ] Gradients
 
 ### Nice to have 
 
@@ -13,7 +15,6 @@
 - [ ] Download SVG file (use SVG Crowbar)
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
 - [ ] SVG parser
-- [ ] Framerate
 
 ## Documentation
 

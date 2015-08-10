@@ -116,6 +116,16 @@
       return els;
     },
 
+    textToSVG: function(text, opts) {
+      var attr = {
+        x: text.vars.x,
+        y: text.vars.y,
+      }
+      this.transformAttribute(attr, text);
+      this.styleableAttributes(text, attr);
+      return virtualdom.svg('text', attr, text.vars.text);
+    },
+
     groupToSVG: function(group) {
       if(_.isEmpty(group.children)) return;
       var attr = {}

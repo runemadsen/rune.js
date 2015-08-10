@@ -184,7 +184,7 @@ describe("Rune", function() {
 
   });
 
-  describe(".shape()", function() {
+  describe(".path()", function() {
 
     it("should create path", function() {
       var path = r.path(10, 15);
@@ -198,6 +198,25 @@ describe("Rune", function() {
       spyOn(Rune, "addToGroup");
       var s = r.path(0, 0, group);
       expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+    });
+
+  });
+
+  describe(".text()", function() {
+
+    it("should create text", function() {
+      var text = r.text("Hello", 10, 15);
+      expect(text.vars.x).toEqual(10);
+      expect(text.vars.y).toEqual(15);
+      expect(text.vars.text).toEqual("Hello")
+      expect(text.type).toEqual("text")
+    });
+
+    it("should call addToGroup()", function() {
+      var group = new Rune.Group();
+      spyOn(Rune, "addToGroup");
+      var t = r.text("Hello", 10, 15, group);
+      expect(Rune.addToGroup).toHaveBeenCalledWith(t, r.stage, group);
     });
 
   });

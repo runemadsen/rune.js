@@ -118,6 +118,12 @@
       return path;
     },
 
+    text: function(text, x, y, group) {
+      var text = new Rune.Text(text, x, y);
+      Rune.addToGroup(text, this.stage, group);
+      return text;
+    },
+
     grid: function(options, parent) {
       var grid = new Rune.Grid(options);
       Rune.addToGroup(grid, this.stage, parent);
@@ -214,6 +220,7 @@
 //=require shapes/line.js
 //=require shapes/polygon.js
 //=require shapes/path.js
+//=require shapes/text.js
 
 _.extend(Rune.prototype, Rune.Events)
 

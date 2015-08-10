@@ -192,6 +192,28 @@ describe("Rune.Render", function() {
 
   });
 
+  describe("Rune.Text", function() {
+
+    it("should render basic text", function() {
+      var s = r.text("Hello", 10, 15);
+      drawShared(s);
+      r.draw();
+      var jshape = jel.children().first();
+      expect(jel.children().length).toEqual(1);
+      expect(jshape).toBeTag("text");
+      expect(jshape).toHaveAttrs({
+        x: s.vars.x,
+        y: s.vars.y
+      });
+      expect(jshape).not.toHaveTranslation(10, 15);
+      expect(jshape.text()).toEqual("Hello")
+      expectShared(jshape);
+    });
+
+    it("should render optional text variables")
+
+  });
+
   describe("Rune.Group", function() {
 
     it("should render group", function() {
