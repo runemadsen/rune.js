@@ -224,7 +224,6 @@ describe("Rune.Render", function() {
         .textDecoration("underline");
       r.draw();
       var jshape = jel.children().first();
-      console.log(el)
       expect(jshape).toHaveAttrs({
         "font-family" : "Georgia",
         "font-style" : "italic",
@@ -239,9 +238,9 @@ describe("Rune.Render", function() {
 
       it("should render proper attributes", function() {
         var aligns = [
-          [Rune.LEFT, "start"],
-          [Rune.CENTER, "middle"],
-          [Rune.RIGHT, "end"]
+          ["left", "start"],
+          ["center", "middle"],
+          ["right", "end"]
         ];
         _.each(aligns, function(align) {
           s.textAlign(align[0]);

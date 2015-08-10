@@ -2,15 +2,16 @@
 
 ### Must
 
-- [ ] Text element
-- [ ] Font element
+- [ ] Path arc
+- [ ] SVG fill-rule
+- [ ] Rune.Font plugin
 - [ ] `keypressed`
 - [ ] masking / clipping
 - [ ] Gradients
 
 ### Nice to have 
 
-- [ ] whitelist values passed into text/etc.
+- [ ] whitelist values passed directly to SVG. Throw error if not supported.
 - [ ] All `Rune.` constants should be accessible as `r.`
 - [ ] Default styleable settings
 - [ ] Download SVG file (use SVG Crowbar)
@@ -19,19 +20,45 @@
 
 ## Documentation
 
+
+### Getting Started
 - Constructor options (width, height, framerate, etc)
-- Different shape types
-- Polygon closes automatically
-- The way `.move` works for all polygons and shapes, as well as x, y and translate PLUS relative
-- `rotate` relative and rotationX and rotationY
+
+### Basic concepts
 - chaining and `.vars`
-- Path and `closePath()`. You can have multiple subpaths in one
-- rotation
 - `draw` event and `play` and `pause`
-- `random`
 - mousemove
 - debug mode
+
+### Shapes
+
+#### Introduction
+- creating shapes and the stage (r.shapetype())
+- The way `.move` works for all polygons and shapes, as well as x, y and translate PLUS relative
+- `rotate` relative and rotationX and rotationY
+- 
+
+#### Circle
+
+#### Ellipse
+
+#### Polygon
+- closes automatically
+
+#### Path
+- Path and `closePath()`. You can have multiple subpaths in one
+
+### Color
 - Link to color documentation.
 - Sharing the same color across multiple objects (pass color into fill).
-- Grids, nested grids, rotation, etc
+
+### Typography
 - text, all its functions and constants used.
+
+### Images
+
+### Grid systems
+- Grids, nested grids, rotation, etc
+
+### Other
+- `random`
