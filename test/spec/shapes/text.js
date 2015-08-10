@@ -1,12 +1,38 @@
 describe("Rune.Text", function() {
 
+  var t;
+
+  beforeEach(function() {
+    t = new Rune.Text("Hello", 10, 15);
+  });
+
+  describe("Common setters", function() {
+
+    var setters = {
+      "textAlign" : "center",
+      "fontFamily" : "Georgia",
+      "fontStyle" : "italic",
+      "fontWeight" : "bold",
+      "fontSize" : 32,
+      "letterSpacing" : 0.5,
+      "textDecoration" : "underline"
+    };
+
+    it("sets var and is chainable", function() {
+      _.each(setters, function(v, k) {
+        var res = t[k](v);
+        expect(res.vars[k]).toEqual(v);
+        expect(res).toBe(res);
+      });
+    });
+
+  });
+
   describe("copy()", function() {
 
-    var t;
     var g;
 
     beforeEach(function() {
-      t = new Rune.Text("Hello there", 10, 15);
       g = new Rune.Group();
       g.add(t);
     });

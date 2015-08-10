@@ -38,21 +38,6 @@
     this.initEvents();
   }
 
-  Rune.DRAW = "draw";
-  Rune.RGB = "rgb";
-  Rune.HSV = "hsv";
-  Rune.MOVE = "move"
-  Rune.LINE = "line"
-  Rune.CUBIC = "cubic"
-  Rune.QUAD = "quad"
-  Rune.CLOSE = "close"
-  Rune.BUTT = "butt";
-  Rune.ROUND = "round";
-  Rune.SQUARE = "square";
-  Rune.MITER = "miter";
-  Rune.BEVEL = "bevel";
-
-
   _.extend(Rune.prototype, {
 
     // Events
@@ -139,7 +124,7 @@
     },
 
     playNow: function() {
-      this.trigger(Rune.DRAW, { frameCount: this.frameCount });
+      this.trigger('draw', { frameCount: this.frameCount });
       this.animationFrame = requestAnimationFrame(_.bind(this.play, this));
       this.draw();
     },

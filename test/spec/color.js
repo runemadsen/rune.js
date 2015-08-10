@@ -68,7 +68,7 @@ describe("Rune.Color", function() {
     });
 
     it("works from hsb", function() {
-      var col1 = new Rune.Color(Rune.HSV, 0, 100, 100);
+      var col1 = new Rune.Color('hsv', 0, 100, 100);
       expect(col1.rgb()).toEqual({
         r:255,
         g:0,
@@ -77,7 +77,7 @@ describe("Rune.Color", function() {
     });
 
     it("works from hsba", function() {
-      var col1 = new Rune.Color(Rune.HSV, 0, 100, 100, 0.5);
+      var col1 = new Rune.Color('hsv', 0, 100, 100, 0.5);
       expect(col1.rgb()).toEqual({
         r:255,
         g:0,
@@ -87,7 +87,7 @@ describe("Rune.Color", function() {
     });
 
     it("wraps around hue", function() {
-      var col1 = new Rune.Color(Rune.HSV, 480, 100, 100);
+      var col1 = new Rune.Color('hsv', 480, 100, 100);
       expect(col1.rgb()).toEqual({
         r:0,
         g:255,

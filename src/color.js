@@ -20,31 +20,31 @@
     }
 
     // HSB
-    else if(a == Rune.HSV) {
-      this.setValues("hsv", {h:b % 360, s:c, v:d});
-      if(e) this.setValues("alpha", e);
+    else if(a == 'hsv') {
+      this.setValues('hsv', {h:b % 360, s:c, v:d});
+      if(e) this.setValues('alpha', e);
     }
 
     // HEX
     else if(_.isString(a)) {
       var vals = colorString.getRgba(a);
-      if (vals)                             this.setValues("rgb", vals);
-      else if (vals = colorString.getHsla(a))  this.setValues("hsl", vals);
-      else if(vals = colorString.getHwb(a))    this.setValues("hwb", vals);
+      if (vals)                             this.setValues('rgb', vals);
+      else if (vals = colorString.getHsla(a))  this.setValues('hsl', vals);
+      else if(vals = colorString.getHwb(a))    this.setValues('hwb', vals);
       else throw new Error("Unable to parse color from string \"" + a + "\"");
-      if(b) this.setValues("alpha", b);
+      if(b) this.setValues('alpha', b);
     }
 
     // GRAYSCALE
     else if(_.isUndefined(c)) {
-      this.setValues("rgb", {r:a, g:a, b:a});
-      if(b) this.setValues("alpha", b);
+      this.setValues('rgb', {r:a, g:a, b:a});
+      if(b) this.setValues('alpha', b);
     }
 
     // RGB
     else if(!_.isUndefined(a)) {
-      this.setValues("rgb", {r:a, g:b, b:c});
-      if(d) this.setValues("alpha", d);
+      this.setValues('rgb', {r:a, g:b, b:c});
+      if(d) this.setValues('alpha', d);
     }
 
   }

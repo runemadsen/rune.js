@@ -10,6 +10,7 @@
 
 ### Nice to have 
 
+- [ ] whitelist values passed into text/etc.
 - [ ] All `Rune.` constants should be accessible as `r.`
 - [ ] Default styleable settings
 - [ ] Download SVG file (use SVG Crowbar)
@@ -33,3 +34,4 @@
 - Link to color documentation.
 - Sharing the same color across multiple objects (pass color into fill).
 - Grids, nested grids, rotation, etc
+- text, all its functions and constants used.

@@ -6,8 +6,8 @@ function drawShared(shape) {
     .fill(255, 0, 0, 0.5)
     .stroke(0, 255, 0, 0.6)
     .strokeWidth(5)
-    .strokeCap(Rune.ROUND)
-    .strokeJoin(Rune.MITER)
+    .strokeCap('round')
+    .strokeJoin('miter')
     .strokeMiterlimit(7)
     .strokeDash("3,4,5")
     .strokeDashOffset(10)
@@ -194,8 +194,13 @@ describe("Rune.Render", function() {
 
   describe("Rune.Text", function() {
 
+    var s;
+
+    beforeEach(function() {
+      s = r.text("Hello", 10, 15);
+    });
+
     it("should render basic text", function() {
-      var s = r.text("Hello", 10, 15);
       drawShared(s);
       r.draw();
       var jshape = jel.children().first();
@@ -210,7 +215,43 @@ describe("Rune.Render", function() {
       expectShared(jshape);
     });
 
-    it("should render optional text variables")
+    it("should render optional variables", function() {
+      s.fontFamily("Georgia")
+        .fontStyle("italic")
+        .fontWeight("bold")
+        .fontSize(32)
+        .letterSpacing(0.5)
+        .textDecoration("underline");
+      r.draw();
+      var jshape = jel.children().first();
+      console.log(el)
+      expect(jshape).toHaveAttrs({
+        "font-family" : "Georgia",
+        "font-style" : "italic",
+        "font-weight" : "bold",
+        "font-size" : 32,
+        "letter-spacing" : 0.5,
+        "text-decoration" : "underline"
+      });
+    });
+
+    describe("textAlign()", function() {
+
+      it("should render proper attributes", function() {
+        var aligns = [
+          [Rune.LEFT, "start"],
+          [Rune.CENTER, "middle"],
+          [Rune.RIGHT, "end"]
+        ];
+        _.each(aligns, function(align) {
+          s.textAlign(align[0]);
+          r.draw();
+          var jshape = jel.children().first();
+          expect(jshape).toHaveAttr("text-anchor", align[1]);
+        });
+      });
+
+    });
 
   });
 

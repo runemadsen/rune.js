@@ -99,7 +99,7 @@ beforeEach(function () {
         compare: function (vector, x, y, relative) {
 
           var a = new Rune.Anchor();
-          a.command = Rune.MOVE;
+          a.command = 'move';
           a.relative = relative;
           a.vec1 = new Rune.Vector(x, y);
 
@@ -130,7 +130,7 @@ beforeEach(function () {
         compare: function (vector, x, y, relative) {
 
           var a = new Rune.Anchor();
-          a.command = Rune.LINE;
+          a.command = 'line';
           a.relative = relative;
           a.vec1 = new Rune.Vector(x, y);
 
@@ -161,7 +161,7 @@ beforeEach(function () {
         compare: function (anchor, a, b, c, d, e, f, g) {
 
           var expected = new Rune.Anchor();
-          expected.command = Rune.CUBIC;
+          expected.command = 'cubic';
           expected.vec1 = new Rune.Vector(a, b);
           expected.vec2 = new Rune.Vector(c, d);
 
@@ -185,7 +185,7 @@ beforeEach(function () {
         compare: function (anchor, a, b, c, d, e) {
 
           var expected = new Rune.Anchor();
-          expected.command = Rune.QUAD;
+          expected.command = 'quad';
           expected.vec1 = new Rune.Vector(a, b);
           if(_.isNumber(c)) {
             expected.vec2 = new Rune.Vector(c, d);
@@ -207,7 +207,7 @@ beforeEach(function () {
         compare: function (vector) {
 
           var msg = "";
-          var pass = vector.command == Rune.CLOSE;
+          var pass = vector.command == 'close';
 
           if (pass) {
             msg = "Expected not to match";

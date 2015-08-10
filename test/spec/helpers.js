@@ -56,3 +56,7 @@ function setAllAnchors(path) {
     .curveTo(130, 131, true) // quad shorthand relative
     .closeShape();
 }
+
+function setTextVars(text) {
+
+}

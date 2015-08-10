@@ -123,6 +123,29 @@
       }
       this.transformAttribute(attr, text);
       this.styleableAttributes(text, attr);
+
+      // attributes that need specific handling
+      if(text.vars.textAlign) {
+        var translate = { "left":"start", "center":"middle", "right":"end" };
+        attr["text-anchor"] = translate[text.vars.textAlign];
+      }
+
+      // attributes that just need to be grabbed from vars
+      this.attributes(text, attr, {
+        "fontFamily" : "font-family",
+        "textAlign" : "text-align",
+        "fontStyle" : "font-style",
+        "fontWeight" : "font-weight",
+        "fontSize" : "font-size",
+        "letterSpacing" : "letter-spacing",
+        "textDecoration" : "text-decoration"
+      });
+
+      if(text.vars.textAlign) {
+        var translate = { "left":"start", "center":"middle", "right":"end" };
+        attr["text-anchor"] = translate[text.vars.textAlign];
+      }
+
       return virtualdom.svg('text', attr, text.vars.text);
     },
 
@@ -156,14 +179,14 @@
       var els = [];
 
       _.each(path.vars.anchors, function(a, i) {
-        if(a.command == Rune.CUBIC){
+        if(a.command == 'cubic'){
           els.push(t.debugLine(path.vars.x + a.vec1.x, path.vars.y + a.vec1.y, path.vars.x + a.vec3.x, path.vars.y + a.vec3.y));
           els.push(t.debugLine(path.vars.x + a.vec2.x, path.vars.y + a.vec2.y, path.vars.x + a.vec3.x, path.vars.y + a.vec3.y));
           for(var i = 1; i < 4; i++) {
             els.push(t.debugCircle(path.vars.x + a["vec"+i].x, path.vars.y + a["vec"+i].y))
           }
         }
-        else if(a.command == Rune.QUAD && !_.isUndefined(a.vec2)){
+        else if(a.command == 'quad' && !_.isUndefined(a.vec2)){
           els.push(t.debugLine(path.vars.x + a.vec1.x, path.vars.y + a.vec1.y, path.vars.x + a.vec2.x, path.vars.y + a.vec2.y));
           for(var i = 1; i < 3; i++) {
             els.push(t.debugCircle(path.vars.x + a["vec"+i].x, path.vars.y + a["vec"+i].y))
@@ -222,8 +245,16 @@
       return this.lineToSVG(l);
     },
 
-    // Mixin converters
+    // Multiple attributes
     // --------------------------------------------------
+
+    attributes : function(object, attr, keys) {
+      _.each(keys, function(attribute, variable) {
+        if(object.vars[variable]) {
+          attr[attribute] = object.vars[variable];
+        }
+      }, this);
+    },
 
     sizeableAttributes: function(object, attr) {
       attr.width = object.vars.width;
@@ -273,22 +304,22 @@
     dAttribute: function(object, attr) {
       attr.d = _.map(object.vars.anchors, function(a) {
 
-        if(a.command == Rune.MOVE) {
+        if(a.command == 'move') {
           return (a.relative ? "m" : "M") + " " + [a.vec1.x, a.vec1.y].join(' ');
         }
-        else if(a.command == Rune.LINE) {
+        else if(a.command == 'line') {
           return (a.relative ? "l" : "L") + " " + [a.vec1.x, a.vec1.y].join(' ');
         }
-        else if(a.command == Rune.CUBIC){
+        else if(a.command == 'cubic'){
           return (a.relative ? "c" : "C") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y, a.vec3.x, a.vec3.y].join(' ');
         }
-        else if(a.command == Rune.QUAD && !_.isUndefined(a.vec2)){
+        else if(a.command == 'quad' && !_.isUndefined(a.vec2)){
           return (a.relative ? "q" : "Q") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y].join(' ');
         }
-        else if(a.command == Rune.QUAD){
+        else if(a.command == 'quad'){
           return (a.relative ? "t" : "T") + " " + [a.vec1.x, a.vec1.y].join(' ');
         }
-        else if(a.command == Rune.CLOSE){
+        else if(a.command == 'close'){
           return "Z";
         }
       }).join(" ").trim();
