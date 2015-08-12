@@ -46,8 +46,6 @@ describe("Rune.Render", function() {
 
   describe("All shapes", function() {
 
-    // using rectangle here, but I'm testing shared functionality
-
     it("should handle false vars", function() {
       var s = r.rect(0, 0, 0, 0)
         .fill(false)

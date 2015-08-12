@@ -17,6 +17,7 @@
 - [ ] Download SVG file (use SVG Crowbar)
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
 - [ ] SVG parser
+- [ ] `r.triangle()`
 
 ## Documentation
 

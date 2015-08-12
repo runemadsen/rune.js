@@ -25,6 +25,23 @@ describe("Rune.Moveable", function() {
       expect(m2.vars.rotation).toEqual(45);
     });
 
+    it("copies negative values form object", function() {
+      setMoveableVars(m, {
+        x:-10,
+        y:-15,
+        rotation:-20,
+        rotationX:-25,
+        rotationY:-30
+      });
+      var m2 = newMixin(Rune.Moveable);
+      m2.moveable(m);
+      expect(m2.vars.x).toEqual(-10);
+      expect(m2.vars.y).toEqual(-15);
+      expect(m2.vars.rotation).toEqual(-20);
+      expect(m2.vars.rotationX).toEqual(-25);
+      expect(m2.vars.rotationY).toEqual(-30);
+    });
+
   });
 
   describe("move()", function() {

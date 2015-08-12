@@ -6,8 +6,8 @@
     this.styleable();
 
     this.vars.anchors = [];
-    if(x > 0) this.vars.x = x;
-    if(y > 0) this.vars.y = y;
+    if(!_.isUndefined(x)) this.vars.x = x;
+    if(!_.isUndefined(y)) this.vars.y = y;
   };
 
   _.extend(Path.prototype, Rune.Shapeable, Rune.Moveable, Rune.Styleable, {

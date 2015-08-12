@@ -25,12 +25,13 @@ function setMixinVars(shape) {
   }
 }
 
-function setMoveableVars(shape) {
-  shape.vars.x = 10;
-  shape.vars.y = 15;
-  shape.vars.rotation = 45;
-  shape.vars.rotationX = 100;
-  shape.vars.rotationY = 105;
+function setMoveableVars(shape, opts) {
+  opts = opts || {};
+  shape.vars.x = opts.x || 10;
+  shape.vars.y = opts.y || 15;
+  shape.vars.rotation = opts.rotation || 45;
+  shape.vars.rotationX = opts.rotationX || 100;
+  shape.vars.rotationY = opts.rotationY || 105;
 }
 
 function setSizeableVars(shape) {
