@@ -69,6 +69,14 @@ describe("Rune.Render", function() {
       expect(jshape.attr('stroke-dashoffset')).toBeUndefined()
     });
 
+    it("renders rotation with 0", function() {
+      var s = r.rect(0, 0, 0, 0)
+        .rotate(45, 0, 10);
+      r.draw();
+      var jshape = jel.children().first();
+      expect(jshape).toHaveRotation(45, 0, 10);
+    });
+
   });
 
   describe("Rune.Rectangle", function() {

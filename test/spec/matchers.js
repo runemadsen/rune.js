@@ -71,7 +71,7 @@ beforeEach(function () {
 
           if(!jel.attr("transform") || jel.attr("transform").indexOf(attr) < 0) {
             result.pass = false;
-            result.message = "Transform does not have rotation";
+            result.message = "Transform does not have rotation or doesnt match: " + jel.attr("transform");
           }
           return result;
         }

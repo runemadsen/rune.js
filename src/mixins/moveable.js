@@ -17,9 +17,9 @@ var Moveable = Rune.Moveable = {
 
   rotate: function(deg, x, y, relative) {
     this.vars.rotation = deg;
-    if(x) {
-      this.vars.rotationX = x;
-      this.vars.rotationY = y;
+    if(x || y) {
+      this.vars.rotationX = x || 0;
+      this.vars.rotationY = y || 0;
     }
     if(relative) {
       this.vars.rotationX += this.vars.x;
