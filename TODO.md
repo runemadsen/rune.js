@@ -3,14 +3,12 @@
 ### Must
 
 - [ ] ALL SHAPES: `polygonize(segmentatoroptions={})`
-- [ ] Polygon and Path: `bounds()` // return {x,y,w,h}
-- [ ] `path.centroid()` // return vector
+- [ ] ALL SHAPES: `bounds()`
+- [ ] ALL SHAPES: `path.centroid()`
 - [ ] Polygon and Path: `vectorAt(norm)`
 - [ ] Polygon and Path: `intersects(pathorpoly)`
 - [ ] Polygon and Path: `intersection(pathorpoly)` (xor, union, diff?)
-- [ ] Vector multiply
 - [ ] Path arc
-- [ ] SVG fill-rule
 - [ ] Rune.Font plugin
 - [ ] `keypressed`
 - [ ] masking / clipping
@@ -19,7 +17,6 @@
 ### Nice to have 
 
 - [ ] whitelist values passed directly to SVG. Throw error if not supported.
-- [ ] All `Rune.` constants should be accessible as `r.`
 - [ ] Default styleable settings
 - [ ] Download SVG file (use SVG Crowbar)
 - [ ] Groups should bubble down changes to children, so all children know their true x and y
@@ -27,7 +24,6 @@
 - [ ] `r.triangle()`
 
 ## Documentation
-
 
 ### Getting Started
 - Constructor options (width, height, framerate, etc)
@@ -52,7 +48,7 @@
 
 #### Polygon
 - closes automatically
-- bounds and centroid are relative to to internal 0,0. Must add x,y of shape and groups to get the absolute.
+- bounds and centroid doesn't include parent translations.
 
 #### Path
 - Path and `closePath()`. You can have multiple subpaths in one
