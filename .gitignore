@@ -1,3 +1,5 @@
 test/build/
 node_modules/
 .DS_Store
+.sass-cache
+_site
