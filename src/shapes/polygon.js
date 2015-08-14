@@ -60,6 +60,32 @@
       return new Rune.Vector(x, y);
     },
 
+    toPolygon: function(opts) {
+
+      // if this polygon should create a new polygon where
+      // the vectors have equal spacing.
+      if(opts && opts.spacing) {
+
+        var poly = new Rune.Polygon(this.vars.x, this.vars.y);
+
+        for(var i = 0; i < this.vars.vectors.length; i++) {
+          var start = this.vars.vectors[i];
+          var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
+          var rel = stop.sub(start);
+          var numPoints = rel.length() / opts.spacing;
+          var norm = rel.normalize();
+          for(var j = 0; j < numPoints; j++) {
+            var vec = start.add(norm.multiply(opts.spacing * j));
+            poly.lineTo(vec.x, vec.y);
+          }
+        }
+
+        return poly;
+      }
+
+      return this;
+    },
+
     copy: function(group) {
       var s = new Rune.Polygon();
       s.vars.vectors = _.map(this.vars.vectors, function(v) { return v.copy(); });

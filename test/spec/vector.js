@@ -11,32 +11,32 @@ describe("Rune.Vector", function() {
   describe("add()", function() {
     it("adds vectors", function() {
       var res = v1.add(v2);
-      expect(v1).toEqualVector(30, 40);
-      expect(res).toBe(v1);
+      expect(res).toEqualVector(30, 40);
+      expect(res).not.toBe(v1);
     });
   });
 
   describe("sub()", function() {
     it("subtracts vectors", function() {
       var res = v1.sub(v2);
-      expect(v1).toEqualVector(-10, -10);
-      expect(res).toBe(v1);
+      expect(res).toEqualVector(-10, -10);
+      expect(res).not.toBe(v1);
     });
   });
 
   describe("multiply()", function() {
     it("multiplies vector", function() {
       var res = v1.multiply(3);
-      expect(v1).toEqualVector(30, 45);
-      expect(res).toBe(v1);
+      expect(res).toEqualVector(30, 45);
+      expect(res).not.toBe(v1);
     });
   });
 
   describe("divide()", function() {
     it("divides vector", function() {
       var res = v1.divide(3);
-      expect(v1).toEqualVector(10 / 3, 5);
-      expect(res).toBe(v1);
+      expect(res).toEqualVector(10 / 3, 5);
+      expect(res).not.toBe(v1);
     });
   });
 
@@ -50,8 +50,8 @@ describe("Rune.Vector", function() {
   describe("lerp()", function() {
     it("finds lerp", function() {
       var res = v1.lerp(v2, 0.5);
-      expect(v1).toEqualVector(15, 20);
-      expect(res).toBe(v1);
+      expect(res).toEqualVector(15, 20);
+      expect(res).not.toBe(v1);
     });
   });
 
@@ -73,7 +73,7 @@ describe("Rune.Vector", function() {
     it("normalizes vector", function() {
       var res = v1.normalize();
       expect(res).toEqualVector(0.5547001962252291, 0.8320502943378437);
-      expect(res).toBe(v1);
+      expect(res).not.toBe(v1);
     });
   });
 
@@ -88,7 +88,7 @@ describe("Rune.Vector", function() {
     it("rotates vector", function() {
       var res = v1.rotate(90);
       expect(res).toEqualVector(-15, 10);
-      expect(res).toBe(v1);
+      expect(res).not.toBe(v1);
     });
   });
 

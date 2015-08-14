@@ -75,6 +75,29 @@ describe("Rune.Polygon", function() {
 
   });
 
+  describe("toPolygon()", function() {
+
+    it("should return self if no segmentor", function() {
+      var res = rhombus.toPolygon();
+      expect(res).toBe(res);
+    });
+
+    it("should convert to vectors with spacing segmentor", function() {
+      var res = rhombus.toPolygon({ spacing: 25 });
+      expect(res.vars.x).toEqual(10);
+      expect(res.vars.y).toEqual(15);
+      expect(res.vars.vectors.length).toEqual(12);
+      expect(res.vars.vectors[0]).toEqualVector(0, 0);
+      expect(res.vars.vectors[1]).toEqualVector(25, 0);
+      expect(res.vars.vectors[2]).toEqualVector(50, 0);
+      expect(res.vars.vectors[3]).toEqualVector(60, 0);
+      expect(res.vars.vectors[4]).toEqualVector(67.90569415042094, 23.717082451262844);
+      expect(res.vars.vectors[5]).toEqualVector(75.8113883008419, 47.43416490252569);
+      expect(res.vars.vectors[6]).toEqualVector(80, 60);
+    });
+
+  });
+
   describe("copy()", function() {
 
     var s;

@@ -22,6 +22,14 @@ describe("Rune.Rectangle", function() {
       expect(poly.vars.vectors[3]).toEqualVector(0, 305);
     });
 
+    it("returns polygon with uniform vectors", function() {
+      var poly = s.toPolygon({ spacing: 50 });
+      expect(poly.vars.x).toEqual(10);
+      expect(poly.vars.y).toEqual(15);
+      expect(poly.vars.vectors.length).toEqual(26);
+      // The actual vectors are tested in polygon.toPolygon();
+    });
+
   });
 
   describe("copy()", function() {

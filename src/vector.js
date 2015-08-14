@@ -15,31 +15,24 @@
     },
 
     add : function(vec) {
-      this.x += vec.x;
-      this.y += vec.y;
-      return this;
+      return new Rune.Vector(this.x + vec.x, this.y + vec.y);
     },
 
     sub: function(vec) {
-      this.x -= vec.x;
-      this.y -= vec.y;
-      return this;
+      return new Rune.Vector(this.x - vec.x, this.y - vec.y);
     },
 
     multiply: function(scalar) {
-      this.x *= scalar;
-      this.y *= scalar;
-      return this;
+      return new Rune.Vector(this.x * scalar, this.y * scalar);
     },
 
     divide: function(scalar) {
+      var vec = new Rune.Vector(0, 0);
       if(scalar) {
-        this.x /= scalar;
-        this.y /= scalar;
-      } else {
-        this.set(0, 0);
+        vec.x = this.x / scalar;
+        vec.y = this.y / scalar;
       }
-      return this;
+      return vec;
     },
 
     distance: function(vec) {
@@ -53,9 +46,9 @@
     },
 
     lerp: function(vec, scalar) {
-      this.x = (vec.x - this.x) * scalar + this.x;
-      this.y = (vec.y - this.y) * scalar + this.y;
-      return this;
+      var x = (vec.x - this.x) * scalar + this.x;
+      var y = (vec.y - this.y) * scalar + this.y;
+      return new Rune.Vector(x, y);
     },
 
     dot : function(vec) {
@@ -81,9 +74,9 @@
     rotate: function(degrees) {
       var rad = Rune.radians(this.rotation() + degrees);
       var len = this.length();
-      this.x = Math.cos(rad) * len;
-      this.y = Math.sin(rad) * len;
-      return this;
+      var x = Math.cos(rad) * len;
+      var y = Math.sin(rad) * len;
+      return new Rune.Vector(x, y);
     },
 
     copy: function() {
