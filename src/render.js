@@ -107,6 +107,9 @@
       this.dAttribute(path, attr);
       this.transformAttribute(attr, path);
       this.styleableAttributes(path, attr);
+      this.optionalAttributes(path, attr, {
+        "fillRule" : "fill-rule"
+      });
 
       var els = [
         virtualdom.svg('path', attr)
@@ -130,8 +133,7 @@
         attr["text-anchor"] = translate[text.vars.textAlign];
       }
 
-      // attributes that just need to be grabbed from vars
-      this.attributes(text, attr, {
+      this.optionalAttributes(text, attr, {
         "fontFamily" : "font-family",
         "textAlign" : "text-align",
         "fontStyle" : "font-style",
@@ -248,7 +250,7 @@
     // Multiple attributes
     // --------------------------------------------------
 
-    attributes : function(object, attr, keys) {
+    optionalAttributes : function(object, attr, keys) {
       _.each(keys, function(attribute, variable) {
         if(object.vars[variable]) {
           attr[attribute] = object.vars[variable];

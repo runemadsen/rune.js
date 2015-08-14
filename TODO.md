@@ -2,6 +2,8 @@
 
 ### Must
 
+- [ ] Vector multiply
+- [ ] 
 - [ ] Path arc
 - [ ] SVG fill-rule
 - [ ] Rune.Font plugin

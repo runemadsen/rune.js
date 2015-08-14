@@ -44,6 +44,8 @@
       return s;
     },
 
+    fillRule: function(val) { this.vars.fillRule = val; return this; },
+
     // Paths must start with a moveTo. This function is checks if
     // there is a moveTo at the beginning, and adds one if not.
     checkStartMove: function() {

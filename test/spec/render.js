@@ -25,7 +25,6 @@ function expectShared(jshape) {
   expect(jshape).toHaveAttr("stroke-dashoffset", "10");
 }
 
-
 describe("Rune.Render", function() {
 
   var r;
@@ -196,6 +195,22 @@ describe("Rune.Render", function() {
       expectShared(jshape);
     });
 
+    it("should render optional vars", function() {
+
+      var optionals = {
+        fillRule: ["fill-rule", "evenodd"]
+      }
+
+      _.each(optionals, function(v, k) {
+        var s = r.path(10, 15);
+        r.draw();
+        expect($(el).children().first().attr(v[0])).toBeUndefined();
+        s[k](v[1]);
+        r.draw();
+        expect($(el).children().first().attr(v[0])).toEqual(v[1] + "");
+      });
+    });
+
   });
 
   describe("Rune.Text", function() {
@@ -206,7 +221,7 @@ describe("Rune.Render", function() {
       s = r.text("Hello", 10, 15);
     });
 
-    it("should render basic text", function() {
+    it("should render text", function() {
       drawShared(s);
       r.draw();
       var jshape = jel.children().first();
@@ -221,22 +236,22 @@ describe("Rune.Render", function() {
       expectShared(jshape);
     });
 
-    it("should render optional variables", function() {
-      s.fontFamily("Georgia")
-        .fontStyle("italic")
-        .fontWeight("bold")
-        .fontSize(32)
-        .letterSpacing(0.5)
-        .textDecoration("underline");
-      r.draw();
-      var jshape = jel.children().first();
-      expect(jshape).toHaveAttrs({
-        "font-family" : "Georgia",
-        "font-style" : "italic",
-        "font-weight" : "bold",
-        "font-size" : 32,
-        "letter-spacing" : 0.5,
-        "text-decoration" : "underline"
+    it("should render optional vars", function() {
+
+      var optionals = {
+        fontFamily: ["font-family", "Georgia"],
+        fontWeight: ["font-weight", "bold"],
+        fontSize: ["font-size", 32],
+        letterSpacing: ["letter-spacing", 0.5],
+        textDecoration: ["text-decoration", "underline"]
+      }
+
+      _.each(optionals, function(v, k) {
+        r.draw();
+        expect($(el).children().first().attr(v[0])).toBeUndefined();
+        s[k](v[1]);
+        r.draw();
+        expect($(el).children().first().attr(v[0])).toEqual(v[1] + "");
       });
     });
 

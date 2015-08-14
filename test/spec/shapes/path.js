@@ -34,6 +34,20 @@ describe("Rune.Path", function() {
 
   });
 
+  describe("Basic setters", function() {
+
+    it("sets the var value", function() {
+      var funcs = ["fillRule"]
+      _.each(funcs, function(func) {
+        var p = new Rune.Path();
+        var res = p[func](5);
+        expect(p.vars[func]).toEqual(5)
+        expect(p).toEqual(res);
+      });
+    })
+
+  });
+
   describe("copy()", function() {
 
     var s;
