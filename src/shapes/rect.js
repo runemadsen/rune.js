@@ -16,6 +16,14 @@
 
     type: "rectangle",
 
+    toPolygon: function() {
+      return new Rune.Polygon(this.vars.x, this.vars.y)
+        .lineTo(0, 0)
+        .lineTo(this.vars.width, 0)
+        .lineTo(this.vars.width, this.vars.height)
+        .lineTo(0, this.vars.height);
+    },
+
     copy: function(group) {
       var c = new Rune.Rectangle();
       this.shapeCopy(c, group);

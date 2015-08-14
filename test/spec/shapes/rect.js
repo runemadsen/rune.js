@@ -9,6 +9,21 @@ describe("Rune.Rectangle", function() {
     g.add(s);
   });
 
+  describe("toPolygon()", function() {
+
+    it("returns polygon with corner vectors", function() {
+      var poly = s.toPolygon();
+      expect(poly.vars.x).toEqual(10);
+      expect(poly.vars.y).toEqual(15);
+      expect(poly.vars.vectors.length).toEqual(4);
+      expect(poly.vars.vectors[0]).toEqualVector(0, 0);
+      expect(poly.vars.vectors[1]).toEqualVector(300, 0);
+      expect(poly.vars.vectors[2]).toEqualVector(300, 305);
+      expect(poly.vars.vectors[3]).toEqualVector(0, 305);
+    });
+
+  });
+
   describe("copy()", function() {
 
     it("copies the object", function() {

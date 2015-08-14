@@ -2,9 +2,16 @@
 
 ### Must
 
-- [ ] ALL SHAPES: `polygonize(segmentatoroptions={})`
+
+Segmentor:
+UNIFORMLENGTH = all points have equal distance, even though it's straight or curved lines. Must get a number of pixels between each.
+ADAPTATIVE = lines don't get segmented. Curves vary depending on their slope. A single curve gets denser around the curved areas.
+UNIFORMSTEP = lines don't get segmented. Curves are just uniformly segmented by incrementing theta.
+
+
+- [ ] ALL SHAPES: `toPolygon(segmentatoroptions={})`
 - [ ] ALL SHAPES: `bounds()`
-- [ ] ALL SHAPES: `path.centroid()`
+- [ ] ALL SHAPES: `centroid()`
 - [ ] Polygon and Path: `vectorAt(norm)`
 - [ ] Polygon and Path: `intersects(pathorpoly)`
 - [ ] Polygon and Path: `intersection(pathorpoly)` (xor, union, diff?)

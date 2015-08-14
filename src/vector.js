@@ -88,6 +88,10 @@
 
     copy: function() {
       return new Rune.Vector(this.x, this.y);
+    },
+
+    toString: function() {
+      return "(x: " + this.x + ", y: " + this.y + ")";
     }
 
   });
