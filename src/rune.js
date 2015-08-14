@@ -148,25 +148,6 @@
     draw: function() {
       this.renderer.render(this.stage, { debug: this.debug });
       this.frameCount += 1;
-    },
-
-    // Utils
-    // --------------------------------------------------
-
-    random: function(a, b) {
-      if(_.isUndefined(b)) {
-        b = a;
-        a = 0;
-      }
-      return a + (Math.random() * (b-a));
-    },
-
-    degrees: function(radians) {
-      return radians * (180/Math.PI);
-    },
-
-    radians: function(degrees) {
-      return degrees * (Math.PI/180);
     }
 
   });
@@ -189,7 +170,39 @@
 
   });
 
+  // Utils
+  // --------------------------------------------------
+
+  var Utils = {
+
+    random: function(a, b) {
+      if(_.isUndefined(b)) {
+        b = a;
+        a = 0;
+      }
+      return a + (Math.random() * (b-a));
+    },
+
+    degrees: function(radians) {
+      return radians * (180/Math.PI);
+    },
+
+    radians: function(degrees) {
+      return degrees * (Math.PI/180);
+    }
+
+  };
+
+  // Utility functions exist on both the class and
+  // the instance.
+  _.extend(Rune, Utils);
+  _.extend(Rune.prototype, Utils);
+
 })();
+
+
+
+
 
 //=require mixins/*.js
 //=require events.js

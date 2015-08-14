@@ -2,8 +2,11 @@
 
 ### Must
 
+- [ ] Polygon and Path: `vectorAt(norm)`
+- [ ] Polygon and Path: `intersects(pathorpoly)`
+- [ ] Polygon and Path: `intersection(pathorpoly)` (xor, union, diff?)
+- [ ] Polygon and Path: `polygonize(segmentatoroptions={})`
 - [ ] Vector multiply
-- [ ] 
 - [ ] Path arc
 - [ ] SVG fill-rule
 - [ ] Rune.Font plugin

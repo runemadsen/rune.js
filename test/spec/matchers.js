@@ -2,6 +2,26 @@ beforeEach(function () {
 
   jasmine.addMatchers({
 
+    toEqualVector: function () {
+      return {
+        compare: function (vec, x, y) {
+
+          var pass = vec.x == x && vec.y == y;
+
+          if (pass) {
+            msg = "Expected " + vec + " not to equal vector " + new Rune.Vector(x, y);
+          } else {
+            msg = "Expected " + vec + " to equal vector " + new Rune.Vector(x, y);
+          }
+
+          return {
+            pass: pass,
+            message: msg
+          };
+        }
+      };
+    },
+
     toBeTag: function () {
       return {
         compare: function (jel, tagname) {
