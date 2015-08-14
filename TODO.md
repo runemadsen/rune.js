@@ -7,6 +7,7 @@
 
 ### Must
 
+- [ ] Ellipse has width and height but I think they are radius? need to /2
 - [ ] `toPolygon` should copy mixin vars too!
 - [ ] `toPolygon` should have stage handling too!
 
