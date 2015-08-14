@@ -3,11 +3,19 @@ $gray_light: #9E9E9E;
 $yellow: yellow;
 $yellow_dark: #DCBE00;
 
+$first_break: 500px;
+
 
 body {
-  margin: 30px 45px;
+  margin: 30px 25px;
   font-family: 'Roboto', sans-serif;
   font-size: 100%;
+}
+
+@media (min-width: $first_break) {
+  body {
+    margin: 30px 45px;
+  }
 }
 
 h1, h2, h3, h4, h5 {
