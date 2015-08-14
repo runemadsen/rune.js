@@ -11,7 +11,7 @@ describe("Rune.Rectangle", function() {
 
   describe("toPolygon()", function() {
 
-    it("returns polygon with corner vectors", function() {
+    it("defaults to corner vectors", function() {
       var poly = s.toPolygon();
       expect(poly.vars.x).toEqual(10);
       expect(poly.vars.y).toEqual(15);
@@ -22,7 +22,7 @@ describe("Rune.Rectangle", function() {
       expect(poly.vars.vectors[3]).toEqualVector(0, 305);
     });
 
-    it("returns polygon with uniform vectors", function() {
+    it("returns polygon with even spaced vectors", function() {
       var poly = s.toPolygon({ spacing: 50 });
       expect(poly.vars.x).toEqual(10);
       expect(poly.vars.y).toEqual(15);

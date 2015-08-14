@@ -1,7 +1,14 @@
 ## Codebase
 
+### Figure out
+
+- Shoud intersects compare absolute position? YES, through `this.parent.absolutePos()`
+
+
 ### Must
 
+- [ ] `toPolygon` should copy mixin vars too!
+- [ ] `toPolygon` should have stage handling too!
 
 Segmentor:
 UNIFORMLENGTH = all points have equal distance, even though it's straight or curved lines. Must get a number of pixels between each.
@@ -31,6 +38,8 @@ UNIFORMSTEP = lines don't get segmented. Curves are just uniformly segmented by 
 - [ ] `r.triangle()`
 
 ## Documentation
+
+- [ ] ALL THE DIFFERENT `toPolygon` options for each object.
 
 ### Getting Started
 - Constructor options (width, height, framerate, etc)

@@ -82,7 +82,7 @@ describe("Rune.Polygon", function() {
       expect(res).toBe(res);
     });
 
-    it("should convert to vectors with spacing segmentor", function() {
+    it("should compute vectors with even spacing + corners", function() {
       var res = rhombus.toPolygon({ spacing: 25 });
       expect(res.vars.x).toEqual(10);
       expect(res.vars.y).toEqual(15);

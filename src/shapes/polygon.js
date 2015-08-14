@@ -62,7 +62,7 @@
 
     toPolygon: function(opts) {
 
-      // if this polygon should create a new polygon where
+      // if asked to create a new polygon where
       // the vectors have equal spacing.
       if(opts && opts.spacing) {
 
