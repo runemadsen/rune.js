@@ -100,6 +100,4 @@ describe("Rune.Vector", function() {
     });
   });
 
-  // COPY!!!
-
 });

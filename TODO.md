@@ -2,10 +2,12 @@
 
 ### Must
 
+- [ ] ALL SHAPES: `polygonize(segmentatoroptions={})`
+- [ ] Polygon and Path: `bounds()` // return {x,y,w,h}
+- [ ] `path.centroid()` // return vector
 - [ ] Polygon and Path: `vectorAt(norm)`
 - [ ] Polygon and Path: `intersects(pathorpoly)`
 - [ ] Polygon and Path: `intersection(pathorpoly)` (xor, union, diff?)
-- [ ] Polygon and Path: `polygonize(segmentatoroptions={})`
 - [ ] Vector multiply
 - [ ] Path arc
 - [ ] SVG fill-rule
@@ -50,6 +52,7 @@
 
 #### Polygon
 - closes automatically
+- bounds and centroid are relative to to internal 0,0. Must add x,y of shape and groups to get the absolute.
 
 #### Path
 - Path and `closePath()`. You can have multiple subpaths in one

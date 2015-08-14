@@ -194,15 +194,11 @@
   };
 
   // Utility functions exist on both the class and
-  // the instance.
+  // the instance just to give users a shortcut.
   _.extend(Rune, Utils);
   _.extend(Rune.prototype, Utils);
 
 })();
-
-
-
-
 
 //=require mixins/*.js
 //=require events.js
