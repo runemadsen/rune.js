@@ -1,0 +1,56 @@
+$gray: #F7F7F7;
+$gray_light: #9E9E9E;
+$yellow: yellow;
+$yellow_dark: #DCBE00;
+
+
+body {
+  margin: 30px 45px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 100%;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+}
+
+code {
+  display: block;
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  padding: 10px;
+  background-color: $gray;
+  font-size: 0.8em;
+}
+
+h2 {
+  border-bottom: 2px solid $yellow;
+  padding-bottom: 12px;
+}
+
+h2 + p {
+  font-size: 1.2em;
+  font-weight: 300;
+  color: $gray_light;
+}
+
+h3 code {
+  border-bottom: 3px solid $yellow;
+  padding: 0;
+  padding-bottom: 6px;
+  background-color: initial;
+  display: inline-block;
+  font-weight: normal;
+  color: #333;
+  font-size: 0.9em;
+}
+
+#content {
+  max-width: 600px;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.6em;
+  color: #333;
+}
