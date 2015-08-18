@@ -7,12 +7,15 @@
 
 ### Must
 
+- [ ] Ability to set debug line color and debug circle color
 - [ ] `path.toPolygon()`
 - [ ] `centroid` should have the ability to calculate the relative or absolute centroid
 - [ ] `bounds` should have the ability to calculate the relative or absolute bounds
 - [ ] Ellipse has width and height but I think they are radius? need to /2
 - [ ] `toPolygon` should copy mixin vars too!
 - [ ] `toPolygon` should have stage handling too! pass in group or false.
+- [ ] Geomelement `contains`
+- [ ] Geomelement `intersects`
 
 Segmentor:
 UNIFORMLENGTH = all points have equal distance, even though it's straight or curved lines. Must get a number of pixels between each.
