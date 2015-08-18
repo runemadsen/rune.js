@@ -58,6 +58,52 @@
     setClose: function() {
       this.command = 'close';
       return this;
+    },
+
+    vectorAt: function(scalar) {
+
+      if(scalar > 1) scalar = 1;
+      if(scalar < 0) scalar = 0;
+
+      var ax, bx, cx;
+      var ay, by, cy;
+      var tSquared, tDoubled, tCubed;
+      var dx, dy;
+
+      if(this.command == 'move') {
+        throw new Error("Cannot find vector on move anchor")
+      }
+      else if(this.command == 'line') {
+        return new Rune.Vector(this.vec1.x, this.vec1.y).multiply(scalar)
+      }
+      else if(this.command == 'cubic') {
+
+        // calculate the polynomial coefficients
+        cx = 3 * this.vec1.x;
+        bx = 3 * (this.vec2.x - this.vec1.x) - cx;
+        ax = this.vec3.x - cx - bx;
+        cy = 3 * this.vec1.y;
+        by = 3 * (this.vec2.y - this.vec1.y) - cy;
+        ay = this.vec3.y - cy - by;
+
+        // calculate the curve point at parameter value t
+        tSquared = scalar * scalar;
+        tCubed = tSquared * scalar;
+        return new Rune.Vector((ax * tCubed) + (bx * tSquared) + (cx * scalar), (ay * tCubed) + (by * tSquared) + (cy * scalar))
+      }
+      else if(this.command == 'quad') {
+
+        // calculate the polynomial coefficients
+        bx = this.vec1.x;
+        ax = this.vec2.x - this.vec1.x - bx;
+        by = this.vec1.y;
+        ay = this.vec2.y - this.vec1.y - by;
+
+        // calculate the curve point at parameter value t
+        tSquared = scalar * scalar;
+        tDoubled = 2 * scalar;
+        return new Rune.Vector((ax * tSquared) + (bx * tDoubled), (ay * tSquared) + (by * tDoubled));
+      }
     }
 
     /*public RPoint getPoint(float t){

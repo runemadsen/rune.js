@@ -81,4 +81,32 @@ describe("Rune.Anchor", function() {
 
   });
 
+  describe("vectorAt()", function() {
+
+    it("returns throws error for move", function() {
+      var a = new Rune.Anchor().setMove(0, 0);
+      expect(function() { a.vectorAt(0.5) }).toThrow(new Error("Cannot find vector on move anchor"));
+    });
+
+    it("returns vector for line", function() {
+      var a = new Rune.Anchor().setLine(100, 100);
+      expect(a.vectorAt(0.5)).toEqualVector(50, 50);
+    });
+
+    it("returns vector for cubic bezier", function() {
+      var a = new Rune.Anchor().setCurve(0, 100, 100, 100, 100, 0);
+      expect(a.vectorAt(0.5)).toEqualVector(50, 75);
+    });
+
+    it("returns vector for quad bezier", function() {
+      var a = new Rune.Anchor().setCurve(50, 100, 100, 0);
+      expect(a.vectorAt(0.5)).toEqualVector(50, 50);
+    });
+
+  });
+
+  describe("vectorAtLength()", function() {
+
+  });
+
 });
