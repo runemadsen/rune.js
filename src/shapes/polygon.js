@@ -96,27 +96,16 @@
 
     toPolygon: function(opts) {
 
-      var poly = new Rune.Polygon(this.vars.x, this.vars.y);
-
       // if splitting the polygon into vectors with equal spacing
       if(opts && opts.spacing) {
+
+        var poly = new Rune.Polygon(this.vars.x, this.vars.y);
         var len = this.length();
         var num = len / opts.spacing;
         for(var i = 0; i < num; i++) {
           var vec = this.vectorAtLength(i * opts.spacing);
           poly.lineTo(vec.x, vec.y)
         }
-        //for(var i = 0; i < this.vars.vectors.length; i++) {
-        //  var start = this.vars.vectors[i];
-        //  var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
-        //  var rel = stop.sub(start);
-        //  var numPoints = rel.length() / opts.spacing;
-        //  var norm = rel.normalize();
-        //  for(var j = 0; j < numPoints; j++) {
-        //    var vec = start.add(norm.multiply(opts.spacing * j));
-        //    poly.lineTo(vec.x, vec.y);
-        //  }
-        //}
         return poly;
       }
 
