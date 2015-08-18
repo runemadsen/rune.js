@@ -14,6 +14,10 @@
 
     type: "text",
 
+    toPolygon: function() {
+      throw new Error("You need the Rune.Font plugin to convert text to polygon");
+    },
+
     textAlign: function(textAlign) { this.vars.textAlign = textAlign; return this; },
     fontFamily: function(fontFamily) { this.vars.fontFamily = fontFamily; return this; },
     fontStyle: function(fontStyle) { this.vars.fontStyle = fontStyle; return this; },

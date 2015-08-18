@@ -28,6 +28,14 @@ describe("Rune.Text", function() {
 
   });
 
+  describe("toPolygon", function() {
+
+    it("throws error if Rune.Font is not present", function() {
+      expect( function(){ t.toPolygon() } ).toThrow(new Error("You need the Rune.Font plugin to convert text to polygon"));
+    });
+
+  });
+
   describe("copy()", function() {
 
     var g;

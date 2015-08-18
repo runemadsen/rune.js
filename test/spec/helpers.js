@@ -53,8 +53,6 @@ function setAllAnchors(path) {
     .curveTo(114, 115, 116, 117, 118, 119, true) // cubic relative
     .curveTo(120, 121, 122, 123) // quad
     .curveTo(124, 125, 126, 127, true) // quad relative
-    .curveTo(128, 129) // quad shorthand
-    .curveTo(130, 131, true) // quad shorthand relative
     .closeShape();
 }
 

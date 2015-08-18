@@ -7,17 +7,18 @@
 
 ### Must
 
+- [ ] `path.toPolygon()`
+- [ ] `centroid` should have the ability to calculate the relative or absolute centroid
+- [ ] `bounds` should have the ability to calculate the relative or absolute bounds
 - [ ] Ellipse has width and height but I think they are radius? need to /2
 - [ ] `toPolygon` should copy mixin vars too!
-- [ ] `toPolygon` should have stage handling too!
+- [ ] `toPolygon` should have stage handling too! pass in group or false.
 
 Segmentor:
 UNIFORMLENGTH = all points have equal distance, even though it's straight or curved lines. Must get a number of pixels between each.
 ADAPTATIVE = lines don't get segmented. Curves vary depending on their slope. A single curve gets denser around the curved areas.
 UNIFORMSTEP = lines don't get segmented. Curves are just uniformly segmented by incrementing theta.
 
-
-- [ ] ALL SHAPES: `toPolygon(segmentatoroptions={})`
 - [ ] ALL SHAPES: `bounds()`
 - [ ] ALL SHAPES: `centroid()`
 - [ ] Polygon and Path: `vectorAt(norm)`
