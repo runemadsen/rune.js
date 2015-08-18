@@ -103,7 +103,11 @@
     }
 
     return new RPoint();
-  }*/
+  }
+
+  ALSO RCommand.getCurveLength
+
+  */
 
   });
 
