@@ -7,15 +7,17 @@
 
 ### Must
 
+- [ ] add `keepCorners` to `toPolygon` for polygon
+- [ ] Remove relative lineTo and curveTo because it fucks up all calculations.
 - [ ] Ability to set debug line color and debug circle color
 - [ ] `path.toPolygon()`
-- [ ] `centroid` should have the ability to calculate the relative or absolute centroid
-- [ ] `bounds` should have the ability to calculate the relative or absolute bounds
+- [ ] `centroid`, `bounds`, `vectorAt` should have the ability to calculate the relative or absolute vector
 - [ ] Ellipse has width and height but I think they are radius? need to /2
 - [ ] `toPolygon` should copy mixin vars too!
 - [ ] `toPolygon` should have stage handling too! pass in group or false.
 - [ ] Geomelement `contains`
 - [ ] Geomelement `intersects`
+- [ ] Optimize vector to keep internal `vars.length` variable that changes when someone uses `.set`. Then use that variable in all internal calculations. This can be done for many of the other functions too. the same for polygon, although it's hard.
 
 Segmentor:
 UNIFORMLENGTH = all points have equal distance, even though it's straight or curved lines. Must get a number of pixels between each.

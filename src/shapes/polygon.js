@@ -19,6 +19,40 @@
       return this;
     },
 
+    length: function() {
+      var len = 0;
+      for(var i = 0; i < this.vars.vectors.length; i++) {
+        var start = this.vars.vectors[i];
+        var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
+        len += stop.sub(start).length();
+      }
+      return len;
+    },
+
+    vectorAtLength: function(len) {
+      var tmpLen = 0;
+      var full = this.length();
+      if(len <= 0 || len >= full) return _.first(this.vars.vectors).copy();
+
+      for(var i = 0; i < this.vars.vectors.length; i++) {
+        var start = this.vars.vectors[i];
+        var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
+        var vec = stop.sub(start);
+        var veclen = vec.length();
+
+        if(tmpLen + veclen > len) {
+          var remaining = len - tmpLen;
+          return start.add(vec.normalize().multiply(remaining));
+        }
+
+        tmpLen += veclen;
+      }
+    },
+
+    vectorAt: function(scalar) {
+      return this.vectorAtLength(this.length() * scalar);
+    },
+
     bounds: function() {
       var xmax = 0;
       var ymax = 0;
@@ -62,24 +96,27 @@
 
     toPolygon: function(opts) {
 
-      // if asked to create a new polygon where
-      // the vectors have equal spacing.
+      var poly = new Rune.Polygon(this.vars.x, this.vars.y);
+
+      // if splitting the polygon into vectors with equal spacing
       if(opts && opts.spacing) {
-
-        var poly = new Rune.Polygon(this.vars.x, this.vars.y);
-
-        for(var i = 0; i < this.vars.vectors.length; i++) {
-          var start = this.vars.vectors[i];
-          var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
-          var rel = stop.sub(start);
-          var numPoints = rel.length() / opts.spacing;
-          var norm = rel.normalize();
-          for(var j = 0; j < numPoints; j++) {
-            var vec = start.add(norm.multiply(opts.spacing * j));
-            poly.lineTo(vec.x, vec.y);
-          }
+        var len = this.length();
+        var num = len / opts.spacing;
+        for(var i = 0; i < num; i++) {
+          var vec = this.vectorAtLength(i * opts.spacing);
+          poly.lineTo(vec.x, vec.y)
         }
-
+        //for(var i = 0; i < this.vars.vectors.length; i++) {
+        //  var start = this.vars.vectors[i];
+        //  var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
+        //  var rel = stop.sub(start);
+        //  var numPoints = rel.length() / opts.spacing;
+        //  var norm = rel.normalize();
+        //  for(var j = 0; j < numPoints; j++) {
+        //    var vec = start.add(norm.multiply(opts.spacing * j));
+        //    poly.lineTo(vec.x, vec.y);
+        //  }
+        //}
         return poly;
       }
 

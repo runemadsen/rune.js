@@ -21,13 +21,16 @@
       debug: true
     });
 
-    var wave = r.path(100, 100)
-      .curveTo(50, -100, 100, 0)
-      .curveTo(150, 100, 200, 0)
-      .curveTo(250, -100, 300, 0)
-      .lineTo(300, 200)
-      .lineTo(0, 200)
-      .closeShape();
+    var rhombus = r.polygon(100, 100)
+      .lineTo(0, 0)
+      .lineTo(60, 0)
+      .lineTo(80, 60)
+      .lineTo(20, 60);
+
+    for(var i = 0; i < 10; i++) {
+      var vec = rhombus.vectorAt(i / 10);
+      r.circle(100 + vec.x, 100 + vec.y, 5);
+    }
 
     r.draw();
 

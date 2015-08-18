@@ -70,10 +70,7 @@
       var tSquared, tDoubled, tCubed;
       var dx, dy;
 
-      if(this.command == 'move') {
-        throw new Error("Cannot find vector on move anchor")
-      }
-      else if(this.command == 'line') {
+      if(this.command == 'line') {
         return new Rune.Vector(this.vec1.x, this.vec1.y).multiply(scalar)
       }
       else if(this.command == 'cubic') {
@@ -104,52 +101,12 @@
         tDoubled = 2 * scalar;
         return new Rune.Vector((ax * tSquared) + (bx * tDoubled), (ay * tSquared) + (by * tDoubled));
       }
+      else {
+        throw new Error("Cannot compute vectorAt for this type of anchor")
+      }
     }
 
-    /*public RPoint getPoint(float t){
-    // limit the value of t between 0 and 1
-    t = (t > 1F) ? 1F : t;
-    t = (t < 0F) ? 0F : t;
-    float ax, bx, cx;
-    float ay, by, cy;
-    float tSquared, tDoubled, tCubed;
-    float dx, dy;
-
-    switch(commandType){
-    case LINETO:
-      dx = endPoint.x - startPoint.x;
-      dy = endPoint.y - startPoint.y;
-      return new RPoint(startPoint.x + dx * t, startPoint.y + dy * t);
-
-    case QUADBEZIERTO:
-      // calculate the polynomial coefficients
-      bx = controlPoints[0].x - startPoint.x;
-      ax = endPoint.x - controlPoints[0].x - bx;
-      by = controlPoints[0].y - startPoint.y;
-      ay = endPoint.y - controlPoints[0].y - by;
-
-      // calculate the curve point at parameter value t
-      tSquared = t * t;
-      tDoubled = 2F * t;
-      return new RPoint((ax * tSquared) + (bx * tDoubled) + startPoint.x, (ay * tSquared) + (by * tDoubled) + startPoint.y);
-
-    case CUBICBEZIERTO:
-      // calculate the polynomial coefficients
-      cx = 3F * (controlPoints[0].x - startPoint.x);
-      bx = 3F * (controlPoints[1].x - controlPoints[0].x) - cx;
-      ax = endPoint.x - startPoint.x - cx - bx;
-      cy = 3F * (controlPoints[0].y - startPoint.y);
-      by = 3F * (controlPoints[1].y - controlPoints[0].y) - cy;
-      ay = endPoint.y - startPoint.y - cy - by;
-
-      // calculate the curve point at parameter value t
-      tSquared = t * t;
-      tCubed = tSquared * t;
-      return new RPoint((ax * tCubed) + (bx * tSquared) + (cx * t) + startPoint.x, (ay * tCubed) + (by * tSquared) + (cy * t) + startPoint.y);
-    }
-
-    return new RPoint();
-  }
+    /*
 
   ALSO RCommand.getCurveLength
 

@@ -32,8 +32,8 @@ describe("Rune.Ellipse", function() {
       expect(poly.vars.vectors.length).toEqual(39);
     });
 
-    it("returns polygon with even spaced steps", function() {
-      var poly = s.toPolygon({ step: 0.2 });
+    it("returns polygon with even spaced division", function() {
+      var poly = s.toPolygon({ division: 0.2 });
       expect(poly.vars.x).toEqual(10);
       expect(poly.vars.y).toEqual(15);
       expect(poly.vars.vectors.length).toEqual(5);

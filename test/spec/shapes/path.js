@@ -46,6 +46,22 @@ describe("Rune.Path", function() {
 
   });
 
+  describe("toPolygons()", function() {
+
+    //var path;
+//
+    //beforeEach(function() {
+    //  path = new Rune.Path(10, 15)
+    //    .lineTo(100, 100)
+    //    .curveTo(100, 200, 0, 200, 0, 100)
+    //    .curveTo()
+    //});
+
+    // spacing
+    //
+
+  });
+
   describe("copy()", function() {
 
     var s;

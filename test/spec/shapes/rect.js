@@ -23,11 +23,11 @@ describe("Rune.Rectangle", function() {
     });
 
     it("returns polygon with even spaced vectors", function() {
+      // Actual vectors tested in polygon.toPolygon();
       var poly = s.toPolygon({ spacing: 50 });
       expect(poly.vars.x).toEqual(10);
       expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(26);
-      // The actual vectors are tested in polygon.toPolygon();
+      expect(poly.vars.vectors.length).toEqual(25);
     });
 
   });

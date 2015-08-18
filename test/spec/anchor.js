@@ -85,7 +85,7 @@ describe("Rune.Anchor", function() {
 
     it("returns throws error for move", function() {
       var a = new Rune.Anchor().setMove(0, 0);
-      expect(function() { a.vectorAt(0.5) }).toThrow(new Error("Cannot find vector on move anchor"));
+      expect(function() { a.vectorAt(0.5) }).toThrow(new Error("Cannot compute vectorAt for this type of anchor"));
     });
 
     it("returns vector for line", function() {

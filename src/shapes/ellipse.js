@@ -27,8 +27,8 @@
         numVectors = circumference / opts.spacing;
       } else if(opts && opts.vectors) {
         numVectors = opts.vectors;
-      } else if(opts && opts.step) {
-        numVectors = 1 / opts.step;
+      } else if(opts && opts.division) {
+        numVectors = 1 / opts.division;
       }
 
       var vectorAngle = 360/numVectors;

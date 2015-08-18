@@ -75,6 +75,53 @@ describe("Rune.Polygon", function() {
 
   });
 
+  describe("length()", function() {
+
+    it("should return length of polygon", function() {
+      var res = rhombus.length();
+      expect(res).toEqual(246.49110640673518);
+    });
+
+  });
+
+  describe("vectorAt()", function() {
+
+    it("should return vector at scalar", function() {
+      var res = rhombus.vectorAt(0.5);
+      expect(res).toEqualVector(80, 60);
+    });
+
+    it("should return vector if scalar is 0", function() {
+      var res = rhombus.vectorAt(0);
+      expect(res).toEqualVector(0, 0);
+    });
+
+    it("should return vector if scalar is 1", function() {
+      var res = rhombus.vectorAt(1);
+      expect(res).toEqualVector(0, 0);
+    });
+
+  });
+
+  describe("vectorAtLength()", function() {
+
+    it("should return vector at length", function() {
+      var res = rhombus.vectorAtLength(70);
+      expect(res).toEqualVector(63.16227766016838, 9.486832980505138);
+    });
+
+    it("should return vector if length is 0", function() {
+      var res = rhombus.vectorAtLength(0);
+      expect(res).toEqualVector(0, 0);
+    });
+
+    it("should return vector if length is more length", function() {
+      var res = rhombus.vectorAtLength(999999);
+      expect(res).toEqualVector(0, 0);
+    });
+
+  });
+
   describe("toPolygon()", function() {
 
     it("should return self if no segmentor", function() {
@@ -82,18 +129,41 @@ describe("Rune.Polygon", function() {
       expect(res).toBe(res);
     });
 
-    it("should compute vectors with even spacing + corners", function() {
+    it("should return vectors with spacing", function() {
       var res = rhombus.toPolygon({ spacing: 25 });
       expect(res.vars.x).toEqual(10);
       expect(res.vars.y).toEqual(15);
-      expect(res.vars.vectors.length).toEqual(12);
+      expect(res.vars.vectors.length).toEqual(10);
+      expect(res.vars.vectors[0]).toEqualVector(0, 0);
+      expect(res.vars.vectors[1]).toEqualVector(25, 0);
+      expect(res.vars.vectors[2]).toEqualVector(50, 0);
+      expect(res.vars.vectors[3]).toEqualVector(64.74341649025257, 14.230249470757707);
+      expect(res.vars.vectors[4]).toEqualVector(72.64911064067351, 37.94733192202055);
+      expect(res.vars.vectors[5]).toEqualVector(78.24555320336759, 60);
+      expect(res.vars.vectors[6]).toEqualVector(53.24555320336759, 60);
+      expect(res.vars.vectors[7]).toEqualVector(28.245553203367592,60);
+      expect(res.vars.vectors[8]).toEqualVector(14.701778718652967,44.1053361559589);
+      expect(res.vars.vectors[9]).toEqualVector(6.796084568232018,20.388253704696055);
+    });
+
+    it("should return vectors with spacing and corners", function() {
+      var res = rhombus.toPolygon({ spacing: 25, corners:true });
+      expect(res.vars.x).toEqual(10);
+      expect(res.vars.y).toEqual(15);
+      expect(res.vars.vectors.length).toEqual(13);
       expect(res.vars.vectors[0]).toEqualVector(0, 0);
       expect(res.vars.vectors[1]).toEqualVector(25, 0);
       expect(res.vars.vectors[2]).toEqualVector(50, 0);
       expect(res.vars.vectors[3]).toEqualVector(60, 0);
-      expect(res.vars.vectors[4]).toEqualVector(67.90569415042094, 23.717082451262844);
-      expect(res.vars.vectors[5]).toEqualVector(75.8113883008419, 47.43416490252569);
-      expect(res.vars.vectors[6]).toEqualVector(80, 60);
+      expect(res.vars.vectors[4]).toEqualVector(64.74341649025257, 14.230249470757707);
+      expect(res.vars.vectors[5]).toEqualVector(72.64911064067351, 37.94733192202055);
+      expect(res.vars.vectors[6]).toEqualVector(78.24555320336759, 60);
+      expect(res.vars.vectors[7]).toEqualVector(80, 60);
+      expect(res.vars.vectors[8]).toEqualVector(53.24555320336759, 60);
+      expect(res.vars.vectors[9]).toEqualVector(28.245553203367592,60);
+      expect(res.vars.vectors[10]).toEqualVector(20,60);
+      expect(res.vars.vectors[11]).toEqualVector(14.701778718652967,44.1053361559589);
+      expect(res.vars.vectors[12]).toEqualVector(6.796084568232018,20.388253704696055);
     });
 
   });
