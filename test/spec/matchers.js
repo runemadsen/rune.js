@@ -179,19 +179,12 @@ beforeEach(function () {
     toBeAnchorCubic: function () {
       return {
         compare: function (anchor, a, b, c, d, e, f, g) {
-
           var expected = new Rune.Anchor();
           expected.command = 'cubic';
           expected.vec1 = new Rune.Vector(a, b);
           expected.vec2 = new Rune.Vector(c, d);
-
-          if(_.isNumber(e)) {
-            expected.relative = g;
-            expected.vec3 = new Rune.Vector(e, f)
-          } else {
-            expected.relative = e;
-          }
-
+          expected.vec3 = new Rune.Vector(e, f)
+          expected.relative = g === true;
           return {
             pass: _.isEqual(anchor, expected),
             message: "Actual: " + JSON.stringify(anchor) + ", expected: " + JSON.stringify(expected)
@@ -203,17 +196,11 @@ beforeEach(function () {
     toBeAnchorQuad: function () {
       return {
         compare: function (anchor, a, b, c, d, e) {
-
           var expected = new Rune.Anchor();
           expected.command = 'quad';
           expected.vec1 = new Rune.Vector(a, b);
-          if(_.isNumber(c)) {
-            expected.vec2 = new Rune.Vector(c, d);
-            expected.relative = e === true;
-          } else {
-            expected.relative = c === true;
-          }
-
+          expected.vec2 = new Rune.Vector(c, d);
+          expected.relative = e === true;
           return {
             pass: _.isEqual(anchor, expected),
             message: "Actual: " + JSON.stringify(anchor) + ", expected: " + JSON.stringify(expected)

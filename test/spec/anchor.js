@@ -70,16 +70,6 @@ describe("Rune.Anchor", function() {
       expect(a).toBeAnchorQuad(100, 105, 200, 205, true);
     });
 
-    it("creates quad absolute shorthand", function() {
-      var a = new Rune.Anchor().setCurve(100, 105);
-      expect(a).toBeAnchorQuad(100, 105, false);
-    });
-
-    it("creates quad relative shorthand", function() {
-      var a = new Rune.Anchor().setCurve(100, 105, true);
-      expect(a).toBeAnchorQuad(100, 105, true);
-    });
-
   });
 
   describe("setClose()", function() {

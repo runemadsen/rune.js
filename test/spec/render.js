@@ -190,7 +190,7 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("path");
-      expect(jshape).toHaveAttr("d", "M 0 0 L 104 105 l 106 107 M 100 101 m 102 103 C 108 109 110 111 112 113 c 114 115 116 117 118 119 Q 120 121 122 123 q 124 125 126 127 T 128 129 t 130 131 Z")
+      expect(jshape).toHaveAttr("d", "M 0 0 L 104 105 l 106 107 M 100 101 m 102 103 C 108 109 110 111 112 113 c 114 115 116 117 118 119 Q 120 121 122 123 q 124 125 126 127 Z")
       expect(jshape).toHaveTranslation(10, 15);
       expectShared(jshape);
     });

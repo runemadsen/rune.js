@@ -28,8 +28,6 @@ describe("Rune.Path", function() {
       expect(p.vars.anchors[6]).toBeAnchorCubic(114, 115, 116, 117, 118, 119, true);
       expect(p.vars.anchors[7]).toBeAnchorQuad(120, 121, 122, 123, false);
       expect(p.vars.anchors[8]).toBeAnchorQuad(124, 125, 126, 127, true);
-      expect(p.vars.anchors[9]).toBeAnchorQuad(128, 129, false);
-      expect(p.vars.anchors[10]).toBeAnchorQuad(130, 131, true);
     });
 
   });
