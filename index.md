@@ -3,6 +3,22 @@ layout: default
 title: "Rune.js Documentation"
 ---
 
+# Rune.js
+
+Rune.js is a JavaScript library for programming graphic design systems in SVG. It features a beautiful drawing API, an unobtrusive scene graph, and a range of other features developed to make it pleasant to create algorithmic designs for both print and web.
+
+Design features
+
+- Beautiful drawing API.
+- Advanced color support.
+
+Technical features
+
+- A scene graph that beginners can ignore, and advanced users will love.
+- 
+
+Follow [@runemadsen](https://www.twitter.com/runemadsen) for updates on new features.
+
 ## Getting started
 
 ### The stage graph
