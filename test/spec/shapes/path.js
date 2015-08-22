@@ -1,5 +1,18 @@
 describe("Rune.Path", function() {
 
+  var path;
+
+  beforeEach(function() {
+    path = new Rune.Path(10, 15)
+      .lineTo(100, 100)
+      .curveTo(100, 200, -100, 200, -100, 100)
+      .curveTo(-100, 0, 0, 0)
+      .moveTo(0, 25)
+      .lineTo(75, 75)
+      .lineTo(-75, 75)
+      .closePath();
+  });
+
   describe("Path()", function() {
 
     it("should have optional x and y", function() {
@@ -42,24 +55,46 @@ describe("Rune.Path", function() {
 
   });
 
-  // split
+  describe("length()", function() {
+    it("should return length of all subpaths", function() {
+      expect(path.length()).toEqual(0);
+    });
+  });
 
-  // length
+  describe("subpaths()", function() {
+
+    it("should return subpath anchors in individual paths", function() {
+      var paths = path.subpaths();
+
+      expect(paths.length).toEqual(2);
+      var p1 = paths[0];
+      var p2 = paths[1];
+
+      expect(p1.vars.x).toEqual(10);
+      expect(p1.vars.y).toEqual(15);
+      expect(p1.vars.anchors.length).toEqual(4);
+      expect(p1.vars.anchors[0]).toBeAnchorMove(0, 0);
+      expect(p1.vars.anchors[1]).toBeAnchorLine(100, 100);
+      expect(p1.vars.anchors[2]).toBeAnchorCubic(100, 200, -100, 200, -100, 100);
+      expect(p1.vars.anchors[3]).toBeAnchorQuad(-100, 0, 0, 0);
+
+      expect(p2.vars.x).toEqual(10);
+      expect(p2.vars.y).toEqual(15);
+      expect(p2.vars.anchors.length).toEqual(4);
+      expect(p2.vars.anchors[0]).toBeAnchorMove(0, 25);
+      expect(p2.vars.anchors[1]).toBeAnchorLine(75, 75);
+      expect(p2.vars.anchors[2]).toBeAnchorLine(-75, 75);
+      expect(p2.vars.anchors[3]).toBeAnchorClose();
+    });
+
+    it("should copy path styles") // SHOULD ALREADY WORK
+
+    it("should work with scene graph") // should already work
+  });
+
+
 
   describe("toPolygons()", function() {
-
-    var path;
-
-    beforeEach(function() {
-      path = new Rune.Path(10, 15)
-        .lineTo(100, 100)
-        .curveTo(100, 200, -100, 200, -100, 100)
-        .curveTo(-100, 0, 0, 0)
-        .moveTo(0, 25)
-        .lineTo(75, 75)
-        .lineTo(-75, 75)
-        .closePath();
-    });
 
     it("should return array of polygons and vectors with spacing", function() {
       var res = path.toPolygons({ spacing: 25 });

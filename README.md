@@ -22,7 +22,7 @@ My main goal for the project is to make `rune.js` the best library for making 2D
 - **Plugins** Expand the code base via plugins. Keep the core library small. 
 - **Beautiful output**. Generate readable SVG elements.
 
-`rune.js` was inspired by the Two.js scene graph, Processing's drawing functions, and Geomerative's geometry and color classes. It uses [Color.js](https://github.com/harthur/color) for color support, [virtual-dom](https://github.com/Matt-Esch/virtual-dom) for DOM diffing, and [underscore.js](http://underscorejs.org/) for enumerables.
+`rune.js` was inspired by the Two.js scene graph, Processing's drawing functions, and Geomerative's geometry and color classes. It uses [Color.js](https://github.com/harthur/color) for color support, [virtual-dom](https://github.com/Matt-Esch/virtual-dom) for DOM diffing, [Bezier.js](http://pomax.github.io/bezierjs/) for curbe math, and [underscore.js](http://underscorejs.org/) for enumerables.
 
 
 ## Why not ...?
