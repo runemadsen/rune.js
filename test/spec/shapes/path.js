@@ -42,6 +42,10 @@ describe("Rune.Path", function() {
 
   });
 
+  // split
+
+  // length
+
   describe("toPolygons()", function() {
 
     var path;
@@ -49,12 +53,30 @@ describe("Rune.Path", function() {
     beforeEach(function() {
       path = new Rune.Path(10, 15)
         .lineTo(100, 100)
-        .curveTo(100, 200, 0, 200, 0, 100)
-        .curveTo()
+        .curveTo(100, 200, -100, 200, -100, 100)
+        .curveTo(-100, 0, 0, 0)
+        .moveTo(0, 25)
+        .lineTo(75, 75)
+        .lineTo(-75, 75)
+        .closePath();
+    });
+
+    it("should return array of polygons and vectors with spacing", function() {
+      var res = path.toPolygons({ spacing: 25 });
+      expect(res.length).toEqual(2);
+      var poly1 = res[0]
+      var poly2 = res[1]
+      expect(poly1.x).toEqual(10);
+      expect(poly1.y).toEqual(15);
+      expect(poly2.x).toEqual(10);
+      expect(poly2.y).toEqual(15);
+      console.log(poly1.vars.anchors);
+      console.log(poly2.vars.anchors);
     });
 
     // spacing
-    //
+    // test moveTo after closePath....
+    // test with and without closePath btw subpaths.... subpaths may be open or closed.
 
   });
 

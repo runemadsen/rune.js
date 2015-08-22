@@ -2,6 +2,7 @@
 
 ### Must
 
+- [ ] More functions from this: http://pomax.github.io/bezierjs/
 - [ ] `path.toPolygon`
 - [ ] `stagePos()` on shapes and groups to get absolute position
 - [ ] `centroid`, `bounds`, `vectorAt` should have flag to either output according to x,y or according to stagePos.

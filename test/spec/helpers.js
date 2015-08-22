@@ -49,7 +49,7 @@ function setAllAnchors(path) {
     .moveTo(106, 107)
     .curveTo(108, 109, 110, 111, 112, 113)
     .curveTo(114, 115, 116, 117)
-    .closeShape();
+    .closePath();
 }
 
 function setTextVars(text) {

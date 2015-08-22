@@ -63,7 +63,7 @@ describe("Rune.Anchor", function() {
 
   describe("vectorAt()", function() {
 
-    it("returns throws error for move", function() {
+    it("throws error for move", function() {
       var a = new Rune.Anchor().setMove(0, 0);
       expect(function() { a.vectorAt(0.5) }).toThrow(new Error("Cannot compute vectorAt for this type of anchor"));
     });
@@ -85,7 +85,27 @@ describe("Rune.Anchor", function() {
 
   });
 
-  describe("vectorAtLength()", function() {
+  describe("length()", function() {
+
+    it("returns length for move", function() {
+      var a = new Rune.Anchor().setMove(0, 0);
+      expect(a.length()).toEqual(0);
+    });
+
+    it("returns length for line", function() {
+      var a = new Rune.Anchor().setLine(100, 100);
+      expect(a.length()).toEqual(141.4213562373095);
+    });
+
+    it("returns length for cubic bezier", function() {
+      var a = new Rune.Anchor().setCurve(0, 100, 100, 100, 100, 0);
+      expect(a.length()).toEqual(200);
+    });
+
+    it("returns length for quad bezier", function() {
+      var a = new Rune.Anchor().setCurve(50, 100, 100, 0);
+      expect(a.length()).toEqual(147.89428575453212);
+    });
 
   });
 

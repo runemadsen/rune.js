@@ -31,10 +31,31 @@
       return this;
     },
 
-    closeShape: function() {
+    closePath: function() {
       this.checkStartMove();
       this.vars.anchors.push(new Rune.Anchor().setClose());
       return this;
+    },
+
+    fillRule: function(val) { this.vars.fillRule = val; return this; },
+
+    toPolygons: function(opts) {
+
+      // if splitting the path into vectors with equal spacing
+      if(opts && opts.spacing) {
+
+        var poly = new Rune.Polygon(this.vars.x, this.vars.y);
+        var len = this.length();
+        var num = len / opts.spacing;
+        for(var i = 0; i < num; i++) {
+          var vec = this.vectorAtLength(i * opts.spacing);
+          poly.lineTo(vec.x, vec.y)
+        }
+        return poly;
+      }
+
+      return this;
+
     },
 
     copy: function(group) {
@@ -43,8 +64,6 @@
       this.shapeCopy(s, group);
       return s;
     },
-
-    fillRule: function(val) { this.vars.fillRule = val; return this; },
 
     // Paths must start with a moveTo. This function is checks if
     // there is a moveTo at the beginning, and adds one if not.

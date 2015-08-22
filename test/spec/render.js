@@ -351,7 +351,7 @@ describe("Rune.Render", function() {
 
     it("should not render if debug false", function() {
       var p = r.path(10, 10);
-      p.curveTo(100, 105, 200, 205, 300, 305).closeShape();
+      p.curveTo(100, 105, 200, 205, 300, 305).closePath();
       r.draw();
       expect(jel.find('line').length).toBe(0);
       expect(jel.find('circle').length).toBe(0);
@@ -360,7 +360,7 @@ describe("Rune.Render", function() {
     it("should render cubic curve helpers", function() {
       r.debug = true;
       var p = r.path(10, 10);
-      p.curveTo(100, 105, 200, 205, 300, 305).closeShape();
+      p.curveTo(100, 105, 200, 205, 300, 305).closePath();
       r.draw();
 
       expect(jel.find('line').length).toBe(2);
@@ -376,7 +376,7 @@ describe("Rune.Render", function() {
     it("should render quad curve helpers", function() {
       r.debug = true;
       var p = r.path(10, 10);
-      p.curveTo(200, 205, 300, 305).closeShape();
+      p.curveTo(200, 205, 300, 305).closePath();
       r.draw();
 
       expect(jel.find('line').length).toBe(1);

@@ -15,6 +15,7 @@
     "browserify": "^11.0.0",
     "vinyl-source-stream": "^1.1.0",
     "color-convert": "^0.5.3",
-    "color-string": "^0.3.0"
+    "color-string": "^0.3.0",
+    "bezier-js" : "^1.0.8"
   }
 }

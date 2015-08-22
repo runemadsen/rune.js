@@ -34,4 +34,9 @@ gulp.task("vendor", function() {
     .pipe(source('color.js'))
     .pipe(gulp.dest('./vendor'));
 
+  browserify("browserify/bezier.js")
+    .bundle()
+    .pipe(source('bezier.js'))
+    .pipe(gulp.dest('./vendor'));
+
 })

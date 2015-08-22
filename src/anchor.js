@@ -54,6 +54,24 @@
       return this;
     },
 
+    length: function() {
+      if(this.command == 'move') {
+        return 0;
+      }
+      else if(this.command == 'line') {
+        return this.vec1.length();
+      }
+      else if(this.command == 'quad') {
+        return new Bezier(0, 0, this.vec1.x, this.vec1.y, this.vec2.x, this.vec2.y).length();
+      }
+      else if(this.command == 'cubic') {
+        return new Bezier(0, 0, this.vec1.x, this.vec1.y, this.vec2.x, this.vec2.y, this.vec3.x, this.vec3.y).length();
+      }
+      else {
+        throw new Error("Cannot compute length for this type of anchor")
+      }
+    },
+
     vectorAt: function(scalar) {
 
       if(scalar > 1) scalar = 1;
@@ -67,33 +85,11 @@
       if(this.command == 'line') {
         return new Rune.Vector(this.vec1.x, this.vec1.y).multiply(scalar)
       }
-      else if(this.command == 'cubic') {
-
-        // calculate the polynomial coefficients
-        cx = 3 * this.vec1.x;
-        bx = 3 * (this.vec2.x - this.vec1.x) - cx;
-        ax = this.vec3.x - cx - bx;
-        cy = 3 * this.vec1.y;
-        by = 3 * (this.vec2.y - this.vec1.y) - cy;
-        ay = this.vec3.y - cy - by;
-
-        // calculate the curve point at parameter value t
-        tSquared = scalar * scalar;
-        tCubed = tSquared * scalar;
-        return new Rune.Vector((ax * tCubed) + (bx * tSquared) + (cx * scalar), (ay * tCubed) + (by * tSquared) + (cy * scalar))
-      }
       else if(this.command == 'quad') {
-
-        // calculate the polynomial coefficients
-        bx = this.vec1.x;
-        ax = this.vec2.x - this.vec1.x - bx;
-        by = this.vec1.y;
-        ay = this.vec2.y - this.vec1.y - by;
-
-        // calculate the curve point at parameter value t
-        tSquared = scalar * scalar;
-        tDoubled = 2 * scalar;
-        return new Rune.Vector((ax * tSquared) + (bx * tDoubled), (ay * tSquared) + (by * tDoubled));
+        return new Bezier(0, 0, this.vec1.x, this.vec1.y, this.vec2.x, this.vec2.y).get(scalar);
+      }
+      else if(this.command == 'cubic') {
+        return new Bezier(0, 0, this.vec1.x, this.vec1.y, this.vec2.x, this.vec2.y, this.vec3.x, this.vec3.y).get(scalar);
       }
       else {
         throw new Error("Cannot compute vectorAt for this type of anchor")
