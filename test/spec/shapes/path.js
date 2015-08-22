@@ -19,15 +19,11 @@ describe("Rune.Path", function() {
     it("should create anchors", function() {
       var p = new Rune.Path();
       setAllAnchors(p);
-      expect(p.vars.anchors[0]).toBeAnchorMove(0, 0, false);
-      expect(p.vars.anchors[1]).toBeAnchorLine(104, 105, false);
-      expect(p.vars.anchors[2]).toBeAnchorLine(106, 107, true);
-      expect(p.vars.anchors[3]).toBeAnchorMove(100, 101, false);
-      expect(p.vars.anchors[4]).toBeAnchorMove(102, 103, true);
-      expect(p.vars.anchors[5]).toBeAnchorCubic(108, 109, 110, 111, 112, 113, false);
-      expect(p.vars.anchors[6]).toBeAnchorCubic(114, 115, 116, 117, 118, 119, true);
-      expect(p.vars.anchors[7]).toBeAnchorQuad(120, 121, 122, 123, false);
-      expect(p.vars.anchors[8]).toBeAnchorQuad(124, 125, 126, 127, true);
+      expect(p.vars.anchors[0]).toBeAnchorMove(0, 0);
+      expect(p.vars.anchors[1]).toBeAnchorLine(104, 105);
+      expect(p.vars.anchors[2]).toBeAnchorMove(106, 107);
+      expect(p.vars.anchors[3]).toBeAnchorCubic(108, 109, 110, 111, 112, 113);
+      expect(p.vars.anchors[4]).toBeAnchorQuad(114, 115, 116, 117);
     });
 
   });
@@ -48,14 +44,14 @@ describe("Rune.Path", function() {
 
   describe("toPolygons()", function() {
 
-    //var path;
-//
-    //beforeEach(function() {
-    //  path = new Rune.Path(10, 15)
-    //    .lineTo(100, 100)
-    //    .curveTo(100, 200, 0, 200, 0, 100)
-    //    .curveTo()
-    //});
+    var path;
+
+    beforeEach(function() {
+      path = new Rune.Path(10, 15)
+        .lineTo(100, 100)
+        .curveTo(100, 200, 0, 200, 0, 100)
+        .curveTo()
+    });
 
     // spacing
     //

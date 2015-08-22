@@ -116,16 +116,14 @@ beforeEach(function () {
 
     toBeAnchorMove: function () {
       return {
-        compare: function (vector, x, y, relative) {
+        compare: function (vector, x, y) {
 
           var a = new Rune.Anchor();
           a.command = 'move';
-          a.relative = relative;
           a.vec1 = new Rune.Vector(x, y);
 
           var msg = "";
           var pass = vector.command == a.command;
-          pass = pass && vector.relative == a.relative;
           pass = pass && vector.vec1.x == a.vec1.x;
           pass = pass && vector.vec1.y == a.vec1.y;
           pass = pass && _.isUndefined(vector.vec2);
@@ -147,16 +145,14 @@ beforeEach(function () {
 
     toBeAnchorLine: function () {
       return {
-        compare: function (vector, x, y, relative) {
+        compare: function (vector, x, y) {
 
           var a = new Rune.Anchor();
           a.command = 'line';
-          a.relative = relative;
           a.vec1 = new Rune.Vector(x, y);
 
           var msg = "";
           var pass = vector.command == a.command;
-          pass = pass && vector.relative == a.relative;
           pass = pass && vector.vec1.x == a.vec1.x;
           pass = pass && vector.vec1.y == a.vec1.y;
           pass = pass && _.isUndefined(vector.vec2);
@@ -178,13 +174,12 @@ beforeEach(function () {
 
     toBeAnchorCubic: function () {
       return {
-        compare: function (anchor, a, b, c, d, e, f, g) {
+        compare: function (anchor, a, b, c, d, e, f) {
           var expected = new Rune.Anchor();
           expected.command = 'cubic';
           expected.vec1 = new Rune.Vector(a, b);
           expected.vec2 = new Rune.Vector(c, d);
           expected.vec3 = new Rune.Vector(e, f)
-          expected.relative = g === true;
           return {
             pass: _.isEqual(anchor, expected),
             message: "Actual: " + JSON.stringify(anchor) + ", expected: " + JSON.stringify(expected)
@@ -195,12 +190,11 @@ beforeEach(function () {
 
     toBeAnchorQuad: function () {
       return {
-        compare: function (anchor, a, b, c, d, e) {
+        compare: function (anchor, a, b, c, d) {
           var expected = new Rune.Anchor();
           expected.command = 'quad';
           expected.vec1 = new Rune.Vector(a, b);
           expected.vec2 = new Rune.Vector(c, d);
-          expected.relative = e === true;
           return {
             pass: _.isEqual(anchor, expected),
             message: "Actual: " + JSON.stringify(anchor) + ", expected: " + JSON.stringify(expected)

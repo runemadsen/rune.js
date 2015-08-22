@@ -22,52 +22,32 @@ describe("Rune.Anchor", function() {
 
   describe("setMove()", function() {
 
-    it("creates move absolute", function() {
+    it("creates move", function() {
       var a = new Rune.Anchor().setMove(100, 105);
-      expect(a).toBeAnchorMove(100, 105, false);
-    });
-
-    it("creates move relative", function() {
-      var a = new Rune.Anchor().setMove(100, 105, true);
-      expect(a).toBeAnchorMove(100, 105, true);
+      expect(a).toBeAnchorMove(100, 105);
     });
 
   });
 
   describe("setLine()", function() {
 
-    it("creates line absolute", function() {
+    it("creates line", function() {
       var a = new Rune.Anchor().setLine(100, 105);
-      expect(a).toBeAnchorLine(100, 105, false);
-    });
-
-    it("creates line relative", function() {
-      var a = new Rune.Anchor().setLine(100, 105, true);
-      expect(a).toBeAnchorLine(100, 105, true);
+      expect(a).toBeAnchorLine(100, 105);
     });
 
   });
 
   describe("setCurve()", function() {
 
-    it("creates cubic absolute", function() {
+    it("creates cubic", function() {
       var a = new Rune.Anchor().setCurve(100, 105, 200, 205, 300, 305);
-      expect(a).toBeAnchorCubic(100, 105, 200, 205, 300, 305, false);
+      expect(a).toBeAnchorCubic(100, 105, 200, 205, 300, 305);
     });
 
-    it("creates cubic relative", function() {
-      var a = new Rune.Anchor().setCurve(100, 105, 200, 205, 300, 305, true);
-      expect(a).toBeAnchorCubic(100, 105, 200, 205, 300, 305, true);
-    });
-
-    it("creates quad absolute", function() {
+    it("creates quad", function() {
       var a = new Rune.Anchor().setCurve(100, 105, 200, 205);
-      expect(a).toBeAnchorQuad(100, 105, 200, 205, false);
-    });
-
-    it("creates quad relative", function() {
-      var a = new Rune.Anchor().setCurve(100, 105, 200, 205, true);
-      expect(a).toBeAnchorQuad(100, 105, 200, 205, true);
+      expect(a).toBeAnchorQuad(100, 105, 200, 205);
     });
 
   });

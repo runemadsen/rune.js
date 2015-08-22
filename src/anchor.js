@@ -1,7 +1,6 @@
 (function(Rune) {
 
   var Anchor = Rune.Anchor = function() {
-    this.relative = false;
   };
 
   // Constructors
@@ -11,7 +10,6 @@
 
     copy: function() {
       var a = new Rune.Anchor();
-      a.relative = this.relative;
       a.command = this.command;
       if(this.vec1) a.vec1 = this.vec1.copy();
       if(this.vec2) a.vec2 = this.vec2.copy();
@@ -19,21 +17,19 @@
       return a;
     },
 
-    setMove: function(x, y, relative) {
+    setMove: function(x, y) {
       this.command = 'move';
       this.vec1 = new Rune.Vector(x, y);
-      this.relative = !!relative;
       return this;
     },
 
-    setLine: function(x, y, relative) {
+    setLine: function(x, y) {
       this.command = 'line';
       this.vec1 = new Rune.Vector(x, y);
-      this.relative = !!relative;
       return this;
     },
 
-    setCurve: function(a, b, c, d, e, f, g) {
+    setCurve: function(a, b, c, d, e, f) {
 
       // cubic bezier with two control points
       if(!_.isUndefined(f)) {
@@ -41,7 +37,6 @@
         this.vec1 = new Rune.Vector(a, b);
         this.vec2 = new Rune.Vector(c, d);
         this.vec3 = new Rune.Vector(e, f);
-        if(g === true)  this.relative = true;
       }
 
       // quad bezier with one control point
@@ -49,7 +44,6 @@
         this.command = 'quad';
         this.vec1 = new Rune.Vector(a, b);
         this.vec2 = new Rune.Vector(c, d);
-        if(e === true)  this.relative = true;
       }
 
       return this;

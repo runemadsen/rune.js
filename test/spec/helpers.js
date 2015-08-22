@@ -46,13 +46,9 @@ function setStyleableVars(shape) {
 
 function setAllAnchors(path) {
   path.lineTo(104, 105)
-    .lineTo(106, 107, true)
-    .moveTo(100, 101)
-    .moveTo(102, 103, true)
-    .curveTo(108, 109, 110, 111, 112, 113) // cubic
-    .curveTo(114, 115, 116, 117, 118, 119, true) // cubic relative
-    .curveTo(120, 121, 122, 123) // quad
-    .curveTo(124, 125, 126, 127, true) // quad relative
+    .moveTo(106, 107)
+    .curveTo(108, 109, 110, 111, 112, 113)
+    .curveTo(114, 115, 116, 117)
     .closeShape();
 }
 
