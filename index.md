@@ -5,27 +5,58 @@ title: "Rune.js Documentation"
 
 # Rune.js
 
-Rune.js is a JavaScript library for programming graphic design systems in SVG. It features a beautiful drawing API, an unobtrusive scene graph, and a range of other features developed to make it pleasant to create algorithmic designs for both print and web.
+Rune.js is a JavaScript library for programming graphic design systems with SVG. It features a beautiful drawing API, an unobtrusive scene graph, and a range of other features developed to make it pleasant to create algorithmic designs for both print and web.
 
-Design features
+Features include:
 
-- Beautiful drawing API.
-- Advanced color support.
-
-Technical features
-
-- A scene graph that beginners can ignore, and advanced users will love.
-- 
+- Beautiful, chainable drawing API.
+- A scene graph that beginners can ignore, and experienced users will love.
+- Built-in color manipulation
+- Shapes with helpers for computational geometry.
+- SVG rendering via [virtual-dom](https://github.com/Matt-Esch/virtual-dom)
+- Typography support
+- Built-in grid system to help with alignment and positioning.
+- Debug mode to visualize polygon vectors and grids.
 
 Follow [@runemadsen](https://www.twitter.com/runemadsen) for updates on new features.
 
 ## Getting started
 
-### The stage graph
+First download the `rune.js` file and place it next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
 
-You can do shit la la
+```html
+<head>
+  <script type="text/javascript" src="rune.js"></script>
+</head>
+```
 
-## Shapes
+To start using the library, create a new file called `sketch.js` and add a link to this file inside the `<body>` tag of the document.
+
+```html
+<body>
+  <script type="text/javascript" src="sketch.js"></script>
+</body>
+```
+
+Finally, put the following code in `sketch.js` to create a new Rune object.
+
+```js
+var r = new Rune({
+  container: "body",
+  width: 500,
+  height: 400
+});
+```
+
+If you open the HTML file in your browser, you will see a blank page, as we've only created a blank canvas. To make sure that your code is working, add the following code to your `sketch.js` file and refresh your browser.
+
+```js
+r.rect(0, 0, 200, 200).fill(0, 0, 255);
+```
+
+You should now see a blue rectangle in the top-left corner of the screen.
+
+## Drawing shapes
 
 ### Basics
 

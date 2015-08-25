@@ -37,12 +37,17 @@ h4 code {
 // Body
 // --------------------------------------------------------
 
-code {
-  display: block;
-  font-family: 'Roboto Mono', 'Consolas', monospace;
-  padding: 10px;
+pre {
   background-color: $gray;
-  font-size: 0.8em;
+  padding: 0.4em;
+}
+
+code {
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  background-color: $gray;
+  font-size: 0.9em;
 }
 
 h3 + p {
@@ -52,8 +57,7 @@ h3 + p {
   margin: 0.5em 0;
 }
 
-p {
-  // margin: 0.6em 0;
+p, ul, ol {
   font-size: 1em;
   line-height: 1.6em;
   color: #333;
