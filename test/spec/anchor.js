@@ -1,9 +1,27 @@
 describe("Rune.Anchor", function() {
 
-  var r;
+  var a1;
+  var v1;
 
   beforeEach(function() {
-    r = new Rune();
+    a1 = new Rune.Anchor().setCurve(100, 105, 200, 205, 300, 305);
+    v1 = new Rune.Vector(10, 15);
+  });
+
+  describe("add()", function() {
+    it("adds vector to anchor vectors", function() {
+      var res = a1.add(v1);
+      expect(res).toBeAnchorCubic(110, 120, 210, 220, 310, 320);
+      expect(res).not.toBe(a1);
+    });
+  });
+
+  describe("sub()", function() {
+    it("subtracts vectors", function() {
+      var res = a1.sub(v1);
+      expect(res).toBeAnchorCubic(90, 90, 190, 190, 290, 290);
+      expect(res).not.toBe(a1);
+    });
   });
 
   describe("copy()", function() {

@@ -39,27 +39,45 @@
 
     subpaths: function(group) {
       var subs = [];
-      var lastMove = 0;
+      var lastSplit = 0;
+
       _.each(this.vars.anchors, function(anchor, i) {
-        if(i > lastMove && (anchor.command == 'move' || i == this.vars.anchors.length-1)) {
-          if(i == this.vars.anchors.length-1) i++;
+
+        var isMove = anchor.command == 'move';
+        var isAfterClose = this.vars.anchors[i-1] && this.vars.anchors[i-1].command == 'close'
+        var isLast = i == this.vars.anchors.length-1;
+
+        if(i > lastSplit && (isMove || isAfterClose || isLast)) {
+          if(isLast) i++;
           var sub = this.copy(group);
-          sub.vars.anchors = sub.vars.anchors.slice(lastMove, i);
+          sub.vars.anchors = sub.vars.anchors.slice(lastSplit, i);
           subs.push(sub);
-          lastMove = i;
+          lastSplit = i;
         }
       }, this);
       return subs;
     },
 
     length: function() {
-      //var len = 0;
-      //for(var i = 0; i < this.vars.anchors.length; i++) {
-        // WHAT DO I DO WITH THE DIFFERENT TYPES?
-        //var start = this.vars.vectors[i];
-        //var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
-        //len += stop.sub(start).length();
-      //}
+      var len = 0;
+      var paths = this.subpaths();
+
+      for(var p = 0; p < paths.length; p++) {
+        for(var i = 0; i < paths[p].vars.anchors.length; i++) {
+
+          var isNotLast = i < paths[p].vars.anchors.length-1 ;
+          var isLastClose = paths[p].vars.anchors[i].command == 'close';
+
+          if(isNotLast || isLastClose) {
+            var start = this.vars.anchors[i];
+            var startVec = start.vec3 || start.vec2 || start.vec1;
+            var stop = this.vars.anchors[(i+1)%this.vars.anchors.length];
+            console.log(stop.sub(startVec).length())
+            len += stop.sub(startVec).length()
+          }
+        }
+      }
+
       return len;
     },
 

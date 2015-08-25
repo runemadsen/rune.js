@@ -8,6 +8,22 @@
 
   _.extend(Anchor.prototype, {
 
+    add : function(vec) {
+      var a = this.copy();
+      if(a.vec1) a.vec1 = a.vec1.add(vec);
+      if(a.vec2) a.vec2 = a.vec2.add(vec);
+      if(a.vec3) a.vec3 = a.vec3.add(vec);
+      return a;
+    },
+
+    sub: function(vec) {
+      var a = this.copy();
+      if(a.vec1) a.vec1 = a.vec1.sub(vec);
+      if(a.vec2) a.vec2 = a.vec2.sub(vec);
+      if(a.vec3) a.vec3 = a.vec3.sub(vec);
+      return a;
+    },
+
     copy: function() {
       var a = new Rune.Anchor();
       a.command = this.command;

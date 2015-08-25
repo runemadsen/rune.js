@@ -57,13 +57,13 @@ describe("Rune.Path", function() {
 
   describe("length()", function() {
     it("should return length of all subpaths", function() {
-      expect(path.length()).toEqual(0);
+      expect(path.length()).toEqual(100);
     });
   });
 
   describe("subpaths()", function() {
 
-    it("should return subpath anchors in individual paths", function() {
+    it("returns subpaths separated by moveTo", function() {
       var paths = path.subpaths();
 
       expect(paths.length).toEqual(2);
@@ -87,6 +87,38 @@ describe("Rune.Path", function() {
       expect(p2.vars.anchors[3]).toBeAnchorClose();
     });
 
+    it("returns subpaths separated by closeShape", function() {
+
+      var triangles = new Rune.Path(10, 15)
+        .lineTo(100, 100)
+        .lineTo(0, 100)
+        .closePath()
+        .lineTo(-100, 100)
+        .lineTo(0, 100)
+        .closePath();
+
+      var paths = triangles.subpaths();
+
+      expect(paths.length).toEqual(2);
+      var p1 = paths[0];
+      var p2 = paths[1];
+
+      expect(p1.vars.x).toEqual(10);
+      expect(p1.vars.y).toEqual(15);
+      expect(p1.vars.anchors.length).toEqual(4);
+      expect(p1.vars.anchors[0]).toBeAnchorMove(0, 0);
+      expect(p1.vars.anchors[1]).toBeAnchorLine(100, 100);
+      expect(p1.vars.anchors[2]).toBeAnchorLine(0, 100);
+      expect(p1.vars.anchors[3]).toBeAnchorClose();
+
+      expect(p2.vars.x).toEqual(10);
+      expect(p2.vars.y).toEqual(15);
+      expect(p2.vars.anchors.length).toEqual(3);
+      expect(p2.vars.anchors[0]).toBeAnchorLine(-100, 100);
+      expect(p2.vars.anchors[1]).toBeAnchorLine(0, 100);
+      expect(p2.vars.anchors[2]).toBeAnchorClose();
+    });
+
     it("should copy path styles") // SHOULD ALREADY WORK
 
     it("should work with scene graph") // should already work
@@ -96,22 +128,18 @@ describe("Rune.Path", function() {
 
   describe("toPolygons()", function() {
 
-    it("should return array of polygons and vectors with spacing", function() {
-      var res = path.toPolygons({ spacing: 25 });
-      expect(res.length).toEqual(2);
-      var poly1 = res[0]
-      var poly2 = res[1]
-      expect(poly1.x).toEqual(10);
-      expect(poly1.y).toEqual(15);
-      expect(poly2.x).toEqual(10);
-      expect(poly2.y).toEqual(15);
-      console.log(poly1.vars.anchors);
-      console.log(poly2.vars.anchors);
-    });
-
-    // spacing
-    // test moveTo after closePath....
-    // test with and without closePath btw subpaths.... subpaths may be open or closed.
+    //it("should return array of polygons and vectors with spacing", function() {
+    //  var res = path.toPolygons({ spacing: 25 });
+    //  expect(res.length).toEqual(2);
+    //  var poly1 = res[0]
+    //  var poly2 = res[1]
+    //  expect(poly1.x).toEqual(10);
+    //  expect(poly1.y).toEqual(15);
+    //  expect(poly2.x).toEqual(10);
+    //  expect(poly2.y).toEqual(15);
+    //  console.log(poly1.vars.anchors);
+    //  console.log(poly2.vars.anchors);
+    //});
 
   });
 

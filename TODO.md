@@ -2,8 +2,9 @@
 
 ### Must
 
-- [ ] More functions from this: http://pomax.github.io/bezierjs/
-- [ ] `path.toPolygon`
+- [ ] `path.toPolygons`
+- [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
+- [ ] Add functions to anchor: http://pomax.github.io/bezierjs/
 - [ ] `stagePos()` on shapes and groups to get absolute position
 - [ ] `centroid`, `bounds`, `vectorAt` should have flag to either output according to x,y or according to stagePos.
 - [ ] Ellipse has width and height but I think they are radius? need to /2
