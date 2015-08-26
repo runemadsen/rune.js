@@ -67,7 +67,7 @@ r.polygon(0, 0).lineTo(100, 0).lineTo(100, 100).lineTo(0, 100);
 r.path(0, 0).lineTo(100, 0).curveTo(100, 100, 0, 100, 0, 0);
 ```
 
-You can read about these functions in the [documentation](#), but the most important thing is that they all create a new shape object, add it to the stage, and return it. This means that you can save the object into a variable or chain functions after each other.
+You can read about these functions in the [documentation](#), but the most important thing is that they all create a new shape object, add it to the stage, and return it. This means that you can save the object into a variable and chain functions after each other.
 
 ```js
 var myRect = r.rect(0, 0, 100, 50)
@@ -75,12 +75,81 @@ var myRect = r.rect(0, 0, 100, 50)
   .fill(...);
 ```
 
+### Polygons and paths
+
+### Moving shapes around
+
+rotation
+move
+
 ### Using colors
 
+Drawing is not fun without color. All shapes have a default stroke and fill color that can be manipulated via the `stroke()` and `fill()` functions.
+
+```js
+r.rect(0, 0, 100, 50)
+  .stroke(255, 0, 0) // red
+  .fill(0, 255, 0) // green
+```
+
+The example above creates a rectangle with a red stroke and green fill, by using `RGB` values from 0 to 255. If you prefer to use `HSV`, this is easy too.
+
+```js
+r.rect(0, 0, 100, 50)
+  .stroke('hsv', 0, 100, 100) // red
+  .fill('hsv', 120, 100, 100) // green
+```
+
+On top of that, all of the following inputs can be used for strokes and fills.
+
+```js
+.fill("#FF000") // red
+.fill("#FF000", 0.5) // red with opacity
+.fill(255) // white
+.fill(0) // black with opacity
+.fill(255, 255, 255) // white RGB
+.fill('hsv', 0, 100, 100) // red HSV
+.fill('hsv', 0, 100, 100, 0.5) // red HSV with opacity
+.fill(new Rune.Color(255, 0, 0)) // using color object
+```
+
+You can access the current color objects of any shape via `vars.fill` and `vars.stroke`. You can also create new color objects via `new Rune.Color()`. Color objects are chainable, and come with a bunch of functions for manipulating the color.
+
+```js
+new Rune.Color(255, 0, 0)
+    .lighten(0.1)
+    .desaturate(0.3)
+    .rotate(120)
+    // a lot more in the docs!
+```
+
+You can also disable colors by passing `false` to the functions.
+
+```js
+// you can't see me!
+r.rect(0, 0, 100, 50)
+  .stroke(false)
+  .fill(false)
+```
 
 ### Understanding the stage graph
 
 Groups and stuff
+absolute position
+
+### Shape variables
+
+All shapes have a `vars` object that hold the current state of the shape. This is mostly done to separate functions and state, so you can use `.fill()` to set the fill color, and `vars.fill` to access the current color.
+
+Unless you know what you're doing, **the vars object should only be used to to read values**. For example, here's how you get the current position of a shape within its parent.
+
+```js
+var x = myShape.vars.x;
+var y = myShape.vars.y;
+console.log("my shape is at", x, y);
+```
+
+### Draw loop
 
 
 ## Documentation
