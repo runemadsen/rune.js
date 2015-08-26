@@ -3,9 +3,11 @@ layout: default
 title: "Rune.js Documentation"
 ---
 
+<div id="logo"></div>
+
 # Rune.js
 
-A JavaScript library for programming graphic design systems with SVG. It features a beautiful drawing API, an unobtrusive scene graph, and a range of other features aimed specifically at graphic designers. These include native support for color conversion, grid systems, typography, as well as an expanding set of computational geometry helpers. Oh, and it uses [virtual-dom](https://github.com/Matt-Esch/virtual-dom) under the hood.
+Rune.js is a JavaScript library for programming graphic design systems with SVG. It features a chainable drawing API, an unobtrusive scene graph, and a range of features aimed specifically at graphic designers: native support for color conversion, grid systems, typography, pixel iteration, as well as an expanding set of computational geometry helpers. Oh, and it uses [virtual-dom](https://github.com/Matt-Esch/virtual-dom) under the hood.
 
 ## Getting started
 
@@ -35,7 +37,7 @@ var r = new Rune({
 });
 ```
 
-If you open the HTML file in your browser, you will see a blank page, as we've only created a blank canvas. To make sure that your code is working, add the following code to your `sketch.js` file and refresh your browser.
+If you open the HTML file in your browser, you will see a blank page, as we haven't called any drawing functions yet. Add the following code to `sketch.js` and refresh your browser.
 
 ```js
 r.rect(0, 0, 200, 200).fill(0, 0, 255);
@@ -52,3 +54,5 @@ All shapes share some common functions. Here's an overview.
 #### `.function(x, y, relative)`
 
 This is something to say about this code example. It might be a little crazy, but that's how it is baby.
+
+<script type="text/javascript" src="js/app.js"></script>
