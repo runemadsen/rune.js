@@ -101,8 +101,11 @@ r.circle(midway.x, midway.y, 10);
 
 ### Paths
 
-The path is the most complex shape, as it can consist of multiple subpaths made up of straight lines or bezier curves. Paths can also be open.
+The path is the most complex shape, as it can consist of multiple subpaths made up of straight lines or bezier curves. Paths can also be open, and fill rules can be used to subtract one subpath from another. 
 
+MORE
+
+fillrule
 
 
 ### Moving shapes around
