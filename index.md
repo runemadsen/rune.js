@@ -47,7 +47,7 @@ You should now see a blue rectangle in the top-left corner of the screen. If stu
 
 ### Drawing shapes
 
-Let's draw some things on the screen. `Rune.js` comes with a number of built-in functions to help you draw simple and complex shapes.
+`Rune.js` comes with a number of built-in functions to help you draw both simple and complex shapes.
 
 ```js
 // some simple shapes
@@ -60,7 +60,7 @@ r.ellipse(0, 0, 100, 50);
 
 r.circle(0, 0, 100);
 
-// more advanced shapes
+// more complex shapes
 
 r.polygon(0, 0).lineTo(100, 0).lineTo(100, 100).lineTo(0, 100);
 
@@ -75,7 +75,35 @@ var myRect = r.rect(0, 0, 100, 50)
   .fill(...);
 ```
 
-### Polygons and paths
+### Polygons
+
+The polygon is a shape made up of a number of straight lines connected to each other. The following example draws a polygon triangle on the screen.
+
+```js
+r.polygon(0, 0)
+  .lineTo(100, 100)
+  .lineTo(-100, 100)
+```
+
+The `lineTo()` function draws a new line from the last location to the new location. Notice that the example above does not draw a line back to the beginning to complete the triangle. This will happen automatically, as polygons are always closed shapes.
+
+Polygons come with a number of helper functions to make it easier to do [geometry calculations](#). As an example, here we're drawing a circle midway on the outline of the same triangle.
+
+```js
+var tri = r.polygon(0, 0)
+  .lineTo(100, 100)
+  .lineTo(-100, 100)
+
+var midway = tri.vectorAt(0.5);
+
+r.circle(midway.x, midway.y, 10);
+```
+
+### Paths
+
+The path is the most complex shape, as it can consist of multiple subpaths made up of straight lines or bezier curves. Paths can also be open.
+
+
 
 ### Moving shapes around
 
