@@ -55,10 +55,60 @@ describe("Rune.Path", function() {
 
   });
 
+  describe("startVector()", function() {
+    it("should return 0,0 if first command is not move", function() {
+      var p = new Rune.Path(10, 15).lineTo(100, 100);
+      expect(p.startVector()).toEqualVector(0, 0);
+    });
+
+    it("should return move location if first command is move", function() {
+      var p = new Rune.Path(10, 15).moveTo(100, 100);
+      expect(p.startVector()).toEqualVector(100, 100);
+    });
+  });
+
   describe("length()", function() {
     it("should return length of all subpaths", function() {
-      expect(path.length()).toEqual(100);
+      expect(path.length()).toEqual(912.9528291563602);
     });
+  });
+
+  describe("vectorAt()", function() {
+
+    it("should return vector at scalar", function() {
+      var res = path.vectorAt(0.5);
+      expect(res).toEqualVector(-95.04748002984878, 60.44400406520909);
+    });
+
+    it("should return vector if scalar is 0", function() {
+      var res = path.vectorAt(0);
+      expect(res).toEqualVector(0, 0);
+    });
+
+    it("should return vector if scalar is 1", function() {
+      var res = path.vectorAt(1);
+      expect(res).toEqualVector(0, 0);
+    });
+
+  });
+
+  describe("vectorAtLength()", function() {
+
+    it("should return vector at length", function() {
+      var res = path.vectorAtLength(70);
+      expect(res).toEqualVector(49.49747468305832, 49.49747468305832);
+    });
+
+    it("should return vector if length is 0", function() {
+      var res = path.vectorAtLength(0);
+      expect(res).toEqualVector(0, 0);
+    });
+
+    it("should return vector if length is more length", function() {
+      var res = path.vectorAtLength(999999);
+      expect(res).toEqualVector(0, 0);
+    });
+
   });
 
   describe("subpaths()", function() {
@@ -121,7 +171,7 @@ describe("Rune.Path", function() {
 
     it("should copy path styles") // SHOULD ALREADY WORK
 
-    it("should work with scene graph") // should already work
+    it("should work with scene graph") // I disabled this because I'm using it internally and don't want to add to stage automatically.
   });
 
 

@@ -37,7 +37,11 @@
       return this;
     },
 
-    subpaths: function(group) {
+    startVector: function() {
+      return this.vars.anchors[0] && this.vars.anchors[0].command == 'move' ? this.vars.anchors[0].vec1.copy() : new Rune.Vector(0, 0);
+    },
+
+    subpaths: function() {
       var subs = [];
       var lastSplit = 0;
 
@@ -49,7 +53,7 @@
 
         if(i > lastSplit && (isMove || isAfterClose || isLast)) {
           if(isLast) i++;
-          var sub = this.copy(group);
+          var sub = this.copy(false);
           sub.vars.anchors = sub.vars.anchors.slice(lastSplit, i);
           subs.push(sub);
           lastSplit = i;
@@ -59,26 +63,74 @@
     },
 
     length: function() {
+
       var len = 0;
       var paths = this.subpaths();
 
       for(var p = 0; p < paths.length; p++) {
-        for(var i = 0; i < paths[p].vars.anchors.length; i++) {
 
-          var isNotLast = i < paths[p].vars.anchors.length-1 ;
-          var isLastClose = paths[p].vars.anchors[i].command == 'close';
+        var anchors = paths[p].vars.anchors;
 
-          if(isNotLast || isLastClose) {
-            var start = this.vars.anchors[i];
-            var startVec = start.vec3 || start.vec2 || start.vec1;
-            var stop = this.vars.anchors[(i+1)%this.vars.anchors.length];
-            console.log(stop.sub(startVec).length())
-            len += stop.sub(startVec).length()
+        // find length of all anchors in subpath.
+        // if last stop is close, use beginning
+        for(var i = 0; i < anchors.length-1; i++) {
+          var start = anchors[i];
+          var startVec = start.vec3 || start.vec2 || start.vec1;
+          var stop = anchors[i+1];
+
+          // if stop is a close command, replace close anchor
+          // with vector of first point in path.
+          if(stop.command == 'close') {
+            stop = paths[p].startVector();
           }
+
+          var rel = stop.sub(startVec);
+          len += rel.length()
         }
       }
 
       return len;
+    },
+
+    vectorAtLength: function(len) {
+      var tmpLen = 0;
+      var paths = this.subpaths();
+
+      for(var p = 0; p < paths.length; p++) {
+
+        var anchors = paths[p].vars.anchors;
+
+        // find length of all anchors in subpath.
+        // if last stop is close, use beginning
+        for(var i = 0; i < anchors.length-1; i++) {
+          var start = anchors[i];
+          var startVec = start.vec3 || start.vec2 || start.vec1;
+          var stop = anchors[i+1];
+
+          // if stop is a close command, replace close anchor
+          // with vector of first point in path.
+          if(stop.command == 'close') {
+            var beginning = paths[p].startVector();
+            stop = new Rune.Anchor().setLine(beginning.x, beginning.y)
+          }
+
+          var vec = stop.sub(startVec)
+          var veclen = vec.length();
+
+          if(tmpLen + veclen > len) {
+            var remaining = len - tmpLen;
+            return startVec.add(vec.vectorAt(remaining / veclen));
+          }
+
+          tmpLen += veclen;
+        }
+      }
+
+      return this.startVector();
+    },
+
+    vectorAt: function(scalar) {
+      return this.vectorAtLength(this.length() * scalar);
     },
 
     toPolygons: function(opts) {

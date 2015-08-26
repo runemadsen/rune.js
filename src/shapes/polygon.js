@@ -19,6 +19,14 @@
       return this;
     },
 
+    loopVectors: function(iterator) {
+      for(var i = 0; i < this.vars.vectors.length; i++) {
+        var start = this.vars.vectors[i];
+        var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
+        iterator(start, stop);
+      }
+    },
+
     length: function() {
       var len = 0;
       for(var i = 0; i < this.vars.vectors.length; i++) {
@@ -30,9 +38,8 @@
     },
 
     vectorAtLength: function(len) {
+
       var tmpLen = 0;
-      var full = this.length();
-      if(len <= 0 || len >= full) return _.first(this.vars.vectors).copy();
 
       for(var i = 0; i < this.vars.vectors.length; i++) {
         var start = this.vars.vectors[i];
@@ -47,6 +54,8 @@
 
         tmpLen += veclen;
       }
+
+      return _.first(this.vars.vectors).copy();
     },
 
     vectorAt: function(scalar) {
