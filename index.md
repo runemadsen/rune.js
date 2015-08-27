@@ -45,7 +45,7 @@ r.rect(0, 0, 200, 200).fill(0, 0, 255);
 
 You should now see a blue rectangle in the top-left corner of the screen. If stuck, [download the example project](#).
 
-### Drawing shapes
+### Basic shapes
 
 `Rune.js` comes with a number of built-in functions to help you draw both simple and complex shapes.
 
