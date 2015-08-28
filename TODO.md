@@ -3,6 +3,7 @@
 ### Must
 
 - [ ] `path.toPolygons`
+- [ ] Rewrite mixins to something better suited for ES6?
 - [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
 - [ ] Add functions to anchor: http://pomax.github.io/bezierjs/
 - [ ] `stagePos()` on shapes and groups to get absolute position

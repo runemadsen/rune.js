@@ -1,14 +1,23 @@
-(function(Rune) {
+import {Shapeable, Moveable, Styleable} from "../mixins"
 
-  var Line = Rune.Line = function(x, y, x2, y2) {
+class Line {
 
+  constructor(x, y, x2, y2) {
     this.moveable();
     this.styleable();
-
     this.vars.x = x;
     this.vars.y = y;
     this.vars.x2 = x2;
     this.vars.y2 = y2;
+  }
+
+}
+
+(function(Rune) {
+
+  var Line = Rune.Line = function() {
+
+
   };
 
   _.extend(Line.prototype, Rune.Shapeable, Rune.Moveable, Rune.Styleable, {

@@ -1,32 +1,32 @@
-(function() {
+import _ from "underscore"
+import {Shapeable, Moveable, Styleable} from "../mixins"
 
-  var Circle = Rune.Circle = function(x, y, radius) {
+class Circle {
 
+  constructor(x, y, radius) {
     this.moveable();
     this.styleable();
 
     this.vars.x = x;
     this.vars.y = y;
     this.vars.radius = radius;
-  };
+  }
 
-  _.extend(Circle.prototype, Rune.Shapeable, Rune.Moveable, Rune.Styleable, {
+  toPolygon(opts) {
+    var ellipse = new Rune.Ellipse(this.vars.x, this.vars.y, this.vars.radius*2, this.vars.radius*2);
+    return ellipse.toPolygon(opts);
+  }
 
-      type: "circle",
+  copy(group) {
+    var c = new Rune.Circle();
+    c.vars.radius = this.vars.radius;
+    this.shapeCopy(c, group);
+    return c;
+  }
 
-      toPolygon: function(opts) {
-        var ellipse = new Rune.Ellipse(this.vars.x, this.vars.y, this.vars.radius*2, this.vars.radius*2);
-        return ellipse.toPolygon(opts);
-      },
+}
 
-      copy: function(group) {
-        var c = new Rune.Circle();
-        c.vars.radius = this.vars.radius;
-        this.shapeCopy(c, group);
-        return c;
-      }
+// Should we figure out a better way to do mixins for ES6?
+_.extend(Circle.prototype, Shapeable, Moveable, Styleable, { type: "circle" });
 
-    }
-  );
-
-})();
+export { Circle };

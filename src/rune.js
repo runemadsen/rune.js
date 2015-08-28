@@ -1,23 +1,25 @@
-(function() {
+import _ from "underscore"
+import { Circle } from "./shapes/circle"
+import { Color } from "./color"
+import { Group } from "./group"
+import { Render } from "./render"
 
-  var root = this;
+class Rune {
 
-  // Constructor
-  // --------------------------------------------------
-
-  var Rune = root.Rune = function(options) {
+  constructor(options) {
 
     var params = _.defaults(options || {}, {
       width: 640,
-      height: 480,
-      debug: false,
-      frameRate: 60
-    });
+        height: 480,
+        debug: false,
+        frameRate: 60
+      }
+    );
 
     this.width = params.width;
     this.height = params.height;
-    this.renderer = new Rune.Render(params);
-    this.stage = new Rune.Group();
+    this.renderer = new Render(params);
+    this.stage = new Group();
     this.debug = params.debug;
     this.frameCount = 1;
     this.frameRate = params.frameRate;
@@ -38,167 +40,161 @@
     this.initEvents();
   }
 
-  _.extend(Rune.prototype, {
+  // Events
+  // --------------------------------------------------
 
-    // Events
-    // --------------------------------------------------
+  initEvents() {
+    this.initMouseMove();
+  }
 
-    initEvents : function() {
-      this.initMouseMove();
-    },
+  initMouseMove() {
+    var mouseMove = _.bind(function(e) {
+      var bounds = this.renderer.el.getBoundingClientRect();
+      this.trigger('mousemove', {
+        x: e.pageX - bounds.left,
+        y: e.pageY - bounds.top
+      });
+    }, this);
+    document.addEventListener('mousemove', mouseMove, false);
+  }
 
-    initMouseMove : function() {
-      var mouseMove = _.bind(function(e) {
-        var bounds = this.renderer.el.getBoundingClientRect();
-        this.trigger('mousemove', {
-          x: e.pageX - bounds.left,
-          y: e.pageY - bounds.top
-        });
-      }, this);
-      document.addEventListener('mousemove', mouseMove, false);
-    },
+  // Shape functions
+  // --------------------------------------------------
 
-    // Shape functions
-    // --------------------------------------------------
+  group(x, y, parent) {
+    var group = new Rune.Group(x, y);
+    Rune.addToGroup(group, this.stage, parent);
+    return group;
+  }
 
-    group: function(x, y, parent) {
-      var group = new Rune.Group(x, y);
-      Rune.addToGroup(group, this.stage, parent);
-      return group;
-    },
+  rect(x, y, width, height, group) {
+    var rect = new Rune.Rectangle(x, y, width, height);
+    Rune.addToGroup(rect, this.stage, group);
+    return rect;
+  }
 
-    rect: function(x, y, width, height, group) {
-      var rect = new Rune.Rectangle(x, y, width, height);
-      Rune.addToGroup(rect, this.stage, group);
-      return rect;
-    },
+  ellipse(x, y, width, height, group) {
+    var ell = new Rune.Ellipse(x, y, width, height);
+    Rune.addToGroup(ell, this.stage, group);
+    return ell;
+  }
 
-    ellipse: function(x, y, width, height, group) {
-      var ell = new Rune.Ellipse(x, y, width, height);
-      Rune.addToGroup(ell, this.stage, group);
-      return ell;
-    },
+  circle(x, y, radius, group) {
+    var circ = new Rune.Circle(x, y,radius);
+    Rune.addToGroup(circ, this.stage, group);
+    return circ;
+  }
 
-    circle: function(x, y, radius, group) {
-      var circ = new Rune.Circle(x, y,radius);
-      Rune.addToGroup(circ, this.stage, group);
-      return circ;
-    },
+  line(x1, y1, x2, y2, group) {
+    var line = new Rune.Line(x1, y1, x2, y2);
+    Rune.addToGroup(line, this.stage, group);
+    return line;
+  }
 
-    line: function(x1, y1, x2, y2, group) {
-      var line = new Rune.Line(x1, y1, x2, y2);
-      Rune.addToGroup(line, this.stage, group);
-      return line;
-    },
+  polygon(x, y, group) {
+    var poly = new Rune.Polygon(x, y);
+    Rune.addToGroup(poly, this.stage, group);
+    return poly;
+  }
 
-    polygon: function(x, y, group) {
-      var poly = new Rune.Polygon(x, y);
-      Rune.addToGroup(poly, this.stage, group);
-      return poly;
-    },
+  path(x, y, group) {
+    var path = new Rune.Path(x, y);
+    Rune.addToGroup(path, this.stage, group);
+    return path;
+  }
 
-    path: function(x, y, group) {
-      var path = new Rune.Path(x, y);
-      Rune.addToGroup(path, this.stage, group);
-      return path;
-    },
+  text(text, x, y, group) {
+    var text = new Rune.Text(text, x, y);
+    Rune.addToGroup(text, this.stage, group);
+    return text;
+  }
 
-    text: function(text, x, y, group) {
-      var text = new Rune.Text(text, x, y);
-      Rune.addToGroup(text, this.stage, group);
-      return text;
-    },
+  grid(options, parent) {
+    var grid = new Rune.Grid(options);
+    Rune.addToGroup(grid, this.stage, parent);
+    return grid;
+  }
 
-    grid: function(options, parent) {
-      var grid = new Rune.Grid(options);
-      Rune.addToGroup(grid, this.stage, parent);
-      return grid;
-    },
+  // Playhead
+  // --------------------------------------------------
 
-    // Playhead
-    // --------------------------------------------------
+  play() {
+    if(this.frameRate >= 60)  this.playNow();
+    else                      setTimeout(_.bind(this.playNow, this), 1000 / this.frameRate);
+  }
 
-    play: function() {
-      if(this.frameRate >= 60)  this.playNow();
-      else                      setTimeout(_.bind(this.playNow, this), 1000 / this.frameRate);
-    },
+  playNow() {
+    this.trigger('draw', { frameCount: this.frameCount });
+    this.animationFrame = requestAnimationFrame(_.bind(this.play, this));
+    this.draw();
+  }
 
-    playNow: function() {
-      this.trigger('draw', { frameCount: this.frameCount });
-      this.animationFrame = requestAnimationFrame(_.bind(this.play, this));
-      this.draw();
-    },
+  pause() {
+    cancelAnimationFrame(this.animationFrame);
+  }
 
-    pause: function() {
-      cancelAnimationFrame(this.animationFrame);
-    },
+  // Render functions
+  // --------------------------------------------------
 
-    // Render functions
-    // --------------------------------------------------
+  getEl() {
+    return this.renderer.el;
+  }
 
-    getEl: function() {
-      return this.renderer.el;
-    },
+  appendTo(container) {
+    container.appendChild(this.renderer.el);
+    return this;
+  }
 
-    appendTo: function(container) {
-      container.appendChild(this.renderer.el);
-      return this;
-    },
-
-    draw: function() {
-      this.renderer.render(this.stage, { debug: this.debug });
-      this.frameCount += 1;
-    }
-
-  });
+  draw() {
+    this.renderer.render(this.stage, { debug: this.debug });
+    this.frameCount += 1;
+  }
 
   // Static functions
   // --------------------------------------------------
 
-  _.extend(Rune, {
+  static addToGroup(child, fallback, group) {
 
-    addToGroup: function(child, fallback, group) {
+    // if group is undefined, add to fallback
+    if(_.isUndefined(group) && fallback && fallback.type == "group")
+      fallback.add(child)
+    // if group is specified, add to group
+    else if(group && group.type == "group")
+      group.add(child)
+    // otherwise don't add to anything
+  }
 
-      // if group is undefined, add to fallback
-      if(_.isUndefined(group) && fallback && fallback.type == "group")
-        fallback.add(child)
-      // if group is specified, add to group
-      else if(group && group.type == "group")
-        group.add(child)
-      // otherwise don't add to anything
+}
+
+
+// Utils
+// --------------------------------------------------
+
+var Utils = {
+
+  random: function(a, b) {
+    if(_.isUndefined(b)) {
+      b = a;
+      a = 0;
     }
+    return a + (Math.random() * (b-a));
+  },
 
-  });
+  degrees: function(radians) {
+    return radians * (180/Math.PI);
+  },
 
-  // Utils
-  // --------------------------------------------------
+  radians: function(degrees) {
+    return degrees * (Math.PI/180);
+  }
 
-  var Utils = {
+};
 
-    random: function(a, b) {
-      if(_.isUndefined(b)) {
-        b = a;
-        a = 0;
-      }
-      return a + (Math.random() * (b-a));
-    },
+// Utility functions exist on both the class and
+// the instance just to give users a shortcut.
+_.extend(Rune, Utils);
+_.extend(Rune.prototype, Utils);
 
-    degrees: function(radians) {
-      return radians * (180/Math.PI);
-    },
-
-    radians: function(degrees) {
-      return degrees * (Math.PI/180);
-    }
-
-  };
-
-  // Utility functions exist on both the class and
-  // the instance just to give users a shortcut.
-  _.extend(Rune, Utils);
-  _.extend(Rune.prototype, Utils);
-
-})();
 
 //=require mixins/*.js
 //=require events.js
@@ -216,5 +212,13 @@
 //=require shapes/path.js
 //=require shapes/text.js
 
-_.extend(Rune.prototype, Rune.Events)
+//_.extend(Rune.prototype, Rune.Events)
 
+// Export modules for easy use
+Rune.Circle = Circle;
+Rune.Color = Color;
+Rune.Group = Group;
+
+global.Rune = Rune;
+
+export default Rune;
