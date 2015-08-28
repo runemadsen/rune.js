@@ -1,8 +1,20 @@
 import _ from "underscore"
-import { Circle } from "./shapes/circle"
-import { Color } from "./color"
-import { Group } from "./group"
-import { Render } from "./render"
+
+import Vector from "./vector"
+import Anchor from "./anchor"
+import Color from "./color"
+import Group from "./group"
+import Grid from "./grid"
+import Utils from "./utils"
+import Events from "./events"
+import Render from "./render"
+import Circle from "./shapes/circle"
+import Ellipse from "./shapes/ellipse"
+import Line from "./shapes/line"
+import Path from "./shapes/path"
+import Polygon from "./shapes/polygon"
+import Rectangle from "./shapes/rectangle"
+import Text from "./shapes/text"
 
 class Rune {
 
@@ -62,56 +74,56 @@ class Rune {
   // --------------------------------------------------
 
   group(x, y, parent) {
-    var group = new Rune.Group(x, y);
-    Rune.addToGroup(group, this.stage, parent);
+    var group = new Group(x, y);
+    Utils.addToGroup(group, this.stage, parent);
     return group;
   }
 
   rect(x, y, width, height, group) {
-    var rect = new Rune.Rectangle(x, y, width, height);
-    Rune.addToGroup(rect, this.stage, group);
+    var rect = new Rectangle(x, y, width, height);
+    Utils.addToGroup(rect, this.stage, group);
     return rect;
   }
 
   ellipse(x, y, width, height, group) {
-    var ell = new Rune.Ellipse(x, y, width, height);
-    Rune.addToGroup(ell, this.stage, group);
+    var ell = new Ellipse(x, y, width, height);
+    Utils.addToGroup(ell, this.stage, group);
     return ell;
   }
 
   circle(x, y, radius, group) {
-    var circ = new Rune.Circle(x, y,radius);
-    Rune.addToGroup(circ, this.stage, group);
+    var circ = new Circle(x, y,radius);
+    Utils.addToGroup(circ, this.stage, group);
     return circ;
   }
 
   line(x1, y1, x2, y2, group) {
-    var line = new Rune.Line(x1, y1, x2, y2);
-    Rune.addToGroup(line, this.stage, group);
+    var line = new Line(x1, y1, x2, y2);
+    Utils.addToGroup(line, this.stage, group);
     return line;
   }
 
   polygon(x, y, group) {
-    var poly = new Rune.Polygon(x, y);
-    Rune.addToGroup(poly, this.stage, group);
+    var poly = new Polygon(x, y);
+    Utils.addToGroup(poly, this.stage, group);
     return poly;
   }
 
   path(x, y, group) {
-    var path = new Rune.Path(x, y);
-    Rune.addToGroup(path, this.stage, group);
+    var path = new Path(x, y);
+    Utils.addToGroup(path, this.stage, group);
     return path;
   }
 
   text(text, x, y, group) {
-    var text = new Rune.Text(text, x, y);
-    Rune.addToGroup(text, this.stage, group);
+    var text = new Text(text, x, y);
+    Utils.addToGroup(text, this.stage, group);
     return text;
   }
 
   grid(options, parent) {
-    var grid = new Rune.Grid(options);
-    Rune.addToGroup(grid, this.stage, parent);
+    var grid = new Grid(options);
+    Utils.addToGroup(grid, this.stage, parent);
     return grid;
   }
 
@@ -150,75 +162,46 @@ class Rune {
     this.frameCount += 1;
   }
 
-  // Static functions
-  // --------------------------------------------------
-
-  static addToGroup(child, fallback, group) {
-
-    // if group is undefined, add to fallback
-    if(_.isUndefined(group) && fallback && fallback.type == "group")
-      fallback.add(child)
-    // if group is specified, add to group
-    else if(group && group.type == "group")
-      group.add(child)
-    // otherwise don't add to anything
-  }
-
 }
-
-
-// Utils
-// --------------------------------------------------
-
-var Utils = {
-
-  random: function(a, b) {
-    if(_.isUndefined(b)) {
-      b = a;
-      a = 0;
-    }
-    return a + (Math.random() * (b-a));
-  },
-
-  degrees: function(radians) {
-    return radians * (180/Math.PI);
-  },
-
-  radians: function(degrees) {
-    return degrees * (Math.PI/180);
-  }
-
-};
 
 // Utility functions exist on both the class and
 // the instance just to give users a shortcut.
 _.extend(Rune, Utils);
 _.extend(Rune.prototype, Utils);
+_.extend(Rune.prototype, Events)
 
-
-//=require mixins/*.js
-//=require events.js
-//=require color.js
-//=require group.js
-//=require grid.js
-//=require vector.js
-//=require anchor.js
-//=require render.js
-//=require shapes/rect.js
-//=require shapes/ellipse.js
-//=require shapes/circle.js
-//=require shapes/line.js
-//=require shapes/polygon.js
-//=require shapes/path.js
-//=require shapes/text.js
-
-//_.extend(Rune.prototype, Rune.Events)
-
-// Export modules for easy use
-Rune.Circle = Circle;
+// Export modules for easy access without imports
+Rune.Vector = Vector;
+Rune.Anchor = Anchor;
 Rune.Color = Color;
 Rune.Group = Group;
+Rune.Grid = Grid;
+Rune.Circle = Circle;
+Rune.Ellipse = Ellipse;
+Rune.Line = Line;
+Rune.Path = Path;
+Rune.Polygon = Polygon;
+Rune.Rectangle = Rectangle;
+Rune.Text = Text;
 
+// Exports modules for easy access when using module
+import { default as vector } from "./vector";
+import { default as anchor } from "./anchor";
+import { default as color } from "./color";
+import { default as group } from "./group";
+import { default as grid } from "./grid";
+import { default as utils } from "./utils";
+import { default as events } from "./events";
+import { default as render } from "./render";
+import { default as circle } from "./shapes/circle";
+import { default as ellipse } from "./shapes/ellipse";
+import { default as line } from "./shapes/line";
+import { default as path } from "./shapes/path";
+import { default as polygon } from "./shapes/polygon";
+import { default as rectangle } from "./shapes/rectangle";
+import { default as text } from "./shapes/text";
+
+// define window.Rune for browserify
 global.Rune = Rune;
 
 export default Rune;

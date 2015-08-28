@@ -1,4 +1,4 @@
-import {h, diff, patch, createElement, svg} from "virtual-dom"
+import { h, diff, patch, createElement, svg } from "virtual-dom"
 
 class Render {
 
@@ -325,4 +325,4 @@ class Render {
 
 }
 
-export { Render };
+export default Render;

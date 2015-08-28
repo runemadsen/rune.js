@@ -1,3 +1,5 @@
+import Rune from '../src/rune';
+
 describe("Rune", function() {
 
   var r;

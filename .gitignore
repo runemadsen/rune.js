@@ -4,3 +4,4 @@ node_modules/
 .sass-cache
 _site
 dist
+test/specs.js

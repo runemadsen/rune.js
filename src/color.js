@@ -1,5 +1,8 @@
 // This code was adapted from the brillinat color-js by harthur
 // See more here: https://github.com/harthur/color
+import _ from "underscore";
+import colorConvert from 'color-convert';
+import colorString from 'color-string';
 
 class Color {
 
@@ -15,7 +18,7 @@ class Color {
     }
 
     // COLOR
-    if(a instanceof Rune.Color) {
+    if(a instanceof Color) {
       return a;
     }
 
@@ -345,7 +348,7 @@ class Color {
   }
 
   copy() {
-    return new Rune.Color().rgb(this.rgb());
+    return new Color().rgb(this.rgb());
   }
 
   getValues(space) {
@@ -455,4 +458,4 @@ class Color {
 
 }
 
-export { Color };
+export default Color;

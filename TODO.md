@@ -2,6 +2,11 @@
 
 ### Must
 
+- [ ] Make watch faster with browserify and watchify
+- [ ] Rewrite code to ES6: underscore, etc.
+- [ ] Docs: using in browser. Using as module.
+- [ ] Test `import {color} from 'rune'` in jasmine. ALL modules
+- [ ] Extend color instead of copy/pasting code.
 - [ ] `path.toPolygons`
 - [ ] Rewrite mixins to something better suited for ES6?
 - [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect

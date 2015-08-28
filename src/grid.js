@@ -1,10 +1,9 @@
-(function(Rune) {
+import _ from "underscore"
+import { Shapeable, Moveable } from "./mixins"
 
-  // Constructor
-  // --------------------------------------------------
+class Grid {
 
-  var Grid = Rune.Grid = function(options) {
-
+  constructor(options) {
     this.moveable();
     this.modules = [];
 
@@ -42,55 +41,40 @@
     _.extend(this.vars, req);
 
     this.computeGrid();
-  };
+  }
 
-  // Grid functions
-  // --------------------------------------------------
+  add(child, column, row) {
 
-  _.extend(Grid.prototype, Rune.Shapeable, Rune.Moveable, {
+    if(!column) column = 1;
+    if(!row) row = 1;
 
-    type: "grid",
-
-    add: function(child, column, row) {
-
-      if(!column) column = 1;
-      if(!row) row = 1;
-
-      if(this.modules[column-1] && this.modules[column-1][row-1]) {
-        this.modules[column-1][row-1].add(child);
-      }
-      else {
-        throw new Error("Column or row does not exist");
-      }
-    },
-
-    computeGrid: function() {
-
-      this.modules = [];
-
-      for(var x = 0; x < this.vars.columns; x++) {
-
-        this.modules.push([]);
-
-        for(var y = 0; y < this.vars.rows; y++) {
-
-          var groupX = (x * this.vars.moduleWidth) + (x * this.vars.gutterX);
-          var groupY = (y * this.vars.moduleHeight) + (y * this.vars.gutterY);
-          this.modules[x].push(new Rune.Group(groupX, groupY));
-        }
-      }
-
+    if(this.modules[column-1] && this.modules[column-1][row-1]) {
+      this.modules[column-1][row-1].add(child);
     }
+    else {
+      throw new Error("Column or row does not exist");
+    }
+  }
 
-    //copy: function(group) {
-    //  var g = new Rune.Group();
-    //  this.shapeCopy(g, group);
-    //  _.each(this.children, function(child) {
-    //    child.copy(g);
-    //  });
-    //  return g;
-    //}
+  computeGrid() {
 
-  });
+    this.modules = [];
 
-})(Rune);
+    for(var x = 0; x < this.vars.columns; x++) {
+
+      this.modules.push([]);
+
+      for(var y = 0; y < this.vars.rows; y++) {
+
+        var groupX = (x * this.vars.moduleWidth) + (x * this.vars.gutterX);
+        var groupY = (y * this.vars.moduleHeight) + (y * this.vars.gutterY);
+        this.modules[x].push(new Rune.Group(groupX, groupY));
+      }
+    }
+  }
+
+}
+
+_.extend(Grid.prototype, Shapeable, Moveable, { type: "grid" });
+
+export default Grid;

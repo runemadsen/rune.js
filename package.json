@@ -1,6 +1,6 @@
 {
   "name": "rune.js",
-  "version" : "0.0.1",
+  "version" : "0.1.0",
   "description": "A JavaScript library for programming graphic design systems with SVG",
   "repository": {
     "type": "git",
@@ -24,18 +24,18 @@
     "gulp-include": "^2.0.2",
     "virtual-dom": "^2.0.1",
     "browserify": "^11.0.0",
-    "vinyl-source-stream": "^1.1.0",
     "color-convert": "^0.5.3",
     "color-string": "^0.3.0",
     "bezier-js" : "^1.0.8",
-
-    "vinyl-source-stream" : "latest",
-    "vinyl-buffer" : "latest",
-    "watchify" : "latest",
-    "babelify" : "latest",
-
-    "gulp-babel" : "latest",
-    "gulp-rename" : "latest"
+    "vinyl-source-stream" : "^1.1.0",
+    "vinyl-buffer" : "^1.0.0",
+    "babelify" : "^6.2.0",
+    "gulp-rename" : "^1.2.2",
+    "gulp-zip" : "^3.0.2",
+    "open" : "^0.0.5"
+  },
+  "devDependencies": {
+    "gulp-jasmine" : "^2.0.1"
   },
   "preferGlobal": true
 }

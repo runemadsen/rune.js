@@ -1,5 +1,5 @@
 import _ from "underscore"
-import {Shapeable, Moveable, Sizeable, Styleable} from "../mixins"
+import { Shapeable, Moveable, Sizeable, Styleable } from "../mixins"
 
 class Ellipse {
 
@@ -49,6 +49,6 @@ class Ellipse {
 }
 
 // Should we figure out a better way to do mixins for ES6?
-_.extend(Ellipse.prototype, Rune.Shapeable, Rune.Moveable, Rune.Sizeable, Rune.Styleable, {type: "ellipse"});
+_.extend(Ellipse.prototype, Shapeable, Moveable, Sizeable, Styleable, {type: "ellipse"});
 
-export { Ellipse };
+export default Ellipse;

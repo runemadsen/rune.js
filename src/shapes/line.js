@@ -1,4 +1,5 @@
-import {Shapeable, Moveable, Styleable} from "../mixins"
+import _ from "underscore"
+import { Shapeable, Moveable, Styleable } from "../mixins"
 
 class Line {
 
@@ -11,27 +12,16 @@ class Line {
     this.vars.y2 = y2;
   }
 
+  copy(group) {
+    var e = new Rune.Line();
+    e.vars.x2 = this.vars.x2;
+    e.vars.y2 = this.vars.y2;
+    this.shapeCopy(e, group);
+    return e;
+  }
+
 }
 
-(function(Rune) {
+_.extend(Line.prototype, Shapeable, Moveable, Styleable, {type: "line"});
 
-  var Line = Rune.Line = function() {
-
-
-  };
-
-  _.extend(Line.prototype, Rune.Shapeable, Rune.Moveable, Rune.Styleable, {
-
-    type: "line",
-
-    copy: function(group) {
-      var e = new Rune.Line();
-      e.vars.x2 = this.vars.x2;
-      e.vars.y2 = this.vars.y2;
-      this.shapeCopy(e, group);
-      return e;
-    }
-
-  });
-
-})(Rune);
+export default Line;

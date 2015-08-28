@@ -1,101 +1,79 @@
-//var gulp = require('gulp');
-//var connect = require('gulp-connect');
-//var concat = require('gulp-concat');
-//var include = require('gulp-include');
-//var _ = require('underscore');
-//var fs = require('fs');
-//var browserify = require('browserify');
-//var source = require('vinyl-source-stream');
-//
-//gulp.task("compile", function() {
-//  gulp.src(["vendor/**.js", "src/rune.js"])
-//    .pipe(include()).on('error', console.log)
-//    .pipe(concat('rune.js'))
-//    .pipe(gulp.dest("test/build"))
-//});
-//
-//gulp.task("test", ["compile"], function() {
-//  connect.server({
-//    port: 9898,
-//    root: 'test'
-//  });
-//  gulp.watch("./src/**/*.js", ["compile"]);
-//});
-//
-//gulp.task("vendor", function() {
-//
-//  browserify("browserify/virtual-dom.js")
-//    .bundle()
-//    .pipe(source('virtual-dom.js'))
-//    .pipe(gulp.dest('./vendor'));
-//
-//  browserify("browserify/color.js")
-//    .bundle()
-//    .pipe(source('color.js'))
-//    .pipe(gulp.dest('./vendor'));
-//
-//  browserify("browserify/bezier.js")
-//    .bundle()
-//    .pipe(source('bezier.js'))
-//    .pipe(gulp.dest('./vendor'));
-//
-//})
-
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
-var watchify = require('watchify');
 var babelify = require('babelify');
-var babel = require("gulp-babel");
 var rename = require("gulp-rename");
+var zip = require('gulp-zip');
+var connect = require('gulp-connect');
+var open = require('open');
+var jasmine = require('gulp-jasmine');
 
 var libfile = './src/rune.js'
+var builddir = './dist'
 
-// export to common js
-gulp.task("common", function() {
-  return gulp.src(libfile)
-    .pipe(babel())
-    .pipe(rename("rune.common.js"))
-    .pipe(gulp.dest("./dist"))
+// Build tasks
+// -------------------------------------------------
+
+gulp.task('build:common', function() {
+  browserify(libfile, {bundleExternal:false})
+    .transform(babelify)
+    .bundle()
+    .pipe(source('rune.common.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest(builddir))
 });
 
-// export to amd
+gulp.task('build:amd', function() {
+  browserify(libfile, {bundleExternal:false})
+    .transform(babelify.configure({modules:"amd"}))
+    .bundle()
+    .pipe(source('rune.amd.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest(builddir))
+});
 
-// export to browserify
-gulp.task("browser", function() {
+gulp.task('build:browser', function() {
   browserify(libfile)
     .transform(babelify)
     .bundle()
     .pipe(source('rune.browser.js'))
     .pipe(buffer())
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest(builddir))
 });
 
+gulp.task('build', ['build:common', 'build:amd', 'build:browser'], function() {});
 
-//function compile(watch) {
-//  var bundler = watchify(browserify('./index.js', { debug: true }).transform(babel));
-//
-//  function rebundle() {
-//    bundler.bundle()
-//      .on('error', function(err) { console.error(err); this.emit('end'); })
-//      .pipe(source('build.js'))
-//      .pipe(buffer())
-//      .pipe(gulp.dest('./build'));
-//  }
-//
-//  if (watch) {
-//    bundler.on('update', function() {
-//      console.log('-> bundling...');
-//      rebundle();
-//    });
-//  }
-//
-//  rebundle();
-//}
-//
-//function watch() {
-//  return compile(true);
-//};
+gulp.task('zip', ['build'], function() {
+  var p = require('./package.json')
+  return gulp.src(builddir + '/*')
+    .pipe(zip('rune-'+p.version+'.zip'))
+    .pipe(gulp.dest(builddir));
+});
 
-// make sure it works with package and straight es6
+// Test tasks
+// ---------------------------------------------------
+
+var testfiles = 'test/spec/**/*.js';
+var testdir = 'test/'
+
+gulp.task('test:build', function() {
+  return gulp.src('test/spec/rune.js')
+    .pipe(babel())
+    .pipe(rename("specs.js"))
+    .pipe(gulp.dest(testdir));
+});
+
+gulp.task('test', ['test:build'], function () {
+  return gulp.src('test/specs.js')
+    .pipe(jasmine());
+});
+
+//gulp.task("test:browser", ["build:browser"], function() {
+//  connect.server({
+//    port: 9898,
+//    root: '.'
+//  });
+//  open("http://localhost:9898/test");
+//  gulp.watch("./src/**/*.js", ["build:browser"]);
+//});

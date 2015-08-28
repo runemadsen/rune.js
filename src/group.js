@@ -1,5 +1,5 @@
 import _ from "underscore"
-import { Shapeable, Moveable } from "../mixins"
+import { Shapeable, Moveable } from "./mixins"
 
 class Group {
 
@@ -36,4 +36,4 @@ class Group {
 // Should we figure out a better way to do mixins for ES6?
 _.extend(Group.prototype, Shapeable, Moveable, {type: "group"});
 
-export { Group };
+export default Group;
