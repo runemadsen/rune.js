@@ -116,8 +116,37 @@ fillrule
 
 ### Moving shapes
 
-rotation
-move
+All shapes come with a `move()` function that changes the current position of the shape. An optional boolean can be provided as a third parameter to move the shape relative to its current position.
+
+```js
+r.circle(0, 0, 100)    // x:0 y:0
+  .move(100, 100);     // x:100 y:100
+  .move(20, 20, true); // x:120 y:120
+```
+
+The `rotate()` function can be used to change the rotation of a shape. If you use it with only a degree, the shape will rotate around 0,0. So even though a rectangle has a position in the middle of the screen, it will rotate around the top-left corner.
+
+```js
+r.rect(100, 100, 100, 100)
+  .rotate(45);
+```
+
+However, you can change the point of rotation. For example, here's that same rectangle rotating around its own center.
+
+```js
+r.rect(100, 100, 100, 100)
+  .rotate(45, 150, 150);
+```
+
+If you pass a boolean as the last parameter of the function, the rotation will be relative to the current rotation.
+
+```js
+r.rect(100, 100, 100, 100)
+  .rotate(45); // 45 degrees rotation
+  .rotate(45, 0, 0, true); // 90 degrees rotation
+```
+
+The `Rune.degrees()` and `Rune.radians()` functions can be used to convert from and to radians. `Rune.js` has a lot of helper functions that you can read more about in the [documentation](#).
 
 ### Using colors
 
