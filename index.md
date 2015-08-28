@@ -114,7 +114,7 @@ MORE
 fillrule
 
 
-### Moving shapes around
+### Moving shapes
 
 rotation
 move
@@ -169,7 +169,7 @@ r.rect(0, 0, 100, 50)
   .fill(false)
 ```
 
-### Understanding the stage graph
+### The stage and groups
 
 Groups and stuff
 absolute position
