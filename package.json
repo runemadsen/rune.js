@@ -35,7 +35,8 @@
     "open" : "^0.0.5",
     "gulp-jasmine-browser" : "^0.2.3",
     "gulp-uglify" : "^1.4.0",
-    "jquery" : "^2.1.4"
+    "jquery" : "^2.1.4",
+    "del" : "^1.2.1"
   },
   "preferGlobal": true
 }

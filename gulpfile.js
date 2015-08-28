@@ -9,11 +9,12 @@ var open = require('open');
 var jasmine = require('gulp-jasmine');
 var jasmineBrowser = require('gulp-jasmine-browser');
 var uglify = require('gulp-uglify');
+var del = require('del');
 
 var libfile = './src/rune.js'
 var builddir = './dist'
 
-// Build tasks
+// Build
 // -------------------------------------------------
 
 gulp.task('build:common', function() {
@@ -43,13 +44,24 @@ gulp.task('build:browser', function() {
     .pipe(gulp.dest(builddir))
 });
 
-gulp.task('build', ['build:common', 'build:amd', 'build:browser'], function() {});
-gulp.task('minify', ['build'], function() {
+gulp.task('build', ['build:common', 'build:amd', 'build:browser']);
+
+// Minify
+// -------------------------------------------------
+
+gulp.task('minify:clean', function (cb) {
+  del([builddir + '*min..js'], cb);
+});
+
+gulp.task('minify', ['build', 'minify:clean'], function() {
   return gulp.src(builddir + '/*.js')
     .pipe(uglify())
     .pipe(rename({extname: '.min.js'}))
     .pipe(gulp.dest(builddir));
 });
+
+// Zip
+// -------------------------------------------------
 
 gulp.task('zip', ['minify'], function() {
   var p = require('./package.json')
@@ -58,7 +70,7 @@ gulp.task('zip', ['minify'], function() {
     .pipe(gulp.dest(builddir));
 });
 
-// Test tasks
+// Test
 // ---------------------------------------------------
 
 gulp.task('test:common', function() {

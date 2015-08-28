@@ -5,7 +5,7 @@ import _ from "underscore"
 //    import { vector } from "rune"
 // or like this in commonjs
 //    require("rune").vector
-import Vector from "./vector"; export { default as vector } from "./vector";
+import Vector from "./vector";
 import Anchor from "./anchor"
 import Color from "./color"
 import Group from "./group"
@@ -21,8 +21,7 @@ import Polygon from "./shapes/polygon"
 import Rectangle from "./shapes/rectangle"
 import Text from "./shapes/text"
 
-// Exports modules for easy access when using module
-//export
+// Exports modules for easy access when using module?
 //export { default as anchor } from "./anchor";
 //export { default as color } from "./color";
 //export { default as group } from "./group";
