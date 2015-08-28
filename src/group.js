@@ -23,7 +23,7 @@ class Group {
   }
 
   copy(group) {
-    var g = new Rune.Group();
+    var g = new Group();
     this.shapeCopy(g, group);
     _.each(this.children, function(child) {
       child.copy(g);

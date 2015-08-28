@@ -1,3 +1,6 @@
+import Utils from './utils'
+import Color from './color'
+
 var Moveable = {
 
   moveable: function(copy) {
@@ -36,7 +39,7 @@ var Shapeable = {
     if(this.moveable)   s.moveable(this);
     if(this.sizeable)   s.sizeable(this);
     if(this.styleable)  s.styleable(this);
-    Rune.addToGroup(s, this.parent, group);
+    Utils.addToGroup(s, this.parent, group);
   }
 
   // IF WE ADD MORE METHODS, REMEMBER THAT GROUP EXTENDS THIS
@@ -61,8 +64,8 @@ var Styleable = {
   styleable: function(copy) {
 
     this.vars = this.vars || {};
-    this.vars.fill = new Rune.Color(128);
-    this.vars.stroke = new Rune.Color(0);
+    this.vars.fill = new Color(128);
+    this.vars.stroke = new Color(0);
 
     if(copy) {
       if(copy.vars.fill === false)  this.vars.fill = false;
@@ -75,13 +78,13 @@ var Styleable = {
 
   fill: function(a, b, c, d, e) {
     if(a === false) this.vars.fill = false;
-    else            this.vars.fill = new Rune.Color(a, b, c, d, e);
+    else            this.vars.fill = new Color(a, b, c, d, e);
     return this;
   },
 
   stroke: function(a, b, c, d, e) {
     if(a === false) this.vars.stroke = false;
-    else            this.vars.stroke = new Rune.Color(a, b, c, d, e);
+    else            this.vars.stroke = new Color(a, b, c, d, e);
     return this;
   },
 

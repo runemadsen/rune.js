@@ -1,5 +1,3 @@
-import Rune from '../src/rune';
-
 describe("Rune", function() {
 
   var r;
@@ -11,7 +9,7 @@ describe("Rune", function() {
   describe("instantiation", function() {
 
     it("should save width and height", function() {
-      var r = new Rune({width: 100, height: 105});
+    var r = new Rune({width: 100, height: 105});
       expect(r.width).toEqual(100);
       expect(r.height).toEqual(105);
     })

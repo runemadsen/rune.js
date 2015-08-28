@@ -1,5 +1,7 @@
 import _ from "underscore"
 import { Shapeable, Moveable, Sizeable, Styleable } from "../mixins"
+import Polygon from './polygon'
+import Utils from '../utils'
 
 class Ellipse {
 
@@ -30,10 +32,10 @@ class Ellipse {
 
     var vectorAngle = 360/numVectors;
 
-    var poly =  new Rune.Polygon(this.vars.x, this.vars.y);
+    var poly =  new Polygon(this.vars.x, this.vars.y);
     for(var i = 0; i < numVectors; i++) {
-      var x = Math.cos(Rune.radians(i * vectorAngle)) * this.vars.width;
-      var y = Math.sin(Rune.radians(i * vectorAngle)) * this.vars.height;
+      var x = Math.cos(Utils.radians(i * vectorAngle)) * this.vars.width;
+      var y = Math.sin(Utils.radians(i * vectorAngle)) * this.vars.height;
       poly.lineTo(x, y);
     }
 
@@ -41,7 +43,7 @@ class Ellipse {
   }
 
   copy(group) {
-    var e = new Rune.Ellipse();
+    var e = new Ellipse();
     this.shapeCopy(e, group);
     return e;
   }

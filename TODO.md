@@ -2,6 +2,7 @@
 
 ### Must
 
+- [ ] Generate compiled file for browser without underscore, etc?
 - [ ] Make watch faster with browserify and watchify
 - [ ] Rewrite code to ES6: underscore, etc.
 - [ ] Docs: using in browser. Using as module.

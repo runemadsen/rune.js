@@ -1,5 +1,6 @@
 import _ from "underscore"
 import { Shapeable, Moveable, Styleable } from "../mixins"
+import Vector from '../vector'
 
 class Polygon {
 
@@ -12,7 +13,7 @@ class Polygon {
   }
 
   lineTo(x, y) {
-    this.vars.vectors.push(new Rune.Vector(x, y));
+    this.vars.vectors.push(new Vector(x, y));
     return this;
   }
 
@@ -97,7 +98,7 @@ class Polygon {
     var x = this.vars.x + (xAcc/(6.0*areaAcc));
     var y = this.vars.y + (yAcc/(6.0*areaAcc));
 
-    return new Rune.Vector(x, y);
+    return new Vector(x, y);
   }
 
   toPolygon(opts) {
@@ -105,7 +106,7 @@ class Polygon {
     // if splitting the polygon into vectors with equal spacing
     if(opts && opts.spacing) {
 
-      var poly = new Rune.Polygon(this.vars.x, this.vars.y);
+      var poly = new Polygon(this.vars.x, this.vars.y);
       var len = this.length();
       var num = len / opts.spacing;
       for(var i = 0; i < num; i++) {
@@ -119,7 +120,7 @@ class Polygon {
   }
 
   copy(group) {
-    var s = new Rune.Polygon();
+    var s = new Polygon();
     s.vars.vectors = _.map(this.vars.vectors, function(v) { return v.copy(); });
     this.shapeCopy(s, group);
     return s;

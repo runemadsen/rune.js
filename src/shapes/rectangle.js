@@ -1,5 +1,6 @@
 import _ from "underscore"
 import { Shapeable, Moveable, Styleable, Sizeable } from "../mixins"
+import Polygon from './polygon'
 
 class Rectangle {
 
@@ -14,7 +15,7 @@ class Rectangle {
   }
 
   toPolygon(opts) {
-    var poly =  new Rune.Polygon(this.vars.x, this.vars.y)
+    var poly =  new Polygon(this.vars.x, this.vars.y)
       .lineTo(0, 0)
       .lineTo(this.vars.width, 0)
       .lineTo(this.vars.width, this.vars.height)
@@ -25,7 +26,7 @@ class Rectangle {
   }
 
   copy(group) {
-    var c = new Rune.Rectangle();
+    var c = new Rectangle();
     this.shapeCopy(c, group);
     return c;
   }

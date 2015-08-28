@@ -17,25 +17,25 @@
   },
   "homepage": "http://runemadsen.github.io/rune.js/",
   "dependencies": {
-    "gulp": "^3.9.0",
     "underscore": "^1.7.0",
-    "gulp-connect": "^2.0.6",
-    "gulp-concat": "^2.6.0",
-    "gulp-include": "^2.0.2",
     "virtual-dom": "^2.0.1",
-    "browserify": "^11.0.0",
     "color-convert": "^0.5.3",
     "color-string": "^0.3.0",
-    "bezier-js" : "^1.0.8",
+    "bezier-js" : "^1.0.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jasmine" : "^2.0.1",
+    "browserify": "^11.0.0",
     "vinyl-source-stream" : "^1.1.0",
     "vinyl-buffer" : "^1.0.0",
     "babelify" : "^6.2.0",
     "gulp-rename" : "^1.2.2",
     "gulp-zip" : "^3.0.2",
-    "open" : "^0.0.5"
-  },
-  "devDependencies": {
-    "gulp-jasmine" : "^2.0.1"
+    "open" : "^0.0.5",
+    "gulp-jasmine-browser" : "^0.2.3",
+    "gulp-uglify" : "^1.4.0",
+    "jquery" : "^2.1.4"
   },
   "preferGlobal": true
 }

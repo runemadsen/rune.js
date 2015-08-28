@@ -13,7 +13,7 @@ class Line {
   }
 
   copy(group) {
-    var e = new Rune.Line();
+    var e = new Line();
     e.vars.x2 = this.vars.x2;
     e.vars.y2 = this.vars.y2;
     this.shapeCopy(e, group);

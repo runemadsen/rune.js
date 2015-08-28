@@ -1,6 +1,11 @@
 import _ from "underscore"
 
-import Vector from "./vector"
+// Import modules from this library, and export them so it's possible
+// to use them like this in ES6:
+//    import { vector } from "rune"
+// or like this in commonjs
+//    require("rune").vector
+import Vector from "./vector"; export { default as vector } from "./vector";
 import Anchor from "./anchor"
 import Color from "./color"
 import Group from "./group"
@@ -15,6 +20,23 @@ import Path from "./shapes/path"
 import Polygon from "./shapes/polygon"
 import Rectangle from "./shapes/rectangle"
 import Text from "./shapes/text"
+
+// Exports modules for easy access when using module
+//export
+//export { default as anchor } from "./anchor";
+//export { default as color } from "./color";
+//export { default as group } from "./group";
+//export { default as grid } from "./grid";
+//export { default as utils } from "./utils";
+//export { default as events } from "./events";
+//export { default as render } from "./render";
+//export { default as circle } from "./shapes/circle";
+//export { default as ellipse } from "./shapes/ellipse";
+//export { default as line } from "./shapes/line";
+//export { default as path } from "./shapes/path";
+//export { default as polygon } from "./shapes/polygon";
+//export { default as rectangle } from "./shapes/rectangle";
+//export { default as text } from "./shapes/text";
 
 class Rune {
 
@@ -170,7 +192,7 @@ _.extend(Rune, Utils);
 _.extend(Rune.prototype, Utils);
 _.extend(Rune.prototype, Events)
 
-// Export modules for easy access without imports
+// Modules should be accessible through Rune
 Rune.Vector = Vector;
 Rune.Anchor = Anchor;
 Rune.Color = Color;
@@ -183,23 +205,6 @@ Rune.Path = Path;
 Rune.Polygon = Polygon;
 Rune.Rectangle = Rectangle;
 Rune.Text = Text;
-
-// Exports modules for easy access when using module
-import { default as vector } from "./vector";
-import { default as anchor } from "./anchor";
-import { default as color } from "./color";
-import { default as group } from "./group";
-import { default as grid } from "./grid";
-import { default as utils } from "./utils";
-import { default as events } from "./events";
-import { default as render } from "./render";
-import { default as circle } from "./shapes/circle";
-import { default as ellipse } from "./shapes/ellipse";
-import { default as line } from "./shapes/line";
-import { default as path } from "./shapes/path";
-import { default as polygon } from "./shapes/polygon";
-import { default as rectangle } from "./shapes/rectangle";
-import { default as text } from "./shapes/text";
 
 // define window.Rune for browserify
 global.Rune = Rune;

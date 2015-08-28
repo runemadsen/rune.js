@@ -1,5 +1,6 @@
 import _ from "underscore"
 import { Shapeable, Moveable } from "./mixins"
+import Group from './group'
 
 class Grid {
 
@@ -68,7 +69,7 @@ class Grid {
 
         var groupX = (x * this.vars.moduleWidth) + (x * this.vars.gutterX);
         var groupY = (y * this.vars.moduleHeight) + (y * this.vars.gutterY);
-        this.modules[x].push(new Rune.Group(groupX, groupY));
+        this.modules[x].push(new Group(groupX, groupY));
       }
     }
   }

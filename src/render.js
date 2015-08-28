@@ -1,4 +1,11 @@
-import { h, diff, patch, createElement, svg } from "virtual-dom"
+import Circle from './shapes/circle'
+import Rectangle from './shapes/rectangle'
+import Line from './shapes/line'
+import h from 'virtual-dom/h'
+import diff from 'virtual-dom/diff'
+import patch from 'virtual-dom/patch'
+import createElement from 'virtual-dom/create-element'
+import svg from 'virtual-dom/virtual-hyperscript/svg'
 
 class Render {
 
@@ -18,8 +25,8 @@ class Render {
       height: this.params.height
     }, [this.objectsToSVG(stage.children, opts)]);
 
-    var diff = diff(this.tree, newTree);
-    this.el = patch(this.el, diff);
+    var diffTree = diff(this.tree, newTree);
+    this.el = patch(this.el, diffTree);
     this.tree = newTree;
   }
 
@@ -225,20 +232,20 @@ class Render {
   }
 
   debugCircle (x, y) {
-    var c = new Rune.Circle(x, y, 4)
+    var c = new Circle(x, y, 4)
       .fill(212, 18, 229)
       .stroke(false);
     return this.circleToSVG(c);
   }
 
   debugRect (x, y, width, height) {
-    var r = new Rune.Rectangle(x, y, width, height)
+    var r = new Rectangle(x, y, width, height)
       .stroke(212, 18, 229).fill(false);
     return this.rectangleToSVG(r);
   }
 
   debugLine (x1, y1, x2, y2) {
-    var l = new Rune.Line(x1, y1, x2, y2)
+    var l = new Line(x1, y1, x2, y2)
       .stroke(212, 18, 229);
     return this.lineToSVG(l);
   }

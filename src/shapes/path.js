@@ -1,5 +1,8 @@
 import _ from "underscore"
 import { Shapeable, Moveable, Styleable } from "../mixins"
+import Anchor from '../anchor'
+import Vector from '../vector'
+import polygon from './polygon'
 
 class Path {
 
@@ -12,30 +15,30 @@ class Path {
   }
 
   moveTo(x, y, relative) {
-    this.vars.anchors.push(new Rune.Anchor().setMove(x, y, relative));
+    this.vars.anchors.push(new Anchor().setMove(x, y, relative));
     return this;
   }
 
   lineTo(x, y, relative) {
     this.checkStartMove();
-    this.vars.anchors.push(new Rune.Anchor().setLine(x, y, relative));
+    this.vars.anchors.push(new Anchor().setLine(x, y, relative));
     return this;
   }
 
   curveTo(a, b, c, d, e, f, g) {
     this.checkStartMove();
-    this.vars.anchors.push(new Rune.Anchor().setCurve(a, b, c, d, e, f, g));
+    this.vars.anchors.push(new Anchor().setCurve(a, b, c, d, e, f, g));
     return this;
   }
 
   closePath() {
     this.checkStartMove();
-    this.vars.anchors.push(new Rune.Anchor().setClose());
+    this.vars.anchors.push(new Anchor().setClose());
     return this;
   }
 
   startVector() {
-    return this.vars.anchors[0] && this.vars.anchors[0].command == 'move' ? this.vars.anchors[0].vec1.copy() : new Rune.Vector(0, 0);
+    return this.vars.anchors[0] && this.vars.anchors[0].command == 'move' ? this.vars.anchors[0].vec1.copy() : new Vector(0, 0);
   }
 
   subpaths() {
@@ -108,7 +111,7 @@ class Path {
         // with vector of first point in path.
         if(stop.command == 'close') {
           var beginning = paths[p].startVector();
-          stop = new Rune.Anchor().setLine(beginning.x, beginning.y)
+          stop = new Anchor().setLine(beginning.x, beginning.y)
         }
 
         var vec = stop.sub(startVec)
@@ -137,7 +140,7 @@ class Path {
     // if splitting the path into vectors with equal spacing
     //if(opts && opts.spacing) {
 //
-    //  var poly = new Rune.Polygon(this.vars.x, this.vars.y);
+    //  var poly = new Polygon(this.vars.x, this.vars.y);
     //  var len = this.length();
     //  var num = len / opts.spacing;
     //  for(var i = 0; i < num; i++) {
@@ -152,7 +155,7 @@ class Path {
   }
 
   copy(group) {
-    var s = new Rune.Path();
+    var s = new Path();
     s.vars.anchors = _.map(this.vars.anchors, function(a) { return a.copy(); });
     this.shapeCopy(s, group);
     return s;

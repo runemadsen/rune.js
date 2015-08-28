@@ -1,4 +1,5 @@
 import _ from "underscore"
+import Utils from './utils'
 
 class Vector {
 
@@ -13,19 +14,19 @@ class Vector {
   }
 
   add (vec) {
-    return new Rune.Vector(this.x + vec.x, this.y + vec.y);
+    return new Vector(this.x + vec.x, this.y + vec.y);
   }
 
   sub(vec) {
-    return new Rune.Vector(this.x - vec.x, this.y - vec.y);
+    return new Vector(this.x - vec.x, this.y - vec.y);
   }
 
   multiply(scalar) {
-    return new Rune.Vector(this.x * scalar, this.y * scalar);
+    return new Vector(this.x * scalar, this.y * scalar);
   }
 
   divide(scalar) {
-    var vec = new Rune.Vector(0, 0);
+    var vec = new Vector(0, 0);
     if(scalar) {
       vec.x = this.x / scalar;
       vec.y = this.y / scalar;
@@ -46,7 +47,7 @@ class Vector {
   lerp(vec, scalar) {
     var x = (vec.x - this.x) * scalar + this.x;
     var y = (vec.y - this.y) * scalar + this.y;
-    return new Rune.Vector(x, y);
+    return new Vector(x, y);
   }
 
   dot (vec) {
@@ -66,19 +67,19 @@ class Vector {
   }
 
   rotation() {
-    return Rune.degrees(Math.atan2(this.y, this.x));
+    return degrees(Math.atan2(this.y, this.x));
   }
 
   rotate(degrees) {
-    var rad = Rune.radians(this.rotation() + degrees);
+    var rad = Utils.radians(this.rotation() + degrees);
     var len = this.length();
     var x = Math.cos(rad) * len;
     var y = Math.sin(rad) * len;
-    return new Rune.Vector(x, y);
+    return new Vector(x, y);
   }
 
   copy() {
-    return new Rune.Vector(this.x, this.y);
+    return new Vector(this.x, this.y);
   }
 
   toString() {
