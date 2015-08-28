@@ -217,6 +217,8 @@ console.log("my shape is at", x, y);
 
 ### Draw loop
 
+### Grid systems
+
 
 ## Documentation
 
