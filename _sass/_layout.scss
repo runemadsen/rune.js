@@ -6,10 +6,37 @@ body {
 
 @media (min-width: $first_break) {
   body {
-    margin: 30px 45px;
+    margin: 70px 45px;
   }
 }
 
 #content {
   max-width: 650px;
+}
+
+header {
+  background-color: $gray;
+  border-bottom: 2px solid $yellow;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    padding-left: 2.2em;
+
+    li {
+      margin: 0;
+      padding: 0.5em;
+      margin-right: 1em;
+      display: inline-block;
+
+      a {
+        color: gray;
+        text-decoration: none;
+      }
+    }
+  }
 }
