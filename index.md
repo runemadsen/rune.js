@@ -87,6 +87,7 @@ The polygon is a shape made up of a number of straight lines connected to each o
 
 ```js
 r.polygon(0, 0)
+  .lineTo(0, 0)
   .lineTo(100, 100)
   .lineTo(-100, 100)
 ```
@@ -105,9 +106,11 @@ var midway = tri.vectorAt(0.5);
 r.circle(midway.x, midway.y, 10);
 ```
 
+Polygons are important because most shapes can be converted to polygons by using the `toPolygon()` function. As you will see in the following section, paths can hold multiple subpaths, and can be converted to an array of polygons by using the `toPolygons()` function.
+
 ### Paths
 
-The path is the most complex shape, as it can consist of multiple subpaths made up of straight lines or bezier curves. Paths can also be open, and fill rules can be used to subtract one subpath from another. 
+The path is the most complex shape, as it can consist of multiple subpaths made up of straight lines or bezier curves. Paths can also be open, and fill rules can be used to subtract one subpath from another, to create very complex shapes.
 
 MORE
 
@@ -207,7 +210,7 @@ absolute position
 
 All shapes have a `vars` object that hold the current state of the shape. This is mostly done to separate functions and state, so you can use `.fill()` to set the fill color, and `vars.fill` to access the current color.
 
-Unless you know what you're doing, **the vars object should only be used to to read values**. For example, here's how you get the current position of a shape within its parent.
+Unless you know what you're doing, **the vars object should only be used to read values**. For example, here's how you get the current position of a shape within its parent.
 
 ```js
 var x = myShape.vars.x;
