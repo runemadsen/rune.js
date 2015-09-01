@@ -102,9 +102,8 @@ class Polygon {
     return new Vector(x, y);
   }
 
-  toPolygon(opts) {
+  toPolygon(opts, parent) {
 
-    // if splitting the polygon into vectors with equal spacing
     if(opts && opts.spacing) {
 
       var poly = new Polygon(this.vars.x, this.vars.y);
@@ -114,6 +113,10 @@ class Polygon {
         var vec = this.vectorAtLength(i * opts.spacing);
         poly.lineTo(vec.x, vec.y)
       }
+
+      Utils.copyMixinVars(this, poly);
+      Utils.groupLogic(poly, this.parent, parent);
+
       return poly;
     }
 

@@ -3,10 +3,12 @@ import Helpers from '../helpers'
 
 describe("Rune.Path", function() {
 
-  var path;
+  var g;
+  var s;
 
   beforeEach(function() {
-    path = new Rune.Path(10, 15)
+    g = new Rune.Group();
+    s = new Rune.Path(10, 15)
       .lineTo(100, 100)
       .curveTo(100, 200, -100, 200, -100, 100)
       .curveTo(-100, 0, 0, 0)
@@ -14,6 +16,7 @@ describe("Rune.Path", function() {
       .lineTo(75, 75)
       .lineTo(-75, 75)
       .closePath();
+    g.add(s);
   });
 
   describe("Path()", function() {
@@ -72,24 +75,24 @@ describe("Rune.Path", function() {
 
   describe("length()", function() {
     it("should return length of all subpaths", function() {
-      expect(path.length()).toEqual(912.9528291563602);
+      expect(s.length()).toEqual(912.9528291563602);
     });
   });
 
   describe("vectorAt()", function() {
 
     it("should return vector at scalar", function() {
-      var res = path.vectorAt(0.5);
+      var res = s.vectorAt(0.5);
       expect(res).toEqualVector(-95.04748002984878, 60.44400406520909);
     });
 
     it("should return vector if scalar is 0", function() {
-      var res = path.vectorAt(0);
+      var res = s.vectorAt(0);
       expect(res).toEqualVector(0, 0);
     });
 
     it("should return vector if scalar is 1", function() {
-      var res = path.vectorAt(1);
+      var res = s.vectorAt(1);
       expect(res).toEqualVector(0, 0);
     });
 
@@ -98,17 +101,17 @@ describe("Rune.Path", function() {
   describe("vectorAtLength()", function() {
 
     it("should return vector at length", function() {
-      var res = path.vectorAtLength(70);
+      var res = s.vectorAtLength(70);
       expect(res).toEqualVector(49.49747468305832, 49.49747468305832);
     });
 
     it("should return vector if length is 0", function() {
-      var res = path.vectorAtLength(0);
+      var res = s.vectorAtLength(0);
       expect(res).toEqualVector(0, 0);
     });
 
     it("should return vector if length is more length", function() {
-      var res = path.vectorAtLength(999999);
+      var res = s.vectorAtLength(999999);
       expect(res).toEqualVector(0, 0);
     });
 
@@ -117,7 +120,7 @@ describe("Rune.Path", function() {
   describe("subpaths()", function() {
 
     it("returns subpaths separated by moveTo", function() {
-      var paths = path.subpaths();
+      var paths = s.subpaths();
 
       expect(paths.length).toEqual(2);
       var p1 = paths[0];
@@ -172,17 +175,32 @@ describe("Rune.Path", function() {
       expect(p2.vars.anchors[2]).toBeAnchorClose();
     });
 
-    it("should copy path styles") // SHOULD ALREADY WORK
+    it("adds subpaths to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.subpaths();
+      expect(g.children.length).toEqual(3);
+    });
 
-    it("should work with scene graph") // I disabled this because I'm using it internally and don't want to add to stage automatically.
+    it("does not add subpaths to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.subpaths(false);
+      expect(g.children.length).toEqual(1);
+    });
+
+    it("copies the mixin vars", function() {
+      Helpers.setMixinVars(s);
+      var paths = s.subpaths();
+      expect(Helpers.getMixinVars(paths[0])).toBeIn(Helpers.getMixinVars(s));
+      expect(Helpers.getMixinVars(paths[1])).toBeIn(Helpers.getMixinVars(s));
+    });
+
+
   });
-
-
 
   describe("toPolygons()", function() {
 
     it("should return array of polygons and vectors with spacing", function() {
-      var res = path.toPolygons({ spacing: 25 });
+      var res = s.toPolygons({ spacing: 25 });
       expect(res.length).toEqual(2);
 
       var poly1 = res[0];
@@ -196,18 +214,27 @@ describe("Rune.Path", function() {
       expect(poly2.vars.vectors.length).toEqual(14);
     });
 
+    it("adds polygon to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.toPolygons({ spacing: 25 });
+      expect(g.children.length).toEqual(3);
+    });
+
+    it("does not add polygon to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.toPolygons({ spacing: 25 }, false);
+      expect(g.children.length).toEqual(1);
+    });
+
+    it("copies the mixin vars", function() {
+      Helpers.setMixinVars(s)
+      var p = s.toPolygons({ spacing: 25 });
+      expect(Helpers.getMixinVars(p)).toBeIn(Helpers.getMixinVars(s));
+    });
+
   });
 
   describe("copy()", function() {
-
-    var s;
-    var g;
-
-    beforeEach(function() {
-      s = new Rune.Path();
-      g = new Rune.Group();
-      g.add(s);
-    });
 
     it("copies the object", function() {
       Helpers.setMixinVars(s);

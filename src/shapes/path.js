@@ -42,7 +42,7 @@ class Path {
     return this.vars.anchors[0] && this.vars.anchors[0].command == 'move' ? this.vars.anchors[0].vec1.copy() : new Vector(0, 0);
   }
 
-  subpaths() {
+  subpaths(parent) {
     var subs = [];
     var lastSplit = 0;
 
@@ -54,7 +54,7 @@ class Path {
 
       if(i > lastSplit && (isMove || isAfterClose || isLast)) {
         if(isLast) i++;
-        var sub = this.copy(false);
+        var sub = this.copy(parent);
         sub.vars.anchors = sub.vars.anchors.slice(lastSplit, i);
         subs.push(sub);
         lastSplit = i;
@@ -66,7 +66,7 @@ class Path {
   length() {
 
     var len = 0;
-    var paths = this.subpaths();
+    var paths = this.subpaths(false);
 
     for(var p = 0; p < paths.length; p++) {
 
@@ -95,7 +95,7 @@ class Path {
 
   vectorAtLength(len) {
     var tmpLen = 0;
-    var paths = this.subpaths();
+    var paths = this.subpaths(false);
 
     for(var p = 0; p < paths.length; p++) {
 
@@ -134,9 +134,9 @@ class Path {
     return this.vectorAtLength(this.length() * scalar);
   }
 
-  toPolygons(opts) {
+  toPolygons(opts, parent) {
 
-    var paths = this.subpaths();
+    var paths = this.subpaths(false);
     var polys = [];
 
     // if splitting the path into vectors with equal spacing
@@ -150,8 +150,12 @@ class Path {
           var vec = path.vectorAtLength(i * opts.spacing);
           poly.lineTo(vec.x, vec.y)
         }
+
+        Utils.copyMixinVars(this, poly);
+        Utils.groupLogic(poly, this.parent, parent);
+
         polys.push(poly);
-      });
+      }, this);
     }
 
     return polys;

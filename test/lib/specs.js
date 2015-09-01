@@ -12793,10 +12793,13 @@ var _helpers2 = _interopRequireDefault(_helpers);
 
 describe("Rune.Path", function () {
 
-  var path;
+  var g;
+  var s;
 
   beforeEach(function () {
-    path = new Rune.Path(10, 15).lineTo(100, 100).curveTo(100, 200, -100, 200, -100, 100).curveTo(-100, 0, 0, 0).moveTo(0, 25).lineTo(75, 75).lineTo(-75, 75).closePath();
+    g = new Rune.Group();
+    s = new Rune.Path(10, 15).lineTo(100, 100).curveTo(100, 200, -100, 200, -100, 100).curveTo(-100, 0, 0, 0).moveTo(0, 25).lineTo(75, 75).lineTo(-75, 75).closePath();
+    g.add(s);
   });
 
   describe("Path()", function () {
@@ -12852,24 +12855,24 @@ describe("Rune.Path", function () {
 
   describe("length()", function () {
     it("should return length of all subpaths", function () {
-      expect(path.length()).toEqual(912.9528291563602);
+      expect(s.length()).toEqual(912.9528291563602);
     });
   });
 
   describe("vectorAt()", function () {
 
     it("should return vector at scalar", function () {
-      var res = path.vectorAt(0.5);
+      var res = s.vectorAt(0.5);
       expect(res).toEqualVector(-95.04748002984878, 60.44400406520909);
     });
 
     it("should return vector if scalar is 0", function () {
-      var res = path.vectorAt(0);
+      var res = s.vectorAt(0);
       expect(res).toEqualVector(0, 0);
     });
 
     it("should return vector if scalar is 1", function () {
-      var res = path.vectorAt(1);
+      var res = s.vectorAt(1);
       expect(res).toEqualVector(0, 0);
     });
   });
@@ -12877,17 +12880,17 @@ describe("Rune.Path", function () {
   describe("vectorAtLength()", function () {
 
     it("should return vector at length", function () {
-      var res = path.vectorAtLength(70);
+      var res = s.vectorAtLength(70);
       expect(res).toEqualVector(49.49747468305832, 49.49747468305832);
     });
 
     it("should return vector if length is 0", function () {
-      var res = path.vectorAtLength(0);
+      var res = s.vectorAtLength(0);
       expect(res).toEqualVector(0, 0);
     });
 
     it("should return vector if length is more length", function () {
-      var res = path.vectorAtLength(999999);
+      var res = s.vectorAtLength(999999);
       expect(res).toEqualVector(0, 0);
     });
   });
@@ -12895,7 +12898,7 @@ describe("Rune.Path", function () {
   describe("subpaths()", function () {
 
     it("returns subpaths separated by moveTo", function () {
-      var paths = path.subpaths();
+      var paths = s.subpaths();
 
       expect(paths.length).toEqual(2);
       var p1 = paths[0];
@@ -12944,15 +12947,30 @@ describe("Rune.Path", function () {
       expect(p2.vars.anchors[2]).toBeAnchorClose();
     });
 
-    it("should copy path styles"); // SHOULD ALREADY WORK
+    it("adds subpaths to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.subpaths();
+      expect(g.children.length).toEqual(3);
+    });
 
-    it("should work with scene graph"); // I disabled this because I'm using it internally and don't want to add to stage automatically.
+    it("does not add subpaths to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.subpaths(false);
+      expect(g.children.length).toEqual(1);
+    });
+
+    it("copies the mixin vars", function () {
+      _helpers2['default'].setMixinVars(s);
+      var paths = s.subpaths();
+      expect(_helpers2['default'].getMixinVars(paths[0])).toBeIn(_helpers2['default'].getMixinVars(s));
+      expect(_helpers2['default'].getMixinVars(paths[1])).toBeIn(_helpers2['default'].getMixinVars(s));
+    });
   });
 
   describe("toPolygons()", function () {
 
     it("should return array of polygons and vectors with spacing", function () {
-      var res = path.toPolygons({ spacing: 25 });
+      var res = s.toPolygons({ spacing: 25 });
       expect(res.length).toEqual(2);
 
       var poly1 = res[0];
@@ -12965,18 +12983,27 @@ describe("Rune.Path", function () {
       expect(poly2.vars.y).toEqual(15);
       expect(poly2.vars.vectors.length).toEqual(14);
     });
+
+    it("adds polygon to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.toPolygons({ spacing: 25 });
+      expect(g.children.length).toEqual(3);
+    });
+
+    it("does not add polygon to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.toPolygons({ spacing: 25 }, false);
+      expect(g.children.length).toEqual(1);
+    });
+
+    it("copies the mixin vars", function () {
+      _helpers2['default'].setMixinVars(s);
+      var p = s.toPolygons({ spacing: 25 });
+      expect(_helpers2['default'].getMixinVars(p)).toBeIn(_helpers2['default'].getMixinVars(s));
+    });
   });
 
   describe("copy()", function () {
-
-    var s;
-    var g;
-
-    beforeEach(function () {
-      s = new Rune.Path();
-      g = new Rune.Group();
-      g.add(s);
-    });
 
     it("copies the object", function () {
       _helpers2['default'].setMixinVars(s);
@@ -13012,10 +13039,13 @@ var _helpers2 = _interopRequireDefault(_helpers);
 
 describe("Rune.Polygon", function () {
 
-  var rhombus;
+  var g;
+  var s;
 
   beforeEach(function () {
-    rhombus = new Rune.Polygon(10, 15).lineTo(0, 0).lineTo(60, 0).lineTo(80, 60).lineTo(20, 60);
+    g = new Rune.Group();
+    s = new Rune.Polygon(10, 15).lineTo(0, 0).lineTo(60, 0).lineTo(80, 60).lineTo(20, 60);
+    g.add(s);
   });
 
   describe("Polygon()", function () {
@@ -13046,7 +13076,7 @@ describe("Rune.Polygon", function () {
 
   describe("centroid()", function () {
     it("should return centroid vector", function () {
-      var vec = rhombus.centroid();
+      var vec = s.centroid();
       expect(vec).toEqualVector(50, 45);
     });
   });
@@ -13054,7 +13084,7 @@ describe("Rune.Polygon", function () {
   describe("bounds()", function () {
 
     it("should return bounds", function () {
-      expect(rhombus.bounds()).toEqual({
+      expect(s.bounds()).toEqual({
         x: 10,
         y: 15,
         width: 80,
@@ -13076,7 +13106,7 @@ describe("Rune.Polygon", function () {
   describe("length()", function () {
 
     it("should return length of polygon", function () {
-      var res = rhombus.length();
+      var res = s.length();
       expect(res).toEqual(246.49110640673518);
     });
   });
@@ -13084,17 +13114,17 @@ describe("Rune.Polygon", function () {
   describe("vectorAt()", function () {
 
     it("should return vector at scalar", function () {
-      var res = rhombus.vectorAt(0.5);
+      var res = s.vectorAt(0.5);
       expect(res).toEqualVector(80, 60);
     });
 
     it("should return vector if scalar is 0", function () {
-      var res = rhombus.vectorAt(0);
+      var res = s.vectorAt(0);
       expect(res).toEqualVector(0, 0);
     });
 
     it("should return vector if scalar is 1", function () {
-      var res = rhombus.vectorAt(1);
+      var res = s.vectorAt(1);
       expect(res).toEqualVector(0, 0);
     });
   });
@@ -13102,17 +13132,17 @@ describe("Rune.Polygon", function () {
   describe("vectorAtLength()", function () {
 
     it("should return vector at length", function () {
-      var res = rhombus.vectorAtLength(70);
+      var res = s.vectorAtLength(70);
       expect(res).toEqualVector(63.16227766016838, 9.486832980505138);
     });
 
     it("should return vector if length is 0", function () {
-      var res = rhombus.vectorAtLength(0);
+      var res = s.vectorAtLength(0);
       expect(res).toEqualVector(0, 0);
     });
 
     it("should return vector if length is more length", function () {
-      var res = rhombus.vectorAtLength(999999);
+      var res = s.vectorAtLength(999999);
       expect(res).toEqualVector(0, 0);
     });
   });
@@ -13120,12 +13150,12 @@ describe("Rune.Polygon", function () {
   describe("toPolygon()", function () {
 
     it("should return self if no segmentor", function () {
-      var res = rhombus.toPolygon();
+      var res = s.toPolygon();
       expect(res).toBe(res);
     });
 
     it("should return vectors with spacing", function () {
-      var res = rhombus.toPolygon({ spacing: 25 });
+      var res = s.toPolygon({ spacing: 25 });
       expect(res.vars.x).toEqual(10);
       expect(res.vars.y).toEqual(15);
       expect(res.vars.vectors.length).toEqual(10);
@@ -13139,6 +13169,24 @@ describe("Rune.Polygon", function () {
       expect(res.vars.vectors[7]).toEqualVector(28.245553203367592, 60);
       expect(res.vars.vectors[8]).toEqualVector(14.701778718652967, 44.1053361559589);
       expect(res.vars.vectors[9]).toEqualVector(6.796084568232018, 20.388253704696055);
+    });
+
+    it("adds polygon to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.toPolygon({ spacing: 25 });
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add polygon to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.toPolygon({ spacing: 25 }, false);
+      expect(g.children.length).toEqual(1);
+    });
+
+    it("copies the mixin vars", function () {
+      _helpers2["default"].setMixinVars(s);
+      var p = s.toPolygon({ spacing: 25 });
+      expect(_helpers2["default"].getMixinVars(p)).toBeIn(_helpers2["default"].getMixinVars(s));
     });
   });
 
