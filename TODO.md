@@ -2,7 +2,7 @@
 
 ### Must
 
-- [ ] Generate compiled file for browser without underscore, etc?
+- [ ] something is wrong with amd and common: same as browser
 - [ ] Make watch faster with browserify and watchify
 - [ ] Rewrite code to ES6: underscore, etc.
 - [ ] Docs: using in browser. Using as module.

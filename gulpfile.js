@@ -6,51 +6,61 @@ var babelify = require('babelify');
 var rename = require("gulp-rename");
 var zip = require('gulp-zip');
 var open = require('open');
-var jasmine = require('gulp-jasmine');
-var jasmineBrowser = require('gulp-jasmine-browser');
 var uglify = require('gulp-uglify');
 var del = require('del');
-
-var libfile = './src/rune.js'
-var builddir = './dist'
+var watchify = require('watchify');
+var sourcemaps = require('gulp-sourcemaps');
+var assign = require('lodash.assign');
+var concat = require('gulp-concat');
+var connect = require('gulp-connect');
 
 // Build
 // -------------------------------------------------
 
-gulp.task('build:common', function() {
-  return browserify(libfile, {bundleExternal:false})
-    .transform(babelify)
-    .bundle()
-    .pipe(source('rune.common.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest(builddir))
-});
+function compile(outfile, extraOpts, watch) {
 
-gulp.task('build:amd', function() {
-  return browserify(libfile, {bundleExternal:false})
-    .transform(babelify.configure({modules:"amd"}))
-    .bundle()
-    .pipe(source('rune.amd.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest(builddir))
-});
+  var opts = assign({}, watchify.args, extraOpts);
+  var bundler = browserify('./src/rune.js', opts).transform(babelify);
+
+  if(watch) {
+    bundler = watchify(bundler)
+  }
+
+  function rebundle() {
+    return bundler.bundle()
+      .on('error', function(err) { console.error(err); this.emit('end'); })
+      .pipe(source(outfile))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest('./dist'));
+  }
+
+  if(watch) {
+    bundler.on('update', function() {
+      console.log('-> bundling...');
+      rebundle();
+    });
+  }
+
+  return rebundle();
+}
 
 gulp.task('build:browser', function() {
-  return browserify(libfile)
-    .transform(babelify)
-    .bundle()
-    .pipe(source('rune.browser.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest(builddir))
+  return compile('rune.browser.js', { debug:true }, false)
 });
 
-gulp.task('build', ['build:common', 'build:amd', 'build:browser']);
+gulp.task('build:common', function() {
+  return compile('rune.common.js', { debug:true, bundleExternal:false }, false)
+});
+
+gulp.task('build', ['build:common', 'build:browser']);
 
 // Minify
 // -------------------------------------------------
 
 gulp.task('minify:clean', function (cb) {
-  del([builddir + '*min..js'], cb);
+  del([builddir + '*min.js'], cb);
 });
 
 gulp.task('minify', ['build', 'minify:clean'], function() {
@@ -78,9 +88,17 @@ gulp.task('test:common', function() {
   // test the lib as a node module
 });
 
-gulp.task("test:browser", ["build:browser"], function() {
-  var testFiles = ['dist/rune.browser.js', 'node_modules/underscore/underscore.js', 'node_modules/jquery/dist/jquery.js', 'test/**/*.js'];
-  gulp.src(testFiles)
-    .pipe(jasmineBrowser.specRunner())
-    .pipe(jasmineBrowser.server({port: 8888}));
+gulp.task('test:specs', function() {
+  gulp.src('test/spec/**/*.js')
+    .pipe(concat('specs.js'))
+    .pipe(gulp.dest('./test/lib/'));
+});
+
+gulp.task("test", ['build:browser', 'test:specs'], function() {
+  gulp.watch('dist/rune.browser.js', ['build:browser']);
+  gulp.watch('test/spec/**/*.js', ['test:specs']);
+  connect.server({
+    port: 8888
+  });
+  open("http://localhost:8888/test");
 });

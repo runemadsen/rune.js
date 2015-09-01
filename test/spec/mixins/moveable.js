@@ -25,7 +25,7 @@ describe("Rune.Moveable", function() {
       expect(m2.vars.rotation).toEqual(45);
     });
 
-    it("copies negative values form object", function() {
+    it("copies negative values from object", function() {
       setMoveableVars(m, {
         x:-10,
         y:-15,

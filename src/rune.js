@@ -96,55 +96,55 @@ class Rune {
 
   group(x, y, parent) {
     var group = new Group(x, y);
-    Utils.addToGroup(group, this.stage, parent);
+    Rune.addToGroup(group, this.stage, parent);
     return group;
   }
 
   rect(x, y, width, height, group) {
     var rect = new Rectangle(x, y, width, height);
-    Utils.addToGroup(rect, this.stage, group);
+    Rune.addToGroup(rect, this.stage, group);
     return rect;
   }
 
   ellipse(x, y, width, height, group) {
     var ell = new Ellipse(x, y, width, height);
-    Utils.addToGroup(ell, this.stage, group);
+    Rune.addToGroup(ell, this.stage, group);
     return ell;
   }
 
   circle(x, y, radius, group) {
     var circ = new Circle(x, y,radius);
-    Utils.addToGroup(circ, this.stage, group);
+    Rune.addToGroup(circ, this.stage, group);
     return circ;
   }
 
   line(x1, y1, x2, y2, group) {
     var line = new Line(x1, y1, x2, y2);
-    Utils.addToGroup(line, this.stage, group);
+    Rune.addToGroup(line, this.stage, group);
     return line;
   }
 
   polygon(x, y, group) {
     var poly = new Polygon(x, y);
-    Utils.addToGroup(poly, this.stage, group);
+    Rune.addToGroup(poly, this.stage, group);
     return poly;
   }
 
   path(x, y, group) {
     var path = new Path(x, y);
-    Utils.addToGroup(path, this.stage, group);
+    Rune.addToGroup(path, this.stage, group);
     return path;
   }
 
   text(text, x, y, group) {
     var text = new Text(text, x, y);
-    Utils.addToGroup(text, this.stage, group);
+    Rune.addToGroup(text, this.stage, group);
     return text;
   }
 
   grid(options, parent) {
     var grid = new Grid(options);
-    Utils.addToGroup(grid, this.stage, parent);
+    Rune.addToGroup(grid, this.stage, parent);
     return grid;
   }
 

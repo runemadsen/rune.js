@@ -67,7 +67,7 @@ class Vector {
   }
 
   rotation() {
-    return degrees(Math.atan2(this.y, this.x));
+    return Utils.degrees(Math.atan2(this.y, this.x));
   }
 
   rotate(degrees) {
