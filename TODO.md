@@ -2,19 +2,17 @@
 
 ### Must
 
-- [ ] `shape.remove()` to remove from parent
+
 - [ ] Ellipse has width and height but I think they are radius? need to /2
-- [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
 - [ ] `stagePos()` on shapes and groups to get absolute position
-- [ ] `centroid`, `bounds`, `vectorAt` should have flag to either output according to x,y or according to stagePos.
-- [ ] `toPolygon` should copy mixin vars too!
-- [ ] `toPolygon` should have stage handling too! pass in group or false.
-- [ ] `keypressed`
-- [ ] masking / clipping
-- [ ] Gradients
 
 ### Nice to have 
 
+- [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
+- [ ] `keypressed`
+- [ ] masking / clipping
+- [ ] Gradients
+- [ ] `shape.remove()` to remove from parent
 - [ ] Add line anchors do debug output
 - [ ] Docs: using in browser. Using as module.
 - [ ] Extend color instead of copy/pasting code.
@@ -26,7 +24,6 @@
 - [ ] whitelist values passed directly to SVG. Throw error if not supported.
 - [ ] Default styleable settings
 - [ ] Download SVG file (use SVG Crowbar)
-- [ ] Groups should bubble down changes to children, so all children know their true x and y
 - [ ] SVG parser
 - [ ] `r.triangle()`
 
