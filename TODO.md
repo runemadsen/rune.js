@@ -2,6 +2,7 @@
 
 ### Must
 
+- [ ] `shape.remove()` to remove from parent
 - [ ] Ellipse has width and height but I think they are radius? need to /2
 - [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
 - [ ] `stagePos()` on shapes and groups to get absolute position

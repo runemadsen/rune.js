@@ -11184,32 +11184,40 @@ describe("Rune.Group", function () {
 
   describe("copy()", function () {
 
+    var parent;
+    var child;
+
+    beforeEach(function () {
+      parent = new Rune.Group();
+      child = new Rune.Group();
+      parent.add(child);
+    });
+
     it("copies the object", function () {
-      var parent = new Rune.Group();
       var parentEllipse = new Rune.Circle(10, 15, 300);
-      var child = new Rune.Group();
       var childEllipse = new Rune.Circle(10, 15, 300);
       _helpers2["default"].setMixinVars(parent);
       _helpers2["default"].setMixinVars(parentEllipse);
       _helpers2["default"].setMixinVars(child);
       _helpers2["default"].setMixinVars(childEllipse);
       parent.add(parentEllipse);
-      parent.add(child);
       child.add(childEllipse);
 
       var copy = parent.copy();
-      expect(copy === parent).toEqual(false);
-      expect(copy.children[0] === parentEllipse).toEqual(false);
-      expect(copy.children[1] === child).toEqual(false);
-      expect(copy.children[1].children[0] === childEllipse).toEqual(false);
       expect(copy).toEqual(parent);
+      expect(copy).not.toBe(parent);
     });
 
-    it("calls shapeCopy", function () {
-      var parent = new Rune.Group();
-      spyOn(parent, "shapeCopy");
-      parent.copy();
-      expect(parent.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function () {
+      expect(parent.children.length).toEqual(1);
+      child.copy();
+      expect(parent.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function () {
+      expect(parent.children.length).toEqual(1);
+      child.copy(false);
+      expect(parent.children.length).toEqual(1);
     });
   });
 });
@@ -11237,10 +11245,33 @@ var Helpers = {
     return new Mixed();
   },
 
-  // In order to not constantly keep track of what mixins each
-  // object has, we can call this helper that automatically
-  // checks what mixins the shape has, and sets some default
-  // values for each mixin property.
+  // Mixin general
+  // -------------------------------------------
+
+  // Returns an object with variables that comes from
+  // all the mixins that the shape extends.
+  getMixinVars: function getMixinVars(shape) {
+
+    var keys = [];
+    if (shape.moveable) {
+      keys = keys.concat(_underscore2["default"].keys(Helpers.getMoveableVars()));
+    }
+    if (shape.sizeable) {
+      keys = keys.concat(_underscore2["default"].keys(Helpers.getSizeableVars()));
+    }
+    if (shape.styleable) {
+      keys = keys.concat(_underscore2["default"].keys(Helpers.getStyleableVars()));
+    }
+
+    var vars = {};
+    _underscore2["default"].each(keys, function (key) {
+      vars[key] = shape.vars[key];
+    });
+    return vars;
+  },
+
+  // Sets variables in object that comes from
+  // all the mixins that the shape extends.
   setMixinVars: function setMixinVars(shape) {
     if (shape.moveable) {
       Helpers.setMoveableVars(shape);
@@ -11253,23 +11284,49 @@ var Helpers = {
     }
   },
 
+  // Mixin getters
+  // -------------------------------------------
+
+  getMoveableVars: function getMoveableVars(opts) {
+    return _underscore2["default"].defaults(opts || {}, {
+      x: 10,
+      y: 15,
+      rotation: 45,
+      rotationX: 100,
+      rotationY: 105
+    });
+  },
+
+  getSizeableVars: function getSizeableVars(opts) {
+    return _underscore2["default"].defaults(opts || {}, {
+      width: 300,
+      height: 305
+    });
+  },
+
+  getStyleableVars: function getStyleableVars(opts) {
+    return _underscore2["default"].defaults(opts || {}, {
+      fill: new Rune.Color(255, 0, 0),
+      stroke: new Rune.Color(0, 255, 0)
+    });
+  },
+
+  // Mixin setters
+  // -------------------------------------------
+
   setMoveableVars: function setMoveableVars(shape, opts) {
-    opts = opts || {};
-    shape.vars.x = opts.x || 10;
-    shape.vars.y = opts.y || 15;
-    shape.vars.rotation = opts.rotation || 45;
-    shape.vars.rotationX = opts.rotationX || 100;
-    shape.vars.rotationY = opts.rotationY || 105;
+    var vars = Helpers.getMoveableVars(opts);
+    _underscore2["default"].extend(shape.vars, vars);
   },
 
-  setSizeableVars: function setSizeableVars(shape) {
-    shape.vars.width = 300;
-    shape.vars.height = 305;
+  setSizeableVars: function setSizeableVars(shape, opts) {
+    var vars = Helpers.getSizeableVars(opts);
+    _underscore2["default"].extend(shape.vars, vars);
   },
 
-  setStyleableVars: function setStyleableVars(shape) {
-    shape.vars.fill = new Rune.Color(255, 0, 0);
-    shape.vars.stroke = new Rune.Color(0, 255, 0);
+  setStyleableVars: function setStyleableVars(shape, opts) {
+    var vars = Helpers.getStyleableVars(opts);
+    _underscore2["default"].extend(shape.vars, vars);
   },
 
   setAllAnchors: function setAllAnchors(path) {
@@ -11296,6 +11353,60 @@ var _jquery2 = _interopRequireDefault(_jquery);
 beforeEach(function () {
 
   jasmine.addMatchers({
+
+    toBeChildOf: function toBeChildOf() {
+      return {
+        compare: function compare(child, parent) {
+
+          var hasChild = _underscore2["default"].any(parent.children, function (c) {
+            return c == child;
+          });
+
+          var isChild = child.parent === parent;
+          var pass = hasChild && isChild;
+          var msg;
+
+          if (pass) {
+            msg = "Expected to not be child of parent";
+          } else {
+            msg = "Expected to be child of parent";
+          }
+
+          return {
+            pass: pass,
+            message: msg
+          };
+        }
+      };
+    },
+
+    // Matcher that takes two object and makes sure that all the
+    // keys in subset matches the same key in full. Full may have
+    // extra values.
+    toBeIn: function toBeIn() {
+      return {
+        compare: function compare(subset, full) {
+
+          var noMatches = _underscore2["default"].filter(subset, function (v, k) {
+            return !_underscore2["default"].isEqual(full[k], v);
+          });
+
+          var msg;
+          var pass = noMatches.length == 0;
+
+          if (pass) {
+            msg = "Expected " + _underscore2["default"].keys(noMatches) + " not to be in object";
+          } else {
+            msg = "Expected " + _underscore2["default"].keys(noMatches) + " to be in object";
+          }
+
+          return {
+            pass: pass,
+            message: msg
+          };
+        }
+      };
+    },
 
     toEqualVector: function toEqualVector() {
       return {
@@ -11624,11 +11735,6 @@ describe("Rune.Moveable", function () {
 },{"../helpers":7}],10:[function(require,module,exports){
 "use strict";
 
-describe("Rune.Shapeable", function () {});
-
-},{}],11:[function(require,module,exports){
-"use strict";
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var _helpers = require('../helpers');
@@ -11662,7 +11768,7 @@ describe("Rune.Sizeable", function () {
   });
 });
 
-},{"../helpers":7}],12:[function(require,module,exports){
+},{"../helpers":7}],11:[function(require,module,exports){
 "use strict";
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -11758,7 +11864,7 @@ describe("Rune.Styleable", function () {
   });
 });
 
-},{"../helpers":7,"underscore":2}],13:[function(require,module,exports){
+},{"../helpers":7,"underscore":2}],12:[function(require,module,exports){
 "use strict";
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -12160,7 +12266,7 @@ describe("Rune.Render", function () {
   // NESTED IN EACH OTHER, etc.
 });
 
-},{"./helpers":7,"jquery":1,"underscore":2}],14:[function(require,module,exports){
+},{"./helpers":7,"jquery":1,"underscore":2}],13:[function(require,module,exports){
 "use strict";
 
 describe("Rune", function () {
@@ -12239,11 +12345,20 @@ describe("Rune", function () {
       expect(group.vars.y).toEqual(15);
     });
 
-    it("should call addToGroup()", function () {
+    it("should add to group", function () {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.group(0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.group(0, 0, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function () {
+      var child = r.group(0, 0);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function () {
+      var child = r.group(0, 0, false);
+      expect(child.parent).toBeUndefined();
     });
   });
 
@@ -12258,11 +12373,20 @@ describe("Rune", function () {
       expect(rectangle.vars.height).toEqual(100);
     });
 
-    it("should call addToGroup()", function () {
+    it("should add to group", function () {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.rect(0, 0, 0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.rect(0, 0, 0, 0, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function () {
+      var child = r.rect(0, 0, 0, 0);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function () {
+      var child = r.rect(0, 0, 0, 0, false);
+      expect(child.parent).toBeUndefined();
     });
   });
 
@@ -12277,11 +12401,20 @@ describe("Rune", function () {
       expect(ellipse.vars.height).toEqual(100);
     });
 
-    it("should call addToGroup()", function () {
+    it("should add to group", function () {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.ellipse(0, 0, 0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.ellipse(10, 15, 200, 100, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function () {
+      var child = r.ellipse(10, 15, 200, 100);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function () {
+      var child = r.ellipse(10, 15, 200, 100, false);
+      expect(child.parent).toBeUndefined();
     });
   });
 
@@ -12295,11 +12428,20 @@ describe("Rune", function () {
       expect(circ.vars.radius).toEqual(200);
     });
 
-    it("should call addToGroup()", function () {
+    it("should add to group", function () {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.circle(0, 0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.circle(10, 15, 200, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function () {
+      var child = r.circle(10, 15, 200);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function () {
+      var child = r.circle(10, 15, 200, false);
+      expect(child.parent).toBeUndefined();
     });
   });
 
@@ -12314,11 +12456,20 @@ describe("Rune", function () {
       expect(line.vars.y2).toEqual(105);
     });
 
-    it("should call addToGroup()", function () {
+    it("should add to group", function () {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.line(0, 0, 0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.line(10, 15, 100, 105, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function () {
+      var child = r.line(10, 15, 100, 105);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function () {
+      var child = r.line(10, 15, 100, 105, false);
+      expect(child.parent).toBeUndefined();
     });
   });
 
@@ -12331,11 +12482,20 @@ describe("Rune", function () {
       expect(polygon.type).toEqual("polygon");
     });
 
-    it("should call addToGroup()", function () {
+    it("should add to group", function () {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.polygon(0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.polygon(10, 15, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function () {
+      var child = r.polygon(10, 15);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function () {
+      var child = r.polygon(10, 15, false);
+      expect(child.parent).toBeUndefined();
     });
   });
 
@@ -12348,11 +12508,20 @@ describe("Rune", function () {
       expect(path.type).toEqual("path");
     });
 
-    it("should call addToGroup()", function () {
+    it("should add to group", function () {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.path(0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.path(10, 15, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function () {
+      var child = r.path(10, 15);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function () {
+      var child = r.path(10, 15, false);
+      expect(child.parent).toBeUndefined();
     });
   });
 
@@ -12366,11 +12535,20 @@ describe("Rune", function () {
       expect(text.type).toEqual("text");
     });
 
-    it("should call addToGroup()", function () {
+    it("should add to group", function () {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var t = r.text("Hello", 10, 15, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(t, r.stage, group);
+      var child = r.text("Hello", 10, 15, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function () {
+      var child = r.text("Hello", 10, 15);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function () {
+      var child = r.text("Hello", 10, 15, false);
+      expect(child.parent).toBeUndefined();
     });
   });
 
@@ -12383,62 +12561,25 @@ describe("Rune", function () {
       expect(grid.vars.y).toEqual(15);
     });
 
-    it("should call addToGroup()", function () {
-      var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.grid({}, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
-    });
-  });
-
-  describe("random()", function () {
-
-    it("works with only high", function () {
-      var ran = r.random(500);
-      expect(ran >= 0).toBe(true);
-      expect(ran <= 500).toBe(true);
-    });
-
-    it("works with low and high", function () {
-      var ran = r.random(500, 1000);
-      expect(ran >= 500).toBe(true);
-      expect(ran <= 1000).toBe(true);
-    });
-  });
-
-  describe("Rune.addToGroup", function () {
-
-    var child;
-    var fallback;
-    var group;
-
-    beforeEach(function () {
-      child = new Rune.Rectangle(10, 20, 30, 40);
-      fallback = new Rune.Group();
-      group = new Rune.Group();
-    });
-
     it("should add to group", function () {
-      Rune.addToGroup(child, fallback, group);
-      expect(group.children[0]).toBe(child);
-      expect(fallback.children.length).toEqual(0);
+      var group = new Rune.Group();
+      var child = r.grid({}, group);
+      expect(child).toBeChildOf(group);
     });
 
     it("should add to fallback", function () {
-      Rune.addToGroup(child, fallback);
-      expect(group.children.length).toEqual(0);
-      expect(fallback.children[0]).toBe(child);
+      var child = r.grid({});
+      expect(child).toBeChildOf(r.stage);
     });
 
     it("should not add", function () {
-      Rune.addToGroup(child, fallback, false);
-      expect(group.children.length).toEqual(0);
-      expect(fallback.children.length).toEqual(0);
+      var child = r.grid({}, false);
+      expect(child.parent).toBeUndefined();
     });
   });
 });
 
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 "use strict";
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -12467,25 +12608,11 @@ describe("Rune.Circle", function () {
       expect(poly.vars.vectors.length).toEqual(16);
     });
 
-    it("returns polygon with exact number of vectors", function () {
-      var poly = s.toPolygon({ vectors: 10 });
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(10);
-    });
-
     it("returns polygon with even spaced vectors", function () {
       var poly = s.toPolygon({ spacing: 50 });
       expect(poly.vars.x).toEqual(10);
       expect(poly.vars.y).toEqual(15);
       expect(poly.vars.vectors.length).toEqual(76);
-    });
-
-    it("returns polygon with even spaced division", function () {
-      var poly = s.toPolygon({ division: 0.2 });
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(5);
     });
   });
 
@@ -12494,19 +12621,25 @@ describe("Rune.Circle", function () {
     it("copies the object", function () {
       _helpers2["default"].setMixinVars(s);
       var copy = s.copy();
-      expect(copy === s).toEqual(false);
       expect(copy).toEqual(s);
+      expect(copy).not.toBe(s);
     });
 
-    it("calls shapeCopy", function () {
-      spyOn(s, "shapeCopy");
-      s.copy(g);
-      expect(s.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
   });
 });
 
-},{"../helpers":7}],16:[function(require,module,exports){
+},{"../helpers":7}],15:[function(require,module,exports){
 "use strict";
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -12535,13 +12668,6 @@ describe("Rune.Ellipse", function () {
       expect(poly.vars.vectors.length).toEqual(16);
     });
 
-    it("returns polygon with exact number of vectors", function () {
-      var poly = s.toPolygon({ vectors: 10 });
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(10);
-    });
-
     it("returns polygon with even spaced vectors", function () {
       var poly = s.toPolygon({ spacing: 50 });
       expect(poly.vars.x).toEqual(10);
@@ -12549,11 +12675,22 @@ describe("Rune.Ellipse", function () {
       expect(poly.vars.vectors.length).toEqual(39);
     });
 
-    it("returns polygon with even spaced division", function () {
-      var poly = s.toPolygon({ division: 0.2 });
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(5);
+    it("adds polygon to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.toPolygon();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add polygon to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.toPolygon({}, false);
+      expect(g.children.length).toEqual(1);
+    });
+
+    it("copies the mixin vars", function () {
+      _helpers2["default"].setMixinVars(s);
+      var p = s.toPolygon();
+      expect(_helpers2["default"].getMixinVars(p)).toBeIn(_helpers2["default"].getMixinVars(s));
     });
   });
 
@@ -12562,19 +12699,25 @@ describe("Rune.Ellipse", function () {
     it("copies the object", function () {
       _helpers2["default"].setMixinVars(s);
       var copy = s.copy();
-      expect(copy === s).toEqual(false);
+      expect(copy).not.toBe(s);
       expect(copy).toEqual(s);
     });
 
-    it("calls shapeCopy", function () {
-      spyOn(s, "shapeCopy");
-      s.copy(g);
-      expect(s.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
   });
 });
 
-},{"../helpers":7}],17:[function(require,module,exports){
+},{"../helpers":7}],16:[function(require,module,exports){
 "use strict";
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -12599,19 +12742,25 @@ describe("Rune.Line", function () {
     it("copies the object", function () {
       _helpers2["default"].setMixinVars(s);
       var copy = s.copy();
-      expect(copy === s).toEqual(false);
+      expect(copy).not.toBe(s);
       expect(copy).toEqual(s);
     });
 
-    it("calls shapeCopy", function () {
-      spyOn(s, "shapeCopy");
-      s.copy(g);
-      expect(s.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
   });
 });
 
-},{"../helpers":7}],18:[function(require,module,exports){
+},{"../helpers":7}],17:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -12815,20 +12964,26 @@ describe("Rune.Path", function () {
       _helpers2['default'].setMixinVars(s);
       _helpers2['default'].setAllAnchors(s);
       var copy = s.copy();
-      expect(copy === s).toEqual(false);
-      expect(copy.vars.anchors === s.vars.anchors).toEqual(false);
+      expect(copy).not.toBe(s);
+      expect(copy.vars.anchors).not.toBe(s.vars.anchors);
       expect(copy).toEqual(s);
     });
 
-    it("calls shapeCopy", function () {
-      spyOn(s, "shapeCopy");
-      s.copy(g);
-      expect(s.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
   });
 });
 
-},{"../helpers":7,"underscore":2}],19:[function(require,module,exports){
+},{"../helpers":7,"underscore":2}],18:[function(require,module,exports){
 "use strict";
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -12967,27 +13122,6 @@ describe("Rune.Polygon", function () {
       expect(res.vars.vectors[8]).toEqualVector(14.701778718652967, 44.1053361559589);
       expect(res.vars.vectors[9]).toEqualVector(6.796084568232018, 20.388253704696055);
     });
-
-    it("should return vectors with spacing and corners");
-    //it("should return vectors with spacing and corners", function() {
-    //  var res = rhombus.toPolygon({ spacing: 25, corners:true });
-    //  expect(res.vars.x).toEqual(10);
-    //  expect(res.vars.y).toEqual(15);
-    //  expect(res.vars.vectors.length).toEqual(13);
-    //  expect(res.vars.vectors[0]).toEqualVector(0, 0);
-    //  expect(res.vars.vectors[1]).toEqualVector(25, 0);
-    //  expect(res.vars.vectors[2]).toEqualVector(50, 0);
-    //  expect(res.vars.vectors[3]).toEqualVector(60, 0);
-    //  expect(res.vars.vectors[4]).toEqualVector(64.74341649025257, 14.230249470757707);
-    //  expect(res.vars.vectors[5]).toEqualVector(72.64911064067351, 37.94733192202055);
-    //  expect(res.vars.vectors[6]).toEqualVector(78.24555320336759, 60);
-    //  expect(res.vars.vectors[7]).toEqualVector(80, 60);
-    //  expect(res.vars.vectors[8]).toEqualVector(53.24555320336759, 60);
-    //  expect(res.vars.vectors[9]).toEqualVector(28.245553203367592,60);
-    //  expect(res.vars.vectors[10]).toEqualVector(20,60);
-    //  expect(res.vars.vectors[11]).toEqualVector(14.701778718652967,44.1053361559589);
-    //  expect(res.vars.vectors[12]).toEqualVector(6.796084568232018,20.388253704696055);
-    //});
   });
 
   describe("copy()", function () {
@@ -13004,20 +13138,26 @@ describe("Rune.Polygon", function () {
     it("copies the object", function () {
       _helpers2["default"].setMixinVars(s);
       var copy = s.copy();
-      expect(copy === s).toEqual(false);
-      expect(copy.vars.vectors === s.vars.vectors).toEqual(false);
+      expect(copy).not.toBe(s);
+      expect(copy.vars.vectors).not.toBe(s.vars.vectors);
       expect(copy).toEqual(s);
     });
 
-    it("calls shapeCopy", function () {
-      spyOn(s, "shapeCopy");
-      s.copy(g);
-      expect(s.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
   });
 });
 
-},{"../helpers":7}],20:[function(require,module,exports){
+},{"../helpers":7}],19:[function(require,module,exports){
 "use strict";
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -13064,19 +13204,25 @@ describe("Rune.Rectangle", function () {
     it("copies the object", function () {
       _helpers2["default"].setMixinVars(s);
       var copy = s.copy();
-      expect(copy === s).toEqual(false);
+      expect(copy).not.toBe(s);
       expect(copy).toEqual(s);
     });
 
-    it("calls shapeCopy", function () {
-      spyOn(s, "shapeCopy");
-      s.copy(g);
-      expect(s.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
   });
 });
 
-},{"../helpers":7}],21:[function(require,module,exports){
+},{"../helpers":7}],20:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -13091,10 +13237,10 @@ var _helpers2 = _interopRequireDefault(_helpers);
 
 describe("Rune.Text", function () {
 
-  var t;
+  var s;
 
   beforeEach(function () {
-    t = new Rune.Text("Hello", 10, 15);
+    s = new Rune.Text("Hello", 10, 15);
   });
 
   describe("Common setters", function () {
@@ -13111,7 +13257,7 @@ describe("Rune.Text", function () {
 
     it("sets var and is chainable", function () {
       _underscore2['default'].each(setters, function (v, k) {
-        var res = t[k](v);
+        var res = s[k](v);
         expect(res.vars[k]).toEqual(v);
         expect(res).toBe(res);
       });
@@ -13122,7 +13268,7 @@ describe("Rune.Text", function () {
 
     it("throws error if Rune.Font is not present", function () {
       expect(function () {
-        t.toPolygon();
+        s.toPolygon();
       }).toThrow(new Error("You need the Rune.Font plugin to convert text to polygon"));
     });
   });
@@ -13133,30 +13279,38 @@ describe("Rune.Text", function () {
 
     beforeEach(function () {
       g = new Rune.Group();
-      g.add(t);
+      g.add(s);
     });
 
     it("copies the object", function () {
-      _helpers2['default'].setMixinVars(t);
-      var copy = t.copy();
-      expect(copy === t).toEqual(false);
-      expect(copy).toEqual(t);
+      _helpers2['default'].setMixinVars(s);
+      var copy = s.copy();
+      expect(copy).not.toBe(s);
+      expect(copy).toEqual(s);
     });
 
-    it("calls shapeCopy", function () {
-      spyOn(t, "shapeCopy");
-      t.copy(g);
-      expect(t.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
   });
 });
 
-},{"../helpers":7,"underscore":2}],22:[function(require,module,exports){
+},{"../helpers":7,"underscore":2}],21:[function(require,module,exports){
 "use strict";
 
 require("./matchers");
 
 require("./rune");
+
+require("./utils");
 
 require("./anchor");
 
@@ -13170,11 +13324,7 @@ require("./render");
 
 require("./vector");
 
-require("./vector");
-
 require("./mixins/moveable");
-
-require("./mixins/shapeable");
 
 require("./mixins/sizeable");
 
@@ -13194,7 +13344,59 @@ require("./shapes/rect");
 
 require("./shapes/text");
 
-},{"./anchor":3,"./color":4,"./grid":5,"./group":6,"./matchers":8,"./mixins/moveable":9,"./mixins/shapeable":10,"./mixins/sizeable":11,"./mixins/styleable":12,"./render":13,"./rune":14,"./shapes/circle":15,"./shapes/ellipse":16,"./shapes/line":17,"./shapes/path":18,"./shapes/polygon":19,"./shapes/rect":20,"./shapes/text":21,"./vector":23}],23:[function(require,module,exports){
+},{"./anchor":3,"./color":4,"./grid":5,"./group":6,"./matchers":8,"./mixins/moveable":9,"./mixins/sizeable":10,"./mixins/styleable":11,"./render":12,"./rune":13,"./shapes/circle":14,"./shapes/ellipse":15,"./shapes/line":16,"./shapes/path":17,"./shapes/polygon":18,"./shapes/rect":19,"./shapes/text":20,"./utils":22,"./vector":23}],22:[function(require,module,exports){
+"use strict";
+
+describe("Utils", function () {
+
+  describe("groupLogic()", function () {
+
+    var child;
+    var fallback;
+    var group;
+
+    beforeEach(function () {
+      child = new Rune.Rectangle(10, 20, 30, 40);
+      fallback = new Rune.Group();
+      group = new Rune.Group();
+    });
+
+    it("should add to group", function () {
+      Rune.groupLogic(child, fallback, group);
+      expect(group.children[0]).toBe(child);
+      expect(fallback.children.length).toEqual(0);
+    });
+
+    it("should add to fallback", function () {
+      Rune.groupLogic(child, fallback);
+      expect(group.children.length).toEqual(0);
+      expect(fallback.children[0]).toBe(child);
+    });
+
+    it("should not add", function () {
+      Rune.groupLogic(child, fallback, false);
+      expect(group.children.length).toEqual(0);
+      expect(fallback.children.length).toEqual(0);
+    });
+  });
+
+  describe("random()", function () {
+
+    it("works with only high", function () {
+      var ran = Rune.random(500);
+      expect(ran >= 0).toBe(true);
+      expect(ran <= 500).toBe(true);
+    });
+
+    it("works with low and high", function () {
+      var ran = Rune.random(500, 1000);
+      expect(ran >= 500).toBe(true);
+      expect(ran <= 1000).toBe(true);
+    });
+  });
+});
+
+},{}],23:[function(require,module,exports){
 "use strict";
 
 describe("Rune.Vector", function () {
@@ -13300,7 +13502,7 @@ describe("Rune.Vector", function () {
   });
 });
 
-},{}]},{},[22])
+},{}]},{},[21])
 
 
 //# sourceMappingURL=specs.js.map

@@ -5,6 +5,60 @@ beforeEach(function () {
 
   jasmine.addMatchers({
 
+    toBeChildOf: function() {
+      return {
+        compare: function (child, parent) {
+
+          var hasChild = _.any(parent.children, function(c) {
+            return c == child;
+          });
+
+          var isChild = child.parent === parent;
+          var pass = hasChild && isChild;
+          var msg;
+
+          if(pass) {
+            msg = "Expected to not be child of parent"
+          } else {
+            msg = "Expected to be child of parent"
+          }
+
+          return {
+            pass: pass,
+            message: msg
+          };
+        }
+      };
+    },
+
+    // Matcher that takes two object and makes sure that all the
+    // keys in subset matches the same key in full. Full may have
+    // extra values.
+    toBeIn: function() {
+      return {
+        compare: function (subset, full) {
+
+          var noMatches = _.filter(subset, function(v, k) {
+            return !_.isEqual(full[k], v);
+          });
+
+          var msg;
+          var pass = noMatches.length == 0;
+
+          if(pass) {
+            msg = "Expected " + _.keys(noMatches) + " not to be in object"
+          } else {
+            msg = "Expected " + _.keys(noMatches) + " to be in object"
+          }
+
+          return {
+            pass: pass,
+            message: msg
+          };
+        }
+      };
+    },
+
     toEqualVector: function () {
       return {
         compare: function (vec, x, y) {

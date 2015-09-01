@@ -33,22 +33,6 @@ var Moveable = {
 
 };
 
-var Shapeable = {
-
-  shapeCopy: function(s, group) {
-    if(this.moveable)   s.moveable(this);
-    if(this.sizeable)   s.sizeable(this);
-    if(this.styleable)  s.styleable(this);
-    Utils.addToGroup(s, this.parent, group);
-  }
-
-  // IF WE ADD MORE METHODS, REMEMBER THAT GROUP EXTENDS THIS
-  // MIXIN. WE MIGHT NEED TO ADD shapeCopy FUNCTION TO SEPARATE
-  // MIXING, and then remove the mixin from the group as group is
-  // not a shape.
-
-};
-
 var Sizeable = {
 
   sizeable: function(copy) {
@@ -96,4 +80,4 @@ var Styleable = {
   strokeDashOffset: function(val) { this.vars.strokeDashOffset= val; return this; }
 };
 
-export { Moveable, Shapeable, Sizeable, Styleable };
+export { Moveable, Sizeable, Styleable };

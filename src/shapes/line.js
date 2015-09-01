@@ -1,5 +1,6 @@
 import _ from "underscore"
-import { Shapeable, Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable } from "../mixins"
+import Utils from '../utils'
 
 class Line {
 
@@ -12,16 +13,17 @@ class Line {
     this.vars.y2 = y2;
   }
 
-  copy(group) {
-    var e = new Line();
-    e.vars.x2 = this.vars.x2;
-    e.vars.y2 = this.vars.y2;
-    this.shapeCopy(e, group);
-    return e;
+  copy(parent) {
+    var copy = new Line();
+    copy.vars.x2 = this.vars.x2;
+    copy.vars.y2 = this.vars.y2;
+    Utils.copyMixinVars(this, copy);
+    Utils.groupLogic(copy, this.parent, parent);
+    return copy;
   }
 
 }
 
-_.extend(Line.prototype, Shapeable, Moveable, Styleable, {type: "line"});
+_.extend(Line.prototype, Moveable, Styleable, {type: "line"});
 
 export default Line;

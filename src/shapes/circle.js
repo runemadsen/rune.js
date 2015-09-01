@@ -1,6 +1,7 @@
 import _ from "underscore"
-import { Shapeable, Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable } from "../mixins"
 import Ellipse from "./ellipse"
+import Utils from '../utils'
 
 class Circle {
 
@@ -18,16 +19,17 @@ class Circle {
     return ellipse.toPolygon(opts);
   }
 
-  copy(group) {
-    var c = new Circle();
-    c.vars.radius = this.vars.radius;
-    this.shapeCopy(c, group);
-    return c;
+  copy(parent) {
+    var copy = new Circle();
+    copy.vars.radius = this.vars.radius;
+    Utils.copyMixinVars(this, copy);
+    Utils.groupLogic(copy, this.parent, parent);
+    return copy;
   }
 
 }
 
 // Should we figure out a better way to do mixins for ES6?
-_.extend(Circle.prototype, Shapeable, Moveable, Styleable, { type: "circle" });
+_.extend(Circle.prototype, Moveable, Styleable, { type: "circle" });
 
 export default Circle;

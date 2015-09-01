@@ -1,6 +1,7 @@
 import _ from "underscore"
-import { Shapeable, Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable } from "../mixins"
 import Vector from '../vector'
+import Utils from '../utils'
 
 class Polygon {
 
@@ -119,14 +120,15 @@ class Polygon {
     return this;
   }
 
-  copy(group) {
-    var s = new Polygon();
-    s.vars.vectors = _.map(this.vars.vectors, function(v) { return v.copy(); });
-    this.shapeCopy(s, group);
-    return s;
+  copy(parent) {
+    var copy = new Polygon();
+    copy.vars.vectors = _.map(this.vars.vectors, function(v) { return v.copy(); });
+    Utils.copyMixinVars(this, copy);
+    Utils.groupLogic(copy, this.parent, parent);
+    return copy;
   }
 }
 
-_.extend(Polygon.prototype, Shapeable, Moveable, Styleable, { type: "polygon" });
+_.extend(Polygon.prototype, Moveable, Styleable, { type: "polygon" });
 
 export default Polygon;

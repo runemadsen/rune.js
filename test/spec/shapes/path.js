@@ -213,15 +213,21 @@ describe("Rune.Path", function() {
       Helpers.setMixinVars(s);
       Helpers.setAllAnchors(s);
       var copy = s.copy();
-      expect(copy === s).toEqual(false);
-      expect(copy.vars.anchors === s.vars.anchors).toEqual(false);
+      expect(copy).not.toBe(s);
+      expect(copy.vars.anchors).not.toBe(s.vars.anchors)
       expect(copy).toEqual(s);
     });
 
-    it("calls shapeCopy", function() {
-      spyOn(s, "shapeCopy");
-      s.copy(g);
-      expect(s.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
 
   });

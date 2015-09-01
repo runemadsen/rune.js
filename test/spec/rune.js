@@ -78,11 +78,20 @@ describe("Rune", function() {
       expect(group.vars.y).toEqual(15);
     });
 
-    it("should call addToGroup()", function() {
+    it("should add to group", function() {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.group(0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.group(0, 0, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function() {
+      var child = r.group(0, 0);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function() {
+      var child = r.group(0, 0, false);
+      expect(child.parent).toBeUndefined();
     });
 
   });
@@ -98,11 +107,20 @@ describe("Rune", function() {
       expect(rectangle.vars.height).toEqual(100);
     });
 
-    it("should call addToGroup()", function() {
+    it("should add to group", function() {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.rect(0, 0, 0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.rect(0, 0, 0, 0, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function() {
+      var child = r.rect(0, 0, 0, 0);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function() {
+      var child = r.rect(0, 0, 0, 0, false);
+      expect(child.parent).toBeUndefined();
     });
 
   });
@@ -118,11 +136,20 @@ describe("Rune", function() {
       expect(ellipse.vars.height).toEqual(100);
     });
 
-    it("should call addToGroup()", function() {
+    it("should add to group", function() {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.ellipse(0, 0, 0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.ellipse(10, 15, 200, 100, group)
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function() {
+      var child = r.ellipse(10, 15, 200, 100)
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function() {
+      var child = r.ellipse(10, 15, 200, 100, false)
+      expect(child.parent).toBeUndefined();
     });
 
   });
@@ -137,11 +164,20 @@ describe("Rune", function() {
       expect(circ.vars.radius).toEqual(200);
     });
 
-    it("should call addToGroup()", function() {
+    it("should add to group", function() {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.circle(0, 0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.circle(10, 15, 200, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function() {
+      var child = r.circle(10, 15, 200);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function() {
+      var child = r.circle(10, 15, 200, false);
+      expect(child.parent).toBeUndefined();
     });
 
   });
@@ -157,11 +193,20 @@ describe("Rune", function() {
       expect(line.vars.y2).toEqual(105);
     });
 
-    it("should call addToGroup()", function() {
+    it("should add to group", function() {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.line(0, 0, 0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.line(10, 15, 100, 105, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function() {
+      var child = r.line(10, 15, 100, 105);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function() {
+      var child = r.line(10, 15, 100, 105, false);
+      expect(child.parent).toBeUndefined();
     });
 
   });
@@ -175,11 +220,20 @@ describe("Rune", function() {
       expect(polygon.type).toEqual("polygon")
     });
 
-    it("should call addToGroup()", function() {
+    it("should add to group", function() {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.polygon(0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.polygon(10, 15, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function() {
+      var child = r.polygon(10, 15);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function() {
+      var child = r.polygon(10, 15, false);
+      expect(child.parent).toBeUndefined();
     });
 
   });
@@ -193,11 +247,20 @@ describe("Rune", function() {
       expect(path.type).toEqual("path")
     });
 
-    it("should call addToGroup()", function() {
+    it("should add to group", function() {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.path(0, 0, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
+      var child = r.path(10, 15, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function() {
+      var child = r.path(10, 15);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function() {
+      var child = r.path(10, 15, false);
+      expect(child.parent).toBeUndefined();
     });
 
   });
@@ -212,11 +275,20 @@ describe("Rune", function() {
       expect(text.type).toEqual("text")
     });
 
-    it("should call addToGroup()", function() {
+    it("should add to group", function() {
       var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var t = r.text("Hello", 10, 15, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(t, r.stage, group);
+      var child = r.text("Hello", 10, 15, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function() {
+      var child = r.text("Hello", 10, 15);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function() {
+      var child = r.text("Hello", 10, 15, false);
+      expect(child.parent).toBeUndefined();
     });
 
   });
@@ -230,59 +302,20 @@ describe("Rune", function() {
       expect(grid.vars.y).toEqual(15);
     });
 
-    it("should call addToGroup()", function() {
-      var group = new Rune.Group();
-      spyOn(Rune, "addToGroup");
-      var s = r.grid({}, group);
-      expect(Rune.addToGroup).toHaveBeenCalledWith(s, r.stage, group);
-    });
-
-  });
-
-  describe("random()", function() {
-
-    it("works with only high", function() {
-      var ran = r.random(500);
-      expect(ran >= 0).toBe(true);
-      expect(ran <= 500).toBe(true);
-    });
-
-    it("works with low and high", function() {
-      var ran = r.random(500, 1000);
-      expect(ran >= 500).toBe(true);
-      expect(ran <= 1000).toBe(true);
-    });
-
-  });
-
-  describe("Rune.addToGroup", function() {
-
-    var child;
-    var fallback;
-    var group;
-
-    beforeEach(function() {
-      child = new Rune.Rectangle(10, 20, 30, 40);
-      fallback = new Rune.Group();
-      group = new Rune.Group();
-    });
-
     it("should add to group", function() {
-      Rune.addToGroup(child, fallback, group)
-      expect(group.children[0]).toBe(child);
-      expect(fallback.children.length).toEqual(0);
+      var group = new Rune.Group();
+      var child = r.grid({}, group);
+      expect(child).toBeChildOf(group);
     });
 
     it("should add to fallback", function() {
-      Rune.addToGroup(child, fallback)
-      expect(group.children.length).toEqual(0);
-      expect(fallback.children[0]).toBe(child);
+      var child = r.grid({});
+      expect(child).toBeChildOf(r.stage);
     });
 
     it("should not add", function() {
-      Rune.addToGroup(child, fallback, false)
-      expect(group.children.length).toEqual(0);
-      expect(fallback.children.length).toEqual(0);
+      var child = r.grid({}, false);
+      expect(child.parent).toBeUndefined();
     });
 
   });

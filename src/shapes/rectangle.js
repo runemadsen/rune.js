@@ -1,6 +1,7 @@
 import _ from "underscore"
-import { Shapeable, Moveable, Styleable, Sizeable } from "../mixins"
+import { Moveable, Styleable, Sizeable } from "../mixins"
 import Polygon from './polygon'
+import Utils from '../utils'
 
 class Rectangle {
 
@@ -25,13 +26,14 @@ class Rectangle {
     return poly;
   }
 
-  copy(group) {
-    var c = new Rectangle();
-    this.shapeCopy(c, group);
-    return c;
+  copy(parent) {
+    var copy = new Rectangle();
+    Utils.copyMixinVars(this, copy);
+    Utils.groupLogic(copy, this.parent, parent);
+    return copy;
   }
 }
 
-_.extend(Rectangle.prototype, Shapeable, Moveable, Sizeable, Styleable, { type: "rectangle" });
+_.extend(Rectangle.prototype, Moveable, Sizeable, Styleable, { type: "rectangle" });
 
 export default Rectangle;

@@ -1,8 +1,9 @@
 import _ from "underscore"
-import { Shapeable, Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable } from "../mixins"
 import Anchor from '../anchor'
 import Vector from '../vector'
 import Polygon from './polygon'
+import Utils from '../utils'
 
 class Path {
 
@@ -156,11 +157,12 @@ class Path {
     return polys;
   }
 
-  copy(group) {
-    var s = new Path();
-    s.vars.anchors = _.map(this.vars.anchors, function(a) { return a.copy(); });
-    this.shapeCopy(s, group);
-    return s;
+  copy(parent) {
+    var copy = new Path();
+    copy.vars.anchors = _.map(this.vars.anchors, function(a) { return a.copy(); });
+    Utils.copyMixinVars(this, copy);
+    Utils.groupLogic(copy, this.parent, parent);
+    return copy;
   }
 
   fillRule(val) { this.vars.fillRule = val; return this; }
@@ -175,6 +177,6 @@ class Path {
 
 }
 
-_.extend(Path.prototype, Shapeable, Moveable, Styleable, { type: "path"});
+_.extend(Path.prototype, Moveable, Styleable, { type: "path"});
 
 export default Path;

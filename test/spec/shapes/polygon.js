@@ -148,27 +148,6 @@ describe("Rune.Polygon", function() {
       expect(res.vars.vectors[9]).toEqualVector(6.796084568232018,20.388253704696055);
     });
 
-    it("should return vectors with spacing and corners");
-    //it("should return vectors with spacing and corners", function() {
-    //  var res = rhombus.toPolygon({ spacing: 25, corners:true });
-    //  expect(res.vars.x).toEqual(10);
-    //  expect(res.vars.y).toEqual(15);
-    //  expect(res.vars.vectors.length).toEqual(13);
-    //  expect(res.vars.vectors[0]).toEqualVector(0, 0);
-    //  expect(res.vars.vectors[1]).toEqualVector(25, 0);
-    //  expect(res.vars.vectors[2]).toEqualVector(50, 0);
-    //  expect(res.vars.vectors[3]).toEqualVector(60, 0);
-    //  expect(res.vars.vectors[4]).toEqualVector(64.74341649025257, 14.230249470757707);
-    //  expect(res.vars.vectors[5]).toEqualVector(72.64911064067351, 37.94733192202055);
-    //  expect(res.vars.vectors[6]).toEqualVector(78.24555320336759, 60);
-    //  expect(res.vars.vectors[7]).toEqualVector(80, 60);
-    //  expect(res.vars.vectors[8]).toEqualVector(53.24555320336759, 60);
-    //  expect(res.vars.vectors[9]).toEqualVector(28.245553203367592,60);
-    //  expect(res.vars.vectors[10]).toEqualVector(20,60);
-    //  expect(res.vars.vectors[11]).toEqualVector(14.701778718652967,44.1053361559589);
-    //  expect(res.vars.vectors[12]).toEqualVector(6.796084568232018,20.388253704696055);
-    //});
-
   });
 
   describe("copy()", function() {
@@ -188,21 +167,23 @@ describe("Rune.Polygon", function() {
     it("copies the object", function() {
       Helpers.setMixinVars(s);
       var copy = s.copy();
-      expect(copy === s).toEqual(false);
-      expect(copy.vars.vectors === s.vars.vectors).toEqual(false);
+      expect(copy).not.toBe(s);
+      expect(copy.vars.vectors).not.toBe(s.vars.vectors);
       expect(copy).toEqual(s);
     });
 
-    it("calls shapeCopy", function() {
-      spyOn(s, "shapeCopy");
-      s.copy(g);
-      expect(s.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
 
   });
-
-
-
-
 
 });

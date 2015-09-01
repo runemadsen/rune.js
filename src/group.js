@@ -1,5 +1,6 @@
 import _ from "underscore"
-import { Shapeable, Moveable } from "./mixins"
+import { Moveable } from "./mixins"
+import Utils from './utils'
 
 class Group {
 
@@ -22,18 +23,19 @@ class Group {
     child.parent = false;
   }
 
-  copy(group) {
-    var g = new Group();
-    this.shapeCopy(g, group);
+  copy(parent) {
+    var copy = new Group();
     _.each(this.children, function(child) {
-      child.copy(g);
+      child.copy(copy);
     });
-    return g;
+    Utils.copyMixinVars(this, copy);
+    Utils.groupLogic(copy, this.parent, parent);
+    return copy;
   }
 
 }
 
 // Should we figure out a better way to do mixins for ES6?
-_.extend(Group.prototype, Shapeable, Moveable, {type: "group"});
+_.extend(Group.prototype, Moveable, {type: "group"});
 
 export default Group;

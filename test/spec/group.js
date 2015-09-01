@@ -58,32 +58,40 @@ describe("Rune.Group", function() {
 
   describe("copy()", function() {
 
+    var parent;
+    var child;
+
+    beforeEach(function() {
+      parent = new Rune.Group();
+      child = new Rune.Group();
+      parent.add(child)
+    });
+
     it("copies the object", function() {
-      var parent = new Rune.Group();
       var parentEllipse = new Rune.Circle(10, 15, 300);
-      var child = new Rune.Group();
       var childEllipse = new Rune.Circle(10, 15, 300);
       Helpers.setMixinVars(parent);
       Helpers.setMixinVars(parentEllipse);
       Helpers.setMixinVars(child);
       Helpers.setMixinVars(childEllipse);
       parent.add(parentEllipse);
-      parent.add(child)
       child.add(childEllipse);
 
       var copy = parent.copy();
-      expect(copy === parent).toEqual(false);
-      expect(copy.children[0] === parentEllipse).toEqual(false);
-      expect(copy.children[1] === child).toEqual(false);
-      expect(copy.children[1].children[0] === childEllipse).toEqual(false);
       expect(copy).toEqual(parent);
+      expect(copy).not.toBe(parent);
     });
 
-    it("calls shapeCopy", function() {
-      var parent = new Rune.Group();
-      spyOn(parent, "shapeCopy");
-      parent.copy();
-      expect(parent.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function() {
+      expect(parent.children.length).toEqual(1);
+      child.copy();
+      expect(parent.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function() {
+      expect(parent.children.length).toEqual(1);
+      child.copy(false);
+      expect(parent.children.length).toEqual(1);
     });
 
   });

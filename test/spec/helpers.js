@@ -10,10 +10,33 @@ var Helpers = {
     return new Mixed();
   },
 
-  // In order to not constantly keep track of what mixins each
-  // object has, we can call this helper that automatically
-  // checks what mixins the shape has, and sets some default
-  // values for each mixin property.
+  // Mixin general
+  // -------------------------------------------
+
+  // Returns an object with variables that comes from
+  // all the mixins that the shape extends.
+  getMixinVars: function(shape) {
+
+    var keys = [];
+    if(shape.moveable) {
+      keys = keys.concat(_.keys(Helpers.getMoveableVars()))
+    }
+    if(shape.sizeable) {
+      keys = keys.concat(_.keys(Helpers.getSizeableVars()))
+    }
+    if(shape.styleable) {
+      keys = keys.concat(_.keys(Helpers.getStyleableVars()))
+    }
+
+    var vars = {};
+    _.each(keys, function(key) {
+      vars[key] = shape.vars[key];
+    });
+    return vars;
+  },
+
+  // Sets variables in object that comes from
+  // all the mixins that the shape extends.
   setMixinVars: function(shape) {
     if(shape.moveable) {
       Helpers.setMoveableVars(shape)
@@ -26,23 +49,49 @@ var Helpers = {
     }
   },
 
+  // Mixin getters
+  // -------------------------------------------
+
+  getMoveableVars: function(opts) {
+    return _.defaults(opts || {}, {
+      x:10,
+      y:15,
+      rotation: 45,
+      rotationX: 100,
+      rotationY: 105
+    });
+  },
+
+  getSizeableVars: function(opts) {
+    return _.defaults(opts || {}, {
+      width:300,
+      height:305
+    });
+  },
+
+  getStyleableVars: function(opts) {
+    return _.defaults(opts || {}, {
+      fill: new Rune.Color(255, 0, 0),
+      stroke: new Rune.Color(0, 255, 0)
+    });
+  },
+
+  // Mixin setters
+  // -------------------------------------------
+
   setMoveableVars: function(shape, opts) {
-    opts = opts || {};
-    shape.vars.x = opts.x || 10;
-    shape.vars.y = opts.y || 15;
-    shape.vars.rotation = opts.rotation || 45;
-    shape.vars.rotationX = opts.rotationX || 100;
-    shape.vars.rotationY = opts.rotationY || 105;
+    var vars = Helpers.getMoveableVars(opts)
+    _.extend(shape.vars, vars);
   },
 
-  setSizeableVars: function(shape) {
-    shape.vars.width = 300;
-    shape.vars.height = 305;
+  setSizeableVars: function(shape, opts) {
+    var vars = Helpers.getSizeableVars(opts)
+    _.extend(shape.vars, vars);
   },
 
-  setStyleableVars: function(shape) {
-    shape.vars.fill = new Rune.Color(255, 0, 0);
-    shape.vars.stroke = new Rune.Color(0, 255, 0);
+  setStyleableVars: function(shape, opts) {
+    var vars = Helpers.getStyleableVars(opts)
+    _.extend(shape.vars, vars);
   },
 
   setAllAnchors: function(path) {

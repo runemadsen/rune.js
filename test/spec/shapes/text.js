@@ -3,10 +3,10 @@ import Helpers from '../helpers'
 
 describe("Rune.Text", function() {
 
-  var t;
+  var s;
 
   beforeEach(function() {
-    t = new Rune.Text("Hello", 10, 15);
+    s = new Rune.Text("Hello", 10, 15);
   });
 
   describe("Common setters", function() {
@@ -23,7 +23,7 @@ describe("Rune.Text", function() {
 
     it("sets var and is chainable", function() {
       _.each(setters, function(v, k) {
-        var res = t[k](v);
+        var res = s[k](v);
         expect(res.vars[k]).toEqual(v);
         expect(res).toBe(res);
       });
@@ -34,7 +34,7 @@ describe("Rune.Text", function() {
   describe("toPolygon", function() {
 
     it("throws error if Rune.Font is not present", function() {
-      expect( function(){ t.toPolygon() } ).toThrow(new Error("You need the Rune.Font plugin to convert text to polygon"));
+      expect( function(){ s.toPolygon() } ).toThrow(new Error("You need the Rune.Font plugin to convert text to polygon"));
     });
 
   });
@@ -45,20 +45,26 @@ describe("Rune.Text", function() {
 
     beforeEach(function() {
       g = new Rune.Group();
-      g.add(t);
+      g.add(s);
     });
 
     it("copies the object", function() {
-      Helpers.setMixinVars(t);
-      var copy = t.copy();
-      expect(copy === t).toEqual(false);
-      expect(copy).toEqual(t);
+      Helpers.setMixinVars(s);
+      var copy = s.copy();
+      expect(copy).not.toBe(s);
+      expect(copy).toEqual(s);
     });
 
-    it("calls shapeCopy", function() {
-      spyOn(t, "shapeCopy");
-      t.copy(g);
-      expect(t.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
 
   });

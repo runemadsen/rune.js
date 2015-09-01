@@ -18,16 +18,23 @@ var Utils = {
     return degrees * (Math.PI/180);
   },
 
-  addToGroup: function(child, fallback, group) {
-    // if group is undefined, add to fallback
-    if(_.isUndefined(group) && fallback && fallback.type == "group")
-      fallback.add(child)
-    // if group is specified, add to group
-    else if(group && group.type == "group")
+  groupLogic: function(child, fallback, group) {
+
+    if(group && group.type == "group") {
       group.add(child)
-    // otherwise don't add to anything
+    }
+
+    else if(group !== false && fallback && fallback.type == "group") {
+      fallback.add(child)
+    }
+  },
+
+  copyMixinVars: function(a, b) {
+    if(a.moveable && b.moveable)    b.moveable(a);
+    if(a.sizeable && b.sizeable)    b.sizeable(a);
+    if(a.styleable && b.styleable)  b.styleable(a);
   }
 
-}
+};
 
 export default Utils;

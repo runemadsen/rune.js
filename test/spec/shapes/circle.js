@@ -20,25 +20,11 @@ describe("Rune.Circle", function() {
       expect(poly.vars.vectors.length).toEqual(16);
     });
 
-    it("returns polygon with exact number of vectors", function() {
-      var poly = s.toPolygon({ vectors: 10 });
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(10);
-    });
-
     it("returns polygon with even spaced vectors", function() {
       var poly = s.toPolygon({ spacing: 50 });
       expect(poly.vars.x).toEqual(10);
       expect(poly.vars.y).toEqual(15);
       expect(poly.vars.vectors.length).toEqual(76);
-    });
-
-    it("returns polygon with even spaced division", function() {
-      var poly = s.toPolygon({ division: 0.2 });
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(5);
     });
 
   });
@@ -48,14 +34,20 @@ describe("Rune.Circle", function() {
     it("copies the object", function() {
       Helpers.setMixinVars(s);
       var copy = s.copy();
-      expect(copy === s).toEqual(false);
       expect(copy).toEqual(s);
+      expect(copy).not.toBe(s);
     });
 
-    it("calls shapeCopy", function() {
-      spyOn(s, "shapeCopy");
-      s.copy(g);
-      expect(s.shapeCopy).toHaveBeenCalled();
+    it("adds copy to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.copy();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add copy to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.copy(false);
+      expect(g.children.length).toEqual(1);
     });
 
   });

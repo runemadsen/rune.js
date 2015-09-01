@@ -1,5 +1,5 @@
 import _ from "underscore"
-import { Shapeable, Moveable, Sizeable, Styleable } from "../mixins"
+import { Moveable, Sizeable, Styleable } from "../mixins"
 import Polygon from './polygon'
 import Utils from '../utils'
 
@@ -15,7 +15,7 @@ class Ellipse {
     this.vars.height = height;
   }
 
-  toPolygon(opts) {
+  toPolygon(opts, group) {
 
     var numVectors = 16;
 
@@ -24,10 +24,6 @@ class Ellipse {
     if(opts && opts.spacing) {
       var circumference = Math.PI * (this.vars.width+this.vars.height);
       numVectors = circumference / opts.spacing;
-    } else if(opts && opts.vectors) {
-      numVectors = opts.vectors;
-    } else if(opts && opts.division) {
-      numVectors = 1 / opts.division;
     }
 
     var vectorAngle = 360/numVectors;
@@ -39,18 +35,22 @@ class Ellipse {
       poly.lineTo(x, y);
     }
 
+    Utils.copyMixinVars(this, poly);
+    Utils.groupLogic(poly, this.parent, group);
+
     return poly;
   }
 
-  copy(group) {
-    var e = new Ellipse();
-    this.shapeCopy(e, group);
-    return e;
+  copy(parent) {
+    var copy = new Ellipse();
+    Utils.copyMixinVars(this, copy);
+    Utils.groupLogic(copy, this.parent, parent);
+    return copy;
   }
 
 }
 
 // Should we figure out a better way to do mixins for ES6?
-_.extend(Ellipse.prototype, Shapeable, Moveable, Sizeable, Styleable, {type: "ellipse"});
+_.extend(Ellipse.prototype, Moveable, Sizeable, Styleable, {type: "ellipse"});
 
 export default Ellipse;

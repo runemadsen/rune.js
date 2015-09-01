@@ -1,5 +1,6 @@
 import _ from "underscore"
-import { Shapeable, Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable } from "../mixins"
+import Utils from '../utils'
 
 class Text {
 
@@ -23,15 +24,16 @@ class Text {
   letterSpacing(letterSpacing) { this.vars.letterSpacing = letterSpacing; return this; }
   textDecoration(textDecoration) { this.vars.textDecoration = textDecoration; return this; }
 
-  copy(group) {
-    var t = new Text();
-    t.vars.text = this.vars.text;
-    this.shapeCopy(t, group);
-    return t;
+  copy(parent) {
+    var copy = new Text();
+    copy.vars.text = this.vars.text;
+    Utils.copyMixinVars(this, copy);
+    Utils.groupLogic(copy, this.parent, parent);
+    return copy;
   }
 
 }
 
-_.extend(Text.prototype, Shapeable, Moveable, Styleable, { type: "text" });
+_.extend(Text.prototype, Moveable, Styleable, { type: "text" });
 
 export default Text;
