@@ -15,14 +15,18 @@ class Rectangle {
     this.vars.height = height;
   }
 
-  toPolygon(opts) {
+  toPolygon(opts, parent) {
     var poly =  new Polygon(this.vars.x, this.vars.y)
       .lineTo(0, 0)
       .lineTo(this.vars.width, 0)
       .lineTo(this.vars.width, this.vars.height)
       .lineTo(0, this.vars.height);
 
-    if(opts) poly = poly.toPolygon(opts);
+    if(opts) poly = poly.toPolygon(opts, false);
+
+    Utils.copyMixinVars(this, poly);
+    Utils.groupLogic(poly, this.parent, parent);
+
     return poly;
   }
 

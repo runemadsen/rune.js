@@ -46,9 +46,9 @@ beforeEach(function () {
           var pass = noMatches.length == 0;
 
           if(pass) {
-            msg = "Expected " + _.keys(noMatches) + " not to be in object"
+            msg = "Expected " + noMatches + " not to be in object"
           } else {
-            msg = "Expected " + _.keys(noMatches) + " to be in object"
+            msg = "Expected " + noMatches + " to be in object"
           }
 
           return {

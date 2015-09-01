@@ -11395,9 +11395,9 @@ beforeEach(function () {
           var pass = noMatches.length == 0;
 
           if (pass) {
-            msg = "Expected " + _underscore2["default"].keys(noMatches) + " not to be in object";
+            msg = "Expected " + noMatches + " not to be in object";
           } else {
-            msg = "Expected " + _underscore2["default"].keys(noMatches) + " to be in object";
+            msg = "Expected " + noMatches + " to be in object";
           }
 
           return {
@@ -12614,6 +12614,24 @@ describe("Rune.Circle", function () {
       expect(poly.vars.y).toEqual(15);
       expect(poly.vars.vectors.length).toEqual(76);
     });
+
+    it("adds polygon to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.toPolygon();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add polygon to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.toPolygon({}, false);
+      expect(g.children.length).toEqual(1);
+    });
+
+    it("copies the mixin vars", function () {
+      _helpers2["default"].setMixinVars(s);
+      var p = s.toPolygon();
+      expect(_helpers2["default"].getMixinVars(p)).toBeIn(_helpers2["default"].getMixinVars(s));
+    });
   });
 
   describe("copy()", function () {
@@ -13191,11 +13209,28 @@ describe("Rune.Rectangle", function () {
     });
 
     it("returns polygon with even spaced vectors", function () {
-      // Actual vectors tested in polygon.toPolygon();
       var poly = s.toPolygon({ spacing: 50 });
       expect(poly.vars.x).toEqual(10);
       expect(poly.vars.y).toEqual(15);
       expect(poly.vars.vectors.length).toEqual(25);
+    });
+
+    it("adds polygon to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.toPolygon();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add polygon to parent", function () {
+      expect(g.children.length).toEqual(1);
+      s.toPolygon({}, false);
+      expect(g.children.length).toEqual(1);
+    });
+
+    it("copies the mixin vars", function () {
+      _helpers2["default"].setMixinVars(s);
+      var p = s.toPolygon();
+      expect(_helpers2["default"].getMixinVars(p)).toBeIn(_helpers2["default"].getMixinVars(s));
     });
   });
 

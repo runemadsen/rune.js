@@ -14,9 +14,12 @@ class Circle {
     this.vars.radius = radius;
   }
 
-  toPolygon(opts) {
+  toPolygon(opts, parent) {
     var ellipse = new Ellipse(this.vars.x, this.vars.y, this.vars.radius*2, this.vars.radius*2);
-    return ellipse.toPolygon(opts);
+    var poly = ellipse.toPolygon(opts, false);
+    Utils.copyMixinVars(this, poly);
+    Utils.groupLogic(poly, this.parent, parent);
+    return poly;
   }
 
   copy(parent) {

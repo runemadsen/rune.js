@@ -15,7 +15,7 @@ class Ellipse {
     this.vars.height = height;
   }
 
-  toPolygon(opts, group) {
+  toPolygon(opts, parent) {
 
     var numVectors = 16;
 
@@ -36,7 +36,7 @@ class Ellipse {
     }
 
     Utils.copyMixinVars(this, poly);
-    Utils.groupLogic(poly, this.parent, group);
+    Utils.groupLogic(poly, this.parent, parent);
 
     return poly;
   }

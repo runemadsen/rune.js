@@ -27,6 +27,24 @@ describe("Rune.Circle", function() {
       expect(poly.vars.vectors.length).toEqual(76);
     });
 
+    it("adds polygon to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.toPolygon();
+      expect(g.children.length).toEqual(2);
+    });
+
+    it("does not add polygon to parent", function() {
+      expect(g.children.length).toEqual(1);
+      s.toPolygon({}, false);
+      expect(g.children.length).toEqual(1);
+    });
+
+    it("copies the mixin vars", function() {
+      Helpers.setMixinVars(s)
+      var p = s.toPolygon();
+      expect(Helpers.getMixinVars(p)).toBeIn(Helpers.getMixinVars(s));
+    });
+
   });
 
   describe("copy()", function() {
