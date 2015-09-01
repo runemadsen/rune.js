@@ -12787,14 +12787,16 @@ describe("Rune.Path", function () {
     it("should return array of polygons and vectors with spacing", function () {
       var res = path.toPolygons({ spacing: 25 });
       expect(res.length).toEqual(2);
+
       var poly1 = res[0];
-      var poly2 = res[1];
       expect(poly1.vars.x).toEqual(10);
       expect(poly1.vars.y).toEqual(15);
+      expect(poly1.vars.vectors.length).toEqual(24);
+
+      var poly2 = res[1];
       expect(poly2.vars.x).toEqual(10);
       expect(poly2.vars.y).toEqual(15);
-      console.log(poly1.vars.vectors);
-      console.log(poly2.vars.vectors);
+      expect(poly2.vars.vectors.length).toEqual(14);
     });
   });
 

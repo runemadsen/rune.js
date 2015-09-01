@@ -2,7 +2,6 @@
 
 ### Must
 
-- [ ] `path.toPolygons`
 - [ ] Ellipse has width and height but I think they are radius? need to /2
 - [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
 - [ ] `stagePos()` on shapes and groups to get absolute position
@@ -15,6 +14,7 @@
 
 ### Nice to have 
 
+- [ ] Add line anchors do debug output
 - [ ] Docs: using in browser. Using as module.
 - [ ] Extend color instead of copy/pasting code.
 - [ ] Rewrite mixins to something better suited for ES6?
