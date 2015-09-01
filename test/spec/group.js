@@ -1,3 +1,5 @@
+import Helpers from './helpers'
+
 describe("Rune.Group", function() {
 
   describe("Group()", function() {
@@ -61,10 +63,10 @@ describe("Rune.Group", function() {
       var parentEllipse = new Rune.Circle(10, 15, 300);
       var child = new Rune.Group();
       var childEllipse = new Rune.Circle(10, 15, 300);
-      setMixinVars(parent);
-      setMixinVars(parentEllipse);
-      setMixinVars(child);
-      setMixinVars(childEllipse);
+      Helpers.setMixinVars(parent);
+      Helpers.setMixinVars(parentEllipse);
+      Helpers.setMixinVars(child);
+      Helpers.setMixinVars(childEllipse);
       parent.add(parentEllipse);
       parent.add(child)
       child.add(childEllipse);

@@ -1,10 +1,5 @@
 import _ from "underscore"
 
-// Import modules from this library, and export them so it's possible
-// to use them like this in ES6:
-//    import { vector } from "rune"
-// or like this in commonjs
-//    require("rune").vector
 import Vector from "./vector";
 import Anchor from "./anchor"
 import Color from "./color"
@@ -20,22 +15,11 @@ import Path from "./shapes/path"
 import Polygon from "./shapes/polygon"
 import Rectangle from "./shapes/rectangle"
 import Text from "./shapes/text"
+import { Shapeable, Moveable, Styleable, Sizeable } from "./mixins"
 
 // Exports modules for easy access when using module?
 //export { default as anchor } from "./anchor";
-//export { default as color } from "./color";
-//export { default as group } from "./group";
-//export { default as grid } from "./grid";
-//export { default as utils } from "./utils";
-//export { default as events } from "./events";
-//export { default as render } from "./render";
-//export { default as circle } from "./shapes/circle";
-//export { default as ellipse } from "./shapes/ellipse";
-//export { default as line } from "./shapes/line";
-//export { default as path } from "./shapes/path";
-//export { default as polygon } from "./shapes/polygon";
-//export { default as rectangle } from "./shapes/rectangle";
-//export { default as text } from "./shapes/text";
+// ... for all of them
 
 class Rune {
 
@@ -204,6 +188,13 @@ Rune.Path = Path;
 Rune.Polygon = Polygon;
 Rune.Rectangle = Rectangle;
 Rune.Text = Text;
+
+// Right now I need these for mixin tests.
+// Rewrite so we don't need them.
+Rune.Shapeable = Shapeable;
+Rune.Moveable = Moveable;
+Rune.Styleable = Styleable;
+Rune.Sizeable = Sizeable;
 
 // define window.Rune for browserify
 global.Rune = Rune;

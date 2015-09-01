@@ -1,3 +1,6 @@
+import _ from 'underscore'
+import Helpers from '../helpers'
+
 describe("Rune.Text", function() {
 
   var t;
@@ -46,7 +49,7 @@ describe("Rune.Text", function() {
     });
 
     it("copies the object", function() {
-      setMixinVars(t);
+      Helpers.setMixinVars(t);
       var copy = t.copy();
       expect(copy === t).toEqual(false);
       expect(copy).toEqual(t);

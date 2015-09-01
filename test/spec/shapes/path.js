@@ -1,3 +1,6 @@
+import _ from 'underscore'
+import Helpers from '../helpers'
+
 describe("Rune.Path", function() {
 
   var path;
@@ -31,7 +34,7 @@ describe("Rune.Path", function() {
 
     it("should create anchors", function() {
       var p = new Rune.Path();
-      setAllAnchors(p);
+      Helpers.setAllAnchors(p);
       expect(p.vars.anchors[0]).toBeAnchorMove(0, 0);
       expect(p.vars.anchors[1]).toBeAnchorLine(104, 105);
       expect(p.vars.anchors[2]).toBeAnchorMove(106, 107);
@@ -178,18 +181,18 @@ describe("Rune.Path", function() {
 
   describe("toPolygons()", function() {
 
-    //it("should return array of polygons and vectors with spacing", function() {
-    //  var res = path.toPolygons({ spacing: 25 });
-    //  expect(res.length).toEqual(2);
-    //  var poly1 = res[0]
-    //  var poly2 = res[1]
-    //  expect(poly1.x).toEqual(10);
-    //  expect(poly1.y).toEqual(15);
-    //  expect(poly2.x).toEqual(10);
-    //  expect(poly2.y).toEqual(15);
-    //  console.log(poly1.vars.anchors);
-    //  console.log(poly2.vars.anchors);
-    //});
+    it("should return array of polygons and vectors with spacing", function() {
+      var res = path.toPolygons({ spacing: 25 });
+      expect(res.length).toEqual(2);
+      var poly1 = res[0]
+      var poly2 = res[1]
+      expect(poly1.vars.x).toEqual(10);
+      expect(poly1.vars.y).toEqual(15);
+      expect(poly2.vars.x).toEqual(10);
+      expect(poly2.vars.y).toEqual(15);
+      console.log(poly1.vars.vectors);
+      console.log(poly2.vars.vectors);
+    });
 
   });
 
@@ -205,8 +208,8 @@ describe("Rune.Path", function() {
     });
 
     it("copies the object", function() {
-      setMixinVars(s);
-      setAllAnchors(s);
+      Helpers.setMixinVars(s);
+      Helpers.setAllAnchors(s);
       var copy = s.copy();
       expect(copy === s).toEqual(false);
       expect(copy.vars.anchors === s.vars.anchors).toEqual(false);

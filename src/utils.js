@@ -1,3 +1,5 @@
+import _ from "underscore"
+
 var Utils = {
 
   random: function(a, b) {

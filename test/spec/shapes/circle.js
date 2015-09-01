@@ -1,3 +1,5 @@
+import Helpers from '../helpers'
+
 describe("Rune.Circle", function() {
 
   var s;
@@ -44,7 +46,7 @@ describe("Rune.Circle", function() {
   describe("copy()", function() {
 
     it("copies the object", function() {
-      setMixinVars(s);
+      Helpers.setMixinVars(s);
       var copy = s.copy();
       expect(copy === s).toEqual(false);
       expect(copy).toEqual(s);

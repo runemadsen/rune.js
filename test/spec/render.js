@@ -1,5 +1,6 @@
-// Helpers
-// --------------------------------------------------
+import $ from "jquery"
+import _ from "underscore"
+import Helpers from './helpers'
 
 function drawShared(shape) {
   shape.rotate(45, 100, 105)
@@ -185,7 +186,7 @@ describe("Rune.Render", function() {
     it("should render path", function() {
       var s = r.path(10, 15);
       drawShared(s);
-      setAllAnchors(s);
+      Helpers.setAllAnchors(s);
       r.draw();
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);

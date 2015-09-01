@@ -1,3 +1,5 @@
+import Helpers from '../helpers'
+
 describe("Rune.Rectangle", function() {
 
   var s;
@@ -35,7 +37,7 @@ describe("Rune.Rectangle", function() {
   describe("copy()", function() {
 
     it("copies the object", function() {
-      setMixinVars(s);
+      Helpers.setMixinVars(s);
       var copy = s.copy();
       expect(copy === s).toEqual(false);
       expect(copy).toEqual(s);

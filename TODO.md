@@ -2,19 +2,11 @@
 
 ### Must
 
-- [ ] something is wrong with amd and common: same as browser
-- [ ] Make watch faster with browserify and watchify
-- [ ] Rewrite code to ES6: underscore, etc.
-- [ ] Docs: using in browser. Using as module.
-- [ ] Test `import {color} from 'rune'` in jasmine. ALL modules
-- [ ] Extend color instead of copy/pasting code.
 - [ ] `path.toPolygons`
-- [ ] Rewrite mixins to something better suited for ES6?
+- [ ] Ellipse has width and height but I think they are radius? need to /2
 - [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
-- [ ] Add functions to anchor: http://pomax.github.io/bezierjs/
 - [ ] `stagePos()` on shapes and groups to get absolute position
 - [ ] `centroid`, `bounds`, `vectorAt` should have flag to either output according to x,y or according to stagePos.
-- [ ] Ellipse has width and height but I think they are radius? need to /2
 - [ ] `toPolygon` should copy mixin vars too!
 - [ ] `toPolygon` should have stage handling too! pass in group or false.
 - [ ] `keypressed`
@@ -23,6 +15,9 @@
 
 ### Nice to have 
 
+- [ ] Docs: using in browser. Using as module.
+- [ ] Extend color instead of copy/pasting code.
+- [ ] Rewrite mixins to something better suited for ES6?
 - [ ] Ability to set debug line color and debug circle color
 - [ ] Geomelement `contains`
 - [ ] Geomelement `intersects` and `intersection`, `xor`, `union`, `diff`

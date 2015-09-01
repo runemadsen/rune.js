@@ -2,7 +2,7 @@ import _ from "underscore"
 import { Shapeable, Moveable, Styleable } from "../mixins"
 import Anchor from '../anchor'
 import Vector from '../vector'
-import polygon from './polygon'
+import Polygon from './polygon'
 
 class Path {
 
@@ -135,23 +135,25 @@ class Path {
 
   toPolygons(opts) {
 
-    // use subpaths!!!
+    var paths = this.subpaths();
+    var polys = [];
 
     // if splitting the path into vectors with equal spacing
-    //if(opts && opts.spacing) {
-//
-    //  var poly = new Polygon(this.vars.x, this.vars.y);
-    //  var len = this.length();
-    //  var num = len / opts.spacing;
-    //  for(var i = 0; i < num; i++) {
-    //    var vec = this.vectorAtLength(i * opts.spacing);
-    //    poly.lineTo(vec.x, vec.y)
-    //  }
-    //  return poly;
-    //}
-//
-    //return this;
+    if(opts && opts.spacing) {
 
+      _.each(paths, function(path) {
+        var poly = new Polygon(path.vars.x, path.vars.y);
+        var len = path.length();
+        var num = len / opts.spacing;
+        for(var i = 0; i < num; i++) {
+          var vec = path.vectorAtLength(i * opts.spacing);
+          poly.lineTo(vec.x, vec.y)
+        }
+        polys.push(poly);
+      });
+    }
+
+    return polys;
   }
 
   copy(group) {

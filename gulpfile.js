@@ -22,9 +22,9 @@ function compile(outfile, extraOpts, watch) {
   var opts = assign({}, watchify.args, extraOpts);
   var bundler = browserify('./src/rune.js', opts).transform(babelify);
 
-  if(watch) {
-    bundler = watchify(bundler)
-  }
+  //if(watch) {
+  //  bundler = watchify(bundler)
+  //}
 
   function rebundle() {
     return bundler.bundle()
@@ -36,12 +36,12 @@ function compile(outfile, extraOpts, watch) {
       .pipe(gulp.dest('./dist'));
   }
 
-  if(watch) {
-    bundler.on('update', function() {
-      console.log('-> bundling...');
-      rebundle();
-    });
-  }
+  //if(watch) {
+  //  bundler.on('update', function() {
+  //    console.log('-> bundling...');
+  //    rebundle();
+  //  });
+  //}
 
   return rebundle();
 }
@@ -83,20 +83,20 @@ gulp.task('zip', ['minify'], function() {
 // Test
 // ---------------------------------------------------
 
-gulp.task('test:common', function() {
-  // TODO: use the common file and the specs to
-  // test the lib as a node module
-});
-
-gulp.task('test:specs', function() {
-  gulp.src('test/spec/**/*.js')
-    .pipe(concat('specs.js'))
+gulp.task('build:specs', function() {
+  return browserify('test/spec/specs.js', { debug: true }).transform(babelify)
+    .bundle()
+    .on('error', function(err) { console.error(err); this.emit('end'); })
+    .pipe(source('specs.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./test/lib/'));
 });
 
-gulp.task("test", ['build:browser', 'test:specs'], function() {
-  gulp.watch('dist/rune.browser.js', ['build:browser']);
-  gulp.watch('test/spec/**/*.js', ['test:specs']);
+gulp.task("test", ['build:browser', 'build:specs'], function() {
+  gulp.watch('src/**/*.js', ['build:browser']);
+  gulp.watch('test/spec/**/*.js', ['build:specs']);
   connect.server({
     port: 8888
   });

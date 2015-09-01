@@ -1,3 +1,5 @@
+import Helpers from '../helpers'
+
 describe("Rune.Polygon", function() {
 
   var rhombus;
@@ -184,7 +186,7 @@ describe("Rune.Polygon", function() {
     });
 
     it("copies the object", function() {
-      setMixinVars(s);
+      Helpers.setMixinVars(s);
       var copy = s.copy();
       expect(copy === s).toEqual(false);
       expect(copy.vars.vectors === s.vars.vectors).toEqual(false);

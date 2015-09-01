@@ -1,9 +1,11 @@
+import Helpers from '../helpers'
+
 describe("Rune.Sizeable", function() {
 
   var m;
 
   beforeEach(function() {
-    m = newMixin(Rune.Sizeable);
+    m = Helpers.newMixin(Rune.Sizeable);
     m.sizeable();
   });
 
@@ -16,8 +18,8 @@ describe("Rune.Sizeable", function() {
     });
 
     it("copies variables from object", function() {
-      setSizeableVars(m);
-      var m2 = newMixin(Rune.Sizeable);
+      Helpers.setSizeableVars(m);
+      var m2 = Helpers.newMixin(Rune.Sizeable);
       m2.sizeable(m);
       expect(m2.vars.width).toEqual(300);
       expect(m2.vars.height).toEqual(305);

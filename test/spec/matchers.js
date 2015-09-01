@@ -1,3 +1,6 @@
+import _ from "underscore"
+import $ from "jquery"
+
 beforeEach(function () {
 
   jasmine.addMatchers({
@@ -6,6 +9,7 @@ beforeEach(function () {
       return {
         compare: function (vec, x, y) {
 
+          var msg;
           var pass = vec.x == x && vec.y == y;
 
           if (pass) {
@@ -26,6 +30,7 @@ beforeEach(function () {
       return {
         compare: function (jel, tagname) {
 
+          var msg;
           var pass = jel.prop("tagName") == tagname;
 
           if (pass) {

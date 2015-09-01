@@ -1,3 +1,4 @@
+import _ from "underscore"
 import Circle from './shapes/circle'
 import Rectangle from './shapes/rectangle'
 import Line from './shapes/line'
