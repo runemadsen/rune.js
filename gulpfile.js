@@ -14,6 +14,8 @@ var assign = require('lodash.assign');
 var concat = require('gulp-concat');
 var connect = require('gulp-connect');
 
+var builddir = './dist';
+
 // Build
 // -------------------------------------------------
 
@@ -33,7 +35,7 @@ function compile(outfile, extraOpts, watch) {
       .pipe(buffer())
       .pipe(sourcemaps.init({ loadMaps: true }))
       .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./dist'));
+      .pipe(gulp.dest(builddir));
   }
 
   //if(watch) {
@@ -70,10 +72,10 @@ gulp.task('minify', ['build', 'minify:clean'], function() {
     .pipe(gulp.dest(builddir));
 });
 
-// Zip
+// Release
 // -------------------------------------------------
 
-gulp.task('zip', ['minify'], function() {
+gulp.task('release', ['minify'], function() {
   var p = require('./package.json')
   return gulp.src(builddir + '/*')
     .pipe(zip('rune-'+p.version+'.zip'))

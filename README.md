@@ -1,7 +1,5 @@
 # rune.js
 
-### I'm actively working on the `0.0.1` release of this library.
-
 There is a ton of great open source JavaScript drawing libraries on web, and favorites like [D3.js](http://d3js.org/), [p5.js](http://p5js.org/) and [Two.js](https://jonobr1.github.io/two.js/) is a great fit for many projects.
 
 However, while teaching [my algorithmic graphic design course](http://printingcode.runemadsen.com), I have run into several issues with these frameworks. Either the syntax is too complex, the scene graph is too simple, the renderer supports canvas-only, or there's a general lack of the features that I care about (typography, color, computational geometry, etc). So I have decided to write something that fits my taste.
