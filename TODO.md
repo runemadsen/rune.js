@@ -2,7 +2,7 @@
 
 ### Must
 
-- [ ] Polygon should have first `moveTo` to replicate path API
+- [ ] Polygon should have first `moveTo` to replicate path API, and default to 0,0
 - [ ] Rename `gutterX` and `gutterY` to `gutterWidth` and `gutterHeight`
 - [ ] Ellipse has width and height but I think they are radius? need to /2
 - [ ] `stagePos()` on shapes and groups to get absolute position
