@@ -10,6 +10,15 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG.
 
 ## Download
 
+**[Current version: 0.1.0](https://github.com/runemadsen/rune.js/releases/tag/0.1.0)**
+
+| Filename              | Size   | Description   |
+| --------------------- | ------ | -------------|
+| `rune.browser.js`     | 260kb  | All dependencies included. |
+| `rune.browser.min.js` | 114kb  | All dependencies included (minified) |
+| `rune.common.js`      | 84kb   | Only core with commonjs requires |
+| `rune.common.min.js`  | 44kb   | Only core with commonjs requires (minified) |
+
 New releases will be announced on the following Twitter account. 
 
 <a href="https://twitter.com/runemadsen" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @runemadsen</a>
@@ -17,11 +26,11 @@ New releases will be announced on the following Twitter account.
 
 ## Getting started
 
-First download the `rune.js` file and place it next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
+First download the `rune.js` release and move `rune.browser.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
 
 ```html
 <head>
-  <script type="text/javascript" src="rune.js"></script>
+  <script type="text/javascript" src="rune.browser.js"></script>
 </head>
 ```
 

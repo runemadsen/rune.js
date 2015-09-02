@@ -43,3 +43,22 @@ header {
     }
   }
 }
+
+// download table
+
+table {
+
+  width: 100%;
+
+  thead {
+    text-align: left;
+  }
+
+  tr td {
+    padding-right: 30px;
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}

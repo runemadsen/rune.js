@@ -64,8 +64,12 @@ code {
   font-size: 0.9em;
 }
 
-p, ul, ol {
+p, ul, ol, table {
   font-size: 1.07em;
   line-height: 1.6em;
   color: #333;
+}
+
+#download + p {
+  font-size: 1.2em;
 }
