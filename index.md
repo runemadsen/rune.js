@@ -230,14 +230,3 @@ console.log("my shape is at", x, y);
 ### Draw loop
 
 ### Grid systems
-
-
-## Documentation
-
-All shapes share some common functions. Here's an overview.
-
-#### `.function(x, y, relative)`
-
-This is something to say about this code example. It might be a little crazy, but that's how it is baby.
-
-<script type="text/javascript" src="js/app.js"></script>
