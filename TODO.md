@@ -2,7 +2,7 @@
 
 ### Must
 
-
+- [ ] Rename `gutterX` and `gutterY` to `gutterWidth` and `gutterHeight`
 - [ ] Ellipse has width and height but I think they are radius? need to /2
 - [ ] `stagePos()` on shapes and groups to get absolute position
 
