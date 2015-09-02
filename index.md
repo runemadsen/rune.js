@@ -3,8 +3,6 @@ layout: default
 title: "Rune.js Documentation"
 ---
 
-<div id="logo"></div>
-
 # Rune.js
 
 Rune.js is a JavaScript library for programming graphic design systems with SVG. It features a chainable drawing API, an unobtrusive scene graph, and a range of features aimed specifically at graphic designers: native support for color conversion, grid systems, typography, pixel iteration, as well as an expanding set of computational geometry helpers. Oh, and it uses [virtual-dom](https://github.com/Matt-Esch/virtual-dom) under the hood.
@@ -12,7 +10,9 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG.
 
 ## Download
 
-Download info to Github here!
+New releases will be announced on the following Twitter account. 
+
+<a href="https://twitter.com/runemadsen" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @runemadsen</a>
 
 
 ## Getting started
