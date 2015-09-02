@@ -19,14 +19,14 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG.
 | `rune.common.js`      | 84kb   | Only core with commonjs requires |
 | `rune.common.min.js`  | 44kb   | Only core with commonjs requires (minified) |
 
-New releases will be announced on the following Twitter account. 
+New releases will be announced on my Twitter account. 
 
 <a href="https://twitter.com/runemadsen" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @runemadsen</a>
 
 
 ## Getting started
 
-First download the `rune.js` release and move `rune.browser.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
+First download the latest release and move `rune.browser.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
 
 ```html
 <head>
@@ -50,6 +50,10 @@ var r = new Rune({
   width: 500,
   height: 400
 });
+
+// put code here
+
+r.draw();
 ```
 
 If you open the HTML file in your browser, you will see a blank page, as we haven't called any drawing functions yet. Add the following code to `sketch.js` and refresh your browser.
@@ -121,9 +125,13 @@ Polygons are important because most shapes can be converted to polygons by using
 
 The path is the most complex shape, as it can consist of multiple subpaths made up of straight lines or bezier curves. Paths can also be open, and fill rules can be used to subtract one subpath from another, to create very complex shapes.
 
-MORE
+Paths have four main methods. `moveTo` to start a new subpath, `lineTo` to create a line in the current subpath, `curveTo` to create a bezier curve in the current subpath, and `closePath` to make a straight line to the beginning of the current subpath.
+
+DRAW OBJECT WITH BEZIER CURVES
 
 fillrule
+
+If have debug mode enabled, the path outline and bezier controld points will be drawn on the screen for reference.
 
 
 ### Moving shapes
@@ -212,14 +220,55 @@ r.rect(0, 0, 100, 50)
 
 ### The stage and groups
 
-Groups and stuff
-absolute position
+If you're coming from Processing, the concept of a stage graph might be a bit unfamiliar. However, the basics are actually pretty simple to understand. In Processing, the `rect()` function will just draw a rectangle on the screen. You have no way to later access the x, y, width or height of that rectangle.
+
+In `Rune.js`, that same function will actually create a `Rune.Rectangle` object, and add it to the stage. Every time the `draw()` method is called, `Rune.js` will look through the stage objects and draw all of them on the screen in order. The benefit is that shape objects will always hold the current state of the shape. See *Shape variables* for more.
+
+You can use groups to group many shapes together. A group can be created by using the `group()` function.
+
+```js
+var myGroup = r.group(100, 100);
+```
+
+This group has position of x:100,y:100 and any shapes added to the group will be positioned relative to the group position. The following example will draw a rectangle at x:150,y:150.
+
+```js
+var myGroup = r.group(100, 100);
+r.rect(50, 50, 500, 500, myGroup);
+```
+
+You have probably noticed that I'm passing the group as the last parameter in the `rect()` drawing function. **All drawing functions accept a custom group as the last parameter**, and doing this will add the new shape to the group instead of the default stage. The `group` function also does this, so you can nest groups to construct some very complex scenarios.
+
+```js
+// create group on stage
+var parent = r.group(100, 100);
+
+// create group inside parent
+var child = r.group(100, 100, parent);
+
+// create rectangle inside child
+r.rect(100, 100, 500, 500, child);
+```
+
+The stage itself is a group object, and can be accessed via `r.stage`. If you wish to create a new shape without adding it to the stage or a group, you can pass `false` as the last parameter in any drawing function.
+
+```js
+r.rect(100, 100, 500, 500, false);
+```
+
+You can also use the shape objects directly, which will bypass the stage logic.
+
+```js
+var myRect = new Rune.Rectangle(100, 100, 500, 500);
+```
+
+Groups have `move` and `rotate` functions like shapes. See the [documentation](documentation.html) for more info.
 
 ### Shape variables
 
 All shapes have a `vars` object that hold the current state of the shape. This is mostly done to separate functions and state, so you can use `.fill()` to set the fill color, and `vars.fill` to access the current color.
 
-Unless you know what you're doing, **the vars object should only be used to read values**. For example, here's how you get the current position of a shape within its parent.
+You can use this `vars` object to get information about the shape. For example, here's how you get the current position of a shape.
 
 ```js
 var x = myShape.vars.x;
@@ -227,6 +276,88 @@ var y = myShape.vars.y;
 console.log("my shape is at", x, y);
 ```
 
+Unless you know what you're doing, **the vars object should only be used to read values**. For example, here's how you get the current position of a shape within its parent.
+
 ### Draw loop
 
+`Rune.js` has a built-in draw event that by default is fired 60 times a second. So moving a rectangle across the screen 1px at the time is as simple as this.
+
+```js
+var rectangle = r.rect(0, 0, 100, 50);
+
+r.on('draw', function() {
+  rectangle.move(1, 0, true);
+});
+```
+
+It's very important to understand the difference between the code above that moves a single rectangle object, and the code below which adds a new rectangle to the stage on every frame.
+
+```js
+var x = 0;
+
+r.on('draw', function() {
+  r.rectangle(x, 0, 100, 50);
+  x++;
+});
+```
+
+You can change the framerate by passing in the `frameRate` parameter when creating your `Rune.js` instance:
+
+```js
+var r = new Rune({ frameRate: 10 })
+```
+
 ### Grid systems
+
+Designers often use different types of grid systems to lay out shapes on a page. `Rune.js` comes with a built-in grid object that can be used to create most types of grid, and because grids are a part of the stage graph, shapes can be added to the grid columns and rows.
+
+Grids are very flexible, and can be created using a combination of parameters. Here's a simple grid created based on the full width of the grid.
+
+```js
+var grid = r.grid({
+  x: 10,
+  y: 10,
+  width: 500,
+  height: 500,
+  gutter: 10,
+  columns: 10,
+  rows: 2
+});
+```
+
+You can also create a grid by specifying the module height and width instead. The code below will create the exact same grid as the code above.
+
+```js
+var grid = r.grid({
+  x: 10,
+  y: 10,
+  moduleWidth: 50,
+  moduleHeight: 500,
+  gutter: 10,
+  columns: 3,
+  rows: 2
+});
+```
+
+You can also replace `gutter` with `gutterWidth` and `gutterHeight` if you need specific control over the module spacing.
+
+A grid object is just a collection of groups with their locations based on the specified grid measurements. You can add shapes to the module groups with the `add()` function.
+
+```js
+var rect = r.rect(100, 100, 500, 500, false);
+
+// add rectangle to first column, second row
+grid.add(rect, 1, 2);
+```
+
+Grids have `.move` and `.rotate` functions to move all shapes in the grid.
+
+If you have debug mode enabled, the grid modules will be drawn on the screen for reference.
+
+### Debug mode
+
+You can enable debug mode when creating a `Rune.js` instance.
+
+```js
+var r = new Rune({ debug: true });
+```

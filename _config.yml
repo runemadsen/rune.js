@@ -3,7 +3,7 @@ title: Rune.js
 email: rune@runemadsen.com
 description: > # this means to ignore newlines until "baseurl:"
   A JavaScript library for programming graphic design systems with SVG
-baseurl: "/rune.js/"
+baseurl: ""
 url: "http://runemadsen.github.io"
 twitter_username: runemadsen
 github_username:  runemadsen
