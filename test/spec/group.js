@@ -21,11 +21,9 @@ describe("Rune.Group", function() {
     it("adds child to children and sets parent", function() {
       var g = new Rune.Group();
       var s = new Rune.Ellipse();
-      expect(g.children.length).toBe(0);
-      expect(s.parent).toBeUndefined();
+      expect(s).not.toBeChildOf(g);
       g.add(s);
-      expect(g.children[0]).toBe(s);
-      expect(s.parent).toBe(g);
+      expect(s).toBeChildOf(g);
     });
 
     it("removes child from parent", function() {
@@ -33,12 +31,10 @@ describe("Rune.Group", function() {
       var g2 = new Rune.Group();
       var s = new Rune.Ellipse();
       g1.add(s);
-      expect(s.parent).toBe(g1);
-      expect(g1.children[0]).toBe(s);
+      expect(s).toBeChildOf(g1);
       g2.add(s);
-      expect(s.parent).toBe(g2);
-      expect(g1.children.length).toBe(0);
-      expect(g2.children[0]).toBe(s);
+      expect(s).toBeChildOf(g2);
+      expect(s).not.toBeChildOf(g1);
     });
 
   });
@@ -50,8 +46,7 @@ describe("Rune.Group", function() {
       var s = new Rune.Ellipse();
       g.add(s);
       g.remove(s);
-      expect(s.parent).toBe(false);
-      expect(g.children.length).toBe(0);
+      expect(s).not.toBeChildOf(g);
     })
 
   });
@@ -83,15 +78,13 @@ describe("Rune.Group", function() {
     });
 
     it("adds copy to parent", function() {
-      expect(parent.children.length).toEqual(1);
-      child.copy();
-      expect(parent.children.length).toEqual(2);
+      var copy = child.copy();
+      expect(copy).toBeChildOf(parent);
     });
 
     it("does not add copy to parent", function() {
-      expect(parent.children.length).toEqual(1);
-      child.copy(false);
-      expect(parent.children.length).toEqual(1);
+      var copy = child.copy(false);
+      expect(copy).not.toBeChildOf(parent);
     });
 
   });

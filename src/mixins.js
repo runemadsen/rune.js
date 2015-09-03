@@ -80,4 +80,20 @@ var Styleable = {
   strokeDashOffset: function(val) { this.vars.strokeDashOffset= val; return this; }
 };
 
-export { Moveable, Sizeable, Styleable };
+// Mixin for shapes that can belong to a group. This applies to
+// most shapes.
+var Groupable = {
+
+  addTo: function(group) {
+    group.add(this);
+    return this;
+  },
+
+  removeParent: function() {
+    if(this.parent) this.parent.remove(this);
+    return this;
+  }
+
+};
+
+export { Moveable, Sizeable, Styleable, Groupable };

@@ -1,5 +1,5 @@
 import _ from "underscore"
-import { Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable, Groupable } from "../mixins"
 import Ellipse from "./ellipse"
 import Utils from '../utils'
 
@@ -33,6 +33,6 @@ class Circle {
 }
 
 // Should we figure out a better way to do mixins for ES6?
-_.extend(Circle.prototype, Moveable, Styleable, { type: "circle" });
+_.extend(Circle.prototype, Moveable, Styleable, Groupable, { type: "circle" });
 
 export default Circle;

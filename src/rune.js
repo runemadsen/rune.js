@@ -15,7 +15,7 @@ import Path from "./shapes/path"
 import Polygon from "./shapes/polygon"
 import Rectangle from "./shapes/rectangle"
 import Text from "./shapes/text"
-import { Shapeable, Moveable, Styleable, Sizeable } from "./mixins"
+import { Sizeable, Moveable, Styleable, Groupable } from "./mixins"
 
 // Exports modules for easy access when using module?
 //export { default as anchor } from "./anchor";
@@ -191,10 +191,10 @@ Rune.Text = Text;
 
 // Right now I need these for mixin tests.
 // Rewrite so we don't need them.
-Rune.Shapeable = Shapeable;
 Rune.Moveable = Moveable;
 Rune.Styleable = Styleable;
 Rune.Sizeable = Sizeable;
+Rune.Groupable = Groupable;
 
 // define window.Rune for browserify
 global.Rune = Rune;

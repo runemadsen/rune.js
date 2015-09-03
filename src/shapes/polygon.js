@@ -1,5 +1,5 @@
 import _ from "underscore"
-import { Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable, Groupable } from "../mixins"
 import Vector from '../vector'
 import Utils from '../utils'
 
@@ -144,6 +144,6 @@ class Polygon {
   }
 }
 
-_.extend(Polygon.prototype, Moveable, Styleable, { type: "polygon" });
+_.extend(Polygon.prototype, Moveable, Styleable, Groupable, { type: "polygon" });
 
 export default Polygon;
