@@ -123,11 +123,24 @@ Polygons are important because most shapes can be converted to polygons by using
 
 ### Paths
 
-The path is the most complex shape, as it can consist of multiple subpaths made up of straight lines or bezier curves. Paths can also be open, and fill rules can be used to subtract one subpath from another, to create very complex shapes.
+The path is the most complex shape, as it can consist of multiple subpaths made up of straight lines or bezier curves. Paths can also be open, and fill rules can be used to subtract one subpath from another.
 
-Paths have four main methods. `moveTo` to start a new subpath, `lineTo` to create a line in the current subpath, `curveTo` to create a bezier curve in the current subpath, and `closePath` to make a straight line to the beginning of the current subpath.
+Paths have four main methods. Use `moveTo` to start a new subpath, `lineTo` to create a line in the current subpath, `curveTo` to create a bezier curve in the current subpath, and `closePath` to make a straight line to the beginning of the current subpath.
 
-DRAW OBJECT WITH BEZIER CURVES
+To start, let's recreate the triangle from before as a path. Notice how paths unlike polygons do not close automatically, so we need to call `closePath()`.
+
+```js
+r.path(0, 0)
+  .lineTo(100, 100)
+  .lineTo(-100, 100)
+  .closeShape();
+```
+
+We can make more complicated paths by using bezier curves.
+
+
+
+
 
 fillrule
 
