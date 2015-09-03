@@ -84,7 +84,7 @@ var Styleable = {
 // most shapes.
 var Groupable = {
 
-  addTo: function(group) {
+  addParent: function(group) {
     group.add(this);
     return this;
   },

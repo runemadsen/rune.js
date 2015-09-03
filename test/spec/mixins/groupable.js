@@ -14,7 +14,7 @@ describe("Rune.Groupable", function() {
 
     it("adds child to parent", function() {
       expect(s).not.toBeChildOf(g);
-      s.addTo(g);
+      s.addParent(g);
       expect(s).toBeChildOf(g);
     });
 
