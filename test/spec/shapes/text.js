@@ -21,10 +21,16 @@ describe("Rune.Text", function() {
       "textDecoration" : "underline"
     };
 
-    it("sets var and is chainable", function() {
+    it("sets var", function() {
+      _.each(setters, function(v, k) {
+        s[k](v);
+        expect(s.vars[k]).toEqual(v);
+      });
+    });
+
+    it("is chainable", function() {
       _.each(setters, function(v, k) {
         var res = s[k](v);
-        expect(res.vars[k]).toEqual(v);
         expect(res).toBe(res);
       });
     });

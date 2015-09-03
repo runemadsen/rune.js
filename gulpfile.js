@@ -5,7 +5,6 @@ var browserify = require('browserify');
 var babelify = require('babelify');
 var rename = require("gulp-rename");
 var zip = require('gulp-zip');
-var open = require('open');
 var uglify = require('gulp-uglify');
 var del = require('del');
 var watchify = require('watchify');
@@ -102,5 +101,4 @@ gulp.task("test", ['build:browser', 'build:specs'], function() {
   connect.server({
     port: 8888
   });
-  open("http://localhost:8888/test");
 });
