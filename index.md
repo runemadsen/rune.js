@@ -26,7 +26,7 @@ New releases will be announced on my Twitter account.
 
 ## Getting started
 
-First download the latest release and move `rune.browser.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
+First download the latest release and move the file called  `rune.browser.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
 
 ```html
 <head>
@@ -42,7 +42,7 @@ Now create a new file called `sketch.js` and add a link to this file inside the 
 </body>
 ```
 
-Finally, put the following code in `sketch.js` to create a new Rune object.
+Finally, put the following code in `sketch.js`.
 
 ```js
 var r = new Rune({
@@ -51,18 +51,12 @@ var r = new Rune({
   height: 400
 });
 
-// put code here
+r.rect(0, 0, 200, 200).fill(0, 0, 255);
 
 r.draw();
 ```
 
-If you open the HTML file in your browser, you will see a blank page, as we haven't called any drawing functions yet. Add the following code to `sketch.js` and refresh your browser.
-
-```js
-r.rect(0, 0, 200, 200).fill(0, 0, 255);
-```
-
-You should now see a blue rectangle in the top-left corner of the screen. If stuck, [download the example project](#).
+Double-click your HTML file, and you should now see a blue rectangle in the top-left corner of the screen.
 
 ### Basic shapes
 
@@ -86,13 +80,15 @@ r.polygon(0, 0).lineTo(100, 0).lineTo(100, 100).lineTo(0, 100);
 r.path(0, 0).lineTo(100, 0).curveTo(100, 100, 0, 100, 0, 0);
 ```
 
-You can read about these functions in the [documentation](#), but the most important thing is that they all create a new shape object, add it to the stage, and return it. This means that you can save the object into a variable and chain functions after each other.
+You can read about these functions in the [documentation](documentation.html), but they all create a new shape object and add it to the stage. Shape objects can be saved into variables, and many of their functions allow chaining.
 
 ```js
 var myRect = r.rect(0, 0, 100, 50)
   .move(...)
   .fill(...);
 ```
+
+The next two sections are about two of the more complex shapes, `Rune.Polygon` and `Rune.Path`.
 
 ### Polygons
 
@@ -105,9 +101,9 @@ r.polygon(0, 0)
   .lineTo(-100, 100)
 ```
 
-The `lineTo()` function draws a new line from the last location to the new location. Notice that the example above does not draw a line back to the beginning to complete the triangle. This will happen automatically, as polygons are always closed shapes.
+The `lineTo()` function draws a line from the current position to the position passed into the function. Notice how the first `lineTo()` is used to tell the polygon where to start, and that we do not draw a line back to the beginning to close the triangle. Polygons are always closed shapes, so this will happen automatically.
 
-Polygons come with a number of helper functions to make it easier to do [geometry calculations](#). As an example, here we're drawing a circle midway on the outline of the same triangle.
+Polygons come with a number of helper functions to make it easier to do [geometry calculations](documentation.html). The following example uses the `vectorAt()` function to find the position midway on the outline of a polygon, and draw a circle at that point.
 
 ```js
 var tri = r.polygon(0, 0)
@@ -116,19 +112,18 @@ var tri = r.polygon(0, 0)
   .lineTo(-100, 100)
 
 var midway = tri.vectorAt(0.5);
-
 r.circle(midway.x, midway.y, 10);
 ```
 
-Polygons are important because most shapes can be converted to polygons by using the `toPolygon()` function. As you will see in the following section, paths can hold multiple subpaths, and can be converted to an array of polygons by using the `toPolygons()` function.
+Polygons are important because most shapes can be converted to polygons by using the `toPolygon()` function (except the path shape where you need to use `toPolygons()`).
 
 ### Paths
 
 The path is the most complex shape, as it can consist of multiple subpaths made up of straight lines or bezier curves. Paths can also be open, and fill rules can be used to subtract one subpath from another.
 
-Paths have four main methods: `moveTo` to start a new subpath, `lineTo` to create a line in the current subpath, `curveTo` to create a bezier curve in the current subpath, and `closePath` to make a straight line to the beginning of the current subpath.
+Paths have four main methods: `moveTo()` to start a new subpath, `lineTo()` to create a line in the current subpath, `curveTo()` to create a bezier curve in the current subpath, and `closePath()` to close the current subpath.
 
-To start, let's recreate the triangle from before as a path. Notice how paths unlike polygons do not close automatically, so we need to call `closePath()`.
+As a simple example, let's recreate the triangle from before as a path. Notice how paths unlike polygons do not close automatically, so we need to call `closePath()`.
 
 ```js
 r.path(0, 0)
@@ -137,23 +132,23 @@ r.path(0, 0)
   .closePath();
 ```
 
-`curveTo()` can be used to draw both quadratic and cubic bezier curves. 
+Notice how, unlike the polygon, a path will always start the first point at 0,0, unless you use `moveTo()` to change the starting point.
 
-Passing 4 values to the function will draw a quadratic bezier curve through a single control point to a new location.
+The `curveTo()` function can be used to draw both quadratic and cubic bezier curves. Passing 4 values to the function will draw a quadratic bezier curve through a single control point to a new location.
 
 ```js
-// control point, new location
+// control point, new position
 .curveTo(50, 300, 100, 0);
 ```
 
 Passing 6 values to `curveTo()` will draw a cubic bezier curve with two control points to a new location.
 
 ```js
-// control point 1, control point 2, new location
+// control point 1, control point 2, new position
 .curveTo(0, 300, 100, 300, 100, 0);
 ```
 
-You can draw multiple subpaths inside a single path by using `moveTo()` with the optional `closePath()`. Here's two triangles in the same path.
+You can draw multiple subpaths inside a single path by using `moveTo()` with the optional `closePath()`. Here's a path with two triangles.
 
 ```js
 r.path(0, 0)
@@ -166,9 +161,14 @@ r.path(0, 0)
   .closePath();
 ```
 
-You can use the `fillRule()` function to change whether subpaths add or subtract from each other. `fillRule("nonzero")` is the default setting. `fillRule("evenodd")` is the default setting. [Read more about SVG fillrules here](http://www.sitepoint.com/understanding-svg-fill-rule-property/).
+You can use the `fillRule()` function to change whether subpaths add or subtract from each other. [You should read more about SVG fillrules here](http://www.sitepoint.com/understanding-svg-fill-rule-property/), but here's how to switch fillrules for a path.
 
-If you have debug mode enabled, the path outline and bezier control points will be drawn on the screen for reference.
+```js
+myPath.fillRule("nonzero"); // this is the default
+myPath.fillRule("evenodd");
+```
+
+The debug mode is great for paths, as it will draw the bezier control points to the screen.
 
 
 ### Moving shapes
@@ -181,14 +181,14 @@ r.circle(0, 0, 100)    // x:0 y:0
   .move(20, 20, true); // x:120 y:120
 ```
 
-The `rotate()` function can be used to change the rotation of a shape. If you use it with only a degree, the shape will rotate around 0,0. So even though a rectangle has a position in the middle of the screen, it will rotate around the top-left corner.
+The `rotate()` function can be used to change the rotation of a shape. If you just pass a degree to the function, the shape will rotate around its parent position. So even though a rectangle has a position in the middle of the screen, it will rotate around the top-left corner.
 
 ```js
 r.rect(100, 100, 100, 100)
   .rotate(45);
 ```
 
-However, you can change the point of rotation. For example, here's that same rectangle rotating around its own center.
+However, passing in a center for rotation will make it possible to rotate the rectangle around its own center.
 
 ```js
 r.rect(100, 100, 100, 100)
@@ -203,7 +203,7 @@ r.rect(100, 100, 100, 100)
   .rotate(45, 0, 0, true); // 90 degrees rotation
 ```
 
-The `Rune.degrees()` and `Rune.radians()` functions can be used to convert from and to radians. `Rune.js` has a lot of helper functions that you can read more about in the [documentation](#).
+The `Rune.degrees()` and `Rune.radians()` functions can be used to convert from and to radians. `Rune.js` has a lot of helper functions that you can read more about in the [documentation](documentation.html).
 
 ### Using colors
 
@@ -236,7 +236,7 @@ On top of that, all of the following inputs can be used for strokes and fills.
 .fill(new Rune.Color(255, 0, 0)) // using color object
 ```
 
-You can access the current color objects of any shape via `vars.fill` and `vars.stroke`. You can also create new color objects via `new Rune.Color()`. Color objects are chainable, and come with a bunch of functions for manipulating the color.
+New color objects can be created via `new Rune.Color()`, and most of their functions are chainable too.
 
 ```js
 new Rune.Color(255, 0, 0)
@@ -259,7 +259,7 @@ r.rect(0, 0, 100, 50)
 
 If you're coming from Processing, the concept of a stage graph might be a bit unfamiliar. However, the basics are actually pretty simple to understand. In Processing, the `rect()` function will just draw a rectangle on the screen. You have no way to later access the x, y, width or height of that rectangle.
 
-In `Rune.js`, that same function will actually create a `Rune.Rectangle` object, and add it to the stage. Every time the `draw()` method is called, `Rune.js` will look through the stage objects and draw all of them on the screen in order. The benefit is that shape objects will always hold the current state of the shape. See *Shape variables* for more.
+In `Rune.js`, that same function will actually create a `Rune.Rectangle` object, and add it to the stage. Every time the `draw()` method is called, `Rune.js` will look through the stage objects and draw all of them on the screen in order. The benefit is that shape objects will always hold the current state of the shape. See [Shape variables](#shape-variables) for more.
 
 You can use groups to group many shapes together. A group can be created by using the `group()` function.
 
@@ -267,14 +267,16 @@ You can use groups to group many shapes together. A group can be created by usin
 var myGroup = r.group(100, 100);
 ```
 
-This group has position of x:100,y:100 and any shapes added to the group will be positioned relative to the group position. The following example will draw a rectangle at x:150,y:150.
+Any shapes added to this group will be positioned relative to the group position.
 
 ```js
 var myGroup = r.group(100, 100);
-r.rect(50, 50, 500, 500, myGroup);
+
+// I'm a rectangle at 150 150!
+r.rect(50, 50, 500, 500, myGroup); 
 ```
 
-You have probably noticed that I'm passing the group as the last parameter in the `rect()` drawing function. **All drawing functions accept a custom group as the last parameter**, and doing this will add the new shape to the group instead of the default stage. The `group` function also does this, so you can nest groups to construct some very complex scenarios.
+You have probably noticed that I'm passing the group as the last parameter in the `rect()` drawing function. **All drawing functions accept a custom group as the last parameter**, and doing this will add the new shape to the group instead of the default stage. The `group()` function also does this, so you can nest groups to construct some very complex scenarios.
 
 ```js
 // create group on stage
@@ -287,7 +289,9 @@ var child = r.group(100, 100, parent);
 r.rect(100, 100, 500, 500, child);
 ```
 
-The stage itself is a group object, and can be accessed via `r.stage`. If you wish to create a new shape without adding it to the stage or a group, you can pass `false` as the last parameter in any drawing function.
+It's important to understand that any changes made to the parent group will affect all the children in the group, including `move()` and `.rotate()`.
+
+If you wish to create a new shape without adding it to the stage or a group, you can pass `false` as the last parameter in any drawing function.
 
 ```js
 r.rect(100, 100, 500, 500, false);
@@ -299,11 +303,11 @@ You can also use the shape objects directly, which will bypass the stage logic.
 var myRect = new Rune.Rectangle(100, 100, 500, 500);
 ```
 
-Groups have `move` and `rotate` functions like shapes. See the [documentation](documentation.html) for more info.
+The main stage is actually just a group, which can be accessed via `r.stage`. See the [documentation](documentation.html) for more info.
 
 ### Shape variables
 
-All shapes have a `vars` object that hold the current state of the shape. This is mostly done to separate functions and state, so you can use `.fill()` to set the fill color, and `vars.fill` to access the current color.
+All shapes have a `vars` object that hold the current state of the shape. This is mostly done to separate functions and state, so you can use `fill()` to set the fill color, and `vars.fill` to access the current color.
 
 You can use this `vars` object to get information about the shape. For example, here's how you get the current position of a shape.
 
@@ -313,11 +317,11 @@ var y = myShape.vars.y;
 console.log("my shape is at", x, y);
 ```
 
-Unless you know what you're doing, **the vars object should only be used to read values**. For example, here's how you get the current position of a shape within its parent.
+Unless you know what you're doing, **the vars object should only be used to read values**. You can easily figure out what variables a shape has by doing `console.log(myShape.vars)`, and opening the web inspector to browse the variables.
 
 ### Draw loop
 
-`Rune.js` has a built-in draw event that by default is fired 60 times a second. So moving a rectangle across the screen 1px at the time is as simple as this.
+`Rune.js` will draw the entire stage graph to the screen when you call the `draw()` function. However, there's also a built-in draw event that you can use for animation. This event is fired 60 times a second by default. So moving a rectangle across the screen 1px at the time is as simple as this.
 
 ```js
 var rectangle = r.rect(0, 0, 100, 50);
@@ -387,7 +391,7 @@ var rect = r.rect(100, 100, 500, 500, false);
 grid.add(rect, 1, 2);
 ```
 
-Grids have `.move` and `.rotate` functions to move all shapes in the grid.
+Grids have `move()` and `.rotate()` functions to move all shapes in the grid.
 
 If you have debug mode enabled, the grid modules will be drawn on the screen for reference.
 
