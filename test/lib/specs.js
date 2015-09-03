@@ -12028,7 +12028,7 @@ describe("Rune.Render", function () {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("polygon");
-      expect(jshape).toHaveAttr("points", "100 101 200 201 300 301");
+      expect(jshape).toHaveAttr("points", "0 0 100 101 200 201 300 301");
       expect(jshape).toHaveTranslation(10, 15);
       expectShared(jshape);
     });
@@ -13063,14 +13063,19 @@ describe("Rune.Polygon", function () {
 
   describe("vectors", function () {
 
-    it("should create vectors", function () {
+    it("should create vectors with start at 0,0", function () {
       var p = new Rune.Polygon().lineTo(100, 101).lineTo(200, 201).lineTo(300, 301);
-      expect(p.vars.vectors[0].x).toEqual(100);
-      expect(p.vars.vectors[0].y).toEqual(101);
-      expect(p.vars.vectors[1].x).toEqual(200);
-      expect(p.vars.vectors[1].y).toEqual(201);
-      expect(p.vars.vectors[2].x).toEqual(300);
-      expect(p.vars.vectors[2].y).toEqual(301);
+      expect(p.vars.vectors[0]).toEqualVector(0, 0);
+      expect(p.vars.vectors[1]).toEqualVector(100, 101);
+      expect(p.vars.vectors[2]).toEqualVector(200, 201);
+      expect(p.vars.vectors[3]).toEqualVector(300, 301);
+    });
+
+    it("should create vectors with a moveTo start", function () {
+      var p = new Rune.Polygon().moveTo(100, 101).lineTo(200, 201).lineTo(300, 301);
+      expect(p.vars.vectors[0]).toEqualVector(100, 101);
+      expect(p.vars.vectors[1]).toEqualVector(200, 201);
+      expect(p.vars.vectors[2]).toEqualVector(300, 301);
     });
   });
 
