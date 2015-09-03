@@ -8,6 +8,7 @@ var zip = require('gulp-zip');
 var uglify = require('gulp-uglify');
 var del = require('del');
 var watchify = require('watchify');
+var sourcemaps = require('gulp-sourcemaps');
 var assign = require('lodash.assign');
 var concat = require('gulp-concat');
 var connect = require('gulp-connect');
@@ -20,7 +21,7 @@ var builddir = './dist';
 function compile(outfile, extraOpts, watch) {
 
   var opts = assign({}, watchify.args, extraOpts);
-  var bundler = browserify('./src/rune.js', opts).transform(babelify);
+  var bundler = browserify('./src/rune.js', opts).transform(babelify.configure({sourceMaps:false}));
 
   //if(watch) {
   //  bundler = watchify(bundler)
@@ -31,6 +32,8 @@ function compile(outfile, extraOpts, watch) {
       .on('error', function(err) { console.error(err); this.emit('end'); })
       .pipe(source(outfile))
       .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest(builddir));
   }
 

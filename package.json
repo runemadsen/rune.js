@@ -1,6 +1,6 @@
 {
   "name": "rune.js",
-  "version" : "0.1.1",
+  "version" : "0.1.2",
   "description": "A JavaScript library for programming graphic design systems with SVG",
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "gulp-zip" : "^3.0.2",
     "open" : "^0.0.5",
     "gulp-jasmine-browser" : "^0.2.3",
+    "gulp-sourcemaps" : "^1.5.2",
     "gulp-uglify" : "^1.4.0",
     "jquery" : "^2.1.4",
     "del" : "^1.2.1",
