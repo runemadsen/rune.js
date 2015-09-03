@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Rerelease because I don't understand how GitHub releases work.
+
 ## 0.1.1
 
 - `Rune.Grid` `gutterX` and `gutterY` has been renamed to `gutterWidth` and `gutterHeight`.
