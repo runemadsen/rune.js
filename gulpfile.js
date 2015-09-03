@@ -8,7 +8,6 @@ var zip = require('gulp-zip');
 var uglify = require('gulp-uglify');
 var del = require('del');
 var watchify = require('watchify');
-var sourcemaps = require('gulp-sourcemaps');
 var assign = require('lodash.assign');
 var concat = require('gulp-concat');
 var connect = require('gulp-connect');
@@ -32,8 +31,6 @@ function compile(outfile, extraOpts, watch) {
       .on('error', function(err) { console.error(err); this.emit('end'); })
       .pipe(source(outfile))
       .pipe(buffer())
-      .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest(builddir));
   }
 
@@ -65,7 +62,7 @@ gulp.task('minify:clean', function (cb) {
 });
 
 gulp.task('minify', ['build', 'minify:clean'], function() {
-  return gulp.src(builddir + '/*.js')
+  return gulp.src([builddir + '/*.js', '!' + builddir + '/*.min.js'])
     .pipe(uglify())
     .pipe(rename({extname: '.min.js'}))
     .pipe(gulp.dest(builddir));
@@ -90,8 +87,6 @@ gulp.task('build:specs', function() {
     .on('error', function(err) { console.error(err); this.emit('end'); })
     .pipe(source('specs.js'))
     .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./test/lib/'));
 });
 
