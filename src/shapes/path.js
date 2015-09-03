@@ -15,20 +15,20 @@ class Path {
     if(!_.isUndefined(y)) this.vars.y = y;
   }
 
-  moveTo(x, y, relative) {
-    this.vars.anchors.push(new Anchor().setMove(x, y, relative));
+  moveTo(x, y) {
+    this.vars.anchors.push(new Anchor().setMove(x, y));
     return this;
   }
 
-  lineTo(x, y, relative) {
+  lineTo(x, y) {
     this.checkStartMove();
-    this.vars.anchors.push(new Anchor().setLine(x, y, relative));
+    this.vars.anchors.push(new Anchor().setLine(x, y));
     return this;
   }
 
-  curveTo(a, b, c, d, e, f, g) {
+  curveTo(a, b, c, d, e, f) {
     this.checkStartMove();
-    this.vars.anchors.push(new Anchor().setCurve(a, b, c, d, e, f, g));
+    this.vars.anchors.push(new Anchor().setCurve(a, b, c, d, e, f));
     return this;
   }
 
