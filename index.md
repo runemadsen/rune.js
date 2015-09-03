@@ -111,6 +111,7 @@ Polygons come with a number of helper functions to make it easier to do [geometr
 
 ```js
 var tri = r.polygon(0, 0)
+  .lineTo(0, 0)
   .lineTo(100, 100)
   .lineTo(-100, 100)
 
@@ -125,7 +126,7 @@ Polygons are important because most shapes can be converted to polygons by using
 
 The path is the most complex shape, as it can consist of multiple subpaths made up of straight lines or bezier curves. Paths can also be open, and fill rules can be used to subtract one subpath from another.
 
-Paths have four main methods. Use `moveTo` to start a new subpath, `lineTo` to create a line in the current subpath, `curveTo` to create a bezier curve in the current subpath, and `closePath` to make a straight line to the beginning of the current subpath.
+Paths have four main methods: `moveTo` to start a new subpath, `lineTo` to create a line in the current subpath, `curveTo` to create a bezier curve in the current subpath, and `closePath` to make a straight line to the beginning of the current subpath.
 
 To start, let's recreate the triangle from before as a path. Notice how paths unlike polygons do not close automatically, so we need to call `closePath()`.
 
@@ -133,18 +134,41 @@ To start, let's recreate the triangle from before as a path. Notice how paths un
 r.path(0, 0)
   .lineTo(100, 100)
   .lineTo(-100, 100)
-  .closeShape();
+  .closePath();
 ```
 
-We can make more complicated paths by using bezier curves.
+`curveTo()` can be used to draw both quadratic and cubic bezier curves. 
 
+Passing 4 values to the function will draw a quadratic bezier curve through a single control point to a new location.
 
+```js
+// control point, new location
+.curveTo(50, 300, 100, 0);
+```
 
+Passing 6 values to `curveTo()` will draw a cubic bezier curve with two control points to a new location.
 
+```js
+// control point 1, control point 2, new location
+.curveTo(0, 300, 100, 300, 100, 0);
+```
 
-fillrule
+You can draw multiple subpaths inside a single path by using `moveTo()` with the optional `closePath()`. Here's two triangles in the same path.
 
-If have debug mode enabled, the path outline and bezier controld points will be drawn on the screen for reference.
+```js
+r.path(0, 0)
+  .lineTo(100, 100)
+  .lineTo(-100, 100)
+  .closePath()
+  .moveTo(200, 200)
+  .lineTo(300, 300)
+  .lineTo(100, 300)
+  .closePath();
+```
+
+You can use the `fillRule()` function to change whether subpaths add or subtract from each other. `fillRule("nonzero")` is the default setting. `fillRule("evenodd")` is the default setting. [Read more about SVG fillrules here](http://www.sitepoint.com/understanding-svg-fill-rule-property/).
+
+If you have debug mode enabled, the path outline and bezier control points will be drawn on the screen for reference.
 
 
 ### Moving shapes
