@@ -64,8 +64,8 @@ class Render {
     var attr = {
       cx: ellipse.vars.x,
       cy: ellipse.vars.y,
-      rx: ellipse.vars.width,
-      ry: ellipse.vars.height
+      rx: ellipse.vars.width / 2,
+      ry: ellipse.vars.height / 2
     }
     this.transformAttribute(attr, ellipse);
     this.styleableAttributes(ellipse, attr);

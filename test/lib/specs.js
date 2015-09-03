@@ -11972,8 +11972,8 @@ describe("Rune.Render", function () {
       expect(jshape).toHaveAttrs({
         cx: s.vars.x,
         cy: s.vars.y,
-        rx: s.vars.width,
-        ry: s.vars.height
+        rx: s.vars.width / 2,
+        ry: s.vars.height / 2
       });
       expect(jshape).not.toHaveTranslation(100, 105);
       expectShared(jshape);
