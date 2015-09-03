@@ -10,7 +10,7 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG.
 
 ## Download
 
-**[Current version: 0.1.0](https://github.com/runemadsen/rune.js/releases/tag/0.1.0)**
+**[Current version: 0.1.2](https://github.com/runemadsen/rune.js/releases/latest)**
 
 | Filename              | Size   | Description   |
 | --------------------- | ------ | -------------|
