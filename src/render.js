@@ -216,7 +216,7 @@ class Render {
     for(var i = 0; i < grid.vars.columns-1; i++) {
       x += grid.vars.moduleWidth;
       els.push(this.debugLine(x, 0, x, grid.vars.height));
-      x += grid.vars.gutterX;
+      x += grid.vars.gutterWidth;
       els.push(this.debugLine(x, 0, x, grid.vars.height));
     }
 
@@ -225,7 +225,7 @@ class Render {
     for(var i = 0; i < grid.vars.rows-1; i++) {
       y += grid.vars.moduleHeight;
       els.push(this.debugLine(0, y, grid.vars.width, y));
-      y += grid.vars.gutterY;
+      y += grid.vars.gutterHeight;
       els.push(this.debugLine(0, y, grid.vars.width, y));
     }
 

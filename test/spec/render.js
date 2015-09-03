@@ -315,8 +315,8 @@ describe("Rune.Render", function() {
       var g = r.grid({
         x: 10,
         y: 15,
-        gutterX: 20,
-        gutterY: 30,
+        gutterWidth: 20,
+        gutterHeight: 30,
         moduleWidth: 40,
         moduleHeight: 50,
         columns: 4,

@@ -8,8 +8,8 @@ describe("Rune.Grid", function() {
       var grid = new Rune.Grid();
       expect(grid.vars.x).toEqual(0);
       expect(grid.vars.y).toEqual(0);
-      expect(grid.vars.gutterX).toEqual(0);
-      expect(grid.vars.gutterY).toEqual(0);
+      expect(grid.vars.gutterWidth).toEqual(0);
+      expect(grid.vars.gutterHeight).toEqual(0);
       expect(grid.vars.columns).toEqual(10);
       expect(grid.vars.rows).toEqual(1);
       expect(grid.vars.moduleWidth).toEqual(50);
@@ -20,8 +20,8 @@ describe("Rune.Grid", function() {
 
     it("works with all variables", function() {
       var grid = new Rune.Grid({
-        gutterX: 15,
-        gutterY: 20,
+        gutterWidth: 15,
+        gutterHeight: 20,
         moduleWidth: 50,
         moduleHeight: 40,
         columns: 10,
@@ -30,8 +30,8 @@ describe("Rune.Grid", function() {
 
       expect(grid.vars.x).toEqual(0);
       expect(grid.vars.y).toEqual(0);
-      expect(grid.vars.gutterX).toEqual(15);
-      expect(grid.vars.gutterY).toEqual(20);
+      expect(grid.vars.gutterWidth).toEqual(15);
+      expect(grid.vars.gutterHeight).toEqual(20);
       expect(grid.vars.columns).toEqual(10);
       expect(grid.vars.rows).toEqual(5);
       expect(grid.vars.moduleWidth).toEqual(50);
@@ -59,8 +59,8 @@ describe("Rune.Grid", function() {
       });
       expect(grid.vars.x).toEqual(0);
       expect(grid.vars.y).toEqual(0);
-      expect(grid.vars.gutterX).toEqual(15);
-      expect(grid.vars.gutterY).toEqual(15);
+      expect(grid.vars.gutterWidth).toEqual(15);
+      expect(grid.vars.gutterHeight).toEqual(15);
       expect(grid.vars.columns).toEqual(10);
       expect(grid.vars.rows).toEqual(5);
       expect(grid.vars.moduleWidth).toEqual(46.5);
@@ -78,8 +78,8 @@ describe("Rune.Grid", function() {
       });
       expect(grid.vars.x).toEqual(0);
       expect(grid.vars.y).toEqual(0);
-      expect(grid.vars.gutterX).toEqual(0);
-      expect(grid.vars.gutterY).toEqual(0);
+      expect(grid.vars.gutterWidth).toEqual(0);
+      expect(grid.vars.gutterHeight).toEqual(0);
       expect(grid.vars.columns).toEqual(10);
       expect(grid.vars.rows).toEqual(5);
       expect(grid.vars.moduleWidth).toEqual(60);
