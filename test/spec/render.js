@@ -174,7 +174,7 @@ describe("Rune.Render", function() {
       var jshape = jel.children().first();
       expect(jel.children().length).toEqual(1);
       expect(jshape).toBeTag("polygon");
-      expect(jshape).toHaveAttr("points", "0 0 100 101 200 201 300 301")
+      expect(jshape).toHaveAttr("points", "100 101 200 201 300 301")
       expect(jshape).toHaveTranslation(10, 15);
       expectShared(jshape);
     });

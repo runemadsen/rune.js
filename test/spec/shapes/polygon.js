@@ -36,17 +36,6 @@ describe("Rune.Polygon", function() {
         .lineTo(100, 101)
         .lineTo(200, 201)
         .lineTo(300, 301);
-      expect(p.vars.vectors[0]).toEqualVector(0, 0)
-      expect(p.vars.vectors[1]).toEqualVector(100, 101)
-      expect(p.vars.vectors[2]).toEqualVector(200, 201)
-      expect(p.vars.vectors[3]).toEqualVector(300, 301)
-    });
-
-    it("should create vectors with a moveTo start", function() {
-      var p = new Rune.Polygon()
-        .moveTo(100, 101)
-        .lineTo(200, 201)
-        .lineTo(300, 301);
       expect(p.vars.vectors[0]).toEqualVector(100, 101)
       expect(p.vars.vectors[1]).toEqualVector(200, 201)
       expect(p.vars.vectors[2]).toEqualVector(300, 301)

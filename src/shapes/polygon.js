@@ -14,19 +14,7 @@ class Polygon {
   }
 
   lineTo(x, y) {
-    if(this.vars.vectors.length == 0 && x != 0 && y != 0) {
-      this.vars.vectors.push(new Vector(0, 0));
-    }
     this.vars.vectors.push(new Vector(x, y));
-    return this;
-  }
-
-  moveTo(x, y) {
-    if(this.vars.vectors.length > 0) {
-      throw new Error("moveTo can only be used on an empty polygon")
-    } else {
-      this.vars.vectors.push(new Vector(x, y));
-    }
     return this;
   }
 

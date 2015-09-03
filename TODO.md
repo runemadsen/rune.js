@@ -3,8 +3,6 @@
 ### Must
 
 - [ ] `stagePos()` on shapes and groups to get absolute position
-- [ ] `shape.addTo(group)` to add to parent
-- [ ] `shape.remove()` to remove from parent
 
 ### Nice to have 
 
