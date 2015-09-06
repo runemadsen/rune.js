@@ -88,7 +88,7 @@ var myRect = r.rect(0, 0, 100, 50)
   .fill(...);
 ```
 
-The next two sections are about two of the more complex shapes, `Rune.Polygon` and `Rune.Path`.
+You can find a lot more example code in [the form examples](http://printingcode.runemadsen.com/examples/#form). The next two sections are about two of the more complex shapes, `Rune.Polygon` and `Rune.Path`.
 
 ### Polygons
 
@@ -116,6 +116,8 @@ r.circle(midway.x, midway.y, 10);
 ```
 
 Polygons are important because most shapes can be converted to polygons by using the `toPolygon()` function (except the path shape where you need to use `toPolygons()`).
+
+You can find a lot more example code in [the form examples](http://printingcode.runemadsen.com/examples/#form).
 
 ### Paths
 
@@ -168,8 +170,7 @@ myPath.fillRule("nonzero"); // this is the default
 myPath.fillRule("evenodd");
 ```
 
-The debug mode is great for paths, as it will draw the bezier control points to the screen.
-
+The debug mode is great for paths, as it will draw the bezier control points to the screen. You can find a lot more example code in [the form examples](http://printingcode.runemadsen.com/examples/#form).
 
 ### Moving shapes
 
@@ -203,7 +204,7 @@ r.rect(100, 100, 100, 100)
   .rotate(45, 0, 0, true); // 90 degrees rotation
 ```
 
-The `Rune.degrees()` and `Rune.radians()` functions can be used to convert from and to radians. `Rune.js` has a lot of helper functions that you can read more about in the [documentation](documentation.html).
+The `Rune.degrees()` and `Rune.radians()` functions can be used to convert from and to radians. `Rune.js` has a lot of helper functions that you can read more about in the [documentation](documentation.html), and you can find a lot more example code in [the form examples](http://printingcode.runemadsen.com/examples/#form).
 
 ### Using colors
 
@@ -254,6 +255,8 @@ r.rect(0, 0, 100, 50)
   .stroke(false)
   .fill(false)
 ```
+
+You can find a lot more example code in [the color examples](http://printingcode.runemadsen.com/examples/#color).
 
 ### The stage and groups
 
@@ -329,7 +332,11 @@ var rectangle = r.rect(0, 0, 100, 50);
 r.on('draw', function() {
   rectangle.move(1, 0, true);
 });
+
+r.play()
 ```
+
+Notice that you need to call `play()` to start triggering the draw events.
 
 It's very important to understand the difference between the code above that moves a single rectangle object, and the code below which adds a new rectangle to the stage on every frame.
 
@@ -347,6 +354,12 @@ You can change the framerate by passing in the `frameRate` parameter when creati
 ```js
 var r = new Rune({ frameRate: 10 })
 ```
+
+You can find a lot more example code in [the examples](http://printingcode.runemadsen.com/examples).
+
+### Mouse events
+
+Todo!
 
 ### Grid systems
 
@@ -394,6 +407,8 @@ grid.add(rect, 1, 2);
 Grids have `move()` and `.rotate()` functions to move all shapes in the grid.
 
 If you have debug mode enabled, the grid modules will be drawn on the screen for reference.
+
+You can find a lot more example code in [the grid examples](http://printingcode.runemadsen.com/examples/#grid).
 
 ### Debug mode
 
