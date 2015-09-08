@@ -230,7 +230,7 @@ On top of that, all of the following inputs can be used for strokes and fills.
 .fill("#FF000") // red
 .fill("#FF000", 0.5) // red with opacity
 .fill(255) // white
-.fill(0) // black with opacity
+.fill(0. 0.5) // black with opacity
 .fill(255, 255, 255) // white RGB
 .fill('hsv', 0, 100, 100) // red HSV
 .fill('hsv', 0, 100, 100, 0.5) // red HSV with opacity
