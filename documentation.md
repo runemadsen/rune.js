@@ -30,35 +30,35 @@ Shortcut to create a new line object and add it to a group. Accepts same paramet
 
 ### `circle(x, y, radius, parent)`
 
-Shortcut to create a new circle object and add it to a group. See above or [`new Rune.Circle()`](#runecircle)
+Shortcut to create a new circle object and add it to a group. See above or the [`Rune.Circle`](#runecircle) documentation.
 
 ### `ellipse(x, y, width, height, parent)`
 
-Shortcut to create a new ellipse object and add it to a group. See above or [`new Rune.Ellipse()`](#runeellipse)
+Shortcut to create a new ellipse object and add it to a group. See above or the [`Rune.Ellipse`](#runeellipse) documentation.
 
 ### `rect(x, y, width, height, parent)`
 
-Shortcut to create a new rectangle object and add it to a group. See above or [`new Rune.Rectangle()`](#runerectangle)
+Shortcut to create a new rectangle object and add it to a group. See above or the [`Rune.Rectangle`](#runerectangle) documentation.
 
 ### `polygon(x, y, parent)`
 
-Shortcut to create a new polygon object and add it to a group. See above or [`new Rune.Polygon()`](#runepolygon)
+Shortcut to create a new polygon object and add it to a group. See above or the [`Rune.Polygon`](#runepolygon) documentation.
 
 ### `path(x, y, parent)`
 
-Shortcut to create a new path object and add it to a group. See above or [`new Rune.Path()`](#runepath)
+Shortcut to create a new path object and add it to a group. See above or the [`Rune.Path`](#runepath) documentation.
 
 ### `text(text, x, y, parent)`
 
-Shortcut to create a new text object and add it to a group. See above or [`new Rune.Text()`](#runetext)
+Shortcut to create a new text object and add it to a group. See above or the [`Rune.Text`](#runetext) documentation.
 
 ### `grid(options, parent)`
 
-Shortcut to create a new grid object and add it to a group. See above or [`new Rune.Grid()`](#runegrid)
+Shortcut to create a new grid object and add it to a group. See above or the [`Rune.Grid`](#runegrid) documentation.
 
 ### `group(x, y, parent)`
 
-Shortcut to create a new group object and add it to a group. See above or [`new Rune.Group()`](#runegroup)
+Shortcut to create a new group object and add it to a group. See above or the [`Rune.Group`](#runegroup)
 
 ### `play()`
 
@@ -66,7 +66,7 @@ Starts triggering the `draw` event `frameRate` times a second. The `draw()` func
 
 ### `pause()`
 
-Starts triggering the `draw` event.
+Stop triggering the `draw` event.
 
 ### `on(event, callback)`
 
@@ -80,9 +80,15 @@ r.on('draw', function() {
 
 ### `appendTo(container)`
 
+If you don't use the `container` option when instantiating the Rune object, you can use this to append the SVG element to a container on the page. You can omit both the container and `appendTo()` and use Rune to render SVG's server-side in node. This is still a bit untested.
+
 ### `getEl()`
 
-### `UTIIIILS`
+Returns the SVG element.
+
+
+
+
 
 ## `Rune.Line`
 
