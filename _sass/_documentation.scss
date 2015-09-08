@@ -1,0 +1,21 @@
+.documentation {
+
+  h2 {
+    font-size: 1.6em;
+    border-bottom: 2px solid $yellow;
+    padding-bottom: 0.3em;
+    code {
+      padding: 0;
+      background: none;
+    }
+  }
+
+  h3 {
+    font-size: 1.2em;
+    code {
+      padding: 0.2em 0.4em;
+    }
+  }
+
+
+}
