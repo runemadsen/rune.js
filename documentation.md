@@ -6,7 +6,7 @@ bodyClass: "documentation"
 
 # Documentation
 
-This is where the documentation will be!
+This is the technical documentation for Rune.js. See [Getting started](index.html) for a quick introduction on how to use the library.
 
 ## `Rune`
 
@@ -62,9 +62,21 @@ Shortcut to create a new group object and add it to a group. See above or [`new 
 
 ### `play()`
 
+Starts triggering the `draw` event `frameRate` times a second. The `draw()` function will automatically be called on every frame.
+
 ### `pause()`
 
+Starts triggering the `draw` event.
+
 ### `on(event, callback)`
+
+Used to listen to events. This is how you would listen to the `draw` even after calling `play()`.
+
+```js
+r.on('draw', function() {
+  console.log("here") 
+});
+```
 
 ### `appendTo(container)`
 
