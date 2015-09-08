@@ -18,14 +18,6 @@ class Polygon {
     return this;
   }
 
-  loopVectors(iterator) {
-    for(var i = 0; i < this.vars.vectors.length; i++) {
-      var start = this.vars.vectors[i];
-      var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
-      iterator(start, stop);
-    }
-  }
-
   length() {
     var len = 0;
     for(var i = 0; i < this.vars.vectors.length; i++) {
