@@ -169,10 +169,7 @@ class Rune {
 
 }
 
-// Utility functions exist on both the class and
-// the instance just to give users a shortcut.
 _.extend(Rune, Utils);
-_.extend(Rune.prototype, Utils);
 _.extend(Rune.prototype, Events)
 
 // Modules should be accessible through Rune
