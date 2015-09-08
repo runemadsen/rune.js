@@ -44,18 +44,18 @@ describe("Rune.Polygon", function() {
   });
 
   describe("centroid()", function() {
-    it("should return centroid vector", function() {
+    it("should return internal centroid vector", function() {
       var vec = s.centroid();
-      expect(vec).toEqualVector(50, 45);
+      expect(vec).toEqualVector(40, 30);
     });
   });
 
   describe("bounds()", function() {
 
-    it("should return bounds", function() {
+    it("should return internal bounds", function() {
       expect(s.bounds()).toEqual({
-        x:10,
-        y:15,
+        x:0,
+        y:0,
         width:80,
         height:60
       });
@@ -68,8 +68,8 @@ describe("Rune.Polygon", function() {
         .lineTo(100, 100)
         .lineTo(-100, 100);
       expect(circle.bounds()).toEqual({
-        x: -90,
-        y: -90,
+        x: -100,
+        y: -100,
         width: 200,
         height: 200
       });

@@ -62,21 +62,21 @@ class Polygon {
   }
 
   bounds() {
-    var xmax = 0;
-    var ymax = 0;
-    var xmin = 0;
-    var ymin = 0;
+    var xmax = undefined;
+    var ymax = undefined;
+    var xmin = undefined;
+    var ymin = undefined;
 
     _.each(this.vars.vectors, function(vec) {
-      if(vec.x < xmin)  xmin = vec.x;
-      if(vec.x > xmax)  xmax = vec.x;
-      if(vec.y < ymin)  ymin = vec.y;
-      if(vec.y > ymax)  ymax = vec.y;
+      if(_.isUndefined(xmin) || vec.x < xmin)  xmin = vec.x;
+      if(_.isUndefined(xmax) || vec.x > xmax)  xmax = vec.x;
+      if(_.isUndefined(ymin) || vec.y < ymin)  ymin = vec.y;
+      if(_.isUndefined(ymax) || vec.y > ymax)  ymax = vec.y;
     });
 
     return {
-      x: this.vars.x + xmin,
-      y: this.vars.y + ymin,
+      x: xmin,
+      y: ymin,
       width: xmax - xmin,
       height: ymax - ymin
     };
@@ -96,8 +96,8 @@ class Polygon {
     }
 
     areaAcc /= 2.0;
-    var x = this.vars.x + (xAcc/(6.0*areaAcc));
-    var y = this.vars.y + (yAcc/(6.0*areaAcc));
+    var x = xAcc/(6.0*areaAcc);
+    var y = yAcc/(6.0*areaAcc);
 
     return new Vector(x, y);
   }
