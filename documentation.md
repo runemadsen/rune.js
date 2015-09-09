@@ -153,7 +153,7 @@ Converts the shape to a polygon by converting lines and curves to equally spaced
 
 The `parent` parameter uses the same logic as the shorthand shape functions on the Rune instance: If not set, the new copy will be added to the same parent as the base shape. If `parent` is a group, the new copy will be added to this group. If `parent` is false, the new copy will not have a parent.
 
-Note that on `Rune.Path` object, this function is called `toPolygons()`, as it returns an array of polygons due to the nature of the path shape.
+Note that on `Rune.Path` object, this function is called `toPolygons()`, as it returns an array of polygons due to the nature of the path shape. Also note that `Rune.Polygon` also has a `toPolygon` function that can be used to divide the polygon into a new polygon with evenly spaced vectors.
 
 ### `strokeWidth(num)`
 
@@ -225,7 +225,7 @@ Creates a new polygon object. The new polygon is not added to the stage.
 
 ### `lineTo(x, y)`
 
-Creates a line from the current position to the new position. The first time `lineTo()` is called, it the `xy` determines the starting position of the shape.
+Creates a line from the current position to the new position. The first time `lineTo()` is called, it the `xy` determines the starting position of the shape. All outlines created via `lineTo` are relative to the `xy` position of the polygon.
 
 ### `length()`
 
@@ -245,11 +245,11 @@ Returns a `Rune.Vector` describing a point on the outline of the polygon.
 
 ### `bounds()`
 
-Returns a javascript object with `x`, `y`, `width` and `height` properties describing the outer bounds of the polygon. This is the external representation of the bounds, which means that the polygon `xy` values are added to the bounds.
+Returns a javascript object with `x`, `y`, `width` and `height` properties describing the outer bounds of the polygon. This is the internal representation of the bounds, which means that the polygon `xy` values are not added to the bounds.
 
 ### `centroid()`
 
-Returns a `Rune.Vector` holding the centroid of the shape. This is the external representation of the centroid, which means that the polygon `xy` values are added to the centroid.
+Returns a `Rune.Vector` holding the centroid of the shape. This is the internal representation of the centroid, which means that the polygon `xy` values are not added to the centroid.
 
 
 ## Rune.Path
@@ -257,6 +257,60 @@ Returns a `Rune.Vector` holding the centroid of the shape. This is the external 
 ### `new Rune.Path(x, y)`
 
 Creates a new path object. The new path is not added to the stage.
+
+### `moveTo(x, y)`
+
+Moves the current position to the new `xy` position. By default, all paths start at `0,0`, and calling `moveTo()` will change this. Calling `moveTo()` after other drawing methods like `lineTo()` or `moveTo()` will create a new subpath in the path. All moves are relative to the `xy` position of the path.
+
+### `lineTo(x, y)`
+
+Creates a line from the current position ending at `xy`. All outlines created via `lineTo()` are relative to the `xy` position of the path. If `lineTo()` is used as the first function in an empty path, it will draw a line from `0,0` to `xy`.
+
+### `curveTo(...)`
+
+Create a curve from the current position in the path. There are two different types of curves: a quad bezier (a bezier curve with a single control point), and a cubic bezier (a bezier curve with two control points). 
+
+The following will draw a quad bezier curve from the current path position to `200,0`, with the curve going through a single control point at `100,100`.
+
+```js
+curveTo(100, 100, 200, 0);
+```
+
+The following will draw a cubic bezier curve from the current path position to `200,0`, with the curve going through two control points at `100,100` and `200,200`.
+
+```js
+curveTo(100, 100, 200, 200, 200, 0);
+```
+
+### `closePath()`
+
+Closes the path by drawing a straight line back to the beginning of the subpath.
+
+### `subpaths(parent)`
+
+Divides the path into an array of paths, where each path only has a single subpath. The `parent` parameter uses the same logic as the shorthand shape functions on the Rune instance: If not set, the new copy will be added to the same parent as the base shape. If `parent` is a group, the new subpaths will be added to this group. If `parent` is false, the new subpoaths will not have a parent.
+
+### `length()`
+
+Returns the combined length of all subpaths in the path.
+
+### `vectorAt(scalar)`
+
+Returns a `Rune.Vector` describing a point on the outline of the path.
+
+- `scalar` - A float between 0 and 1. Passing `0.5` will return the point midway on the outline of the path.
+
+### `vectorAtLength(length)`
+
+Returns a `Rune.Vector` describing a point on the outline of the path.
+
+- `length` - A number between 0 and `length()` of the path. Passing `100` will return the point 100 pixels along the outline of the path.
+
+### `fillRule(type)`
+
+Sets the fillrule for the subpaths. This can be used to add or subtract subpath from one another. See [Understanding the SVG fill-fule property](http://www.sitepoint.com/understanding-svg-fill-rule-property/) for more info.
+
+- `type` - String. Either `"nonzero"` or `"evenodd"`.
 
 ## Rune.Text
 
