@@ -38,8 +38,9 @@ h4 code {
 }
 
 a {
-  color: #E48B37;
+  color: #333;
   text-decoration: none;
+  border-bottom: 1px solid $yellow;
 }
 
 // Body
@@ -59,6 +60,9 @@ h1 + p {
 pre {
   background-color: $gray;
   padding: 0.4em;
+  code {
+    background-color: inherit;
+  }
 }
 
 code {

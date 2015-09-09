@@ -18,7 +18,7 @@ body {
 // --------------------------------------------------------
 
 header {
-  background-color: $gray;
+  background-color: rgba(255, 255, 255, 0.8);
   border-bottom: 2px solid $yellow;
   width: 100%;
   position: fixed;
@@ -37,8 +37,8 @@ header {
       display: inline-block;
 
       a {
-        color: gray;
-        text-decoration: none;
+        color: #3A3A3A;
+        border: none;
       }
     }
   }
