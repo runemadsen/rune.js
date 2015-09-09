@@ -351,3 +351,201 @@ Sets the spacing between the letters. `spacing` can be a number in pixels, or a 
 ### `textDecoration(textDecoration)`
 
 Specifies the font decoration. `weight` can be a string of `"none"`, `"underline"`, `"overline"`, `"line-through"`, and `"blink"`.
+
+## Rune.Group
+
+### `new Rune.Group(x, y)`
+
+Creates a new group object with no children. The new group is not added to the stage.
+
+### `add(child)`
+
+Adds a child to the group. If the child has an existing parent, it will be removed before adding it to the group.
+
+### `remove(child)`
+
+Removes a child from the group.
+
+## Rune.Color
+
+### `new Rune.Color(...)`
+
+Creates a new color object. Accepts the same inputs as the `fill()` and `stroke()` functions.
+
+### Getters
+
+Use the following functions to return a javascript object with the color values in a specific space.
+
+```js
+rgb();
+hsv();
+hsl();
+hwb();
+cmyk();
+```
+
+The following methods can be used to return an array with the same color values.
+
+```js
+rgbArray();
+hsvArray();
+hslArray();
+hwbArray();
+cmykArray();
+```
+
+### Manipulation
+
+The following chainable methods can be used to manipulate the color.
+
+```js
+negate()         // rgb(0, 100, 255) -> rgb(255, 155, 0)
+
+lighten(0.5)     // hsl(100, 50%, 50%) -> hsl(100, 50%, 75%)
+darken(0.5)      // hsl(100, 50%, 50%) -> hsl(100, 50%, 25%)
+
+saturate(0.5)    // hsl(100, 50%, 50%) -> hsl(100, 75%, 50%)
+desaturate(0.5)  // hsl(100, 50%, 50%) -> hsl(100, 25%, 50%)
+greyscale()      // #5CBF54 -> #969696
+
+whiten(0.5)      // hwb(100, 50%, 50%) -> hwb(100, 75%, 50%)
+blacken(0.5)     // hwb(100, 50%, 50%) -> hwb(100, 50%, 75%)
+
+clearer(0.5)     // rgba(10, 10, 10, 0.8) -> rgba(10, 10, 10, 0.4)
+opaquer(0.5)     // rgba(10, 10, 10, 0.8) -> rgba(10, 10, 10, 1.0)
+
+rotate(180)      // hsl(60, 20%, 20%) -> hsl(240, 20%, 20%)
+rotate(-90)      // hsl(60, 20%, 20%) -> hsl(330, 20%, 20%)
+
+mix(new Rune.Color("#FFFF00")) // cyan -> rgb(128, 255, 128)
+```
+
+### Luminosity
+
+Get the [WCAG luminosity](http://www.w3.org/TR/WCAG20/#relativeluminancedef) of the color. 0 is black, 1 is white.
+
+```js
+luminosity();  // 0.412
+```
+
+Get the [WCAG contrast ratio](http://www.w3.org/TR/WCAG20/#contrast-ratiodef) to another color from 1 (same color) to 21 (white/black contrast).
+
+```js
+contrast(new Rune.Color("#FF0000"))
+```
+
+Get whether the color is "light" or "dark", useful for deciding text color.
+
+```js
+light();
+dark();
+```
+
+### `copy()`
+
+Returns a copy of the color object.
+
+## Rune.Vector
+
+### `new Rune.Vector(x, y)`
+
+A vector is a very simple object that has an `x` and `y` variable. This returns a new Vector.
+
+### `set(x, y)`
+
+Updates the vector with new `x` and `y` values.
+
+### `add(vector)`
+
+Adds `vector` to the base vector and returns a new vector. This does not change the original vectors.
+
+### `sub(vector)`
+
+Subtracts `vector` from the base vector and returns a new vector. This does not change the original vectors.
+
+### `multiply(vector)`
+
+Multiplies `vector` with the base vector and returns a new vector. This does not change the original vectors.
+
+### `divide(vector)`
+
+Divides the base vector with  `vector` and returns a new vector. This does not change the original vectors.
+
+### `distance(vector)`
+
+Returns the distance between two vectors.
+
+### `distanceSquared(vector)`
+
+Returns the distance squared between two vectors.
+
+### `lerp(vector, scalar)`
+
+Returns the linear interpolation of the two vectors by a `scalar` amount.
+
+- `Scalar`. Normalized float between 0 and 1.
+
+### `dot(vector)`
+
+Returns the dot product of the two vectors.
+
+### `length()`
+
+Returns the length of the vector.
+
+### `lengthSquare()`
+
+Returns the squared length of the vector.
+
+### `normalize()`
+
+Normalizes the vector values so they are between 0-1.
+
+### `rotation()`
+
+Returns the rotation of the vector.
+
+### `rotate(deg)`
+
+Rotates the vector relative to its current rotation.
+
+### `copy()`
+
+Returns a copy of the vector.
+
+
+## Rune.Anchor
+
+An anchor is used to describe the individual points on a path, that being moves, lines, curves or closes.
+
+### `setMove(x, y)`
+
+Often used like `new Rune.Anchor().setMove(x,y)` to create a new anchor holding move command.
+
+### `setLine(x, y)`
+
+Often used like `new Rune.Anchor().setLine(x,y)` to create a new anchor holding line command.
+
+### `setCurve(...)`
+
+Often used like `new Rune.Anchor().setCurve(...)` to create a new anchor holding a quad or bezier curve. Accepts the same parameters as the path `curveTo()` function.
+
+### `setClose()`
+
+Often used like `new Rune.Anchor().setClose()` to create a new anchor holding close command.
+
+### `add(vector)`
+
+Adds a vector to an anchor.
+
+### `sub(vector)`
+
+Subtracts a vector from an anchor.
+
+### `length()`
+
+Returns the length of the anchor, whether it's a curve or a line. Move anchors will have a length of 0, while close anchors will throw an error.
+
+### `vectorAt(scalar)`
+
+Returns a `Rune.Vector` with a point on the anchor defined by `scalar`, a normalized float from 0 to 1. For example, if `scalar` is 0.5 and it's called on a curve anchor, this function will return the point that is midways on the curve.
