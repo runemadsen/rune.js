@@ -366,6 +366,28 @@ Adds a child to the group. If the child has an existing parent, it will be remov
 
 Removes a child from the group.
 
+## Rune.Grid
+
+### `new Rune.Grid(options)`
+
+Creates a new grid object. the new grid is not added to the stage. `options` is a javascript object that can hold the following options.
+
+- `x` - Number. The x position of the grid
+- `y` - Number. The y position of the grid
+- `columns` - Number. Defines the number of columns in the grid. Defaults to 10.
+- `rows` - Number. Defines the number of rows in the grid. Defaults to 1
+- `gutterWidth` - Number. Defines the width of the space between modules
+- `gutterHeight` - Number. Defines the height of the space between modules
+- `gutter` - Number. Shorthand way to define the same gutter width and height
+- `moduleWidth` - Number. Defines the width of each module in the grid
+- `moduleHeight` - Number. Defines the height of each module in the grid
+- `width` - Number. Defines the full width of the grid, including the gutter and module widths. Do not use with `moduleWidth`.
+- `height` - Number. Defines the full height of the grid, including the gutter and module heights. Do not use with `moduleheight`.
+
+### `add(child, column, row)`
+
+Adds a child to one of the module grids specified by the column and row number.
+
 ## Rune.Color
 
 ### `new Rune.Color(...)`
@@ -549,3 +571,5 @@ Returns the length of the anchor, whether it's a curve or a line. Move anchors w
 ### `vectorAt(scalar)`
 
 Returns a `Rune.Vector` with a point on the anchor defined by `scalar`, a normalized float from 0 to 1. For example, if `scalar` is 0.5 and it's called on a curve anchor, this function will return the point that is midways on the curve.
+
+
