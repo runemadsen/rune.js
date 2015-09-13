@@ -73,6 +73,8 @@ r.ellipse(0, 0, 100, 50);
 
 r.circle(0, 0, 100);
 
+r.triangle(0, 0, 100, 0, 100, 100);
+
 // more complex shapes
 
 r.polygon(0, 0).lineTo(100, 0).lineTo(100, 100).lineTo(0, 100);

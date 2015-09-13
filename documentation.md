@@ -40,6 +40,10 @@ Shortcut to create a new ellipse object and add it to a group. See above or the 
 
 Shortcut to create a new rectangle object and add it to a group. See above or the [`Rune.Rectangle`](#runerectangle) documentation.
 
+### `triangle(x, y, x2, y2, x3, y3)`
+
+Shortcut to create a new triangle object and add it to a group. See above or the [`Rune.Triangle`](#runetriangle) documentation.
+
 ### `polygon(x, y, parent)`
 
 Shortcut to create a new polygon object and add it to a group. See above or the [`Rune.Polygon`](#runepolygon) documentation.
@@ -216,6 +220,12 @@ Creates a new circle object. The new circle is not added to the stage.
 ### `new Rune.Ellipse(x, y, width, height)`
 
 Creates a new ellipse object. The new circle is not added to the stage.
+
+## Rune.Triangle
+
+### `new Rune.Triangle(x, y, x2, y2, x3, y3)`
+
+Creates a new triangle object with points at the 3 `xy` positions.
 
 ## Rune.Polygon
 
