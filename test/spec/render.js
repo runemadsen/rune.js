@@ -162,6 +162,22 @@ describe("Rune.Render", function() {
 
   });
 
+  describe("Rune.Triangle", function() {
+
+    it("should render triangle polygon", function() {
+      var s = r.triangle(10, 15, 200, 205, 20, 220);
+      drawShared(s);
+      r.draw();
+      var jshape = jel.children().first();
+      expect(jel.children().length).toEqual(1);
+      expect(jshape).toBeTag("polygon");
+      expect(jshape).toHaveAttr("points", "10 15 200 205 20 220")
+      expect(jshape).not.toHaveTranslation(0, 0);
+      expectShared(jshape);
+    });
+
+  });
+
   describe("Rune.Polygon", function() {
 
     it("should render polygon", function() {

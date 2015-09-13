@@ -11,6 +11,7 @@ import Render from "./render"
 import Circle from "./shapes/circle"
 import Ellipse from "./shapes/ellipse"
 import Line from "./shapes/line"
+import Triangle from "./shapes/triangle"
 import Path from "./shapes/path"
 import Polygon from "./shapes/polygon"
 import Rectangle from "./shapes/rectangle"
@@ -82,6 +83,12 @@ class Rune {
     var group = new Group(x, y);
     Utils.groupLogic(group, this.stage, parent);
     return group;
+  }
+
+  triangle(x, y, x2, y2, x3, y3, parent) {
+    var tri = new Triangle(x, y, x2, y2, x3, y3);
+    Utils.groupLogic(tri, this.stage, parent);
+    return tri;
   }
 
   rect(x, y, width, height, parent) {
@@ -181,6 +188,7 @@ Rune.Grid = Grid;
 Rune.Circle = Circle;
 Rune.Ellipse = Ellipse;
 Rune.Line = Line;
+Rune.Triangle = Triangle;
 Rune.Path = Path;
 Rune.Polygon = Polygon;
 Rune.Rectangle = Rectangle;

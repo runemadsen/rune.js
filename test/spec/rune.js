@@ -211,6 +211,37 @@ describe("Rune", function() {
 
   });
 
+  describe(".triangle()", function() {
+
+    it("should create triangle", function() {
+      var tri = r.triangle(10, 15, 100, 105, 20, 120);
+      expect(tri.type).toEqual("triangle")
+      expect(tri.vars.x).toEqual(10);
+      expect(tri.vars.y).toEqual(15);
+      expect(tri.vars.x2).toEqual(100);
+      expect(tri.vars.y2).toEqual(105);
+      expect(tri.vars.x3).toEqual(20);
+      expect(tri.vars.y3).toEqual(120);
+    });
+
+    it("should add to group", function() {
+      var group = new Rune.Group();
+      var child = r.line(10, 15, 100, 105, group);
+      expect(child).toBeChildOf(group);
+    });
+
+    it("should add to fallback", function() {
+      var child = r.line(10, 15, 100, 105);
+      expect(child).toBeChildOf(r.stage);
+    });
+
+    it("should not add", function() {
+      var child = r.line(10, 15, 100, 105, false);
+      expect(child.parent).toBeUndefined();
+    });
+
+  });
+
   describe(".polygon()", function() {
 
     it("should create polygon", function() {

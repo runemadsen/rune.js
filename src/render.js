@@ -95,6 +95,15 @@ class Render {
     return svg('line', attr);
   }
 
+  triangleToSVG(tri) {
+    var attr = {
+      points: tri.vars.x + ' ' + tri.vars.y + ' ' + tri.vars.x2 + ' ' + tri.vars.y2 + ' ' + tri.vars.x3 + ' ' + tri.vars.y3
+    };
+    this.transformAttribute(attr, tri);
+    this.styleableAttributes(tri, attr);
+    return svg('polygon', attr);
+  }
+
   polygonToSVG(polygon) {
     var attr = {
       points: _.map(polygon.vars.vectors, function(vec) {
