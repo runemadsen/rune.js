@@ -458,4 +458,7 @@ class Color {
 
 }
 
+// Modules should be accessible through Color
+Color.Convert = colorConvert;
+
 export default Color;
