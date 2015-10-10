@@ -1,3 +1,7 @@
+## 0.1.4
+
+- Adding direct access to `Rune.Color.Convert` functions.
+
 ## 0.1.3
 
 - Adding `Rune.Triangle` and `r.triangle()`
