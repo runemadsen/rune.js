@@ -42,8 +42,8 @@ describe("Rune.Render", function() {
 
   it("should create SVG element", function() {
     expect(el.tagName).toEqual('svg');
-    expect(jel.attr('width')).toEqual("200");
-    expect(jel.attr('height')).toEqual("300");
+    expect(el.getAttribute('width')).toEqual("200");
+    expect(el.getAttribute('height')).toEqual("300");
   });
 
   describe("All shapes", function() {

@@ -2,6 +2,7 @@
 
 ### Must
 
+- [ ] requestAnimationFrame should work in node
 - [ ] `stagePos()` on shapes and groups to get absolute position
 
 ### Nice to have 

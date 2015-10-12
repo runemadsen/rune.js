@@ -1,4 +1,4 @@
-import "./matchers"
+import "../matchers"
 
 import "./rune"
 import "./utils"
