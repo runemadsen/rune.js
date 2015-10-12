@@ -18,10 +18,10 @@ var builddir = './dist';
 // Build
 // -------------------------------------------------
 
-function compile(outfile, extraOpts, watch) {
+function compile(infiles, outfile, extraOpts, watch) {
 
   var opts = assign({}, watchify.args, extraOpts);
-  var bundler = browserify('./src/rune.js', opts).transform(babelify.configure({sourceMaps:false}));
+  var bundler = browserify(infiles, opts).transform(babelify.configure({sourceMaps:false}));
 
   //if(watch) {
   //  bundler = watchify(bundler)
@@ -48,11 +48,11 @@ function compile(outfile, extraOpts, watch) {
 }
 
 gulp.task('build:browser', function() {
-  return compile('rune.browser.js', { debug:true }, false)
+  return compile('./src/rune.js', 'rune.browser.js', { debug:true }, false)
 });
 
 gulp.task('build:common', function() {
-  return compile('rune.common.js', { debug:true, bundleExternal:false }, false)
+  return compile('./src/rune.js', 'rune.common.js', { debug:true, bundleExternal:false }, false)
 });
 
 gulp.task('build', ['build:common', 'build:browser']);
