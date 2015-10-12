@@ -18,10 +18,6 @@ import Rectangle from "./shapes/rectangle"
 import Text from "./shapes/text"
 import { Sizeable, Moveable, Styleable, Groupable } from "./mixins"
 
-// Exports modules for easy access when using module?
-//export { default as anchor } from "./anchor";
-// ... for all of them
-
 class Rune {
 
   constructor(options) {
@@ -42,9 +38,9 @@ class Rune {
     this.frameCount = 1;
     this.frameRate = params.frameRate;
 
-    if(params.container) {
+    if(params.container && typeof window !== 'undefined') {
 
-      if(_.isString(params.container)) {
+      if(_.isString(params.container && !_.isUndefined(document))) {
         params.container = document.querySelector(params.container);
       }
 
@@ -62,7 +58,12 @@ class Rune {
   // --------------------------------------------------
 
   initEvents() {
-    this.initMouseMove();
+
+    // Specific browser events
+    if(typeof window !== 'undefined') {
+      this.initMouseMove();
+    }
+
   }
 
   initMouseMove() {

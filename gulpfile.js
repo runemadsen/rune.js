@@ -12,8 +12,10 @@ var sourcemaps = require('gulp-sourcemaps');
 var assign = require('lodash.assign');
 var concat = require('gulp-concat');
 var connect = require('gulp-connect');
+var jasmine = require('gulp-jasmine');
 
 var builddir = './dist';
+var main = ['./src/rune.js']
 
 // Build
 // -------------------------------------------------
@@ -48,11 +50,11 @@ function compile(infiles, outfile, extraOpts, watch) {
 }
 
 gulp.task('build:browser', function() {
-  return compile('./src/rune.js', 'rune.browser.js', { debug:true }, false)
+  return compile(main, 'rune.browser.js', { debug:true }, false)
 });
 
 gulp.task('build:common', function() {
-  return compile('./src/rune.js', 'rune.common.js', { debug:true, bundleExternal:false }, false)
+  return compile(main, 'rune.common.js', { debug:true, bundleExternal:false }, false)
 });
 
 gulp.task('build', ['build:common', 'build:browser']);
@@ -99,4 +101,8 @@ gulp.task("test", ['build:browser', 'build:specs'], function() {
   connect.server({
     port: 8888
   });
+});
+
+gulp.task("test:node", ['build:common'], function() {
+  return gulp.src(['./dist/rune.common.js', './test/lib/specs.js']).pipe(jasmine({verbose: true, includeStackTrace:true}));
 });

@@ -21,7 +21,8 @@
     "virtual-dom": "^2.0.1",
     "color-convert": "^0.5.3",
     "color-string": "^0.3.0",
-    "bezier-js" : "^1.0.8"
+    "bezier-js" : "^1.0.8",
+    "opentype.js" : ""
   },
   "devDependencies": {
     "gulp": "^3.9.0",
@@ -32,7 +33,7 @@
     "gulp-rename" : "^1.2.2",
     "gulp-zip" : "^3.0.2",
     "open" : "^0.0.5",
-    "gulp-jasmine-browser" : "^0.2.3",
+    "gulp-jasmine" : "^2.1.0",
     "gulp-sourcemaps" : "^1.5.2",
     "gulp-uglify" : "^1.4.0",
     "jquery" : "^2.1.4",
