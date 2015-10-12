@@ -16,8 +16,10 @@ function drawShared(shape) {
 
 function expectShared(jshape) {
   expect(jshape).toHaveRotation(45, 100, 105);
-  expect(jshape).toHaveAttr("fill", "rgba(255, 0, 0, 0.5)");
-  expect(jshape).toHaveAttr("stroke", "rgba(0, 255, 0, 0.6)");
+  expect(jshape).toHaveAttr("fill", "rgb(255, 0, 0)");
+  expect(jshape).toHaveAttr("fill-opacity", "0.5")
+  expect(jshape).toHaveAttr("stroke", "rgb(0, 255, 0)");
+  expect(jshape).toHaveAttr("stroke-opacity", "0.6")
   expect(jshape).toHaveAttr("stroke-width", "5");
   expect(jshape).toHaveAttr("stroke-linecap", "round");
   expect(jshape).toHaveAttr("stroke-linejoin", "miter");

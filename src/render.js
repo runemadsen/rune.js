@@ -278,13 +278,25 @@ class Render {
 
   styleableAttributes(object, attr) {
 
+    function rgbString(col) {
+      var obj = col.rgb();
+      return "rgb(" + obj.r + ", " + obj.g + ", " + obj.b + ")";
+    }
+
     if(object.vars.fill === false)    attr.fill = "none";
-    else if(object.vars.fill)         attr.fill = object.vars.fill.rgbString();
+    else if(object.vars.fill) {
+      attr.fill = rgbString(object.vars.fill);
+      var alpha = object.vars.fill.alpha();
+      if(alpha < 1) attr["fill-opacity"] = alpha;
+    }
 
     if(object.vars.stroke === false)  attr.stroke = "none";
-    else if(object.vars.stroke)       attr.stroke = object.vars.stroke.rgbString();
+    else if(object.vars.stroke) {
+      attr.stroke = rgbString(object.vars.stroke);
+      var alpha = object.vars.stroke.alpha();
+      if(alpha < 1) attr["stroke-opacity"] = alpha;
+    }
 
-    if(object.vars.fill)              attr.fill = object.vars.fill.rgbString();
     if(object.vars.strokeWidth)       attr["stroke-width"] = object.vars.strokeWidth;
     if(object.vars.strokeCap)         attr["stroke-linecap"] = object.vars.strokeCap;
     if(object.vars.strokeJoin)        attr["stroke-linejoin"] = object.vars.strokeJoin;

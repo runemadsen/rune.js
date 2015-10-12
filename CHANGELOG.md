@@ -1,3 +1,8 @@
+## 0.1.5
+
+- Removing `rgba()` fill and stroke values and introducing straight up `rgb()` with `fill-opacity` and `stroke-opacity`, as Illustrator does not recognize `rgba()`.
+
+
 ## 0.1.4
 
 - Adding direct access to `Rune.Color.Convert` functions.
