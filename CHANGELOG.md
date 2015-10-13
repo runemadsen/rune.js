@@ -1,3 +1,7 @@
+## 0.1.6
+
+- `Rune.js` is now tested and working in server-side node. Hurrah!
+
 ## 0.1.5
 
 - Removing `rgba()` fill and stroke values and introducing straight up `rgb()` with `fill-opacity` and `stroke-opacity`, as Illustrator does not recognize `rgba()`.
