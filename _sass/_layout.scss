@@ -1,39 +1,35 @@
 body {
-  margin: 30px 25px;
   font-family: 'Roboto', sans-serif;
   font-size: 100%;
-}
-
-@media (min-width: $first_break) {
-  body {
-    margin: 70px 45px;
-  }
+  margin: 0;
 }
 
 #content {
+  margin: 0px 25px;
   max-width: 650px;
+}
+
+@media (min-width: $first_break) {
+  #content {
+    margin: 0px 45px;
+  }
 }
 
 // Menu
 // --------------------------------------------------------
 
 header {
-  background-color: rgba(255, 255, 255, 0.8);
   border-bottom: 2px solid $yellow;
   width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
 
   ul {
+    text-align: center;
     margin: 0;
     padding: 0;
-    padding-left: 2.2em;
 
     li {
       margin: 0;
       padding: 0.5em;
-      margin-right: 1em;
       display: inline-block;
 
       a {
@@ -44,7 +40,20 @@ header {
   }
 }
 
-// download table
+@media (min-width: $first_break) {
+  header {
+    padding-left: 2.2em;
+    ul {
+      text-align: left;
+      li {
+        margin-right: 1em;
+      }
+    }
+  }
+}
+
+// Download table
+// --------------------------------------------------------
 
 table {
 
@@ -60,5 +69,11 @@ table {
     &:last-child {
       padding-right: 0;
     }
+  }
+}
+
+@media (max-width: $first_break) {
+  table {
+    display: none;
   }
 }
