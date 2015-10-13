@@ -15,17 +15,52 @@
   <script type="text/javascript">
 
     var r = new Rune({
-      container: ".container",
-      width: 500,
-      height: 400,
-      debug: true
+      container:"body",
+      width: 600,
+      height: 700,
+
     });
 
-    var path = r.triangle(100, 100, 300, 100, 300, 300)
-      .fill("#FF0000")
-      .stroke("#00FF00")
+
+    r.rect(0,0, r.width, r.height)
+    .fill(0)
+    .stroke(false)
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    for (var i = 0; i <300; i++) {
+      var x = Math.floor(Math.random() * (r.width- 0))
+      var y = Math.floor(Math.random() * (r.height - 0))
+      r.ellipse(x,y,2,2)
+      .fill(255);
+    }
+
+
+    r.ellipse(r.width/2-100, r.height/3, 100,100)
+    .fill(255)
+    .stroke(180,0.5)
+    .strokeWidth(10)
+
+    r.line(0,0, r.width, r.height)
+    .fill(255)
+    .stroke(255)
+    .strokeWidth(2);
+
+    /*for(var i=0; i<10; i++) {
+      var x = Rune.random(0,r.width)
+      var y = Rune.random(0,r.height)
+      var x1 = Rune.random(0,r.width)
+      var y1 = Rune.random(0,r.height)
+      r.line(x,y, x1, y1)
+      .fill(255)
+      .stroke(255)
+      .strokeWidth(2)
+    } */
 
     r.draw();
+
 
   </script>
 

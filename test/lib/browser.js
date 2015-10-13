@@ -10854,15 +10854,15 @@ beforeEach(function () {
 
     toBeTag: function toBeTag() {
       return {
-        compare: function compare(jel, tagname) {
+        compare: function compare(el, tagname) {
 
           var msg;
-          var pass = jel.prop("tagName") == tagname;
+          var pass = el.nodeName == tagname;
 
           if (pass) {
             msg = "Expected not to be tag " + tagname;
           } else {
-            msg = "Expected " + jel.prop("tagName") + " to be tag " + tagname;
+            msg = "Expected " + el.nodeName + " to be tag " + tagname;
           }
 
           return {
@@ -10875,16 +10875,29 @@ beforeEach(function () {
 
     toHaveAttr: function toHaveAttr() {
       return {
-        compare: function compare(jel, k, v) {
-          jel = (0, _jquery2["default"])(jel);
+        compare: function compare(el, k, v) {
+          var att = el.getAttribute(k);
           var result = {
             pass: true,
             message: "yup"
           };
-          if (jel.attr(k) != v + "") {
+          if (att != v + "") {
             result.pass = false;
-            result.message = "Attribute " + k + " with value " + jel.attr(k) + " did not match " + v;
+            result.message = "Attribute " + k + " with value " + att + " did not match " + v;
           }
+          return result;
+        }
+      };
+    },
+
+    toNotHaveAttr: function toNotHaveAttr() {
+      return {
+        compare: function compare(el, k, v) {
+          var att = el.getAttribute(k);
+          var result = {
+            pass: _underscore2["default"].isUndefined(att) || att == null,
+            message: "something"
+          };
           return result;
         }
       };
@@ -10892,14 +10905,14 @@ beforeEach(function () {
 
     toHaveAttrs: function toHaveAttrs() {
       return {
-        compare: function compare(jel, attrs) {
-          jel = (0, _jquery2["default"])(jel);
+        compare: function compare(el, attrs) {
           var result = {
             message: ""
           };
           result.pass = _underscore2["default"].all(attrs, function (v, k) {
-            if (jel.attr(k) != v + "") result.message = "Attribute " + k + " with value " + jel.attr(k) + " did not match " + v;
-            return jel.attr(k) == v;
+            var att = el.getAttribute(k);
+            if (att != v + "") result.message = "Attribute " + k + " with value " + att + " did not match " + v;
+            return att == v;
           });
           return result;
         }
@@ -10908,7 +10921,7 @@ beforeEach(function () {
 
     toHaveRotation: function toHaveRotation() {
       return {
-        compare: function compare(jel, rotation, rotationX, rotationY) {
+        compare: function compare(el, rotation, rotationX, rotationY) {
           var result = {
             pass: true,
             message: "Has rotation when it shouldn't"
@@ -10918,9 +10931,9 @@ beforeEach(function () {
           if (rotationX || rotationY) attr += " " + rotationX + " " + rotationY;
           attr += ")";
 
-          if (!jel.attr("transform") || jel.attr("transform").indexOf(attr) < 0) {
+          if (!el.getAttribute("transform") || el.getAttribute("transform").indexOf(attr) < 0) {
             result.pass = false;
-            result.message = "Transform does not have rotation or doesnt match: " + jel.attr("transform");
+            result.message = "Transform does not have rotation or doesnt match: " + el.getAttribute("transform");
           }
           return result;
         }
@@ -10929,12 +10942,12 @@ beforeEach(function () {
 
     toHaveTranslation: function toHaveTranslation() {
       return {
-        compare: function compare(jel, x, y) {
+        compare: function compare(el, x, y) {
           var result = {
             pass: true,
             message: "Has translation when it shouldn't"
           };
-          if (!jel.attr("transform") || jel.attr("transform").indexOf("translate(" + x + " " + y + ")") < 0) {
+          if (!el.getAttribute("transform") || el.getAttribute("transform").indexOf("translate(" + x + " " + y + ")") < 0) {
             result.pass = false;
             result.message = "Transform does not have translation";
           }

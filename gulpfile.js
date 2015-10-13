@@ -95,7 +95,8 @@ gulp.task('build:specs:browser', function() {
 
 gulp.task("test", ['build:browser', 'build:specs', 'build:specs:browser'], function() {
   gulp.watch('src/**/*.js', ['build:browser']);
-  gulp.watch('test/spec/**/*.js', ['build:specs', 'build:specs:browser']);
+  gulp.watch('test/specs_shared/**/*.js', ['build:specs']);
+  gulp.watch('test/specs_browser/**/*.js', ['build:specs:browser']);
   connect.server({
     port: 8888
   });
