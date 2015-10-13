@@ -5,21 +5,21 @@ title: "Rune.js Documentation"
 
 # Rune.js
 
-Rune.js is a JavaScript library for programming graphic design systems with SVG. It features a chainable drawing API, an unobtrusive scene graph, and a range of features aimed specifically at graphic designers: native support for color conversion, grid systems, typography, pixel iteration, as well as an expanding set of computational geometry helpers. Oh, and it uses [virtual-dom](https://github.com/Matt-Esch/virtual-dom) under the hood.
+Rune.js is a JavaScript library for programming graphic design systems with SVG in the browser or node.js. It features a chainable drawing API, an unobtrusive scene graph, and a range of features aimed specifically at graphic designers: native support for color conversion, grid systems, typography, pixel iteration, as well as an expanding set of computational geometry helpers. Oh, and it uses [virtual-dom](https://github.com/Matt-Esch/virtual-dom) under the hood.
 
 
 ## Download
 
-**[Current version: 0.1.5](https://github.com/runemadsen/rune.js/releases/latest)**
+**[Current version: 0.1.6](https://github.com/runemadsen/rune.js/releases/latest)**
 
 | Filename              | Size   | Description   |
 | --------------------- | ------ | -------------|
-| `rune.browser.js`     | 263kb  | All dependencies included. |
-| `rune.browser.min.js` | 115kb  | All dependencies included (minified) |
-| `rune.common.js`      | 87kb   | Only core with commonjs requires |
+| `rune.browser.js`     | 264kb  | All dependencies included. |
+| `rune.browser.min.js` | 116kb  | All dependencies included (minified) |
+| `rune.common.js`      | 88kb   | Only core with commonjs requires |
 | `rune.common.min.js`  | 46kb   | Only core with commonjs requires (minified) |
 
-New releases will be announced on my Twitter account. 
+`Rune.js` is also published on [NPM](https://www.npmjs.com/package/rune.js). New releases will be announced on my Twitter account. 
 
 <a href="https://twitter.com/runemadsen" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @runemadsen</a>
 
