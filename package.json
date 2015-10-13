@@ -36,7 +36,6 @@
     "gulp-jasmine" : "^2.1.0",
     "gulp-sourcemaps" : "^1.5.2",
     "gulp-uglify" : "^1.4.0",
-    "jquery" : "^2.1.4",
     "del" : "^1.2.1",
     "watchify" : "^3.3.1",
     "lodash.assign" : "^3.2.0",

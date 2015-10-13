@@ -10857,12 +10857,12 @@ beforeEach(function () {
         compare: function compare(el, tagname) {
 
           var msg;
-          var pass = el.nodeName == tagname;
+          var pass = el.tagName == tagname;
 
           if (pass) {
             msg = "Expected not to be tag " + tagname;
           } else {
-            msg = "Expected " + el.nodeName + " to be tag " + tagname;
+            msg = "Expected " + el.tagName + " to be tag " + tagname;
           }
 
           return {

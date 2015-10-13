@@ -13,8 +13,8 @@ class Render {
   constructor(params) {
     this.params = params
     this.tree = svg('svg', {
-      width: params.width,
-      height: params.height
+      width: this.s(params.width),
+      height: this.s(params.height)
     });
     this.el = createElement(this.tree);
   }
@@ -22,8 +22,8 @@ class Render {
   render(stage, opts) {
 
     var newTree = svg('svg', {
-      width: this.params.width,
-      height: this.params.height
+      width: this.s(this.params.width),
+      height: this.s(this.params.height)
     }, [this.objectsToSVG(stage.children, opts)]);
 
     var diffTree = diff(this.tree, newTree);
@@ -50,10 +50,10 @@ class Render {
 
   rectangleToSVG(rect) {
     var attr = {
-      x: rect.vars.x,
-      y: rect.vars.y,
-      width: rect.vars.width,
-      height: rect.vars.height
+      x: this.s(rect.vars.x),
+      y: this.s(rect.vars.y),
+      width: this.s(rect.vars.width),
+      height: this.s(rect.vars.height)
     }
     this.transformAttribute(attr, rect);
     this.styleableAttributes(rect, attr);
@@ -62,10 +62,10 @@ class Render {
 
   ellipseToSVG(ellipse) {
     var attr = {
-      cx: ellipse.vars.x,
-      cy: ellipse.vars.y,
-      rx: ellipse.vars.width / 2,
-      ry: ellipse.vars.height / 2
+      cx: this.s(ellipse.vars.x),
+      cy: this.s(ellipse.vars.y),
+      rx: this.s(ellipse.vars.width / 2),
+      ry: this.s(ellipse.vars.height / 2)
     }
     this.transformAttribute(attr, ellipse);
     this.styleableAttributes(ellipse, attr);
@@ -74,9 +74,9 @@ class Render {
 
   circleToSVG(circle) {
     var attr = {
-      cx: circle.vars.x,
-      cy: circle.vars.y,
-      r: circle.vars.radius
+      cx: this.s(circle.vars.x),
+      cy: this.s(circle.vars.y),
+      r: this.s(circle.vars.radius)
     }
     this.transformAttribute(attr, circle);
     this.styleableAttributes(circle, attr);
@@ -85,10 +85,10 @@ class Render {
 
   lineToSVG(line) {
     var attr = {
-      x1: line.vars.x,
-      y1: line.vars.y,
-      x2: line.vars.x2,
-      y2: line.vars.y2
+      x1: this.s(line.vars.x),
+      y1: this.s(line.vars.y),
+      x2: this.s(line.vars.x2),
+      y2: this.s(line.vars.y2)
     }
     this.transformAttribute(attr, line);
     this.styleableAttributes(line, attr);
@@ -134,8 +134,8 @@ class Render {
 
   textToSVG(text, opts) {
     var attr = {
-      x: text.vars.x,
-      y: text.vars.y,
+      x: this.s(text.vars.x),
+      y: this.s(text.vars.y),
     }
     this.transformAttribute(attr, text);
     this.styleableAttributes(text, attr);
@@ -266,14 +266,14 @@ class Render {
   optionalAttributes (object, attr, keys) {
     _.each(keys, function(attribute, variable) {
       if(object.vars[variable]) {
-        attr[attribute] = object.vars[variable];
+        attr[attribute] = this.s(object.vars[variable]);
       }
     }, this);
   }
 
   sizeableAttributes(object, attr) {
-    attr.width = object.vars.width;
-    attr.height = object.vars.height;
+    attr.width = this.s(object.vars.width);
+    attr.height = this.s(object.vars.height);
   }
 
   styleableAttributes(object, attr) {
@@ -287,22 +287,22 @@ class Render {
     else if(object.vars.fill) {
       attr.fill = rgbString(object.vars.fill);
       var alpha = object.vars.fill.alpha();
-      if(alpha < 1) attr["fill-opacity"] = alpha;
+      if(alpha < 1) attr["fill-opacity"] = this.s(alpha);
     }
 
     if(object.vars.stroke === false)  attr.stroke = "none";
     else if(object.vars.stroke) {
       attr.stroke = rgbString(object.vars.stroke);
       var alpha = object.vars.stroke.alpha();
-      if(alpha < 1) attr["stroke-opacity"] = alpha;
+      if(alpha < 1) attr["stroke-opacity"] = this.s(alpha);
     }
 
-    if(object.vars.strokeWidth)       attr["stroke-width"] = object.vars.strokeWidth;
+    if(object.vars.strokeWidth)       attr["stroke-width"] = this.s(object.vars.strokeWidth);
     if(object.vars.strokeCap)         attr["stroke-linecap"] = object.vars.strokeCap;
     if(object.vars.strokeJoin)        attr["stroke-linejoin"] = object.vars.strokeJoin;
-    if(object.vars.strokeMiterlimit)  attr["stroke-miterlimit"] = object.vars.strokeMiterlimit;
+    if(object.vars.strokeMiterlimit)  attr["stroke-miterlimit"] = this.s(object.vars.strokeMiterlimit);
     if(object.vars.strokeDash)        attr["stroke-dasharray"] = object.vars.strokeDash;
-    if(object.vars.strokeDashOffset)  attr["stroke-dashoffset"] = object.vars.strokeDashOffset;
+    if(object.vars.strokeDashOffset)  attr["stroke-dashoffset"] = this.s(object.vars.strokeDashOffset);
   }
 
   // Single attributes
@@ -350,6 +350,17 @@ class Render {
         return "Z";
       }
     }).join(" ").trim();
+  }
+
+  // Helpers
+  // --------------------------------------------------
+
+  // function to turn any non-string into a string. We need
+  // this when running server-side node.
+  s(val) {
+    if(!_.isString(val) && !_.isUndefined(val.toString))
+      return val.toString();
+    return val;
   }
 
 }
