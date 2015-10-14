@@ -187,31 +187,3 @@ gulp.task('github:publish', ['github:zip'], function() {
 gulp.task('publish', ['npm:publish', 'github:publish'], function() {
   console.log("Published!");
 });
-
-
-// THESE SHOULD BE REWRITTEN TO PUBLISH DIRECTLY TO GITHUB
-// AND NPM
-// Minify
-// -------------------------------------------------
-
-/*gulp.task('minify', ['build'], function() {
-  return gulp.src(['tmp/rune.browser.js', 'tmp/rune.node.js'])
-    .pipe(uglify())
-    .pipe(rename({extname: '.min.js'}))
-    .pipe(gulp.dest('tmp'));
-});*/
-
-// Release
-// -------------------------------------------------
-
-/*gulp.task('release', ['minify'], function() {
-  var p = require('./package.json')
-  return gulp.src('tmp/*')
-    .pipe(zip('rune-'+p.version+'.zip'))
-    .pipe(gulp.dest('tmp'));
-});*/
-
-// Test
-// ---------------------------------------------------
-
-
