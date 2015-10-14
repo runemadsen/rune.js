@@ -68,9 +68,8 @@ gulp.task('build', ['build:browser', 'build:node']);
 // Test
 // ---------------------------------------------------
 
-gulp.task('specs:combine:browser', function() {
+gulp.task('specs:browser', function() {
   return gulp.src([
-    'test/init_browser.js',
     'test/matchers.js',
     'test/helpers.js',
     'test/shared/**/*.js',
@@ -80,7 +79,11 @@ gulp.task('specs:combine:browser', function() {
   .pipe(gulp.dest('tmp'));
 });
 
-gulp.task('specs:combine:node', function() {
+gulp.task('specs:browserify', function() {
+  return compile(['tmp/rune_browser_specs.js'], 'rune_browserify_specs.js', 'tmp', { debug:true })
+});
+
+gulp.task('specs:node', function() {
   return gulp.src([
     'test/init_node.js',
     'test/matchers.js',
@@ -92,16 +95,12 @@ gulp.task('specs:combine:node', function() {
   .pipe(gulp.dest('tmp'));
 });
 
-//gulp.task('specs:browser', function() {
-//  return compile(['./test/init_browser.js'], 'rune_browser_specs.js', '/tmp', { debug:true })
-//});
+gulp.task('test:browser', ['build:browser', 'specs:browserify'], function() {
+  return gulp.src(['dist/rune.browser.js', 'tmp/rune_browserify_specs.js'])
+    .pipe(jasmineBrowser.specRunner())
+    .pipe(jasmineBrowser.server({port: 8888}));
+});
 
-//gulp.task('test:browser', ['build:browser', 'specs:browser'], function() {
-//  return gulp.src(['dist/rune.browser.js', '/tmp/rune_browser_specs.js'])
-//    .pipe(jasmineBrowser.specRunner())
-//    .pipe(jasmineBrowser.server({port: 8888}));
-//});
-
-gulp.task("test:node", ['build:node', 'specs:combine:node'], function() {
+gulp.task("test:node", ['build:node', 'specs:node'], function() {
   return gulp.src(['tmp/rune_node_specs.js']).pipe(jasmine({verbose: true, includeStackTrace:true}));
 });
