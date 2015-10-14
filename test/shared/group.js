@@ -1,5 +1,3 @@
-import Helpers from './helpers'
-
 describe("Rune.Group", function() {
 
   describe("Group()", function() {
@@ -65,10 +63,10 @@ describe("Rune.Group", function() {
     it("copies the object", function() {
       var parentEllipse = new Rune.Circle(10, 15, 300);
       var childEllipse = new Rune.Circle(10, 15, 300);
-      Helpers.setMixinVars(parent);
-      Helpers.setMixinVars(parentEllipse);
-      Helpers.setMixinVars(child);
-      Helpers.setMixinVars(childEllipse);
+      setMixinVars(parent);
+      setMixinVars(parentEllipse);
+      setMixinVars(child);
+      setMixinVars(childEllipse);
       parent.add(parentEllipse);
       child.add(childEllipse);
 

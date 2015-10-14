@@ -1,11 +1,9 @@
-import Helpers from '../helpers'
-
 describe("Rune.Moveable", function() {
 
   var m;
 
   beforeEach(function() {
-    m = Helpers.newMixin(Rune.Moveable);
+    m = newMixin(Rune.Moveable);
     m.moveable();
   });
 
@@ -19,8 +17,8 @@ describe("Rune.Moveable", function() {
     });
 
     it("copies variables from object", function() {
-      Helpers.setMoveableVars(m);
-      var m2 = Helpers.newMixin(Rune.Moveable);
+      setMoveableVars(m);
+      var m2 = newMixin(Rune.Moveable);
       m2.moveable(m);
       expect(m2.vars.x).toEqual(10);
       expect(m2.vars.y).toEqual(15);
@@ -28,14 +26,14 @@ describe("Rune.Moveable", function() {
     });
 
     it("copies negative values from object", function() {
-      Helpers.setMoveableVars(m, {
+      setMoveableVars(m, {
         x:-10,
         y:-15,
         rotation:-20,
         rotationX:-25,
         rotationY:-30
       });
-      var m2 = Helpers.newMixin(Rune.Moveable);
+      var m2 = newMixin(Rune.Moveable);
       m2.moveable(m);
       expect(m2.vars.x).toEqual(-10);
       expect(m2.vars.y).toEqual(-15);
@@ -49,14 +47,14 @@ describe("Rune.Moveable", function() {
   describe("move()", function() {
 
     it("moves absolute", function() {
-      Helpers.setMoveableVars(m);
+      setMoveableVars(m);
       m.move(200, 205);
       expect(m.vars.x).toEqual(200);
       expect(m.vars.y).toEqual(205);
     });
 
     it("moves relative", function() {
-      Helpers.setMoveableVars(m);
+      setMoveableVars(m);
       m.move(200, 205, true);
       expect(m.vars.x).toEqual(210);
       expect(m.vars.y).toEqual(220);

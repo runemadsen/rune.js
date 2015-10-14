@@ -1,5 +1,3 @@
-import Helpers from '../helpers'
-
 describe("Rune.Groupable", function() {
 
   var g;
@@ -7,7 +5,7 @@ describe("Rune.Groupable", function() {
 
   beforeEach(function() {
     g = new Rune.Group();
-    s = Helpers.newMixin(Rune.Moveable);
+    s = newMixin(Rune.Groupable);
   });
 
   describe("addTo()", function() {

@@ -1,5 +1,3 @@
-import Helpers from '../helpers'
-
 describe("Rune.Polygon", function() {
 
   var g;
@@ -161,9 +159,9 @@ describe("Rune.Polygon", function() {
     });
 
     it("copies the mixin vars", function() {
-      Helpers.setMixinVars(s)
+      setMixinVars(s)
       var p = s.toPolygon({ spacing: 25 });
-      expect(Helpers.getMixinVars(p)).toBeIn(Helpers.getMixinVars(s));
+      expect(getMixinVars(p)).toBeIn(getMixinVars(s));
     });
 
   });
@@ -183,7 +181,7 @@ describe("Rune.Polygon", function() {
     });
 
     it("copies the object", function() {
-      Helpers.setMixinVars(s);
+      setMixinVars(s);
       var copy = s.copy();
       expect(copy).not.toBe(s);
       expect(copy.vars.vectors).not.toBe(s.vars.vectors);

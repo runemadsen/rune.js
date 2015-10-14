@@ -1,12 +1,9 @@
-import _ from "underscore"
-import Helpers from '../helpers'
-
 describe("Rune.Styleable", function() {
 
   var m;
 
   beforeEach(function() {
-    m = Helpers.newMixin(Rune.Styleable);
+    m = newMixin(Rune.Styleable);
     m.styleable();
   });
 
@@ -19,8 +16,8 @@ describe("Rune.Styleable", function() {
     });
 
     it("copies variables from object", function() {
-      Helpers.setStyleableVars(m);
-      var m2 = Helpers.newMixin(Rune.Styleable);
+      setStyleableVars(m);
+      var m2 = newMixin(Rune.Styleable);
       m2.styleable(m);
       expect(m2.vars.fill).toEqual(m.vars.fill);
       expect(m2.vars.stroke).toEqual(m.vars.stroke);
@@ -29,14 +26,14 @@ describe("Rune.Styleable", function() {
     it("copies false variables from object", function() {
       m.fill(false);
       m.stroke(false);
-      var m2 = Helpers.newMixin(Rune.Styleable);
+      var m2 = newMixin(Rune.Styleable);
       m2.styleable(m);
       expect(m2.vars.fill).toBe(false);
       expect(m2.vars.stroke).toBe(false);
     });
 
     it("copies zero colors", function() {
-      var m2 = Helpers.newMixin(Rune.Styleable);
+      var m2 = newMixin(Rune.Styleable);
       m2.styleable(m);
       expect(m2.vars.fill).toEqual(m.vars.fill);
       expect(m2.vars.stroke).toEqual(m.vars.stroke);

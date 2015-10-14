@@ -1,6 +1,3 @@
-import _ from 'underscore'
-import Helpers from '../helpers'
-
 describe("Rune.Path", function() {
 
   var g;
@@ -37,7 +34,7 @@ describe("Rune.Path", function() {
 
     it("should create anchors", function() {
       var p = new Rune.Path();
-      Helpers.setAllAnchors(p);
+      setAllAnchors(p);
       expect(p.vars.anchors[0]).toBeAnchorMove(0, 0);
       expect(p.vars.anchors[1]).toBeAnchorLine(104, 105);
       expect(p.vars.anchors[2]).toBeAnchorMove(106, 107);
@@ -188,10 +185,10 @@ describe("Rune.Path", function() {
     });
 
     it("copies the mixin vars", function() {
-      Helpers.setMixinVars(s);
+      setMixinVars(s);
       var paths = s.subpaths();
-      expect(Helpers.getMixinVars(paths[0])).toBeIn(Helpers.getMixinVars(s));
-      expect(Helpers.getMixinVars(paths[1])).toBeIn(Helpers.getMixinVars(s));
+      expect(getMixinVars(paths[0])).toBeIn(getMixinVars(s));
+      expect(getMixinVars(paths[1])).toBeIn(getMixinVars(s));
     });
 
 
@@ -227,9 +224,9 @@ describe("Rune.Path", function() {
     });
 
     it("copies the mixin vars", function() {
-      Helpers.setMixinVars(s)
+      setMixinVars(s)
       var p = s.toPolygons({ spacing: 25 });
-      expect(Helpers.getMixinVars(p)).toBeIn(Helpers.getMixinVars(s));
+      expect(getMixinVars(p)).toBeIn(getMixinVars(s));
     });
 
   });
@@ -237,8 +234,8 @@ describe("Rune.Path", function() {
   describe("copy()", function() {
 
     it("copies the object", function() {
-      Helpers.setMixinVars(s);
-      Helpers.setAllAnchors(s);
+      setMixinVars(s);
+      setAllAnchors(s);
       var copy = s.copy();
       expect(copy).not.toBe(s);
       expect(copy.vars.anchors).not.toBe(s.vars.anchors)

@@ -4,3 +4,4 @@ node_modules/
 _site
 dist
 npm-debug.log
+tmp

@@ -1,12 +1,10 @@
-import Helpers from '../helpers'
-
-describe("Rune.Triangle", function() {
+describe("Rune.Line", function() {
 
   var s;
   var g;
 
   beforeEach(function() {
-    s = new Rune.Triangle(10, 15, 20, 25, 30, 35);
+    s = new Rune.Line(10, 15, 20, 25);
     g = new Rune.Group();
     g.add(s);
   });
@@ -14,7 +12,7 @@ describe("Rune.Triangle", function() {
   describe("copy()", function() {
 
     it("copies the object", function() {
-      Helpers.setMixinVars(s);
+      setMixinVars(s);
       var copy = s.copy();
       expect(copy).not.toBe(s);
       expect(copy).toEqual(s);

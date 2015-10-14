@@ -1,33 +1,3 @@
-import _ from "underscore"
-
-import Helpers from './helpers'
-
-function drawShared(shape) {
-  shape.rotate(45, 100, 105)
-    .fill(255, 0, 0, 0.5)
-    .stroke(0, 255, 0, 0.6)
-    .strokeWidth(5)
-    .strokeCap('round')
-    .strokeJoin('miter')
-    .strokeMiterlimit(7)
-    .strokeDash("3,4,5")
-    .strokeDashOffset(10)
-}
-
-function expectShared(el) {
-  expect(el).toHaveRotation(45, 100, 105);
-  expect(el).toHaveAttr("fill", "rgb(255, 0, 0)");
-  expect(el).toHaveAttr("fill-opacity", "0.5")
-  expect(el).toHaveAttr("stroke", "rgb(0, 255, 0)");
-  expect(el).toHaveAttr("stroke-opacity", "0.6")
-  expect(el).toHaveAttr("stroke-width", "5");
-  expect(el).toHaveAttr("stroke-linecap", "round");
-  expect(el).toHaveAttr("stroke-linejoin", "miter");
-  expect(el).toHaveAttr("stroke-miterlimit", "7");
-  expect(el).toHaveAttr("stroke-dasharray", "3,4,5");
-  expect(el).toHaveAttr("stroke-dashoffset", "10");
-}
-
 describe("Rune.Render", function() {
 
   var r;
@@ -202,7 +172,7 @@ describe("Rune.Render", function() {
     it("should render path", function() {
       var s = r.path(10, 15);
       drawShared(s);
-      Helpers.setAllAnchors(s);
+      setAllAnchors(s);
       r.draw();
       var path = el.childNodes[0];
       expect(el.childNodes.length).toEqual(1);

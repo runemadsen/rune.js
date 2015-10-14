@@ -1,12 +1,10 @@
-import Helpers from '../helpers'
-
-describe("Rune.Ellipse", function() {
+describe("Rune.Circle", function() {
 
   var s;
   var g;
 
   beforeEach(function() {
-    s = new Rune.Ellipse(10, 15, 300, 305);
+    s = new Rune.Circle(10, 15, 300);
     g = new Rune.Group();
     g.add(s);
   });
@@ -24,7 +22,7 @@ describe("Rune.Ellipse", function() {
       var poly = s.toPolygon({ spacing: 50 });
       expect(poly.vars.x).toEqual(10);
       expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(39);
+      expect(poly.vars.vectors.length).toEqual(76);
     });
 
     it("adds polygon to parent", function() {
@@ -40,9 +38,9 @@ describe("Rune.Ellipse", function() {
     });
 
     it("copies the mixin vars", function() {
-      Helpers.setMixinVars(s)
+      setMixinVars(s)
       var p = s.toPolygon();
-      expect(Helpers.getMixinVars(p)).toBeIn(Helpers.getMixinVars(s));
+      expect(getMixinVars(p)).toBeIn(getMixinVars(s));
     });
 
   });
@@ -50,10 +48,10 @@ describe("Rune.Ellipse", function() {
   describe("copy()", function() {
 
     it("copies the object", function() {
-      Helpers.setMixinVars(s);
+      setMixinVars(s);
       var copy = s.copy();
-      expect(copy).not.toBe(s);
       expect(copy).toEqual(s);
+      expect(copy).not.toBe(s);
     });
 
     it("adds copy to parent", function() {

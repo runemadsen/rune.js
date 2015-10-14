@@ -1,4 +1,4 @@
-import _ from "underscore"
+var _ = require("underscore");
 
 beforeEach(function () {
 
