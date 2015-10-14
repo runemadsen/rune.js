@@ -39,11 +39,11 @@ function transpile(infiles, outfile, outdir, extraOpts) {
 // -------------------------------------------------
 
 gulp.task('build:browser', function() {
-  return transpile('./src/rune.js', 'rune.browser.js', 'tmp', { debug:true })
+  return transpile('./src/rune.js', 'rune.browser.js', 'tmp', { standalone: "Rune", debug:true })
 });
 
 gulp.task('build:node', function() {
-  return transpile('./src/rune.js', 'rune.node.js', 'tmp', { bundleExternal:false, standalone: "default", debug:true })
+  return transpile('./src/rune.js', 'rune.node.js', 'tmp', { bundleExternal:false, standalone: "Rune", debug:true })
 });
 
 gulp.task('build', ['build:browser', 'build:node']);
@@ -63,7 +63,7 @@ gulp.task('specs:browser', function() {
   .pipe(gulp.dest('tmp'));
 });
 
-gulp.task('specs:browserify', function() {
+gulp.task('specs:browserify', ['specs:browser'], function() {
   return transpile(['tmp/rune_browser_specs.js'], 'rune_browserify_specs.js', 'tmp', { debug:true })
 });
 

@@ -202,7 +202,4 @@ Rune.Styleable = Styleable;
 Rune.Sizeable = Sizeable;
 Rune.Groupable = Groupable;
 
-// define window.Rune for browserify
-global.Rune = Rune;
-
 export default Rune;

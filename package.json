@@ -41,6 +41,5 @@
     "lodash.assign" : "^3.2.0",
     "gulp-concat" : "^2.6.0",
     "github" : "^0.2.4"
-  },
-  "preferGlobal": true
+  }
 }
