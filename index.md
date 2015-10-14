@@ -420,4 +420,4 @@ You can enable debug mode when creating a `Rune.js` instance.
 var r = new Rune({ debug: true });
 ```
 
-Now, vist the [technical documentation](documentation.html) for further reading.
+Now, visit the [technical documentation](documentation.html) for further reading.

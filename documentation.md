@@ -12,7 +12,7 @@ This is the technical documentation for Rune.js. See [Getting started](index.htm
 
 ### `new Rune(options)`
 
-Creates a new instance to be used for all drawing methods. You can use multiple instances on a single page. `options` is a javascript object that can hold the following properties.
+Creates a new instance to be used for all drawing methods. You can use multiple instances on a single page. `options` is a JavaScript object that can hold the following properties.
 
 - `container` - String selector or DOM element used as container for the SVG.
 - `width` - Number. The width of the SVG
@@ -151,7 +151,7 @@ Detaches the shape from its parent group, making it invisible.
 
 ### `toPolygon(options, parent)`
 
-Converts the shape to a polygon by converting lines and curves to equally spaced vectors. `options` is a javascript object that currently only takes a single property.
+Converts the shape to a polygon by converting lines and curves to equally spaced vectors. `options` is a JavaScript object that currently only takes a single property.
 
 - `spacing` - Number. The number of pixels between each vector in the new polygon.
 
@@ -255,7 +255,7 @@ Returns a `Rune.Vector` describing a point on the outline of the polygon.
 
 ### `bounds()`
 
-Returns a javascript object with `x`, `y`, `width` and `height` properties describing the outer bounds of the polygon. This is the internal representation of the bounds, which means that the polygon `xy` values are not added to the bounds.
+Returns a JavaScript object with `x`, `y`, `width` and `height` properties describing the outer bounds of the polygon. This is the internal representation of the bounds, which means that the polygon `xy` values are not added to the bounds.
 
 ### `centroid()`
 
@@ -298,7 +298,7 @@ Closes the path by drawing a straight line back to the beginning of the subpath.
 
 ### `subpaths(parent)`
 
-Divides the path into an array of paths, where each path only has a single subpath. The `parent` parameter uses the same logic as the shorthand shape functions on the Rune instance: If not set, the new copy will be added to the same parent as the base shape. If `parent` is a group, the new subpaths will be added to this group. If `parent` is false, the new subpoaths will not have a parent.
+Divides the path into an array of paths, where each path only has a single subpath. The `parent` parameter uses the same logic as the shorthand shape functions on the Rune instance: If not set, the new copy will be added to the same parent as the base shape. If `parent` is a group, the new subpaths will be added to this group. If `parent` is false, the new subpaths will not have a parent.
 
 ### `length()`
 
@@ -318,7 +318,7 @@ Returns a `Rune.Vector` describing a point on the outline of the path.
 
 ### `fillRule(type)`
 
-Sets the fillrule for the subpaths. This can be used to add or subtract subpath from one another. See [Understanding the SVG fill-fule property](http://www.sitepoint.com/understanding-svg-fill-rule-property/) for more info.
+Sets the fillrule for the subpaths. This can be used to add or subtract subpath from one another. See [Understanding the SVG fill-rule property](http://www.sitepoint.com/understanding-svg-fill-rule-property/) for more info.
 
 - `type` - String. Either `"nonzero"` or `"evenodd"`.
 
@@ -380,7 +380,7 @@ Removes a child from the group.
 
 ### `new Rune.Grid(options)`
 
-Creates a new grid object. the new grid is not added to the stage. `options` is a javascript object that can hold the following options.
+Creates a new grid object. The new grid is not added to the stage. `options` is a JavaScript object that can hold the following options.
 
 - `x` - Number. The x position of the grid
 - `y` - Number. The y position of the grid
@@ -406,7 +406,7 @@ Creates a new color object. Accepts the same inputs as the `fill()` and `stroke(
 
 ### Getters
 
-Use the following functions to return a javascript object with the color values in a specific space.
+Use the following functions to return a JavaScript object with the color values in a specific space.
 
 ```js
 rgb();
