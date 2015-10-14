@@ -135,7 +135,7 @@ gulp.task('publish:github', ['zip:browser'], function() {
 
   var github = new GitHubApi({
     version: '3.0.0',
-    debug: true,
+    //debug: true,
     protocol: 'https',
     host: 'api.github.com',
     timeout: 5000,
@@ -164,7 +164,7 @@ gulp.task('publish:github', ['zip:browser'], function() {
         owner: 'runemadsen',
         id: res.id,
         repo: 'rune.js',
-        name: 'github-'+p.version+'.zip',
+        name: 'rune-'+p.version+'.zip',
         filePath: './tmp/github-'+p.version+'.zip'
       })
   });
