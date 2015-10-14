@@ -1,3 +1,7 @@
+## 0.2.0
+
+- Complete rewrite of test structure and gulpfile used to generate NPM and Github releases. NPM tarball now actually works.
+
 ## 0.1.6
 
 - `Rune.js` is now tested and working in server-side node. Hurrah!

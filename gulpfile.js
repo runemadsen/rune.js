@@ -183,7 +183,6 @@ gulp.task('github:publish', ['github:zip'], function() {
 
 });
 
-
 gulp.task('publish', ['npm:publish', 'github:publish'], function() {
   console.log("Published!");
 });
