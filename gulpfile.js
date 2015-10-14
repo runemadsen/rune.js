@@ -2,23 +2,22 @@ var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
-var babel = require('gulp-babel');
 var babelify = require('babelify');
 var rename = require("gulp-rename");
 var zip = require('gulp-zip');
 var uglify = require('gulp-uglify');
-var del = require('del');
 var sourcemaps = require('gulp-sourcemaps');
 var assign = require('lodash.assign');
 var concat = require('gulp-concat');
-var connect = require('gulp-connect');
 var jasmine = require('gulp-jasmine');
 var jasmineBrowser = require('gulp-jasmine-browser');
+var GitHubApi = require('github');
+var fs = require('fs');
 
-// Build
+// Transpile
 // -------------------------------------------------
 
-function compile(infiles, outfile, outdir, extraOpts) {
+function transpile(infiles, outfile, outdir, extraOpts) {
 
   var opts = assign({}, extraOpts);
   var bundler = browserify(infiles, opts)
@@ -33,40 +32,22 @@ function compile(infiles, outfile, outdir, extraOpts) {
     .pipe(gulp.dest(outdir));
 }
 
+// Build
+// -------------------------------------------------
+
 gulp.task('build:browser', function() {
-  return compile('./src/rune.js', 'rune.browser.js', 'dist', { debug:true })
+  return transpile('./src/rune.js', 'rune.browser.js', 'tmp', { debug:true })
 });
 
 gulp.task('build:node', function() {
-  return compile('./src/rune.js', 'rune.node.js', 'dist', { bundleExternal:false, standalone: "default", debug:true })
+  return transpile('./src/rune.js', 'rune.node.js', 'tmp', { bundleExternal:false, standalone: "default", debug:true })
 });
 
 gulp.task('build', ['build:browser', 'build:node']);
 
-// THESE SHOULD BE REWRITTEN TO PUBLISH DIRECTLY TO GITHUB
-// AND NPM
-// Minify
-// -------------------------------------------------
-
-/*gulp.task('minify', ['build'], function() {
-  return gulp.src(['dist/rune.browser.js', 'dist/rune.node.js'])
-    .pipe(uglify())
-    .pipe(rename({extname: '.min.js'}))
-    .pipe(gulp.dest('dist'));
-});*/
-
-// Release
-// -------------------------------------------------
-
-/*gulp.task('release', ['minify'], function() {
-  var p = require('./package.json')
-  return gulp.src('dist/*')
-    .pipe(zip('rune-'+p.version+'.zip'))
-    .pipe(gulp.dest('dist'));
-});*/
 
 // Test
-// ---------------------------------------------------
+// -------------------------------------------------
 
 gulp.task('specs:browser', function() {
   return gulp.src([
@@ -80,7 +61,7 @@ gulp.task('specs:browser', function() {
 });
 
 gulp.task('specs:browserify', function() {
-  return compile(['tmp/rune_browser_specs.js'], 'rune_browserify_specs.js', 'tmp', { debug:true })
+  return transpile(['tmp/rune_browser_specs.js'], 'rune_browserify_specs.js', 'tmp', { debug:true })
 });
 
 gulp.task('specs:node', function() {
@@ -96,11 +77,129 @@ gulp.task('specs:node', function() {
 });
 
 gulp.task('test:browser', ['build:browser', 'specs:browserify'], function() {
-  return gulp.src(['dist/rune.browser.js', 'tmp/rune_browserify_specs.js'])
+  return gulp.src(['tmp/rune.browser.js', 'tmp/rune_browserify_specs.js'])
     .pipe(jasmineBrowser.specRunner())
     .pipe(jasmineBrowser.server({port: 8888}));
+});
+
+gulp.task('test:headless', ['build:browser', 'specs:browserify'], function() {
+  return gulp.src(['tmp/rune.browser.js', 'tmp/rune_browserify_specs.js'])
+    .pipe(jasmineBrowser.specRunner({console: true}))
+    .pipe(jasmineBrowser.headless());
 });
 
 gulp.task("test:node", ['build:node', 'specs:node'], function() {
   return gulp.src(['tmp/rune_node_specs.js']).pipe(jasmine({verbose: true, includeStackTrace:true}));
 });
+
+// Minify
+// -------------------------------------------------
+
+gulp.task('minify:browser', ['build:browser'], function() {
+  return gulp.src(['tmp/rune.browser.js'])
+    .pipe(uglify())
+    .pipe(rename({extname: '.min.js'}))
+    .pipe(gulp.dest('tmp'));
+})
+
+// Zip
+// -------------------------------------------------
+
+gulp.task('zip:npm', ['build:node'], function() {
+  var p = require('./package.json')
+  return gulp.src(['tmp/rune.node.js', 'package.json'])
+    .pipe(zip('npm-'+p.version+'.zip'))
+    .pipe(gulp.dest('tmp'));
+});
+
+gulp.task('zip:browser', ['minify:browser'], function() {
+  var p = require('./package.json')
+  return gulp.src(['tmp/rune.browser.js', 'tmp/rune.browser.min.js'])
+    .pipe(zip('github-'+p.version+'.zip'))
+    .pipe(gulp.dest('tmp'));
+});
+
+
+// Publish
+// -------------------------------------------------
+
+gulp.task('publish:npm', function() {
+
+});
+
+
+gulp.task('publish:github', ['zip:browser'], function() {
+
+  var creds = require('./credentials.json');
+  var p = require('./package.json');
+
+  var github = new GitHubApi({
+    version: '3.0.0',
+    debug: true,
+    protocol: 'https',
+    host: 'api.github.com',
+    timeout: 5000,
+    headers: {
+      'Accept': 'application/vnd.github.v3+json',
+      'user-agent': 'GPMP-GitHub-App'
+    }
+  });
+
+  github.authenticate({
+    type: "oauth",
+    token: creds.github_token
+  });
+
+  github.releases.createRelease({
+    owner: 'runemadsen',
+    repo: 'rune.js',
+    tag_name: p.version,
+    body: 'See [CHANGELOG.md](CHANGELOG.md) for details'
+  }, function (err, res) {
+      if (err) {
+        console.log("Could not create release")
+        return;
+      }
+      github.releases.uploadAsset({
+        owner: 'runemadsen',
+        id: res.id,
+        repo: 'rune.js',
+        name: 'github-'+p.version+'.zip',
+        filePath: './tmp/github-'+p.version+'.zip'
+      })
+  });
+
+});
+
+
+gulp.task('publish', ['publish:npm', 'publish:github'], function() {
+  console.log("Published!");
+});
+
+
+// THESE SHOULD BE REWRITTEN TO PUBLISH DIRECTLY TO GITHUB
+// AND NPM
+// Minify
+// -------------------------------------------------
+
+/*gulp.task('minify', ['build'], function() {
+  return gulp.src(['tmp/rune.browser.js', 'tmp/rune.node.js'])
+    .pipe(uglify())
+    .pipe(rename({extname: '.min.js'}))
+    .pipe(gulp.dest('tmp'));
+});*/
+
+// Release
+// -------------------------------------------------
+
+/*gulp.task('release', ['minify'], function() {
+  var p = require('./package.json')
+  return gulp.src('tmp/*')
+    .pipe(zip('rune-'+p.version+'.zip'))
+    .pipe(gulp.dest('tmp'));
+});*/
+
+// Test
+// ---------------------------------------------------
+
+
