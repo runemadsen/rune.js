@@ -1,3 +1,7 @@
+## 0.2.1
+
+- The npm package no longer has a `Rune` global. Require statement has to look like `var Rune = require('rune.js')`
+
 ## 0.2.0
 
 - Complete rewrite of test structure and gulpfile used to generate NPM and Github releases. NPM tarball now actually works.
