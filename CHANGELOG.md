@@ -1,3 +1,7 @@
+## 0.2.2
+
+- Quick fix to not break node when checking for window.
+
 ## 0.2.1
 
 - The npm package no longer has a `Rune` global. Require statement has to look like `var Rune = require('rune.js')`
