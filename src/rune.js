@@ -38,7 +38,7 @@ class Rune {
     this.frameCount = 1;
     this.frameRate = params.frameRate;
 
-    if(params.container && !_.isUndefined(window)) {
+    if(params.container && typeof window !== 'undefined') {
 
       if(_.isString(params.container)) {
         params.container = document.querySelector(params.container);

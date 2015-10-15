@@ -99,7 +99,7 @@ gulp.task("test:node", ['build:node', 'specs:node'], function() {
 // -------------------------------------------------
 
 gulp.task('npm:dir', ['build:node'], function() {
-  return gulp.src(['tmp/rune.node.js', 'package.json'])
+  return gulp.src(['tmp/rune.node.js', 'package.json', 'README.md'])
     .pipe(gulp.dest('tmp/npm'));
 });
 
