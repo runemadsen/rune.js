@@ -11,6 +11,7 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var assign = require('lodash.assign');
 var concat = require('gulp-concat');
+var derequire = require('gulp-derequire');
 var jasmine = require('gulp-jasmine');
 var jasmineBrowser = require('gulp-jasmine-browser');
 var GitHubApi = require('github');
@@ -29,6 +30,10 @@ function transpile(infiles, outfile, outdir, extraOpts) {
   return bundler.bundle()
     .on('error', function(err) { console.error(err); this.emit('end'); })
     .pipe(source(outfile))
+
+    // remove requires from file because otherwise the node
+    // module doesn't work.
+    .pipe(derequire())
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sourcemaps.write('./'))
@@ -98,14 +103,19 @@ gulp.task("test:node", ['build:node', 'specs:node'], function() {
 // NPM
 // -------------------------------------------------
 
-gulp.task('npm:dir', ['build:node'], function() {
-  return gulp.src(['tmp/rune.node.js', 'package.json', 'README.md'])
+gulp.task('npm:dir', ['build:node', 'build:browser'], function() {
+  gulp.src(['package.json', 'README.md'])
     .pipe(gulp.dest('tmp/npm'));
 });
 
-gulp.task('npm:tar', ['npm:dir'], function() {
+gulp.task('npm:dist', ['npm:dir'], function() {
+  return gulp.src(['tmp/rune.node.js', 'tmp/rune.browser.js'])
+    .pipe(gulp.dest('tmp/npm/dist'));
+});
+
+gulp.task('npm:tar', ['npm:dist'], function() {
   var p = require('./package.json')
-  return gulp.src(['tmp/npm/*'], { base: "tmp"})
+  return gulp.src(['tmp/npm/**'], { base: "tmp"})
     .pipe(tar('node-'+p.version+'.tar'))
     .pipe(gzip())
     .pipe(gulp.dest('tmp'));

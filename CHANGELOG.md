@@ -1,3 +1,7 @@
+## 0.2.3
+
+- NPM package now ships `rune.browser.js` for easy of install.
+
 ## 0.2.2
 
 - Quick fix to not break node when checking for window.
