@@ -19,14 +19,11 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG 
 | `rune.common.js`      | 88kb   | Only core with commonjs requires |
 | `rune.common.min.js`  | 46kb   | Only core with commonjs requires (minified) |
 
-`Rune.js` is also published on [NPM](https://www.npmjs.com/package/rune.js). New releases will be announced on my Twitter account. 
-
-<a href="https://twitter.com/runemadsen" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @runemadsen</a>
-
+`Rune.js` is also published on [NPM](https://www.npmjs.com/package/rune.js). 
 
 ## Getting started
 
-First download the latest release and move the file called  `rune.browser.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
+If you want to run Rune.js in a browser, first download the latest release and move the file called  `rune.browser.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
 
 ```html
 <head>
@@ -57,6 +54,12 @@ r.draw();
 ```
 
 Double-click your HTML file, and you should now see a blue rectangle in the top-left corner of the screen.
+
+If you want to use Rune.js in node, it's as simple as requiring the `rune.js` module.
+
+```js
+var Rune = require('rune.js');
+```
 
 ### Basic shapes
 
