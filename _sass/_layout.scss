@@ -20,7 +20,6 @@ body {
 
 header {
   border-bottom: 2px solid $yellow;
-  width: 100%;
 
   ul {
     text-align: center;
@@ -53,6 +52,42 @@ header {
         margin-right: 1em;
       }
     }
+  }
+}
+
+// TOC
+// --------------------------------------------------------
+
+#toc {
+
+  display: none;
+  position: absolute;
+  left: 750px;
+
+  ul {
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    right: 20px;
+    border: 1px solid #FF0;
+
+    li {
+      border-bottom: 1px solid #FF0;
+      padding: 0.3em 1em;
+
+      a {
+        border-bottom: none;
+      }
+    }
+
+  }
+
+}
+
+@media (min-width: 930px) {
+  #toc {
+    display: block;
   }
 }
 

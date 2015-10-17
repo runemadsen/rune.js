@@ -4,6 +4,8 @@ title: "Rune.js Documentation"
 bodyClass: "documentation"
 ---
 
+<div id="toc"></div>
+
 # Documentation
 
 This is the technical documentation for Rune.js. See [Getting started](index.html) for a quick introduction on how to use the library. The [examples](http://printingcode.runemadsen.com/examples/) might also be a good place to look.
