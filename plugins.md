@@ -11,5 +11,8 @@ Ping me on [@runemadsen](https://www.twitter.com/runemadsen) if you want me to a
 
 ## Rune.Font
 
-A plugin that loads font files and converts them to `Rune.Path` objects. You can see how to use `Rune.Font` under the [Typography section](http://printingcode.runemadsen.com/examples/#typography) in the Rune.js examples.
+This plugin can load font files and convert them into `Rune.Path` objects. This is great for doing generative typography, or anything else related to accessing font vectors. Works in both the browser and node.
+
+- **Getting started**: See the [plugin README](https://github.com/runemadsen/rune.fonts.js).
+- **Examples**: Look at the [Typography section](http://printingcode.runemadsen.com/examples/#typography) in the Rune.js examples.
 
