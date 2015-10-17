@@ -297,7 +297,7 @@ var child = r.group(100, 100, parent);
 r.rect(100, 100, 500, 500, child);
 ```
 
-It's important to understand that any changes made to the parent group will affect all the children in the group, including `move()` and `.rotate()`.
+It's important to understand that any changes made to the parent group will affect all the children in the group, including `move()` and `rotate()`.
 
 If you wish to create a new shape without adding it to the stage or a group, you can pass `false` as the last parameter in any drawing function.
 
@@ -409,7 +409,7 @@ var rect = r.rect(100, 100, 500, 500, false);
 grid.add(rect, 1, 2);
 ```
 
-Grids have `move()` and `.rotate()` functions to move all shapes in the grid.
+Grids have `move()` and `rotate()` functions to move all shapes in the grid.
 
 If you have debug mode enabled, the grid modules will be drawn on the screen for reference.
 
@@ -423,4 +423,4 @@ You can enable debug mode when creating a `Rune.js` instance.
 var r = new Rune({ debug: true });
 ```
 
-Now, vist the [technical documentation](documentation.html) for further reading.
+Now, visit the [technical documentation](documentation.html) for further reading.
