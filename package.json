@@ -1,6 +1,6 @@
 {
   "name": "rune.js",
-  "version" : "0.2.3",
+  "version" : "0.2.4",
   "description": "A JavaScript library for programming graphic design systems with SVG",
   "repository": {
     "type": "git",

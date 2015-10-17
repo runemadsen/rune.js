@@ -1,3 +1,7 @@
+## 0.2.4
+
+- Fixing a bug around `requestAnimationframe` not getting cancelled if used within the `draw` listener. [issue](https://github.com/runemadsen/rune.js/issues/4)
+
 ## 0.2.3
 
 - NPM package now ships `rune.browser.js` for easy of install.
