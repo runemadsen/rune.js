@@ -81,63 +81,63 @@ class Rune {
   // --------------------------------------------------
 
   group(x, y, parent) {
-    var group = new Group(x, y);
-    Utils.groupLogic(group, this.stage, parent);
-    return group;
+    var g = new Group(x, y);
+    Utils.groupLogic(g, this.stage, parent);
+    return g;
   }
 
   triangle(x, y, x2, y2, x3, y3, parent) {
-    var tri = new Triangle(x, y, x2, y2, x3, y3);
-    Utils.groupLogic(tri, this.stage, parent);
-    return tri;
+    var t = new Triangle(x, y, x2, y2, x3, y3);
+    Utils.groupLogic(t, this.stage, parent);
+    return t;
   }
 
   rect(x, y, width, height, parent) {
-    var rect = new Rectangle(x, y, width, height);
-    Utils.groupLogic(rect, this.stage, parent);
-    return rect;
+    var r = new Rectangle(x, y, width, height);
+    Utils.groupLogic(r, this.stage, parent);
+    return r;
   }
 
   ellipse(x, y, width, height, parent) {
-    var ell = new Ellipse(x, y, width, height);
-    Utils.groupLogic(ell, this.stage, parent);
-    return ell;
+    var e = new Ellipse(x, y, width, height);
+    Utils.groupLogic(e, this.stage, parent);
+    return e;
   }
 
   circle(x, y, radius, parent) {
-    var circ = new Circle(x, y,radius);
-    Utils.groupLogic(circ, this.stage, parent);
-    return circ;
+    var c = new Circle(x, y,radius);
+    Utils.groupLogic(c, this.stage, parent);
+    return c;
   }
 
   line(x1, y1, x2, y2, parent) {
-    var line = new Line(x1, y1, x2, y2);
-    Utils.groupLogic(line, this.stage, parent);
-    return line;
+    var l = new Line(x1, y1, x2, y2);
+    Utils.groupLogic(l, this.stage, parent);
+    return l;
   }
 
   polygon(x, y, parent) {
-    var poly = new Polygon(x, y);
-    Utils.groupLogic(poly, this.stage, parent);
-    return poly;
+    var p = new Polygon(x, y);
+    Utils.groupLogic(p, this.stage, parent);
+    return p;
   }
 
   path(x, y, parent) {
-    var path = new Path(x, y);
-    Utils.groupLogic(path, this.stage, parent);
-    return path;
+    var p = new Path(x, y);
+    Utils.groupLogic(p, this.stage, parent);
+    return p;
   }
 
-  text(text, x, y, parent) {
-    var text = new Text(text, x, y);
-    Utils.groupLogic(text, this.stage, parent);
-    return text;
+  text(textString, x, y, parent) {
+    var t = new Text(textString, x, y);
+    Utils.groupLogic(t, this.stage, parent);
+    return t;
   }
 
   grid(options, parent) {
-    var grid = new Grid(options);
-    Utils.groupLogic(grid, this.stage, parent);
-    return grid;
+    var g = new Grid(options);
+    Utils.groupLogic(g, this.stage, parent);
+    return g;
   }
 
   // Playhead

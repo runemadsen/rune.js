@@ -1,3 +1,7 @@
+## 0.2.5
+
+- Fixing bugs around variables shadowing function names, which makes `Rune.js` work in Safari and most mobile browsers.
+
 ## 0.2.4
 
 - Fixing a bug around `requestAnimationframe` not getting cancelled if used within the `draw` listener. [issue](https://github.com/runemadsen/rune.js/issues/4)
