@@ -17,6 +17,7 @@ var jasmineBrowser = require('gulp-jasmine-browser');
 var GitHubApi = require('github');
 var fs = require('fs');
 var exec = require('child_process').exec;
+var watch = require('gulp-watch');
 
 // Transpile
 // -------------------------------------------------
@@ -85,7 +86,15 @@ gulp.task('specs:node', function() {
 });
 
 gulp.task('test:browser', ['build:browser', 'specs:browserify'], function() {
-  return gulp.src(['tmp/rune.browser.js', 'tmp/rune_browserify_specs.js'])
+
+  // first listen for changes on source files and recompile
+  gulp.watch('src/**/*.js', ['build:browser']);
+  gulp.watch('test/**/*.js', ['specs:browserify']);
+
+  // then listen for changes on recompiled files and restart server.
+  var compiledFiles = ['tmp/rune.browser.js', 'tmp/rune_browserify_specs.js'];
+  gulp.src(compiledFiles)
+    .pipe(watch(compiledFiles))
     .pipe(jasmineBrowser.specRunner())
     .pipe(jasmineBrowser.server({port: 8888}));
 });

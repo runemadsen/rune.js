@@ -41,6 +41,7 @@
     "lodash.assign" : "^3.2.0",
     "gulp-concat" : "^2.6.0",
     "github" : "^0.2.4",
-    "gulp-derequire" : "^2.1.0"
+    "gulp-derequire" : "^2.1.0",
+    "gulp-watch" : "4.3.5"
   }
 }

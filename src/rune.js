@@ -143,7 +143,15 @@ class Rune {
   // Playhead
   // --------------------------------------------------
 
+  // This function is a proxy function that is run on every frame
+  // It has a check that delays the frame with a setTimeout if
+  // the framerate is lower than 60 fps.
   play() {
+    if(this.pauseNext) {
+      this.pauseNext = false;
+      return;
+    }
+
     if(this.frameRate >= 60)  this.playNow();
     else                      setTimeout(_.bind(this.playNow, this), 1000 / this.frameRate);
   }
@@ -155,7 +163,7 @@ class Rune {
   }
 
   pause() {
-    cancelAnimationFrame(this.animationFrame);
+    this.pauseNext = true;
   }
 
   // Render functions

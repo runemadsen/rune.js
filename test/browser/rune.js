@@ -26,6 +26,25 @@ describe("Rune", function() {
 
   });
 
+  describe("pause()", function() {
+
+    it("pauses draw loop", function(done) {
+      var mock = { onetime: function(){} };
+      spyOn(mock, 'onetime');
+      var r = new Rune();
+      r.on('draw', function() {
+        mock.onetime();
+        r.pause();
+      });
+      r.play();
+      setTimeout(function() {
+        expect(mock.onetime.calls.count()).toEqual(1);
+        done();
+      }, 100);
+    }, 150);
+
+  });
+
   describe("frameRate()", function() {
 
     var mock;
