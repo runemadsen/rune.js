@@ -4,6 +4,7 @@
 
 - [ ] requestAnimationFrame should work in node
 - [ ] `stagePos()` on shapes and groups to get absolute position
+- [ ] `textWidth()`
 
 ### Nice to have 
 
