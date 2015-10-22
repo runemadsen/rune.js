@@ -1,3 +1,7 @@
+## 0.2.6
+
+- Triangle `move()` now moves the entire triangle, not just the starting point.
+
 ## 0.2.5
 
 - Fixing bugs around variables shadowing function names, which makes `Rune.js` work in Safari and most mobile browsers.
