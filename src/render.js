@@ -97,7 +97,7 @@ class Render {
 
   triangleToSVG(tri) {
     var attr = {
-      points: '0 0 ' + (tri.vars.x2 - tri.vars.x) + ' ' + (tri.vars.y2 - tri.vars.y) + ' ' + (tri.vars.x3 - tri.vars.x) + ' ' + (tri.vars.y3 - tri.vars.y)
+      points: '0 0 ' + tri.vars.x2 + ' ' + tri.vars.y2 + ' ' + tri.vars.x3 + ' ' + tri.vars.y3
     };
     this.transformAttribute(attr, tri);
     this.styleableAttributes(tri, attr);

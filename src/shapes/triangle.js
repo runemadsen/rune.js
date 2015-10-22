@@ -7,12 +7,16 @@ class Triangle {
   constructor(x, y, x2, y2, x3, y3) {
     this.moveable();
     this.styleable();
+
     this.vars.x = x;
     this.vars.y = y;
-    this.vars.x2 = x2;
-    this.vars.y2 = y2;
-    this.vars.x3 = x3;
-    this.vars.y3 = y3;
+
+    // Make variables relative to 0,0 as
+    // x,y will be used in transform
+    this.vars.x2 = x2 - x;
+    this.vars.y2 = y2 - y;
+    this.vars.x3 = x3 - x;
+    this.vars.y3 = y3 - y;
   }
 
   copy(parent) {

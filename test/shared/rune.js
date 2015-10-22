@@ -165,10 +165,10 @@ describe("Rune", function() {
       expect(tri.type).toEqual("triangle")
       expect(tri.vars.x).toEqual(10);
       expect(tri.vars.y).toEqual(15);
-      expect(tri.vars.x2).toEqual(100);
-      expect(tri.vars.y2).toEqual(105);
-      expect(tri.vars.x3).toEqual(20);
-      expect(tri.vars.y3).toEqual(120);
+      expect(tri.vars.x2).toEqual(90);
+      expect(tri.vars.y2).toEqual(90);
+      expect(tri.vars.x3).toEqual(10);
+      expect(tri.vars.y3).toEqual(105);
     });
 
     it("should add to group", function() {
