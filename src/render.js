@@ -97,7 +97,7 @@ class Render {
 
   triangleToSVG(tri) {
     var attr = {
-      points: tri.vars.x + ' ' + tri.vars.y + ' ' + tri.vars.x2 + ' ' + tri.vars.y2 + ' ' + tri.vars.x3 + ' ' + tri.vars.y3
+      points: '0 0 ' + (tri.vars.x2 - tri.vars.x) + ' ' + (tri.vars.y2 - tri.vars.y) + ' ' + (tri.vars.x3 - tri.vars.x) + ' ' + (tri.vars.y3 - tri.vars.y)
     };
     this.transformAttribute(attr, tri);
     this.styleableAttributes(tri, attr);
@@ -185,6 +185,98 @@ class Render {
     return svg('g', attr, _.flatten(groups, true));
   }
 
+  // Multiple attributes
+  // --------------------------------------------------
+
+  optionalAttributes (object, attr, keys) {
+    _.each(keys, function(attribute, variable) {
+      if(object.vars[variable]) {
+        attr[attribute] = this.s(object.vars[variable]);
+      }
+    }, this);
+  }
+
+  sizeableAttributes(object, attr) {
+    attr.width = this.s(object.vars.width);
+    attr.height = this.s(object.vars.height);
+  }
+
+  styleableAttributes(object, attr) {
+
+    function rgbString(col) {
+      var obj = col.rgb();
+      return "rgb(" + obj.r + ", " + obj.g + ", " + obj.b + ")";
+    }
+
+    if(object.vars.fill === false)    attr.fill = "none";
+    else if(object.vars.fill) {
+      attr.fill = rgbString(object.vars.fill);
+      var alpha = object.vars.fill.alpha();
+      if(alpha < 1) attr["fill-opacity"] = this.s(alpha);
+    }
+
+    if(object.vars.stroke === false)  attr.stroke = "none";
+    else if(object.vars.stroke) {
+      attr.stroke = rgbString(object.vars.stroke);
+      var alpha = object.vars.stroke.alpha();
+      if(alpha < 1) attr["stroke-opacity"] = this.s(alpha);
+    }
+
+    if(object.vars.strokeWidth)       attr["stroke-width"] = this.s(object.vars.strokeWidth);
+    if(object.vars.strokeCap)         attr["stroke-linecap"] = object.vars.strokeCap;
+    if(object.vars.strokeJoin)        attr["stroke-linejoin"] = object.vars.strokeJoin;
+    if(object.vars.strokeMiterlimit)  attr["stroke-miterlimit"] = this.s(object.vars.strokeMiterlimit);
+    if(object.vars.strokeDash)        attr["stroke-dasharray"] = object.vars.strokeDash;
+    if(object.vars.strokeDashOffset)  attr["stroke-dashoffset"] = this.s(object.vars.strokeDashOffset);
+  }
+
+  // Single attributes
+  // --------------------------------------------------
+
+  transformAttribute(attr, shape) {
+
+    var vars = shape.vars;
+    var strings = [];
+
+    if(vars.rotation) {
+      var rot = "rotate(" + vars.rotation;
+      if(vars.rotationX || vars.rotationY)
+        rot += " " + vars.rotationX + " " + vars.rotationY;
+      strings.push(rot + ")");
+    }
+
+    if((shape.type == "group" || shape.type == "path" || shape.type == "polygon" || shape.type == "grid" || shape.type == "triangle") && (vars.x || vars.y)) {
+      strings.push("translate(" + vars.x + " " + vars.y + ")");
+    }
+
+    if(strings.length > 0)
+      attr.transform = strings.join(" ").trim();
+  }
+
+  dAttribute(object, attr) {
+    attr.d = _.map(object.vars.anchors, function(a) {
+
+      if(a.command == 'move') {
+        return (a.relative ? "m" : "M") + " " + [a.vec1.x, a.vec1.y].join(' ');
+      }
+      else if(a.command == 'line') {
+        return (a.relative ? "l" : "L") + " " + [a.vec1.x, a.vec1.y].join(' ');
+      }
+      else if(a.command == 'cubic'){
+        return (a.relative ? "c" : "C") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y, a.vec3.x, a.vec3.y].join(' ');
+      }
+      else if(a.command == 'quad' && !_.isUndefined(a.vec2)){
+        return (a.relative ? "q" : "Q") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y].join(' ');
+      }
+      else if(a.command == 'quad'){
+        return (a.relative ? "t" : "T") + " " + [a.vec1.x, a.vec1.y].join(' ');
+      }
+      else if(a.command == 'close'){
+        return "Z";
+      }
+    }).join(" ").trim();
+  }
+
   // Debug
   // --------------------------------------------------
 
@@ -258,98 +350,6 @@ class Render {
     var l = new Line(x1, y1, x2, y2)
       .stroke(212, 18, 229);
     return this.lineToSVG(l);
-  }
-
-  // Multiple attributes
-  // --------------------------------------------------
-
-  optionalAttributes (object, attr, keys) {
-    _.each(keys, function(attribute, variable) {
-      if(object.vars[variable]) {
-        attr[attribute] = this.s(object.vars[variable]);
-      }
-    }, this);
-  }
-
-  sizeableAttributes(object, attr) {
-    attr.width = this.s(object.vars.width);
-    attr.height = this.s(object.vars.height);
-  }
-
-  styleableAttributes(object, attr) {
-
-    function rgbString(col) {
-      var obj = col.rgb();
-      return "rgb(" + obj.r + ", " + obj.g + ", " + obj.b + ")";
-    }
-
-    if(object.vars.fill === false)    attr.fill = "none";
-    else if(object.vars.fill) {
-      attr.fill = rgbString(object.vars.fill);
-      var alpha = object.vars.fill.alpha();
-      if(alpha < 1) attr["fill-opacity"] = this.s(alpha);
-    }
-
-    if(object.vars.stroke === false)  attr.stroke = "none";
-    else if(object.vars.stroke) {
-      attr.stroke = rgbString(object.vars.stroke);
-      var alpha = object.vars.stroke.alpha();
-      if(alpha < 1) attr["stroke-opacity"] = this.s(alpha);
-    }
-
-    if(object.vars.strokeWidth)       attr["stroke-width"] = this.s(object.vars.strokeWidth);
-    if(object.vars.strokeCap)         attr["stroke-linecap"] = object.vars.strokeCap;
-    if(object.vars.strokeJoin)        attr["stroke-linejoin"] = object.vars.strokeJoin;
-    if(object.vars.strokeMiterlimit)  attr["stroke-miterlimit"] = this.s(object.vars.strokeMiterlimit);
-    if(object.vars.strokeDash)        attr["stroke-dasharray"] = object.vars.strokeDash;
-    if(object.vars.strokeDashOffset)  attr["stroke-dashoffset"] = this.s(object.vars.strokeDashOffset);
-  }
-
-  // Single attributes
-  // --------------------------------------------------
-
-  transformAttribute(attr, shape) {
-
-    var vars = shape.vars;
-    var strings = [];
-
-    if(vars.rotation) {
-      var rot = "rotate(" + vars.rotation;
-      if(vars.rotationX || vars.rotationY)
-        rot += " " + vars.rotationX + " " + vars.rotationY;
-      strings.push(rot + ")");
-    }
-
-    if((shape.type == "group" || shape.type == "path" || shape.type == "polygon" || shape.type == "grid") && (vars.x || vars.y)) {
-      strings.push("translate(" + vars.x + " " + vars.y + ")");
-    }
-
-    if(strings.length > 0)
-      attr.transform = strings.join(" ").trim();
-  }
-
-  dAttribute(object, attr) {
-    attr.d = _.map(object.vars.anchors, function(a) {
-
-      if(a.command == 'move') {
-        return (a.relative ? "m" : "M") + " " + [a.vec1.x, a.vec1.y].join(' ');
-      }
-      else if(a.command == 'line') {
-        return (a.relative ? "l" : "L") + " " + [a.vec1.x, a.vec1.y].join(' ');
-      }
-      else if(a.command == 'cubic'){
-        return (a.relative ? "c" : "C") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y, a.vec3.x, a.vec3.y].join(' ');
-      }
-      else if(a.command == 'quad' && !_.isUndefined(a.vec2)){
-        return (a.relative ? "q" : "Q") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y].join(' ');
-      }
-      else if(a.command == 'quad'){
-        return (a.relative ? "t" : "T") + " " + [a.vec1.x, a.vec1.y].join(' ');
-      }
-      else if(a.command == 'close'){
-        return "Z";
-      }
-    }).join(" ").trim();
   }
 
   // Helpers

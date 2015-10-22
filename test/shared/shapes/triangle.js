@@ -9,6 +9,10 @@ describe("Rune.Triangle", function() {
     g.add(s);
   });
 
+  describe("move()", function() {
+
+  });
+
   describe("copy()", function() {
 
     it("copies the object", function() {

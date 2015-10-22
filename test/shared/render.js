@@ -135,14 +135,14 @@ describe("Rune.Render", function() {
   describe("Rune.Triangle", function() {
 
     it("should render triangle polygon", function() {
-      var s = r.triangle(10, 15, 200, 205, 20, 220);
+      var s = r.triangle(100, 150, 300, 150, 200, 350);
       drawShared(s);
       r.draw();
       var triangle = el.childNodes[0];
       expect(el.childNodes.length).toEqual(1);
       expect(triangle).toBeTag("polygon");
-      expect(triangle).toHaveAttr("points", "10 15 200 205 20 220")
-      expect(triangle).not.toHaveTranslation(0, 0);
+      expect(triangle).toHaveAttr("points", "0 0 200 0 100 200");
+      expect(triangle).toHaveTranslation(100, 150);
       expectShared(triangle);
     });
 
