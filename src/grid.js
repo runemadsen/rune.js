@@ -49,27 +49,37 @@ class Grid {
     if(!column) column = 1;
     if(!row) row = 1;
 
-    if(this.modules[column-1] && this.modules[column-1][row-1]) {
-      this.modules[column-1][row-1].add(child);
-    }
-    else {
+    // index is x + (y * width)
+    var index = (column-1) + ((row-1) * this.vars.columns)
+
+    if(this.modules[index])
+      this.modules[index].add(child)
+    else
       throw new Error("Column or row does not exist");
-    }
+  }
+
+  getModule(column, row) {
+
+    // index is x + (y * width)
+    var index = (column-1) + ((row-1) * this.vars.columns)
+
+    if(this.modules[index])
+      return this.modules[index]
+    else
+      return undefined
   }
 
   computeGrid() {
 
     this.modules = [];
 
-    for(var x = 0; x < this.vars.columns; x++) {
-
-      this.modules.push([]);
-
-      for(var y = 0; y < this.vars.rows; y++) {
+    for(var y = 0; y < this.vars.rows; y++) {
+      for(var x = 0; x < this.vars.columns; x++) {
 
         var groupX = (x * this.vars.moduleWidth) + (x * this.vars.gutterWidth);
         var groupY = (y * this.vars.moduleHeight) + (y * this.vars.gutterHeight);
-        this.modules[x].push(new Group(groupX, groupY));
+
+        this.modules.push(new Group(groupX, groupY));
       }
     }
   }

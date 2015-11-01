@@ -174,12 +174,7 @@ class Render {
   gridToSVG(grid, opts) {
     var attr = {}
     this.transformAttribute(attr, grid);
-
-    var groups = [];
-    _.each(grid.modules, _.bind(function(column) {
-      groups.push(this.objectsToSVG(column))
-    }, this));
-
+    var groups = this.objectsToSVG(grid.modules);
     if(opts && opts.debug) groups = groups.concat(this.debugGridToSVG(grid));
 
     return svg('g', attr, _.flatten(groups, true));

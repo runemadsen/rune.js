@@ -39,14 +39,13 @@ describe("Rune.Grid", function() {
       expect(grid.vars.width).toEqual(635);
       expect(grid.vars.height).toEqual(280);
 
-      expect(grid.modules.length).toBe(10);
-      expect(grid.modules[0].length).toBe(5);
-      expect(grid.modules[0][0].type).toEqual("group");
-      expect(grid.modules[0][0].vars.x).toEqual(0);
-      expect(grid.modules[0][0].vars.y).toEqual(0);
-      expect(grid.modules[2][2].type).toEqual("group");
-      expect(grid.modules[2][2].vars.x).toEqual(130);
-      expect(grid.modules[2][2].vars.y).toEqual(120);
+      expect(grid.modules.length).toBe(50);
+      expect(grid.modules[0].type).toEqual("group");
+      expect(grid.modules[0].vars.x).toEqual(0);
+      expect(grid.modules[0].vars.y).toEqual(0);
+      expect(grid.modules[14].type).toEqual("group");
+      expect(grid.modules[14].vars.x).toEqual(260);
+      expect(grid.modules[14].vars.y).toEqual(60);
     });
 
     it("works with gutter shorthand", function() {
@@ -90,29 +89,56 @@ describe("Rune.Grid", function() {
 
   });
 
+  describe("getModule()", function() {
+
+    it("returns the correct module", function() {
+      var grid = new Rune.Grid({
+        gutter: 10,
+        moduleWidth: 50,
+        moduleHeight: 50,
+        columns: 3,
+        rows: 3
+      });
+      var module = grid.getModule(2, 3)
+      expect(module.type).toEqual("group")
+      expect(module.vars.x).toEqual(60);
+      expect(module.vars.y).toEqual(120);
+    });
+
+  });
+
   describe("add()", function() {
 
     it("adds child to module and sets parent", function() {
       var g = new Rune.Grid({columns:10, rows:10});
       var s = new Rune.Ellipse();
-      expect(g.modules[1][2].children.length).toBe(0);
+
+      var mod = g.getModule(2, 3);
+      expect(mod.children.length).toBe(0);
       expect(s.parent).toBeUndefined();
+
       g.add(s, 2, 3);
-      expect(g.modules[1][2].children[0]).toBe(s);
-      expect(s.parent).toBe(g.modules[1][2]);
+
+      var mod = g.getModule(2, 3);
+      expect(mod.children[0]).toBe(s);
+      expect(s.parent).toBe(mod);
     });
 
     it("removes child from parent", function() {
       var group = new Rune.Group({columns:10, rows:10});
       var grid = new Rune.Grid({columns:10, rows:10});
       var s = new Rune.Ellipse();
+
       group.add(s);
       expect(s.parent).toBe(group);
       expect(group.children[0]).toBe(s);
+
       grid.add(s, 2, 3);
-      expect(s.parent).toBe(grid.modules[1][2]);
+
+      var mod = grid.getModule(2, 3);
+      expect(s.parent).toBe(mod);
       expect(group.children.length).toBe(0);
-      expect(grid.modules[1][2].children[0]).toBe(s);
+      expect(mod.children[0]).toBe(s);
     });
 
   });

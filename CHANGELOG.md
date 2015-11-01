@@ -1,3 +1,8 @@
+## 0.2.7
+
+- Adding `Rune.Grid` `getModule` to easily access a grid module.
+- Changing internal represenation of module from array of arrays to a single array of modules.
+
 ## 0.2.6
 
 - Triangle `move()` now moves the entire triangle, not just the starting point.
