@@ -1,4 +1,7 @@
-import _ from "underscore"
+import assign from "lodash/object/assign"
+import each from "lodash/collection/each"
+import map from "lodash/collection/map"
+import flatten from "lodash/array/flatten"
 import { Moveable, Styleable } from "../mixins"
 import Vector from '../vector'
 import Utils from '../utils'
@@ -9,8 +12,8 @@ class Polygon {
     this.moveable();
     this.styleable();
     this.vars.vectors = [];
-    if(!_.isUndefined(x)) this.vars.x = x;
-    if(!_.isUndefined(y)) this.vars.y = y;
+    if(typeof x !== 'undefined') this.vars.x = x;
+    if(typeof y !== 'undefined') this.vars.y = y;
   }
 
   lineTo(x, y) {
@@ -46,7 +49,7 @@ class Polygon {
       tmpLen += veclen;
     }
 
-    return _.first(this.vars.vectors).copy();
+    return this.vars.vectors[0].copy();
   }
 
   vectorAt(scalar) {
@@ -59,11 +62,11 @@ class Polygon {
     var xmin = undefined;
     var ymin = undefined;
 
-    _.each(this.vars.vectors, function(vec) {
-      if(_.isUndefined(xmin) || vec.x < xmin)  xmin = vec.x;
-      if(_.isUndefined(xmax) || vec.x > xmax)  xmax = vec.x;
-      if(_.isUndefined(ymin) || vec.y < ymin)  ymin = vec.y;
-      if(_.isUndefined(ymax) || vec.y > ymax)  ymax = vec.y;
+    each(this.vars.vectors, function(vec) {
+      if(typeof xmin === 'undefined' || vec.x < xmin)  xmin = vec.x;
+      if(typeof xmax === 'undefined' || vec.x > xmax)  xmax = vec.x;
+      if(typeof ymin === 'undefined' || vec.y < ymin)  ymin = vec.y;
+      if(typeof ymax === 'undefined' || vec.y > ymax)  ymax = vec.y;
     });
 
     return {
@@ -117,7 +120,7 @@ class Polygon {
 
   copy(parent) {
     var copy = new Polygon();
-    copy.vars.vectors = _.map(this.vars.vectors, function(v) { return v.copy(); });
+    copy.vars.vectors = map(this.vars.vectors, function(v) { return v.copy(); });
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
@@ -132,9 +135,11 @@ class Polygon {
 
     // map array of vectors to flat array of xy numbers
     // This might be slow, so let's rewrite this at some point.
-    var p = _.chain(this.vars.vectors).map(function(vector) {
+
+
+    var p = flatten(map(this.vars.vectors, function(vector) {
       return [addPos.x + vector.x, addPos.y + vector.y]
-    }, this).flatten().value();
+    }, this));
 
     var n = p.length>>1;
 		var ax, ay = p[2*n-3]-y, bx = p[2*n-2]-x, by = p[2*n-1]-y;
@@ -174,6 +179,6 @@ class Polygon {
   }
 }
 
-_.extend(Polygon.prototype, Moveable, Styleable, { type: "polygon" });
+assign(Polygon.prototype, Moveable, Styleable, { type: "polygon" });
 
 export default Polygon;

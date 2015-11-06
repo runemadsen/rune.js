@@ -1,4 +1,6 @@
-import _ from "underscore"
+import flatten from "lodash/array/flatten"
+import each from "lodash/collection/each"
+import map from "lodash/collection/map"
 import Circle from './shapes/circle'
 import Rectangle from './shapes/rectangle'
 import Line from './shapes/line'
@@ -42,10 +44,11 @@ class Render {
   }
 
   objectsToSVG(objects, opts) {
-    var objects = _.map(objects, _.bind(function(object) {
-      return this.objectToSVG(object, opts);
-    }, this));
-    return _.flatten(objects, true);
+    var newObjects = [];
+    for(var i = 0; i < objects.length; i++) {
+      newObjects.push(this.objectToSVG(objects[i], opts));
+    }
+    return flatten(newObjects, true);
   }
 
   rectangleToSVG(rect) {
@@ -106,7 +109,7 @@ class Render {
 
   polygonToSVG(polygon) {
     var attr = {
-      points: _.map(polygon.vars.vectors, function(vec) {
+      points: map(polygon.vars.vectors, function(vec) {
         return vec.x + " " + vec.y;
       }).join(" ")
     };
@@ -165,7 +168,7 @@ class Render {
   }
 
   groupToSVG(group) {
-    if(_.isEmpty(group.children)) return;
+    if(!group.children || group.children.length == 0) return;
     var attr = {}
     this.transformAttribute(attr, group);
     return svg('g', attr, this.objectsToSVG(group.children));
@@ -177,14 +180,14 @@ class Render {
     var groups = this.objectsToSVG(grid.modules);
     if(opts && opts.debug) groups = groups.concat(this.debugGridToSVG(grid));
 
-    return svg('g', attr, _.flatten(groups, true));
+    return svg('g', attr, flatten(groups, true));
   }
 
   // Multiple attributes
   // --------------------------------------------------
 
   optionalAttributes (object, attr, keys) {
-    _.each(keys, function(attribute, variable) {
+    each(keys, function(attribute, variable) {
       if(object.vars[variable]) {
         attr[attribute] = this.s(object.vars[variable]);
       }
@@ -249,7 +252,7 @@ class Render {
   }
 
   dAttribute(object, attr) {
-    attr.d = _.map(object.vars.anchors, function(a) {
+    attr.d = map(object.vars.anchors, function(a) {
 
       if(a.command == 'move') {
         return (a.relative ? "m" : "M") + " " + [a.vec1.x, a.vec1.y].join(' ');
@@ -260,7 +263,7 @@ class Render {
       else if(a.command == 'cubic'){
         return (a.relative ? "c" : "C") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y, a.vec3.x, a.vec3.y].join(' ');
       }
-      else if(a.command == 'quad' && !_.isUndefined(a.vec2)){
+      else if(a.command == 'quad' && typeof a.vec2 !== 'undefined') {
         return (a.relative ? "q" : "Q") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y].join(' ');
       }
       else if(a.command == 'quad'){
@@ -280,7 +283,7 @@ class Render {
     var t = this;
     var els = [];
 
-    _.each(path.vars.anchors, function(a, i) {
+    each(path.vars.anchors, function(a, i) {
       if(a.command == 'cubic'){
         els.push(t.debugLine(path.vars.x + a.vec1.x, path.vars.y + a.vec1.y, path.vars.x + a.vec3.x, path.vars.y + a.vec3.y));
         els.push(t.debugLine(path.vars.x + a.vec2.x, path.vars.y + a.vec2.y, path.vars.x + a.vec3.x, path.vars.y + a.vec3.y));
@@ -288,7 +291,7 @@ class Render {
           els.push(t.debugCircle(path.vars.x + a["vec"+i].x, path.vars.y + a["vec"+i].y))
         }
       }
-      else if(a.command == 'quad' && !_.isUndefined(a.vec2)){
+      else if(a.command == 'quad' && typeof a.vec2 !== 'undefined') {
         els.push(t.debugLine(path.vars.x + a.vec1.x, path.vars.y + a.vec1.y, path.vars.x + a.vec2.x, path.vars.y + a.vec2.y));
         for(var i = 1; i < 3; i++) {
           els.push(t.debugCircle(path.vars.x + a["vec"+i].x, path.vars.y + a["vec"+i].y))
@@ -353,7 +356,7 @@ class Render {
   // function to turn any non-string into a string. We need
   // this when running server-side node.
   s(val) {
-    if(!_.isString(val) && !_.isUndefined(val.toString))
+    if(typeof val !== 'string' && typeof val.toString !== 'undefined')
       return val.toString();
     return val;
   }

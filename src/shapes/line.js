@@ -1,4 +1,4 @@
-import _ from "underscore"
+import assign from "lodash/object/assign"
 import { Moveable, Styleable } from "../mixins"
 import Utils from '../utils'
 
@@ -24,6 +24,6 @@ class Line {
 
 }
 
-_.extend(Line.prototype, Moveable, Styleable, {type: "line"});
+assign(Line.prototype, Moveable, Styleable, {type: "line"});
 
 export default Line;

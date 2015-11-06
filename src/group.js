@@ -1,4 +1,5 @@
-import _ from "underscore"
+import without from "lodash/array/without"
+import assign from "lodash/object/assign"
 import { Moveable } from "./mixins"
 import Utils from './utils'
 import Vector from './vector'
@@ -9,8 +10,8 @@ class Group {
     this.moveable();
     this.children = [];
 
-    if(!_.isUndefined(x)) this.vars.x = x;
-    if(!_.isUndefined(y)) this.vars.y = y;
+    if(typeof x !== 'undefined') this.vars.x = x;
+    if(typeof y !== 'undefined') this.vars.y = y;
   }
 
   add(child) {
@@ -20,15 +21,15 @@ class Group {
   }
 
   remove(child) {
-    this.children = _.without(this.children, child);
+    this.children = without(this.children, child);
     child.parent = false;
   }
 
   copy(parent) {
     var copy = new Group();
-    _.each(this.children, function(child) {
-      child.copy(copy);
-    });
+    for(var i = 0; i < this.children.length; i++) {
+      this.children[i].copy(copy)
+    }
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
@@ -37,6 +38,6 @@ class Group {
 }
 
 // Should we figure out a better way to do mixins for ES6?
-_.extend(Group.prototype, Moveable, {type: "group"});
+assign(Group.prototype, Moveable, {type: "group"});
 
 export default Group;

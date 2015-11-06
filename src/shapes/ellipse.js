@@ -1,4 +1,4 @@
-import _ from "underscore"
+import assign from "lodash/object/assign"
 import { Moveable, Sizeable, Styleable } from "../mixins"
 import Polygon from './polygon'
 import Utils from '../utils'
@@ -51,6 +51,6 @@ class Ellipse {
 }
 
 // Should we figure out a better way to do mixins for ES6?
-_.extend(Ellipse.prototype, Moveable, Sizeable, Styleable, {type: "ellipse"});
+assign(Ellipse.prototype, Moveable, Sizeable, Styleable, {type: "ellipse"});
 
 export default Ellipse;

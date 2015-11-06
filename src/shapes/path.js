@@ -1,4 +1,6 @@
-import _ from "underscore"
+import each from "lodash/collection/each"
+import map from "lodash/collection/map"
+import assign from "lodash/object/assign"
 import { Moveable, Styleable } from "../mixins"
 import Anchor from '../anchor'
 import Vector from '../vector'
@@ -11,8 +13,8 @@ class Path {
     this.moveable();
     this.styleable();
     this.vars.anchors = [];
-    if(!_.isUndefined(x)) this.vars.x = x;
-    if(!_.isUndefined(y)) this.vars.y = y;
+    if(typeof x !== 'undefined') this.vars.x = x;
+    if(typeof y !== 'undefined') this.vars.y = y;
   }
 
   moveTo(x, y) {
@@ -46,7 +48,7 @@ class Path {
     var subs = [];
     var lastSplit = 0;
 
-    _.each(this.vars.anchors, function(anchor, i) {
+    each(this.vars.anchors, function(anchor, i) {
 
       var isMove = anchor.command == 'move';
       var isAfterClose = this.vars.anchors[i-1] && this.vars.anchors[i-1].command == 'close'
@@ -142,7 +144,7 @@ class Path {
     // if splitting the path into vectors with equal spacing
     if(opts && opts.spacing) {
 
-      _.each(paths, function(path) {
+      each(paths, function(path) {
         var poly = new Polygon(path.vars.x, path.vars.y);
         var len = path.length();
         var num = len / opts.spacing;
@@ -163,7 +165,7 @@ class Path {
 
   copy(parent) {
     var copy = new Path();
-    copy.vars.anchors = _.map(this.vars.anchors, function(a) { return a.copy(); });
+    copy.vars.anchors = map(this.vars.anchors, function(a) { return a.copy(); });
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
@@ -181,6 +183,6 @@ class Path {
 
 }
 
-_.extend(Path.prototype, Moveable, Styleable, { type: "path"});
+assign(Path.prototype, Moveable, Styleable, { type: "path"});
 
 export default Path;

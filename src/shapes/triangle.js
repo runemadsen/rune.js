@@ -1,4 +1,4 @@
-import _ from "underscore"
+import assign from "lodash/object/assign"
 import { Moveable, Styleable } from "../mixins"
 import Utils from '../utils'
 
@@ -32,6 +32,6 @@ class Triangle {
 
 }
 
-_.extend(Triangle.prototype, Moveable, Styleable, {type: "triangle"});
+assign(Triangle.prototype, Moveable, Styleable, {type: "triangle"});
 
 export default Triangle;

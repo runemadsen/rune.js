@@ -1,4 +1,3 @@
-import _ from "underscore"
 import Bezier from "bezier-js"
 import Vector from "./vector"
 
@@ -44,7 +43,7 @@ class Anchor {
   setCurve(a, b, c, d, e, f) {
 
     // cubic bezier with two control points
-    if(!_.isUndefined(f)) {
+    if(typeof f !== 'undefined') {
       this.command = 'cubic';
       this.vec1 = new Vector(a, b);
       this.vec2 = new Vector(c, d);

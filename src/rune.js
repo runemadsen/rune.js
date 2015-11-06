@@ -1,5 +1,5 @@
-import _ from "underscore"
-
+import defaults from "lodash/object/defaults"
+import assign from "lodash/object/assign"
 import Vector from "./vector";
 import Anchor from "./anchor"
 import Color from "./color"
@@ -22,8 +22,8 @@ class Rune {
 
   constructor(options) {
 
-    var params = _.defaults(options || {}, {
-      width: 640,
+    var params = defaults(options || {}, {
+        width: 640,
         height: 480,
         debug: false,
         frameRate: 60
@@ -40,7 +40,7 @@ class Rune {
 
     if(params.container && typeof window !== 'undefined') {
 
-      if(_.isString(params.container)) {
+      if(typeof params.container === 'string') {
         params.container = document.querySelector(params.container);
       }
 
@@ -67,13 +67,14 @@ class Rune {
   }
 
   initMouseMove() {
-    var mouseMove = _.bind(function(e) {
-      var bounds = this.renderer.el.getBoundingClientRect();
-      this.trigger('mousemove', {
+    var that = this;
+    var mouseMove = function(e) {
+      var bounds = that.renderer.el.getBoundingClientRect();
+      that.trigger('mousemove', {
         x: e.pageX - bounds.left,
         y: e.pageY - bounds.top
       });
-    }, this);
+    };
     document.addEventListener('mousemove', mouseMove, false);
   }
 
@@ -147,18 +148,27 @@ class Rune {
   // It has a check that delays the frame with a setTimeout if
   // the framerate is lower than 60 fps.
   play() {
+
     if(this.pauseNext) {
       this.pauseNext = false;
       return;
     }
 
-    if(this.frameRate >= 60)  this.playNow();
-    else                      setTimeout(_.bind(this.playNow, this), 1000 / this.frameRate);
+    if(this.frameRate >= 60) {
+      this.playNow();
+    }
+    else {
+      var that = this;
+      setTimeout(function() { that.playNow() }, 1000 / this.frameRate);
+    }
   }
 
   playNow() {
+    var that = this;
     this.trigger('draw', { frameCount: this.frameCount });
-    this.animationFrame = requestAnimationFrame(_.bind(this.play, this));
+    this.animationFrame = requestAnimationFrame(function() {
+      that.play();
+    });
     this.draw();
   }
 
@@ -185,8 +195,8 @@ class Rune {
 
 }
 
-_.extend(Rune, Utils);
-_.extend(Rune.prototype, Events)
+assign(Rune, Utils);
+assign(Rune.prototype, Events)
 
 // Modules should be accessible through Rune
 Rune.Vector = Vector;

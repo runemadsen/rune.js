@@ -1,9 +1,7 @@
-import _ from "underscore"
-
 var Utils = {
 
   random: function(a, b) {
-    if(_.isUndefined(b)) {
+    if(typeof b === 'undefined') {
       b = a;
       a = 0;
     }

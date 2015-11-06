@@ -1,6 +1,5 @@
-// This code was adapted from the brillinat color-js by harthur
-// See more here: https://github.com/harthur/color
-import _ from "underscore";
+// This code was adapted from the brilliant color lib by MoOx
+// See more here: https://github.com/MoOx/color
 import colorConvert from 'color-convert';
 import colorString from 'color-string';
 
@@ -29,7 +28,7 @@ class Color {
     }
 
     // HEX
-    else if(_.isString(a)) {
+    else if(typeof a === 'string') {
       var vals = colorString.getRgba(a);
       if (vals)                             this.setValues('rgb', vals);
       else if (vals = colorString.getHsla(a))  this.setValues('hsl', vals);
@@ -39,13 +38,13 @@ class Color {
     }
 
     // GRAYSCALE
-    else if(_.isUndefined(c)) {
+    else if(typeof c === 'undefined') {
       this.setValues('rgb', {r:a, g:a, b:a});
       if(b) this.setValues('alpha', b);
     }
 
     // RGB
-    else if(!_.isUndefined(a)) {
+    else if(typeof a !== 'undefined') {
       this.setValues('rgb', {r:a, g:b, b:c});
       if(d) this.setValues('alpha', d);
     }

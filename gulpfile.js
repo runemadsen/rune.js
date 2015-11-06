@@ -3,13 +3,14 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
 var babelify = require('babelify');
+var replace = require('gulp-replace');
 var rename = require("gulp-rename");
 var tar = require('gulp-tar');
 var gzip = require('gulp-gzip');
 var zip = require('gulp-zip');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
-var assign = require('lodash.assign');
+var assign = require('lodash/object/assign');
 var concat = require('gulp-concat');
 var derequire = require('gulp-derequire');
 var jasmine = require('gulp-jasmine');
@@ -26,11 +27,15 @@ function transpile(infiles, outfile, outdir, extraOpts) {
 
   var opts = assign({}, extraOpts);
   var bundler = browserify(infiles, opts)
-    .transform(babelify.configure({sourceMaps:false}));
+    .transform(babelify, {presets: ["es2015"]})
 
   return bundler.bundle()
     .on('error', function(err) { console.error(err); this.emit('end'); })
     .pipe(source(outfile))
+
+    // This is horrible make .default to root so package can be required
+    // with require('rune.js') and not require('rune.js').default
+    .pipe(replace("exports.default = Rune;", "module.exports = Rune;"))
 
     // remove requires from file because otherwise the node
     // module doesn't work.

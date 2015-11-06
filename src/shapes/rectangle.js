@@ -1,4 +1,4 @@
-import _ from "underscore"
+import assign from "lodash/object/assign"
 import { Moveable, Styleable, Sizeable } from "../mixins"
 import Polygon from './polygon'
 import Utils from '../utils'
@@ -38,6 +38,6 @@ class Rectangle {
   }
 }
 
-_.extend(Rectangle.prototype, Moveable, Sizeable, Styleable, { type: "rectangle" });
+assign(Rectangle.prototype, Moveable, Sizeable, Styleable, { type: "rectangle" });
 
 export default Rectangle;

@@ -1,4 +1,5 @@
-import _ from "underscore"
+import assign from "lodash/object/assign"
+import defaults from "lodash/object/defaults"
 import { Shapeable, Moveable } from "./mixins"
 import Group from './group'
 
@@ -8,7 +9,7 @@ class Grid {
     this.moveable();
     this.modules = [];
 
-    var req = _.defaults(options || {}, {
+    var req = defaults(options || {}, {
       x:0,
       y:0,
       columns:10,
@@ -20,26 +21,26 @@ class Grid {
     });
 
     // if gutter is set, override gutterWidth and gutterHeight
-    if(!_.isUndefined(req.gutter)) {
+    if(typeof req.gutter !== 'undefined') {
       req.gutterWidth = req.gutter;
       req.gutterHeight = req.gutter;
     }
 
     // if width is set, override moduleWidth
-    if(!_.isUndefined(req.width)) {
+    if(typeof req.width !== 'undefined') {
       req.moduleWidth = (req.width - ((req.columns-1) * req.gutterWidth)) / req.columns;
     } else {
       req.width = (req.moduleWidth * req.columns) + (req.gutterWidth * (req.columns-1))
     }
 
     // if height is set, override moduleWidth
-    if(!_.isUndefined(req.height)) {
+    if(typeof req.height !== 'undefined') {
       req.moduleHeight = (req.height - ((req.rows-1) * req.gutterHeight)) / req.rows;
     } else {
       req.height = (req.moduleHeight * req.rows) + (req.gutterHeight * (req.rows-1))
     }
 
-    _.extend(this.vars, req);
+    assign(this.vars, req);
 
     this.computeGrid();
   }
@@ -86,6 +87,6 @@ class Grid {
 
 }
 
-_.extend(Grid.prototype, Shapeable, Moveable, { type: "grid" });
+assign(Grid.prototype, Shapeable, Moveable, { type: "grid" });
 
 export default Grid;

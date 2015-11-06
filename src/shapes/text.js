@@ -1,4 +1,4 @@
-import _ from "underscore"
+import assign from "lodash/object/assign"
 import { Moveable, Styleable } from "../mixins"
 import Utils from '../utils'
 
@@ -41,6 +41,6 @@ class Text {
 
 }
 
-_.extend(Text.prototype, Moveable, Styleable, { type: "text" });
+assign(Text.prototype, Moveable, Styleable, { type: "text" });
 
 export default Text;
