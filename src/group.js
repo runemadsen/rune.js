@@ -1,5 +1,5 @@
 import _ from "underscore"
-import { Moveable, Groupable } from "./mixins"
+import { Moveable } from "./mixins"
 import Utils from './utils'
 import Vector from './vector'
 
@@ -34,17 +34,9 @@ class Group {
     return copy;
   }
 
-  stagepos() {
-    var vec = new Vector(this.vars.x, this.vars.y);
-    if(this.parent) {
-      vec = vec.add(this.parent.stagepos());
-    }
-    return vec;
-  }
-
 }
 
 // Should we figure out a better way to do mixins for ES6?
-_.extend(Group.prototype, Moveable, Groupable, {type: "group"});
+_.extend(Group.prototype, Moveable, {type: "group"});
 
 export default Group;

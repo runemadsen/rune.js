@@ -1,5 +1,5 @@
 import _ from "underscore"
-import { Moveable, Styleable, Groupable } from "../mixins"
+import { Moveable, Styleable } from "../mixins"
 import Utils from '../utils'
 
 class Triangle {
@@ -32,6 +32,6 @@ class Triangle {
 
 }
 
-_.extend(Triangle.prototype, Moveable, Styleable, Groupable, {type: "triangle"});
+_.extend(Triangle.prototype, Moveable, Styleable, {type: "triangle"});
 
 export default Triangle;

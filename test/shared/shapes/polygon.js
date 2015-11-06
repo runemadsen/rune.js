@@ -192,18 +192,15 @@ describe("Rune.Polygon", function() {
 
   describe("contains()", function() {
 
-    describe("contains(x,y)", function() {
+    it("uses absolute stage position if parent", function() {
+      expect(s.contains(50, 50)).toBe(false)
+      expect(s.contains(120, 75)).toBe(true)
+    });
 
-      it("works based on stage position", function() {
-        expect(s.contains(50, 50)).toBe(false)
-        expect(s.contains(120, 75)).toBe(true)
-      });
-
-      it("works based on internal location", function() {
-        expect(s.contains(10, 10, true)).toBe(false)
-        expect(s.contains(20, 20, true)).toBe(true)
-      });
-
+    it("uses relative position if no parent", function() {
+      g.remove(s);
+      expect(s.contains(5, 5)).toBe(false)
+      expect(s.contains(20, 20)).toBe(true)
     });
 
   });

@@ -1,5 +1,5 @@
 import _ from "underscore"
-import { Moveable, Styleable, Groupable } from "../mixins"
+import { Moveable, Styleable } from "../mixins"
 import Vector from '../vector'
 import Utils from '../utils'
 
@@ -125,15 +125,15 @@ class Polygon {
 
   // Code from ContainsPoint function here:
   // http://polyk.ivank.net
-  contains(x, y, absolute) {
+  contains(x, y) {
 
-    // map array of vectors to flat array of xy numbers, adding the position of the polygon
+    // get stage position
+    var addPos = this.stagepos();
+
+    // map array of vectors to flat array of xy numbers
     // This might be slow, so let's rewrite this at some point.
-    var addPos = new Vector(this.vars.x, this.vars.y);
-    if(this.parent && absolute) addPos = addPos.add(this.parent.stagepos());
-
     var p = _.chain(this.vars.vectors).map(function(vector) {
-      return [this.vars.x + vector.x, this.vars.y + vector.y]
+      return [addPos.x + vector.x, addPos.y + vector.y]
     }, this).flatten().value();
 
     var n = p.length>>1;
@@ -174,6 +174,6 @@ class Polygon {
   }
 }
 
-_.extend(Polygon.prototype, Moveable, Styleable, Groupable, { type: "polygon" });
+_.extend(Polygon.prototype, Moveable, Styleable, { type: "polygon" });
 
 export default Polygon;

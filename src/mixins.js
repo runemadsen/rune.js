@@ -1,5 +1,6 @@
 import Utils from './utils'
 import Color from './color'
+import Vector from './vector'
 
 var Moveable = {
 
@@ -29,6 +30,24 @@ var Moveable = {
       this.vars.rotationY += this.vars.y;
     }
     return this;
+  },
+
+  addParent: function(group) {
+    group.add(this);
+    return this;
+  },
+
+  removeParent: function() {
+    if(this.parent) this.parent.remove(this);
+    return this;
+  },
+
+  stagepos: function() {
+    var vec = new Vector(this.vars.x, this.vars.y);
+    if(this.parent) {
+      vec = vec.add(this.parent.stagepos());
+    }
+    return vec;
   }
 
 };
@@ -80,20 +99,4 @@ var Styleable = {
   strokeDashOffset: function(val) { this.vars.strokeDashOffset= val; return this; }
 };
 
-// Mixin for shapes that can belong to a group. This applies to
-// most shapes.
-var Groupable = {
-
-  addParent: function(group) {
-    group.add(this);
-    return this;
-  },
-
-  removeParent: function() {
-    if(this.parent) this.parent.remove(this);
-    return this;
-  }
-
-};
-
-export { Moveable, Sizeable, Styleable, Groupable };
+export { Moveable, Sizeable, Styleable };

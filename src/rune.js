@@ -16,7 +16,7 @@ import Path from "./shapes/path"
 import Polygon from "./shapes/polygon"
 import Rectangle from "./shapes/rectangle"
 import Text from "./shapes/text"
-import { Sizeable, Moveable, Styleable, Groupable } from "./mixins"
+import { Sizeable, Moveable, Styleable } from "./mixins"
 
 class Rune {
 
@@ -208,6 +208,5 @@ Rune.Text = Text;
 Rune.Moveable = Moveable;
 Rune.Styleable = Styleable;
 Rune.Sizeable = Sizeable;
-Rune.Groupable = Groupable;
 
 export default Rune;

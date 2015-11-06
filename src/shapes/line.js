@@ -1,5 +1,5 @@
 import _ from "underscore"
-import { Moveable, Styleable, Groupable } from "../mixins"
+import { Moveable, Styleable } from "../mixins"
 import Utils from '../utils'
 
 class Line {
@@ -24,6 +24,6 @@ class Line {
 
 }
 
-_.extend(Line.prototype, Moveable, Styleable, Groupable, {type: "line"});
+_.extend(Line.prototype, Moveable, Styleable, {type: "line"});
 
 export default Line;

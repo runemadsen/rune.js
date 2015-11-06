@@ -1,5 +1,5 @@
 import _ from "underscore"
-import { Moveable, Styleable, Groupable } from "../mixins"
+import { Moveable, Styleable } from "../mixins"
 import Anchor from '../anchor'
 import Vector from '../vector'
 import Polygon from './polygon'
@@ -181,6 +181,6 @@ class Path {
 
 }
 
-_.extend(Path.prototype, Moveable, Styleable, Groupable, { type: "path"});
+_.extend(Path.prototype, Moveable, Styleable, { type: "path"});
 
 export default Path;

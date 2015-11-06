@@ -1,8 +1,10 @@
 describe("Rune.Moveable", function() {
 
   var m;
+  var g;
 
   beforeEach(function() {
+    g = new Rune.Group(50, 25);
     m = newMixin(Rune.Moveable);
     m.moveable();
   });
@@ -94,6 +96,42 @@ describe("Rune.Moveable", function() {
     it("is chainable", function() {
       var res = m.rotate(45);
       expect(m).toEqual(res);
+    });
+
+  });
+
+  describe("addTo()", function() {
+
+    it("adds child to parent", function() {
+      expect(m).not.toBeChildOf(g);
+      m.addParent(g);
+      expect(m).toBeChildOf(g);
+    });
+
+  });
+
+  describe("remove()", function() {
+
+    it("removes child from parent", function() {
+      g.add(m);
+      expect(m).toBeChildOf(g);
+      m.removeParent();
+      expect(m).not.toBeChildOf(g);
+    });
+
+  });
+
+  describe("stagepos()", function() {
+
+    it("returns relative position without parent", function() {
+      m.move(10, 15);
+      expect(m.stagepos()).toEqualVector(10, 15);
+    });
+
+    it("returns absolute position with parent", function() {
+      m.move(10, 15);
+      g.add(m);
+      expect(m.stagepos()).toEqualVector(60, 40);
     });
 
   });

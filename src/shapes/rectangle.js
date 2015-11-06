@@ -1,5 +1,5 @@
 import _ from "underscore"
-import { Moveable, Styleable, Sizeable, Groupable } from "../mixins"
+import { Moveable, Styleable, Sizeable } from "../mixins"
 import Polygon from './polygon'
 import Utils from '../utils'
 
@@ -38,6 +38,6 @@ class Rectangle {
   }
 }
 
-_.extend(Rectangle.prototype, Moveable, Sizeable, Styleable, Groupable, { type: "rectangle" });
+_.extend(Rectangle.prototype, Moveable, Sizeable, Styleable, { type: "rectangle" });
 
 export default Rectangle;
