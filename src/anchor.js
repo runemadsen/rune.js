@@ -1,4 +1,4 @@
-import Bezier from "bezier-js"
+import Bezier from "./bezier"
 import Vector from "./vector"
 
 class Anchor {

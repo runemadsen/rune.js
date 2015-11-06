@@ -4,6 +4,8 @@
 - Group and shapes now have a `stagepos()` function that returns their absolute position according to the stage
 - Removing `Groupable` mixin in favor of `Moveable`
 - Replacing underscore with lodash to shrink size of library
+- Updated code to use Babel 6
+- Removed bezier.js library to shrink size of library
 
 ## 0.2.8
 
