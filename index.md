@@ -10,7 +10,7 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG 
 
 ## Download
 
-**[Current version: 0.2.7](https://github.com/runemadsen/rune.js/releases/latest)**
+**[Current version: 0.2.8](https://github.com/runemadsen/rune.js/releases/latest)**
 
 | Filename              | Size   | Description   |
 | --------------------- | ------ | -------------|
@@ -19,7 +19,7 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG 
 | `rune.common.js`      | 88kb   | Only core with commonjs requires |
 | `rune.common.min.js`  | 46kb   | Only core with commonjs requires (minified) |
 
-`Rune.js` is also published on [NPM](https://www.npmjs.com/package/rune.js). 
+`Rune.js` is also published on [NPM](https://www.npmjs.com/package/rune.js).
 
 ## Getting started
 
@@ -282,7 +282,7 @@ Any shapes added to this group will be positioned relative to the group position
 var myGroup = r.group(100, 100);
 
 // I'm a rectangle at 150 150!
-r.rect(50, 50, 500, 500, myGroup); 
+r.rect(50, 50, 500, 500, myGroup);
 ```
 
 You have probably noticed that I'm passing the group as the last parameter in the `rect()` drawing function. **All drawing functions accept a custom group as the last parameter**, and doing this will add the new shape to the group instead of the default stage. The `group()` function also does this, so you can nest groups to construct some very complex scenarios.
