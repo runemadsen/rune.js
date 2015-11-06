@@ -27,6 +27,13 @@ class Text {
   copy(parent) {
     var copy = new Text();
     copy.vars.text = this.vars.text;
+    copy.vars.textAlign = this.vars.textAlign;
+    copy.vars.fontFamily = this.vars.fontFamily;
+    copy.vars.fontStyle = this.vars.fontStyle;
+    copy.vars.fontWeight = this.vars.fontWeight;
+    copy.vars.fontSize = this.vars.fontSize;
+    copy.vars.letterSpacing = this.vars.letterSpacing;
+    copy.vars.textDecoration = this.vars.textDecoration;
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;

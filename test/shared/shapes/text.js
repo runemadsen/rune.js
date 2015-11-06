@@ -2,31 +2,41 @@ describe("Rune.Text", function() {
 
   var s;
 
+  var textVars = {
+    "textAlign" : "center",
+    "fontFamily" : "Georgia",
+    "fontStyle" : "italic",
+    "fontWeight" : "bold",
+    "fontSize" : 32,
+    "letterSpacing" : 0.5,
+    "textDecoration" : "underline"
+  };
+
+  function setTextVars(text) {
+    _.each(textVars, function(v, k) {
+      s[k](v);
+    });
+  }
+
+  function expectTextVars(text) {
+    _.each(textVars, function(v, k) {
+      expect(s.vars[k]).toEqual(v);
+    });
+  }
+
   beforeEach(function() {
     s = new Rune.Text("Hello", 10, 15);
   });
 
-  describe("Common setters", function() {
-
-    var setters = {
-      "textAlign" : "center",
-      "fontFamily" : "Georgia",
-      "fontStyle" : "italic",
-      "fontWeight" : "bold",
-      "fontSize" : 32,
-      "letterSpacing" : 0.5,
-      "textDecoration" : "underline"
-    };
+  describe("Common text vars", function() {
 
     it("sets var", function() {
-      _.each(setters, function(v, k) {
-        s[k](v);
-        expect(s.vars[k]).toEqual(v);
-      });
+      setTextVars(s);
+      expectTextVars(s);
     });
 
     it("is chainable", function() {
-      _.each(setters, function(v, k) {
+      _.each(textVars, function(v, k) {
         var res = s[k](v);
         expect(res).toBe(res);
       });
@@ -53,6 +63,7 @@ describe("Rune.Text", function() {
 
     it("copies the object", function() {
       setMixinVars(s);
+      setTextVars(s);
       var copy = s.copy();
       expect(copy).not.toBe(s);
       expect(copy).toEqual(s);

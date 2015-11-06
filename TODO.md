@@ -2,11 +2,12 @@
 
 ### Must
 
+- [ ] `scale()` on all shapes
 - [ ] requestAnimationFrame should work in node
 - [ ] `stagePos()` on shapes and groups to get absolute position
 - [ ] `textWidth()`
 
-### Nice to have 
+### Nice to have
 
 - [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
 - [ ] `keypressed`
