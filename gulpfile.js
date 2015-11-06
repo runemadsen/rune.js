@@ -50,7 +50,7 @@ function transpile(infiles, outfile, outdir, extraOpts) {
 // -------------------------------------------------
 
 gulp.task('build:browser', function() {
-  return transpile('./src/rune.js', 'rune.browser.js', 'tmp', { standalone: "Rune", debug:true })
+  return transpile('./src/rune.js', 'rune.js', 'tmp', { standalone: "Rune", debug:true })
 });
 
 gulp.task('build:node', function() {
@@ -97,7 +97,7 @@ gulp.task('test:browser', ['build:browser', 'specs:browserify'], function() {
   gulp.watch('test/**/*.js', ['specs:browserify']);
 
   // then listen for changes on recompiled files and restart server.
-  var compiledFiles = ['tmp/rune.browser.js', 'tmp/rune_browserify_specs.js'];
+  var compiledFiles = ['tmp/rune.js', 'tmp/rune_browserify_specs.js'];
   gulp.src(compiledFiles)
     .pipe(watch(compiledFiles))
     .pipe(jasmineBrowser.specRunner())
@@ -105,7 +105,7 @@ gulp.task('test:browser', ['build:browser', 'specs:browserify'], function() {
 });
 
 gulp.task('test:headless', ['build:browser', 'specs:browserify'], function() {
-  return gulp.src(['tmp/rune.browser.js', 'tmp/rune_browserify_specs.js'])
+  return gulp.src(['tmp/rune.js', 'tmp/rune_browserify_specs.js'])
     .pipe(jasmineBrowser.specRunner({console: true}))
     .pipe(jasmineBrowser.headless());
 });
@@ -123,7 +123,7 @@ gulp.task('npm:dir', ['build:node', 'build:browser'], function() {
 });
 
 gulp.task('npm:dist', ['npm:dir'], function() {
-  return gulp.src(['tmp/rune.node.js', 'tmp/rune.browser.js'])
+  return gulp.src(['tmp/rune.node.js', 'tmp/rune.js'])
     .pipe(gulp.dest('tmp/npm/dist'));
 });
 
@@ -151,7 +151,7 @@ gulp.task('npm:publish', ['npm:tar'], function(cb) {
 // -------------------------------------------------
 
 gulp.task('github:minify', ['build:browser'], function() {
-  return gulp.src(['tmp/rune.browser.js'])
+  return gulp.src(['tmp/rune.js'])
     .pipe(uglify())
     .pipe(rename({extname: '.min.js'}))
     .pipe(gulp.dest('tmp'));
@@ -159,7 +159,7 @@ gulp.task('github:minify', ['build:browser'], function() {
 
 gulp.task('github:zip', ['github:minify'], function() {
   var p = require('./package.json')
-  return gulp.src(['tmp/rune.browser.js', 'tmp/rune.browser.min.js'])
+  return gulp.src(['tmp/rune.js', 'tmp/rune.min.js'])
     .pipe(zip('github-'+p.version+'.zip'))
     .pipe(gulp.dest('tmp'));
 });
