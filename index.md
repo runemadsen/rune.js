@@ -21,11 +21,11 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG 
 
 ## Getting started
 
-If you want to run Rune.js in a browser, first download the latest release and move the file called  `rune.browser.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
+If you want to run Rune.js in a browser, first download the latest release and move the file called  `rune.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
 
 ```html
 <head>
-  <script type="text/javascript" src="rune.browser.js"></script>
+  <script type="text/javascript" src="rune.js"></script>
 </head>
 ```
 
