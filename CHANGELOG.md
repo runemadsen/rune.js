@@ -1,3 +1,7 @@
+## 0.2.8
+
+- Text shapes are not copied with all their variables when calling `copy()`.
+
 ## 0.2.7
 
 - Adding `Rune.Grid` `getModule` to easily access a grid module.
