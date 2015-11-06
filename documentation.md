@@ -24,7 +24,7 @@ Creates a new instance to be used for all drawing methods. You can use multiple 
 
 ### `draw()`
 
-Draws the current stage graph to the SVG element. Will automatically be called when using `play()` and the `draw` event. 
+Draws the current stage graph to the SVG element. Will automatically be called when using `play()` and the `draw` event.
 
 ### `line(x1, y1, x2, y2, parent)`
 
@@ -80,7 +80,7 @@ Used to listen to events. This is how you would listen to the `draw` even after 
 
 ```js
 r.on('draw', function() {
-  console.log("here") 
+  console.log("here")
 });
 ```
 
@@ -194,6 +194,11 @@ Specifies the distance into the dash pattern to start the dash.
 
 - `offset` - Percentage string or number.
 
+### `stagepos()`
+
+Returns the absolute position of the shape or group in relation to the canvas `0,0`. This is helpful if you have a lot of nested groups, and you want to find the position of a shape in relation to the canvas.
+
+
 ## Rune.Rectangle
 
 ### `new Rune.Rectangle(x, y, width, height)`
@@ -263,6 +268,10 @@ Returns a JavaScript object with `x`, `y`, `width` and `height` properties descr
 
 Returns a `Rune.Vector` holding the centroid of the shape. This is the internal representation of the centroid, which means that the polygon `xy` values are not added to the centroid.
 
+### `contains(x, y)`
+
+Returns a boolean to indicate whether or not the `xy` point is inside the polygon. If the polygon belongs belongs to the stage, this will be calculated using the absolute position of the polygon to the stage. If the polygon does not belong to a group, this will be calculated using just the polygon position and outline.
+
 
 ## Rune.Path
 
@@ -280,7 +289,7 @@ Creates a line from the current position ending at `xy`. All outlines created vi
 
 ### `curveTo(...)`
 
-Create a curve from the current position in the path. There are two different types of curves: a quad bezier (a bezier curve with a single control point), and a cubic bezier (a bezier curve with two control points). 
+Create a curve from the current position in the path. There are two different types of curves: a quad bezier (a bezier curve with a single control point), and a cubic bezier (a bezier curve with two control points).
 
 The following will draw a quad bezier curve from the current path position to `200,0`, with the curve going through a single control point at `100,100`.
 
@@ -583,5 +592,3 @@ Returns the length of the anchor, whether it's a curve or a line. Move anchors w
 ### `vectorAt(scalar)`
 
 Returns a `Rune.Vector` with a point on the anchor defined by `scalar`, a normalized float from 0 to 1. For example, if `scalar` is 0.5 and it's called on a curve anchor, this function will return the point that is midways on the curve.
-
-
