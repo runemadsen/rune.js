@@ -125,10 +125,13 @@ class Polygon {
 
   // Code from ContainsPoint function here:
   // http://polyk.ivank.net
-  contains(x, y) {
+  contains(x, y, absolute) {
 
     // map array of vectors to flat array of xy numbers, adding the position of the polygon
     // This might be slow, so let's rewrite this at some point.
+    var addPos = new Vector(this.vars.x, this.vars.y);
+    if(this.parent && absolute) addPos = addPos.add(this.parent.stagepos());
+
     var p = _.chain(this.vars.vectors).map(function(vector) {
       return [this.vars.x + vector.x, this.vars.y + vector.y]
     }, this).flatten().value();
