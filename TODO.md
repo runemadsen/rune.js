@@ -2,14 +2,15 @@
 
 ### Must
 
+- [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
 - [ ] `scale()` on all shapes
-- [ ] requestAnimationFrame should work in node
-- [ ] `stagePos()` on shapes and groups to get absolute position
+- [ ] masking
 - [ ] `textWidth()`
 
 ### Nice to have
 
-- [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
+- [ ] requestAnimationFrame should work in node
+- [ ] `stagePos()` on shapes and groups to get absolute position
 - [ ] `keypressed`
 - [ ] masking / clipping
 - [ ] Gradients

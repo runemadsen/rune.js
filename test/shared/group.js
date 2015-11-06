@@ -87,4 +87,22 @@ describe("Rune.Group", function() {
 
   });
 
+  describe("stagepos()", function() {
+
+    it("returns absolute position if stage", function() {
+      var stage = new Rune.Group();
+      expect(stage.stagepos()).toEqualVector(0, 0);
+    });
+
+    it("return absolute position if parent", function() {
+      var stage = new Rune.Group();
+      var child = new Rune.Group(100, 50);
+      var grandchild = new Rune.Group(30, 15);
+      stage.add(child);
+      child.add(grandchild);
+      expect(grandchild.stagepos()).toEqualVector(130, 65);
+    });
+
+  });
+
 });

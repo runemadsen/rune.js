@@ -122,6 +122,53 @@ class Polygon {
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
   }
+
+  // Code from ContainsPoint function here:
+  // http://polyk.ivank.net
+  contains(x, y) {
+
+    // map array of vectors to flat array of xy numbers, adding the position of the polygon
+    // This might be slow, so let's rewrite this at some point.
+    var p = _.chain(this.vars.vectors).map(function(vector) {
+      return [this.vars.x + vector.x, this.vars.y + vector.y]
+    }, this).flatten().value();
+
+    var n = p.length>>1;
+		var ax, ay = p[2*n-3]-y, bx = p[2*n-2]-x, by = p[2*n-1]-y;
+
+		var lup;
+		for(var i=0; i<n; i++)
+		{
+			ax = bx;  ay = by;
+			bx = p[2*i  ] - x;
+			by = p[2*i+1] - y;
+			if(ay==by) continue;
+			lup = by>ay;
+		}
+
+		var depth = 0;
+		for(var i=0; i<n; i++)
+		{
+			ax = bx;  ay = by;
+			bx = p[2*i  ] - x;
+			by = p[2*i+1] - y;
+			if(ay< 0 && by< 0) continue;	// both "up" or both "down"
+			if(ay> 0 && by> 0) continue;	// both "up" or both "down"
+			if(ax< 0 && bx< 0) continue; 	// both points on the left
+
+			if(ay==by && Math.min(ax,bx)<=0) return true;
+			if(ay==by) continue;
+
+			var lx = ax + (bx-ax)*(-ay)/(by-ay);
+			if(lx==0) return true;			// point on edge
+			if(lx> 0) depth++;
+			if(ay==0 &&  lup && by>ay) depth--;	// hit vertex, both up
+			if(ay==0 && !lup && by<ay) depth--; // hit vertex, both down
+			lup = by>ay;
+		}
+
+		return (depth & 1) == 1;
+  }
 }
 
 _.extend(Polygon.prototype, Moveable, Styleable, Groupable, { type: "polygon" });

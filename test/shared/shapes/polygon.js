@@ -4,7 +4,7 @@ describe("Rune.Polygon", function() {
   var s;
 
   beforeEach(function() {
-    g = new Rune.Group();
+    g = new Rune.Group(100, 50);
     s = new Rune.Polygon(10, 15)
       .lineTo(0, 0)
       .lineTo(60, 0)
@@ -168,18 +168,6 @@ describe("Rune.Polygon", function() {
 
   describe("copy()", function() {
 
-    var s;
-    var g;
-
-    beforeEach(function() {
-      s = new Rune.Polygon()
-        .lineTo(100, 101)
-        .lineTo(200, 201)
-        .lineTo(300, 301);
-      g = new Rune.Group();
-      g.add(s);
-    });
-
     it("copies the object", function() {
       setMixinVars(s);
       var copy = s.copy();
@@ -198,6 +186,24 @@ describe("Rune.Polygon", function() {
       expect(g.children.length).toEqual(1);
       s.copy(false);
       expect(g.children.length).toEqual(1);
+    });
+
+  });
+
+  describe("contains()", function() {
+
+    describe("contains(x,y)", function() {
+
+      it("works based on stage position", function() {
+        expect(s.contains(50, 50)).toBe(false)
+        expect(s.contains(120, 75)).toBe(true)
+      });
+
+      it("works based on internal location", function() {
+        expect(s.contains(10, 10, true)).toBe(false)
+        expect(s.contains(20, 20, true)).toBe(true)
+      });
+
     });
 
   });

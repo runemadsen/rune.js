@@ -1,6 +1,7 @@
 import _ from "underscore"
 import { Moveable, Groupable } from "./mixins"
 import Utils from './utils'
+import Vector from './vector'
 
 class Group {
 
@@ -31,6 +32,14 @@ class Group {
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
+  }
+
+  stagepos() {
+    var vec = new Vector(this.vars.x, this.vars.y);
+    if(this.parent) {
+      vec = vec.add(this.parent.stagepos());
+    }
+    return vec;
   }
 
 }
