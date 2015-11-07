@@ -4,12 +4,26 @@ $(function() {
   // in that div.
   var toc = $("#toc");
   if(toc.length > 0) {
-    toc.append("<ul></ul>");
-    $("h2").each(function() {
+
+    toc.append("<ul id='top'></ul>");
+
+    var curLi;
+
+    $("h2, h3").each(function() {
+
       var jheading = $(this);
       var slug = jheading.attr("id");
       var txt = jheading.text();
-      $("#toc ul").append("<li><a href='#"+slug+"'>"+txt+"</a></li>");
+
+      if(this.tagName == 'H2') {
+        console.log(this.tagName)
+        console.log('changing curli')
+        curLi = $("<li><a href='#"+slug+"'>"+txt+"</a><ul></ul></li>");
+        $("#toc ul#top").append(curLi);
+      } else {
+        curLi.find('ul').append("<li><a href='#"+slug+"'>"+txt+"</a></li>");
+      }
+
     });
   }
 

@@ -65,7 +65,7 @@ header {
   left: 750px;
 
   ul {
-
+    font-size: 1.15rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -78,6 +78,19 @@ header {
 
       a {
         border-bottom: none;
+      }
+
+      // second level
+      ul {
+        font-size:1rem;
+        border: none;
+        li {
+          border: none;
+          padding: 0.1em 0.5em;
+          a {
+            color: #8A8A8A;
+          }
+        }
       }
     }
 
