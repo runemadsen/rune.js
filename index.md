@@ -14,8 +14,8 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG 
 
 | Filename               | Size   | Description   |
 | ---------------------- | ------ | ------------- |
-| `rune.js`     | 258kb  | All dependencies included. |
-| `rune.min.js` | 108kb  | All dependencies included (minified) |
+| `rune.js`     | 246kb  | All dependencies included. |
+| `rune.min.js` | 101kb  | All dependencies included (minified) |
 
 `Rune.js` is also published on [NPM](https://www.npmjs.com/package/rune.js).
 
