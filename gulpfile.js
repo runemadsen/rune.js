@@ -147,7 +147,7 @@ gulp.task('npm:publish', ['npm:tar'], function(cb) {
 
 });
 
-// GITHUB
+// GitHub
 // -------------------------------------------------
 
 gulp.task('github:minify', ['build:browser'], function() {
