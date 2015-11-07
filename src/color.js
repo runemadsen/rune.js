@@ -1,7 +1,6 @@
 // This code was adapted from the brilliant color lib by MoOx
 // See more here: https://github.com/MoOx/color
 import colorConvert from 'color-convert';
-import colorString from 'color-string';
 
 class Color {
 
@@ -29,11 +28,14 @@ class Color {
 
     // HEX
     else if(typeof a === 'string') {
-      var vals = colorString.getRgba(a);
-      if (vals)                             this.setValues('rgb', vals);
-      else if (vals = colorString.getHsla(a))  this.setValues('hsl', vals);
-      else if(vals = colorString.getHwb(a))    this.setValues('hwb', vals);
-      else throw new Error("Unable to parse color from string \"" + a + "\"");
+
+      // convert HEX to RGB
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(a);
+      if(result) {
+        this.setValues('rgb', [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)])
+      } else {
+        throw new Error("Unable to parse color from string \"" + a + "\"");
+      }
       if(b) this.setValues('alpha', b);
     }
 
@@ -166,42 +168,6 @@ class Color {
 
   black(val) {
     return this.setChannel("cmyk", 3, val);
-  }
-
-  hexString() {
-    return colorString.hexString(this.values.rgb);
-  }
-
-  rgbString() {
-    return colorString.rgbString(this.values.rgb, this.values.alpha);
-  }
-
-  rgbaString() {
-    return colorString.rgbaString(this.values.rgb, this.values.alpha);
-  }
-
-  percentString() {
-    return colorString.percentString(this.values.rgb, this.values.alpha);
-  }
-
-  hslString() {
-    return colorString.hslString(this.values.hsl, this.values.alpha);
-  }
-
-  hslaString() {
-    return colorString.hslaString(this.values.hsl, this.values.alpha);
-  }
-
-  hwbString() {
-    return colorString.hwbString(this.values.hwb, this.values.alpha);
-  }
-
-  keyword() {
-    return colorString.keyword(this.values.rgb, this.values.alpha);
-  }
-
-  rgbNumber() {
-    return (this.values.rgb[0] << 16) | (this.values.rgb[1] << 8) | this.values.rgb[2];
   }
 
   luminosity() {

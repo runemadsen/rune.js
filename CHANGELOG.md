@@ -1,3 +1,7 @@
+## 0.2.10
+
+- Removing colorString library to shrink size of library.
+
 ## 0.2.9
 
 - `Rune.Polygon` now has a `contains(x,y)` function to know whether a point is inside or outside a polygon

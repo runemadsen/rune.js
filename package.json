@@ -1,6 +1,6 @@
 {
   "name": "rune.js",
-  "version" : "0.2.9",
+  "version" : "0.2.10",
   "description": "A JavaScript library for programming graphic design systems with SVG",
   "repository": {
     "type": "git",
@@ -19,8 +19,7 @@
   "dependencies": {
     "lodash": "3.10.1",
     "virtual-dom": "2.1.1",
-    "color-convert": "0.5.3",
-    "color-string": "0.3.0"
+    "color-convert": "0.5.3"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
