@@ -7,17 +7,14 @@ title: "Rune.js Documentation"
 
 Rune.js is a JavaScript library for programming graphic design systems with SVG in the browser or node.js. It features a chainable drawing API, an unobtrusive scene graph, and a range of features aimed specifically at graphic designers: native support for color conversion, grid systems, typography, pixel iteration, as well as an expanding set of computational geometry helpers. Oh, and it uses [virtual-dom](https://github.com/Matt-Esch/virtual-dom) under the hood.
 
+<a href="https://twitter.com/runemadsen" class="twitter-follow-button" data-show-count="false">Follow @runemadsen</a>
 
-## Download
 
-**[Current version: 0.2.10](https://github.com/runemadsen/rune.js/releases/latest)**
+## Install
 
-| Filename               | Size   | Description   |
-| ---------------------- | ------ | ------------- |
-| `rune.js`     | 246kb  | Uncompressed. Ready to use in browser. |
-| `rune.min.js` | 101kb  | Minified. Ready to use in browser. |
+To use in the browser, [**download the latest release**](https://github.com/runemadsen/rune.js/releases/latest) on GitHub. The ZIP file has both an uncompressed and a compressed version, with all dependencies included, ready to use in the browser.
 
-`Rune.js` is also published on [NPM](https://www.npmjs.com/package/rune.js).
+To use in Node, [**install the package via NPM**](https://www.npmjs.com/package/rune.js). The NPM package is a UMD module that works both for commonjs and requirejs.
 
 ## Getting started
 

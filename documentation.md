@@ -143,6 +143,10 @@ Rotates the shape to a degree on the screen. If `x` and `y` is not set, the shap
 
 Makes a copy of the shape. The `parent` parameter uses the same logic as the shorthand shape functions on the Rune instance: If not set, the new copy will be added to the same parent as the base shape. If `parent` is a group, the new copy will be added to this group. If `parent` is false, the new copy will not have a parent.
 
+### `scale(scalar)`
+
+Can be used to scale both shapes and groups. If called on a shape, the shape will scale while staying at the same position. If called on a group, the group will scale all children, including their `x` and `y` positions.
+
 ### `addParent(parent)`
 
 Changes the parent of the shape to group passed in the `parent` parameter.
