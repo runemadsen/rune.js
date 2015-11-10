@@ -35,6 +35,7 @@ class Triangle {
     this.vars.y2 *= scalar;
     this.vars.x3 *= scalar;
     this.vars.y3 *= scalar;
+    return this;
   }
 
 }

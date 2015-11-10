@@ -105,4 +105,24 @@ describe("Rune.Group", function() {
 
   });
 
+  describe("scale()", function() {
+
+    it("scales children groups and shapes", function() {
+      var g = new Rune.Group(10, 15);
+      var childGroup = new Rune.Group(20, 25);
+      var childShape = new Rune.Circle(30, 35, 40);
+      g.add(childGroup);
+      g.add(childShape);
+      g.scale(2);
+      expect(g.vars.x).toEqual(10);
+      expect(g.vars.y).toEqual(15);
+      expect(childGroup.vars.x).toEqual(40);
+      expect(childGroup.vars.y).toEqual(50);
+      expect(childShape.vars.x).toEqual(60);
+      expect(childShape.vars.y).toEqual(70);
+      expect(childShape.vars.radius).toEqual(80);
+    });
+
+  });
+
 });

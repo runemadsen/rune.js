@@ -175,6 +175,7 @@ class Path {
     this.vars.anchors = map(this.vars.anchors, function(anchor) {
       return anchor.multiply(scalar);
     });
+    return this;
   }
 
   fillRule(val) { this.vars.fillRule = val; return this; }

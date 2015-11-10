@@ -1,3 +1,8 @@
+## 0.2.11
+
+- Adding `scale()` to all shapes
+- Adding `scale()` to groups
+
 ## 0.2.10
 
 - Removing colorString library to shrink size of library.

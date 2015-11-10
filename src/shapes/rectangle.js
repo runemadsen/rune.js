@@ -40,6 +40,7 @@ class Rectangle {
   scale(scalar) {
     this.vars.width *= scalar;
     this.vars.height *= scalar;
+    return this;
   }
 }
 

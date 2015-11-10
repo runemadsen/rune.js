@@ -24,6 +24,7 @@ class Circle {
 
   scale(scalar) {
     this.vars.radius *= scalar;
+    return this;
   }
 
   copy(parent) {

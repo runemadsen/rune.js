@@ -44,6 +44,7 @@ class Ellipse {
   scale(scalar) {
     this.vars.width *= scalar;
     this.vars.height *= scalar;
+    return this;
   }
 
   copy(parent) {

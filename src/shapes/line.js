@@ -29,6 +29,7 @@ class Line {
     var vec = end.sub(start).multiply(scalar).add(start);
     this.vars.x2 = vec.x;
     this.vars.y2 = vec.y;
+    return this;
   }
 
 }

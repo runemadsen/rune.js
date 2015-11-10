@@ -1,5 +1,6 @@
 import without from "lodash/array/without"
 import assign from "lodash/object/assign"
+import each from "lodash/collection/each"
 import { Moveable } from "./mixins"
 import Utils from './utils'
 import Vector from './vector'
@@ -33,6 +34,15 @@ class Group {
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
+  }
+
+  scale(scalar) {
+    each(this.children, function(child) {
+      child.vars.x *= scalar;
+      child.vars.y *= scalar;
+      child.scale(scalar);
+    });
+    return this;
   }
 
 }

@@ -182,6 +182,7 @@ class Polygon {
     this.vars.vectors = map(this.vars.vectors, function(vec) {
       return vec.multiply(scalar);
     });
+    return this;
   }
 }
 

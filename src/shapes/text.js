@@ -42,6 +42,7 @@ class Text {
 
   scale(scalar) {
     this.vars.fontSize *= scalar;
+    return this;
   }
 
 }
