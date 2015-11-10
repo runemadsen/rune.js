@@ -83,4 +83,11 @@ describe("Rune.Text", function() {
 
   });
 
+  it("scales the rectangle", function() {
+    s.scale(2);
+    expect(s.vars.x).toEqual(10);
+    expect(s.vars.y).toEqual(15);
+    expect(s.vars.fontSize).toEqual(32);
+  });
+
 });

@@ -36,6 +36,11 @@ class Rectangle {
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
   }
+
+  scale(scalar) {
+    this.vars.width *= scalar;
+    this.vars.height *= scalar;
+  }
 }
 
 assign(Rectangle.prototype, Moveable, Sizeable, Styleable, { type: "rectangle" });

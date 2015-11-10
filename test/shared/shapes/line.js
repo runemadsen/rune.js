@@ -32,4 +32,16 @@ describe("Rune.Line", function() {
 
   });
 
+  describe("scale()", function() {
+
+    it("scales the line", function() {
+      s.scale(2);
+      expect(s.vars.x).toEqual(10);
+      expect(s.vars.y).toEqual(15);
+      expect(s.vars.x2).toEqual(30);
+      expect(s.vars.y2).toEqual(35);
+    });
+
+  });
+
 });

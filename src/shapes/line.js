@@ -1,5 +1,6 @@
 import assign from "lodash/object/assign"
 import { Moveable, Styleable } from "../mixins"
+import Vector from '../vector'
 import Utils from '../utils'
 
 class Line {
@@ -20,6 +21,14 @@ class Line {
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
+  }
+
+  scale(scalar) {
+    var start = new Vector(this.vars.x, this.vars.y)
+    var end = new Vector(this.vars.x2, this.vars.y2)
+    var vec = end.sub(start).multiply(scalar).add(start);
+    this.vars.x2 = vec.x;
+    this.vars.y2 = vec.y;
   }
 
 }

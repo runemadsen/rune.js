@@ -256,4 +256,21 @@ describe("Rune.Path", function() {
 
   });
 
+  describe("scale()", function() {
+
+    it("scales the path", function() {
+      var p = new Rune.Path(10, 15);
+      setAllAnchors(p);
+      p.scale(2);
+      expect(p.vars.x).toEqual(10);
+      expect(p.vars.y).toEqual(15);
+      expect(p.vars.anchors[0]).toBeAnchorMove(0, 0);
+      expect(p.vars.anchors[1]).toBeAnchorLine(208, 210);
+      expect(p.vars.anchors[2]).toBeAnchorMove(212, 214);
+      expect(p.vars.anchors[3]).toBeAnchorCubic(216, 218, 220, 222, 224, 226);
+      expect(p.vars.anchors[4]).toBeAnchorQuad(228, 230, 232, 234);
+    });
+
+  });
+
 });

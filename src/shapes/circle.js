@@ -22,6 +22,10 @@ class Circle {
     return poly;
   }
 
+  scale(scalar) {
+    this.vars.radius *= scalar;
+  }
+
   copy(parent) {
     var copy = new Circle();
     copy.vars.radius = this.vars.radius;

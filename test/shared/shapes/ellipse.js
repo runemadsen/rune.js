@@ -68,4 +68,16 @@ describe("Rune.Ellipse", function() {
 
   });
 
+  describe("scale()", function() {
+
+    it("scales the ellipse", function() {
+      s.scale(2);
+      expect(s.vars.x).toEqual(10);
+      expect(s.vars.y).toEqual(15);
+      expect(s.vars.width).toEqual(600);
+      expect(s.vars.height).toEqual(610);
+    });
+
+  });
+
 });

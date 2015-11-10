@@ -250,6 +250,7 @@ describe("Rune", function() {
       expect(text.vars.x).toEqual(10);
       expect(text.vars.y).toEqual(15);
       expect(text.vars.text).toEqual("Hello")
+      expect(text.vars.fontSize).toEqual(16)
       expect(text.type).toEqual("text")
     });
 

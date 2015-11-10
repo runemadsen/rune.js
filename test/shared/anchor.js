@@ -24,6 +24,14 @@ describe("Rune.Anchor", function() {
     });
   });
 
+  describe("multiply()", function() {
+    it("multiplies vectors", function() {
+      var res = a1.multiply(2);
+      expect(res).toBeAnchorCubic(200, 210, 400, 410, 600, 610);
+      expect(res).not.toBe(a1);
+    });
+  });
+
   describe("copy()", function() {
 
     it("copies the anchor", function() {

@@ -171,6 +171,12 @@ class Path {
     return copy;
   }
 
+  scale(scalar) {
+    this.vars.anchors = map(this.vars.anchors, function(anchor) {
+      return anchor.multiply(scalar);
+    });
+  }
+
   fillRule(val) { this.vars.fillRule = val; return this; }
 
   // Paths must start with a moveTo. This function is checks if

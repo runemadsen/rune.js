@@ -19,6 +19,14 @@ class Anchor {
     return a;
   }
 
+  multiply(scalar) {
+    var a = this.copy();
+    if(a.vec1) a.vec1 = a.vec1.multiply(scalar);
+    if(a.vec2) a.vec2 = a.vec2.multiply(scalar);
+    if(a.vec3) a.vec3 = a.vec3.multiply(scalar);
+    return a;
+  }
+
   copy() {
     var a = new Anchor();
     a.command = this.command;

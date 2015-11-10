@@ -30,6 +30,13 @@ class Triangle {
     return copy;
   }
 
+  scale(scalar) {
+    this.vars.x2 *= scalar;
+    this.vars.y2 *= scalar;
+    this.vars.x3 *= scalar;
+    this.vars.y3 *= scalar;
+  }
+
 }
 
 assign(Triangle.prototype, Moveable, Styleable, {type: "triangle"});

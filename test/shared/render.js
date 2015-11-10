@@ -228,7 +228,6 @@ describe("Rune.Render", function() {
       var optionals = {
         fontFamily: ["font-family", "Georgia"],
         fontWeight: ["font-weight", "bold"],
-        fontSize: ["font-size", 32],
         letterSpacing: ["letter-spacing", 0.5],
         textDecoration: ["text-decoration", "underline"]
       }

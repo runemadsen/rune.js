@@ -177,6 +177,12 @@ class Polygon {
 
 		return (depth & 1) == 1;
   }
+
+  scale(scalar) {
+    this.vars.vectors = map(this.vars.vectors, function(vec) {
+      return vec.multiply(scalar);
+    });
+  }
 }
 
 assign(Polygon.prototype, Moveable, Styleable, { type: "polygon" });

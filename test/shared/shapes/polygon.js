@@ -205,4 +205,18 @@ describe("Rune.Polygon", function() {
 
   });
 
+  describe("scale()", function() {
+
+    it("scales the polygon", function() {
+      s.scale(2);
+      expect(s.vars.x).toEqual(10);
+      expect(s.vars.y).toEqual(15);
+      expect(s.vars.vectors[0]).toEqualVector(0, 0);
+      expect(s.vars.vectors[1]).toEqualVector(120, 0);
+      expect(s.vars.vectors[2]).toEqualVector(160, 120);
+      expect(s.vars.vectors[3]).toEqualVector(40, 120);
+    });
+
+  });
+
 });

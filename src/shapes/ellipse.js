@@ -41,6 +41,11 @@ class Ellipse {
     return poly;
   }
 
+  scale(scalar) {
+    this.vars.width *= scalar;
+    this.vars.height *= scalar;
+  }
+
   copy(parent) {
     var copy = new Ellipse();
     Utils.copyMixinVars(this, copy);

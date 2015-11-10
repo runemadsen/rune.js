@@ -10,6 +10,7 @@ class Text {
     this.vars.text = text;
     this.vars.x = x;
     this.vars.y = y;
+    this.vars.fontSize = 16;
   }
 
   toPolygon() {
@@ -37,6 +38,10 @@ class Text {
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
+  }
+
+  scale(scalar) {
+    this.vars.fontSize *= scalar;
   }
 
 }
