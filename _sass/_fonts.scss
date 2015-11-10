@@ -58,6 +58,7 @@ h1 + p {
 }
 
 pre {
+  white-space: pre-wrap;
   background-color: $gray;
   padding: 0.4em;
   code {

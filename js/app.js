@@ -16,8 +16,6 @@ $(function() {
       var txt = jheading.text();
 
       if(this.tagName == 'H2') {
-        console.log(this.tagName)
-        console.log('changing curli')
         curLi = $("<li><a href='#"+slug+"'>"+txt+"</a><ul></ul></li>");
         $("#toc ul#top").append(curLi);
       } else {
