@@ -59,6 +59,7 @@ function drawPattern(startX, startY, width, height, size)
 }
 
 r.on('mousemove', function(mouse) {
+
   if(mouse.x > 0 && mouse.x <= r.width && mouse.y > 0 && mouse.y <= r.height) {
 
     // change bg fill
@@ -75,6 +76,8 @@ r.on('mousemove', function(mouse) {
     for(var i = 0; i < shapes2.length; i++) {
       shapes2[i].fill(col);
     }
+
+    curFrame = r.frameCount;
   }
 });
 
