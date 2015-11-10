@@ -2,8 +2,6 @@
 
 ### Must
 
-- [ ] Add functions to polygon: http://polyk.ivank.net/?p=demos&d=intersect
-- [ ] `scale()` on all shapes
 - [ ] masking
 - [ ] `textWidth()`
 
