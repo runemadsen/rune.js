@@ -1,0 +1,83 @@
+<div id="banner"></div>
+<script type="text/javascript">
+
+var r = new Rune({
+  container: "#banner",
+  width: 650,
+  height: 400
+});
+
+var bg = r.rect(0, 0, r.width, r.height).stroke(false).fill(255, 255, 0);
+
+var shapes1 = [];
+var shapes2 = [];
+drawPattern(0, 0, 900, 700, 10);
+drawPattern(0, 0, 900, 700, 30);
+
+function drawPattern(startX, startY, width, height, size)
+{
+  var parent = r.group(startX, startY);
+
+  var a = size;
+  var b = size * 2;
+  var c = size * 3;
+  var d = size * 4;
+
+  for (var y = 0; y <= height; y += c)
+  {
+    for (var x = 0; x <= width; x += d)
+    {
+      var centerX = x;
+      var centerY = y;
+
+      // shift every other row to the left to
+      // fit inside the row above.
+      if((y/c) % 2 == 0) {
+        centerX -= b;
+      }
+
+      var p1 = r.polygon(centerX, centerY, parent)
+        .fill(100)
+        .lineTo(0, -c)
+        .lineTo(b, -b)
+        .lineTo(0, -a)
+        .lineTo(-b, -b)
+        .stroke(100);
+
+      var p2 = r.polygon(centerX, centerY, parent)
+        .fill(30)
+        .lineTo(-b, -b)
+        .lineTo(0, -a)
+        .lineTo(0, a)
+        .lineTo(-b, 0)
+        .stroke(false);
+
+      shapes1.push(p1);
+      shapes2.push(p2);
+    }
+  }
+}
+
+r.on('mousemove', function(mouse) {
+  if(mouse.x > 0 && mouse.x <= r.width && mouse.y > 0 && mouse.y <= r.height) {
+
+    // change bg fill
+    bg.fill('hsv', mouse.x / r.width * 360, 80, 80);
+
+    // change light shapes
+    var col = new Rune.Color('hsv', mouse.y / r.height * 360, 50, 50);
+    for(var i = 0; i < shapes1.length; i++) {
+      shapes1[i].fill(col).stroke(col);
+    }
+
+    // change dark shapes
+    var col = col.copy().darken(0.6);
+    for(var i = 0; i < shapes2.length; i++) {
+      shapes2[i].fill(col);
+    }
+  }
+});
+
+r.play();
+
+</script>
