@@ -16,3 +16,9 @@ This plugin can load font files and convert them into `Rune.Path` objects. This 
 - **Getting started**: See the [plugin README](https://github.com/runemadsen/rune.fonts.js).
 - **Examples**: Look at the [Typography section](http://printingcode.runemadsen.com/examples/#typography) in the Rune.js examples.
 
+## Rune.Noise
+
+This plugin adds perlin noise functions to Rune.js through a `Rune.Noise` object.
+
+- **Getting started**: See the [plugin README](https://github.com/runemadsen/rune.noise.js).
+- **Examples**: Look at the [Randomization section](http://printingcode.runemadsen.com/examples/#randomization) in the Rune.js examples.
