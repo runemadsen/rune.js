@@ -2,6 +2,8 @@
 
 ### Must
 
+- [ ] Find a better way to develop modules for Rune.js. Create a small NPM package that can be used to generate the Github and NPM zip, also testing.
+- [ ] Use this new package for Rune.Font.js. Rename font.browser to rune.font.js, etc.
 - [ ] masking
 - [ ] `textWidth()`
 
