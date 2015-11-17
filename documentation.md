@@ -84,6 +84,8 @@ r.on('draw', function() {
 });
 ```
 
+The following events are supported: `draw`, `mousemove`, `mousedown`, `mouseup`, `click`.
+
 ### `appendTo(container)`
 
 If you don't use the `container` option when instantiating the Rune object, you can use this to append the SVG element to a container on the page. You can omit both the container and `appendTo()` and use Rune to render SVG's server-side in node. This is still a bit untested.
