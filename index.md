@@ -369,7 +369,7 @@ r.on('mousemove', function(mouse) {
 });
 ```
 
-To listen to other mouse events, simple change `mousemove` to one of the following: `mousedown` will get called when the mouse is pressed down. `mouseup` will get called when the mouse is released. `click` will get called when `mousedown` and `mouseup` happens immediately following each other.
+To listen to other mouse events, simply use `mousedown` (mouse is pressed down), `mouseup` (mouse is released) or `click` (both of the latter immediately following each other) instead.
 
 ### Grid systems
 
