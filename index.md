@@ -361,7 +361,15 @@ You can find a lot more example code in [the examples](http://printingcode.runem
 
 ### Mouse events
 
-Todo!
+You can also use the `on()` function to listen to mouse events. The following code logs a simple message to the web developer console every time the mouse moves. As you can see, the listener function will receive a `mouse` object with the position of the mouse relative to the SVG.
+
+```js
+r.on('mousemove', function(mouse) {
+  console.log("the mouse moved to", mouse.x, mouse.y);
+});
+```
+
+To listen to other mouse events, simple change `mousemove` to one of the following: `mousedown` will get called when the mouse is pressed down. `mouseup` will get called when the mouse is released. `click` will get called when `mousedown` and `mouseup` happens immediately following each other.
 
 ### Grid systems
 
