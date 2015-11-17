@@ -1,3 +1,9 @@
+## 0.2.12
+
+- Adding `mousedown` mouse event
+- Adding `mouseup` mouse event
+- Adding `click` mouse event
+
 ## 0.2.11
 
 - Adding `scale()` to all shapes

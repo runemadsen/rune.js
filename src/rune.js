@@ -67,10 +67,6 @@ class Rune {
 
   }
 
-  contains(x, y) {
-    return x >= 0 && x <= this.width && y >= 0 && y <= this.height;
-  }
-
   relativePos(pageX, pageY) {
     var bounds = this.renderer.el.getBoundingClientRect();
     var relX = pageX - bounds.left;
@@ -79,32 +75,15 @@ class Rune {
   }
 
   initMouseEvents() {
-
     var mouseEvents = ['mousemove', 'mousedown', 'mouseup', 'click'];
     each(mouseEvents, function(mouseEvent) {
       var that = this;
       this.renderer.el.addEventListener(mouseEvent, function(e) {
         var rel = that.relativePos(e.pageX, e.pageY);
-        //if(that.contains(rel.x, rel.y)) {
         that.trigger(mouseEvent, { x: rel.x, y: rel.y });
-        //}
       });
     }, this);
-
-
-
   }
-
-  // initMouseMove() {
-  //   var that = this;
-  //   var mouseMove = function(e) {
-  //     var rel = that.relativePos(e.pageX, e.pageY);
-  //     if(that.contains(rel.x, rel.y)) {
-  //       that.trigger('mousemove', { x: rel.x, y: rel.y });
-  //     }
-  //   };
-  //   document.addEventListener('mousemove', mouseMove, false);
-  // }
 
   // Shape functions
   // --------------------------------------------------
