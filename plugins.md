@@ -22,3 +22,10 @@ This plugin adds perlin noise functions to Rune.js through a `Rune.Noise` object
 
 - **Getting started**: See the [plugin README](https://github.com/runemadsen/rune.noise.js).
 - **Examples**: Look at the [Randomization section](http://printingcode.runemadsen.com/examples/#randomization) in the Rune.js examples.
+
+## Rune.Pixels
+
+This plugin adds pixel iteration functionality through a `Rune.Pixels` object.
+
+- **Getting started**: See the [plugin README](https://github.com/runemadsen/rune.pixels.js).
+- **Examples**: Look at the [Transformation section](http://printingcode.runemadsen.com/examples/#transformation) in the Rune.js examples.
