@@ -100,7 +100,7 @@ describe("Rune.Moveable", function() {
 
   });
 
-  describe("addTo()", function() {
+  describe("addParent()", function() {
 
     it("adds child to parent", function() {
       expect(m).not.toBeChildOf(g);
@@ -110,7 +110,7 @@ describe("Rune.Moveable", function() {
 
   });
 
-  describe("remove()", function() {
+  describe("removeParent()", function() {
 
     it("removes child from parent", function() {
       g.add(m);

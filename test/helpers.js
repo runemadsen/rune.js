@@ -91,7 +91,13 @@ function getSizeableVars(opts) {
 function getStyleableVars(opts) {
   return _.defaults(opts || {}, {
     fill: new Rune.Color(255, 0, 0),
-    stroke: new Rune.Color(0, 255, 0)
+    stroke: new Rune.Color(0, 255, 0),
+    strokeWidth: 2,
+    strokeCap: "square",
+    strokeJoin: "bevel",
+    strokeMiterlimit: 2,
+    strokeDash: "0,1",
+    strokeDashOffset: 4
   });
 }
 

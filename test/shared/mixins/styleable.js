@@ -17,10 +17,16 @@ describe("Rune.Styleable", function() {
 
     it("copies variables from object", function() {
       setStyleableVars(m);
-      var m2 = newMixin(Rune.Styleable);
-      m2.styleable(m);
-      expect(m2.vars.fill).toEqual(m.vars.fill);
-      expect(m2.vars.stroke).toEqual(m.vars.stroke);
+      var copy = newMixin(Rune.Styleable);
+      copy.styleable(m);
+      expect(copy.vars.fill).toEqual(m.vars.fill);
+      expect(copy.vars.stroke).toEqual(m.vars.stroke);
+      expect(copy.vars.strokeWidth).toEqual(m.vars.strokeWidth);
+      expect(copy.vars.strokeCap).toEqual(m.vars.strokeCap);
+      expect(copy.vars.strokeJoin).toEqual(m.vars.strokeJoin);
+      expect(copy.vars.strokeMiterlimit).toEqual(m.vars.strokeMiterlimit);
+      expect(copy.vars.strokeDash).toEqual(m.vars.strokeDash);
+      expect(copy.vars.strokeDashOffset).toEqual(m.vars.strokeDashOffset);
     });
 
     it("copies false variables from object", function() {

@@ -76,6 +76,13 @@ var Styleable = {
 
       if(copy.vars.stroke === false)  this.vars.stroke = false;
       else if(copy.vars.stroke)       this.vars.stroke = copy.vars.stroke.copy();
+
+      if(copy.vars.strokeWidth)       this.vars.strokeWidth = copy.vars.strokeWidth;
+      if(copy.vars.strokeCap)         this.vars.strokeCap = copy.vars.strokeCap;
+      if(copy.vars.strokeJoin)        this.vars.strokeJoin = copy.vars.strokeJoin;
+      if(copy.vars.strokeMiterlimit)  this.vars.strokeMiterlimit = copy.vars.strokeMiterlimit;
+      if(copy.vars.strokeDash)        this.vars.strokeDash = copy.vars.strokeDash;
+      if(copy.vars.strokeDashOffset)  this.vars.strokeDashOffset = copy.vars.strokeDashOffset;
     }
   },
 

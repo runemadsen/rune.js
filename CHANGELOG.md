@@ -1,3 +1,7 @@
+## 0.2.13
+
+- Certain shape variables weren't copied when using `copy()`. Now fixed.
+
 ## 0.2.12
 
 - Adding `mousedown` mouse event
