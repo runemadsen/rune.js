@@ -7,6 +7,7 @@ class Image {
   constructor(url, x, y, width, height) {
     this.moveable();
     this.sizeable();
+    this.vars.url = url;
     this.vars.x = x;
     this.vars.y = y;
     if(typeof width !== 'undefined')  this.vars.width = width;
@@ -25,6 +26,7 @@ class Image {
 
   copy(parent) {
     var copy = new Image();
+    copy.vars.url = this.vars.url;
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
