@@ -2,7 +2,7 @@
 
 ### Must
 
-- [ ] Rune.Color should be much faster
+- [ ] Rune.Color should be much faster  
 - [ ] Fix error around DOM update and mousemove being off
 - [ ] SVG converter as Chrome plugin
 - [ ] Image shapes
