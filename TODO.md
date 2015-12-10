@@ -2,10 +2,12 @@
 
 ### Must
 
-- [ ] Rune.Color should be much faster  
-- [ ] Fix error around DOM update and mousemove being off
 - [ ] SVG converter as Chrome plugin
+- [ ] Fix error around DOM update and mousemove being off
 - [ ] Image shapes
+- [ ] Filters
+- [ ] Blend modes
+- [ ] Rune.Color should be much faster  
 - [ ] Finish Runegen and use for Rune.Font and other plugins
 - [ ] masking
 - [ ] Gradients

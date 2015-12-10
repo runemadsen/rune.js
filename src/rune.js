@@ -17,6 +17,7 @@ import Path from "./shapes/path"
 import Polygon from "./shapes/polygon"
 import Rectangle from "./shapes/rectangle"
 import Text from "./shapes/text"
+import Image from "./shapes/image"
 import { Sizeable, Moveable, Styleable } from "./mixins"
 
 class Rune {
@@ -219,6 +220,7 @@ Rune.Path = Path;
 Rune.Polygon = Polygon;
 Rune.Rectangle = Rectangle;
 Rune.Text = Text;
+Rune.Image = Image;
 
 // Right now I need these for mixin tests.
 // Rewrite so we don't need them.

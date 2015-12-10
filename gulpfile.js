@@ -33,7 +33,7 @@ function transpile(infiles, outfile, outdir, extraOpts) {
     .on('error', function(err) { console.error(err); this.emit('end'); })
     .pipe(source(outfile))
 
-    // This is horrible make .default to root so package can be required
+    // This is horrible: make .default to root so package can be required
     // with require('rune.js') and not require('rune.js').default
     .pipe(replace("exports.default = Rune;", "module.exports = Rune;"))
 
