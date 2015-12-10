@@ -167,6 +167,20 @@ class Render {
     return svg('text', attr, text.vars.text);
   }
 
+  imageToSVG(img) {
+    var attr = {
+      "xlink:href" : this.s(img.vars.url),
+      x: this.s(img.vars.x),
+      y: this.s(img.vars.y)
+    }
+    this.optionalAttributes(img, attr, {
+      "width" : "width",
+      "height" : "height"
+    });
+    this.transformAttribute(attr, img);
+    return svg('image', attr);
+  }
+
   groupToSVG(group) {
     if(!group.children || group.children.length == 0) return;
     var attr = {}

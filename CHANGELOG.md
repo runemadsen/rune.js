@@ -1,3 +1,7 @@
+## 0.2.14
+
+- Adding `Rune.Image` to draw simple images in the SVG element
+
 ## 0.2.13
 
 - Certain shape variables weren't copied when using `copy()`. Now fixed.

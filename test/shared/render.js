@@ -261,6 +261,36 @@ describe("Rune.Render", function() {
 
   });
 
+  describe("Rune.Image", function() {
+
+    it("should render image", function() {
+      r.image("myimage.jpg", 10, 15);
+      r.draw();
+      var img = el.childNodes[0];
+      expect(el.childNodes.length).toEqual(1);
+      expect(img).toBeTag("image");
+      console.log(img.toString())
+      expect(img).toHaveAttrs({
+        x: 10,
+        y: 15,
+        "xlink:href" : "myimage.jpg"
+      });
+      expect(img).not.toHaveAttrs({ width: 0, height: 0 });
+      expect(img).not.toHaveTranslation(10, 15);
+    });
+
+    it("should render width and height if set", function() {
+      r.image("myimage.jpg", 10, 15, 300, 400);
+      r.draw();
+      var img = el.childNodes[0];
+      expect(img).toHaveAttrs({
+        width: 300,
+        height: 400
+      });
+    });
+
+  });
+
   describe("Rune.Group", function() {
 
     it("should render group", function() {

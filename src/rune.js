@@ -143,6 +143,12 @@ class Rune {
     return t;
   }
 
+  image(url, x, y, width, height, parent) {
+    var i = new Image(url, x, y, width, height);
+    Utils.groupLogic(i, this.stage, parent);
+    return i;
+  }
+
   grid(options, parent) {
     var g = new Grid(options);
     Utils.groupLogic(g, this.stage, parent);

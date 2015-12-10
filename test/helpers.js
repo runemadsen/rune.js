@@ -1,5 +1,6 @@
 function drawShared(shape) {
-  shape.rotate(45, 100, 105)
+  shape
+    .rotate(45, 100, 105)
     .fill(255, 0, 0, 0.5)
     .stroke(0, 255, 0, 0.6)
     .strokeWidth(5)
@@ -7,7 +8,7 @@ function drawShared(shape) {
     .strokeJoin('miter')
     .strokeMiterlimit(7)
     .strokeDash("3,4,5")
-    .strokeDashOffset(10)
+    .strokeDashOffset(10);
 }
 
 function expectShared(el) {
