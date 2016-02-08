@@ -269,12 +269,11 @@ describe("Rune.Render", function() {
       var img = el.childNodes[0];
       expect(el.childNodes.length).toEqual(1);
       expect(img).toBeTag("image");
-      console.log(img.toString())
       expect(img).toHaveAttrs({
         x: 10,
-        y: 15,
-        "xlink:href" : "myimage.jpg"
+        y: 15
       });
+      expect(img.getAttributeNS("http://www.w3.org/1999/xlink", "href")).toEqual("myimage.jpg")
       expect(img).not.toHaveAttrs({ width: 0, height: 0 });
       expect(img).not.toHaveTranslation(10, 15);
     });

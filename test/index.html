@@ -26,13 +26,7 @@ var r = new Rune({
   height: 600,
 });
 
-r.on('mousedown', function(mouse) {
-  console.log('mousedown', mouse)
-});
-
-r.on('mouseup', function(mouse) {
-  console.log('mouseup', mouse)
-});
+r.image('http://assets.rollingstone.com/assets/images/artists/bruce-springsteen.jpg', 10, 40, 200, 200);
 
 r.draw();
 

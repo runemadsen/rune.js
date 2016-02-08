@@ -10,15 +10,11 @@ class Image {
     this.vars.url = url;
     this.vars.x = x;
     this.vars.y = y;
-    if(typeof width !== 'undefined')  this.vars.width = width;
-    if(typeof height !== 'undefined')  this.vars.height = height;
+    this.vars.width = width;
+    this.vars.height = height;
   }
 
   scale(scalar) {
-    if(this.vars.width == 0 || this.vars.height == 0) {
-      throw new Error("Image must have both a width and a height to use scale()");
-      return;
-    }
     this.vars.width *= scalar;
     this.vars.height *= scalar;
     return this;

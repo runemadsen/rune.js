@@ -1,6 +1,6 @@
 ## 0.2.14
 
-- Adding `Rune.Image` to draw simple images in the SVG element
+- Adding `Rune.Image` to draw images in a SVG element
 
 ## 0.2.13
 

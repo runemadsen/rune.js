@@ -1,8 +1,11 @@
-## Codebase
+# TODO
 
-### Must
+- [ ] Strokeweight scale
+- [ ] Rounded rect
 
-- [ ] Image shapes
+- [ ] Rewrite with react and redux. Prevent re-drawing all the time.
+- [ ] Text layout with bounds, lineHeight, etc
+- [ ] Ability to pass vectors into x,y functions
 - [ ] SVG converter as Chrome plugin
 - [ ] Fix error around DOM update and mousemove being off
 - [ ] Filters
@@ -14,11 +17,7 @@
 - [ ] `textWidth()`
 - [ ] `keypressed`
 - [ ] `.contains()` on path
-- [ ] `.intersect()` and `intersection()` on polygons
-
-### Nice to have
-
-- [ ] Rewrite with react and flux. Prevent re-drawing all the time.
+- [ ] `.intersects()` and `intersection()` on polygons
 - [ ] requestAnimationFrame should work in node
 - [ ] Debug should have full polygon vectors and anchor vectors
 - [ ] Ability to set debug line color and debug circle color

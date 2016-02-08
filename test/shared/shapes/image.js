@@ -40,10 +40,6 @@ describe("Rune.Image", function() {
 
   describe("scale()", function() {
 
-    it("throws error if no width and height", function() {
-      expect(function() { s.scale(2); }).toThrow(new Error("Image must have both a width and a height to use scale()"));
-    });
-
     it("scales the image", function() {
       sdim.scale(2);
       expect(sdim.vars.x).toEqual(10);
