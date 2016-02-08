@@ -1,11 +1,9 @@
 describe("Rune.Image", function() {
 
   var s;
-  var sdim;
 
   beforeEach(function() {
-    s = new Rune.Image("myimage.jpg", 10, 15);
-    sdim = new Rune.Image("myimage.jpg", 10, 15, 300, 400);
+    s = new Rune.Image("myimage.jpg", 10, 15, 300, 400);
   });
 
   describe("copy()", function() {
@@ -41,11 +39,11 @@ describe("Rune.Image", function() {
   describe("scale()", function() {
 
     it("scales the image", function() {
-      sdim.scale(2);
-      expect(sdim.vars.x).toEqual(10);
-      expect(sdim.vars.y).toEqual(15);
-      expect(sdim.vars.width).toEqual(600);
-      expect(sdim.vars.height).toEqual(800);
+      spyOn(s, 'scaleSizeable');
+      s.scale(2);
+      expect(s.vars.x).toEqual(10);
+      expect(s.vars.y).toEqual(15);
+      expect(s.scaleSizeable).toHaveBeenCalledWith(2);
     });
 
   });

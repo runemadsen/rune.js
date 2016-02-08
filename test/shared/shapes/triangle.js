@@ -39,6 +39,7 @@ describe("Rune.Triangle", function() {
   describe("scale()", function() {
 
     it("scales the rectangle", function() {
+      spyOn(s, 'scaleStyleable');
       s.scale(2);
       expect(s.vars.x).toEqual(10);
       expect(s.vars.y).toEqual(15);
@@ -46,6 +47,7 @@ describe("Rune.Triangle", function() {
       expect(s.vars.y2).toEqual(20);
       expect(s.vars.x3).toEqual(40);
       expect(s.vars.y3).toEqual(40);
+      expect(s.scaleStyleable).toHaveBeenCalledWith(2);
     });
 
   });

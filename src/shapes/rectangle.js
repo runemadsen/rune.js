@@ -38,8 +38,8 @@ class Rectangle {
   }
 
   scale(scalar) {
-    this.vars.width *= scalar;
-    this.vars.height *= scalar;
+    this.scaleSizeable(scalar);
+    this.scaleStyleable(scalar);
     return this;
   }
 }

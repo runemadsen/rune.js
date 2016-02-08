@@ -15,8 +15,7 @@ class Image {
   }
 
   scale(scalar) {
-    this.vars.width *= scalar;
-    this.vars.height *= scalar;
+    this.scaleSizeable(scalar);
     return this;
   }
 

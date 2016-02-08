@@ -58,6 +58,11 @@ var Sizeable = {
     this.vars = this.vars || {};
     this.vars.width = copy ? copy.vars.width : 0;
     this.vars.height = copy ? copy.vars.height : 0;
+  },
+
+  scaleSizeable: function(scalar) {
+    this.vars.width *= scalar;
+    this.vars.height *= scalar;
   }
 
 };
@@ -103,7 +108,16 @@ var Styleable = {
   strokeJoin:       function(val) { this.vars.strokeJoin = val; return this; },
   strokeMiterlimit: function(val) { this.vars.strokeMiterlimit = val; return this; },
   strokeDash:       function(val) { this.vars.strokeDash = val; return this; },
-  strokeDashOffset: function(val) { this.vars.strokeDashOffset= val; return this; }
+  strokeDashOffset: function(val) { this.vars.strokeDashOffset= val; return this; },
+
+  scaleStyleable: function(scalar) {
+    if(this.vars.strokeWidth) {
+      this.vars.strokeWidth *= scalar;
+    }
+    else {
+      this.vars.strokeWidth = scalar;
+    }
+  }
 };
 
 export { Moveable, Sizeable, Styleable };

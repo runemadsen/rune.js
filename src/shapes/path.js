@@ -172,6 +172,7 @@ class Path {
   }
 
   scale(scalar) {
+    this.scaleStyleable(scalar);
     this.vars.anchors = map(this.vars.anchors, function(anchor) {
       return anchor.multiply(scalar);
     });

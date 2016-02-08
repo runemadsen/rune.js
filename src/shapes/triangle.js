@@ -31,6 +31,7 @@ class Triangle {
   }
 
   scale(scalar) {
+    this.scaleStyleable(scalar);
     this.vars.x2 *= scalar;
     this.vars.y2 *= scalar;
     this.vars.x3 *= scalar;

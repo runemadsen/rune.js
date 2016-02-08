@@ -25,4 +25,16 @@ describe("Rune.Sizeable", function() {
 
   });
 
+  describe("scaleSizeable()", function() {
+
+    it("scales width and height", function() {
+      m.vars.width = 200;
+      m.vars.height = 300;
+      m.scaleSizeable(3);
+      expect(m.vars.width).toEqual(600);
+      expect(m.vars.height).toEqual(900);
+    });
+
+  });
+
 });

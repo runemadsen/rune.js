@@ -90,4 +90,19 @@ describe("Rune.Styleable", function() {
 
   });
 
+  describe("scaleStyleable()", function() {
+
+    it("scales default strokeWidth", function() {
+      m.scaleStyleable(3);
+      expect(m.vars.strokeWidth).toEqual(3);
+    });
+
+    it("scales a specific strokeWidth", function() {
+      m.vars.strokeWidth = 4;
+      m.scaleStyleable(3);
+      expect(m.vars.strokeWidth).toEqual(12);
+    })
+
+  });
+
 });

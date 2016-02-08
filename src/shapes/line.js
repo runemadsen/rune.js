@@ -24,6 +24,7 @@ class Line {
   }
 
   scale(scalar) {
+    this.scaleStyleable(scalar);
     var start = new Vector(this.vars.x, this.vars.y)
     var end = new Vector(this.vars.x2, this.vars.y2)
     var vec = end.sub(start).multiply(scalar).add(start);

@@ -179,6 +179,7 @@ class Polygon {
   }
 
   scale(scalar) {
+    this.scaleStyleable(scalar);
     this.vars.vectors = map(this.vars.vectors, function(vec) {
       return vec.multiply(scalar);
     });

@@ -23,6 +23,7 @@ class Circle {
   }
 
   scale(scalar) {
+    this.scaleStyleable(scalar);
     this.vars.radius *= scalar;
     return this;
   }
