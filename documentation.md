@@ -215,6 +215,13 @@ Returns the absolute position of the shape or group in relation to the canvas `0
 
 Creates a new rectangle object. The new rectangle is not added to the stage.
 
+### `round(x, y)`
+
+Gives the rectangle rounded corners.
+
+- `x` - x-axis radius of the ellipse used to round off the corners of the rectangle
+- `y` - (optional) y-axis radius of the ellipse used to round off the corners of the rectangle
+
 ## Rune.Line
 
 ### `new Rune.Line(x1, y1, x2, y2)`
