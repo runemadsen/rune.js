@@ -1,8 +1,5 @@
 # TODO
 
-- [ ] Strokeweight scale
-- [ ] Rounded rect
-
 - [ ] Rewrite with react and redux. Prevent re-drawing all the time.
 - [ ] Text layout with bounds, lineHeight, etc
 - [ ] Ability to pass vectors into x,y functions

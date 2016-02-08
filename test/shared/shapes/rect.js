@@ -72,6 +72,22 @@ describe("Rune.Rectangle", function() {
 
   });
 
+  describe("round()", function() {
+
+    it('sets uniform round corners', function() {
+      s.round(25);
+      expect(s.vars.rx).toEqual(25);
+      expect(s.vars.ry).toEqual(25);
+    });
+
+    it('sets roundness for both x and y', function() {
+      s.round(25, 15);
+      expect(s.vars.rx).toEqual(25);
+      expect(s.vars.ry).toEqual(15);
+    });
+
+  });
+
   describe("scale()", function() {
 
     it("scales the rectangle", function() {

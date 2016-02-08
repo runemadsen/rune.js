@@ -64,8 +64,17 @@ describe("Rune.Render", function() {
         width: s.vars.width,
         height: s.vars.height
       });
+      expect(rect).toNotHaveAttr("rx");
+      expect(rect).toNotHaveAttr("ry");
       expect(rect).not.toHaveTranslation(100, 105);
       expectShared(rect);
+    });
+
+    it("should render rounded corners", function() {
+      var s = r.rect(100, 105, 300, 400).round(25, 15);
+      r.draw();
+      var rect = el.childNodes[0];
+      expect(rect).toHaveAttrs({ rx: 25, ry: 15 });
     });
 
   });

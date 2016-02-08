@@ -2,6 +2,7 @@
 
 - Adding `Rune.Image` to draw images in a SVG element
 - `strokeWidth` is now scaled when calling `.scale()` on a shape
+- Adding `round()` function to rectangles
 
 ## 0.2.13
 

@@ -58,6 +58,8 @@ class Render {
       width: this.s(rect.vars.width),
       height: this.s(rect.vars.height)
     }
+    if(rect.vars.rx)  attr.rx = this.s(rect.vars.rx);
+    if(rect.vars.ry)  attr.ry = this.s(rect.vars.ry);
     this.transformAttribute(attr, rect);
     this.styleableAttributes(rect, attr);
     return svg('rect', attr);

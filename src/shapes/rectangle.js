@@ -15,6 +15,12 @@ class Rectangle {
     this.vars.height = height;
   }
 
+  round(rx, ry) {
+    if(!ry) ry = rx;
+    this.vars.rx = rx;
+    this.vars.ry = ry;
+  }
+
   toPolygon(opts, parent) {
     var poly =  new Polygon(this.vars.x, this.vars.y)
       .lineTo(0, 0)
