@@ -58,6 +58,10 @@ Shortcut to create a new path object and add it to a group. See above or the [`R
 
 Shortcut to create a new text object and add it to a group. See above or the [`Rune.Text`](#runetext) documentation.
 
+### `image(url, x, y, width, height)`
+
+Shortcut to create a new image object and add it to a group. See above or the [`Rune.Image`](#runeimage) documentation.
+
 ### `grid(options, parent)`
 
 Shortcut to create a new grid object and add it to a group. See above or the [`Rune.Grid`](#runegrid) documentation.
@@ -378,6 +382,12 @@ Sets the spacing between the letters. `spacing` can be a number in pixels, or a 
 ### `textDecoration(textDecoration)`
 
 Specifies the font decoration. `weight` can be a string of `"none"`, `"underline"`, `"overline"`, `"line-through"`, and `"blink"`.
+
+## Rune.Image
+
+### `new Rune.Image(url, x, y, width, height)`
+
+Creates a new image object that is not added to the stage. SVG does not support initial image sizes, so you must specify a width and a height for the image.
 
 ## Rune.Group
 
