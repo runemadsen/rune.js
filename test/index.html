@@ -24,7 +24,14 @@ var r = new Rune({
   container: "#canvas",
   width: 800,
   height: 600,
+  debug: true
 });
+
+var myGroup = r.group(30, 30);
+r.path(0, 0, myGroup)
+  .lineTo(100, 100)
+  .curveTo(100, 200, 0, 200, 100, 0)
+  .closePath()
 
 r.draw();
 

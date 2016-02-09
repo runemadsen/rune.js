@@ -183,11 +183,11 @@ class Render {
     return svg('image', attr);
   }
 
-  groupToSVG(group) {
+  groupToSVG(group, opts) {
     if(!group.children || group.children.length == 0) return;
     var attr = {}
     this.transformAttribute(attr, group);
-    return svg('g', attr, this.objectsToSVG(group.children));
+    return svg('g', attr, this.objectsToSVG(group.children, opts));
   }
 
   gridToSVG(grid, opts) {

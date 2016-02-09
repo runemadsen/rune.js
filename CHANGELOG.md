@@ -1,3 +1,7 @@
+## 0.2.15
+
+- Debug mode now works in groups too
+
 ## 0.2.14
 
 - Adding `Rune.Image` to draw images in a SVG element
