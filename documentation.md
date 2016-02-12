@@ -153,6 +153,8 @@ Makes a copy of the shape. The `parent` parameter uses the same logic as the sho
 
 Can be used to scale both shapes and groups. If called on a shape, the shape will scale while staying at the same position. If called on a group, the group will scale all children, including their `x` and `y` positions.
 
+Keep in mind that scaling is a one-time transformation that only affects the current state of the shape. So calling `scale()` on an empty polygon, path or group will have no affect at all.
+
 ### `addParent(parent)`
 
 Changes the parent of the shape to group passed in the `parent` parameter.
