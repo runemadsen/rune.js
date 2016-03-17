@@ -24,6 +24,7 @@ class Text {
   fontSize(fontSize) { this.vars.fontSize = fontSize; return this; }
   letterSpacing(letterSpacing) { this.vars.letterSpacing = letterSpacing; return this; }
   textDecoration(textDecoration) { this.vars.textDecoration = textDecoration; return this; }
+  lineHeight(lineHeight) { this.vars.lineHeight = lineHeight; return this; }
 
   copy(parent) {
     var copy = new Text();
@@ -35,6 +36,7 @@ class Text {
     copy.vars.fontSize = this.vars.fontSize;
     copy.vars.letterSpacing = this.vars.letterSpacing;
     copy.vars.textDecoration = this.vars.textDecoration;
+    copy.vars.lineHeight = this.vars.lineHeight;
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
