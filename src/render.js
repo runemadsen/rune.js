@@ -217,22 +217,17 @@ class Render {
 
   styleableAttributes(object, attr) {
 
-    function rgbString(col) {
-      var obj = col.rgb();
-      return "rgb(" + obj.r + ", " + obj.g + ", " + obj.b + ")";
-    }
-
     if(object.vars.fill === false)    attr.fill = "none";
     else if(object.vars.fill) {
-      attr.fill = rgbString(object.vars.fill);
-      var alpha = object.vars.fill.alpha();
+      attr.fill = "rgb(" + object.vars.fill.values.rgb[0] + ", " + object.vars.fill.values.rgb[1] + ", " + object.vars.fill.values.rgb[2] + ")";
+      var alpha = object.vars.fill.values.alpha;
       if(alpha < 1) attr["fill-opacity"] = this.s(alpha);
     }
 
     if(object.vars.stroke === false)  attr.stroke = "none";
     else if(object.vars.stroke) {
-      attr.stroke = rgbString(object.vars.stroke);
-      var alpha = object.vars.stroke.alpha();
+      attr.stroke = "rgb(" + object.vars.stroke.values.rgb[0] + ", " + object.vars.stroke.values.rgb[1] + ", " + object.vars.stroke.values.rgb[2] + ")";
+      var alpha = object.vars.stroke.values.alpha;
       if(alpha < 1) attr["stroke-opacity"] = this.s(alpha);
     }
 
