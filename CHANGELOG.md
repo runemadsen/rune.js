@@ -1,3 +1,7 @@
+## 0.2.17
+
+- Publish failed. Republishing.
+
 ## 0.2.16
 
 - SVG now has correct namespaces
