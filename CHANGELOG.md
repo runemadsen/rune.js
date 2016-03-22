@@ -1,3 +1,8 @@
+## 0.2.16
+
+- SVG now has correct namespaces
+- Rendering is improved drastically by using internal color values
+
 ## 0.2.15
 
 - Debug mode now works in groups too
