@@ -1,3 +1,7 @@
+## 0.2.18
+
+- `Rune.Polygon` method `centroid()` now calculates centroid as closed shape.
+
 ## 0.2.17
 
 - Publish failed. Republishing.

@@ -48,6 +48,13 @@ describe("Rune.Polygon", function() {
     });
   });
 
+  describe("area()", function() {
+    it("should return area of polygon", function() {
+      var area = s.area();
+      expect(area).toEqual(3600);
+    });
+  });
+
   describe("bounds()", function() {
 
     it("should return internal bounds", function() {
