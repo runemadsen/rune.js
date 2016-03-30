@@ -1,7 +1,8 @@
 import Utils from './utils'
 
-class Vector {
+var ROUND_PRECISION = 9;
 
+class Vector {
   constructor(x, y) {
     this.x = x || 0;
     this.y = y || 0;
@@ -72,8 +73,8 @@ class Vector {
   rotate(degrees) {
     var rad = Utils.radians(this.rotation() + degrees);
     var len = this.length();
-    var x = Math.round(Math.cos(rad) * len);
-    var y = Math.round(Math.sin(rad) * len);
+    var x = Utils.round(Math.cos(rad) * len, ROUND_PRECISION);
+    var y = Utils.round(Math.sin(rad) * len, ROUND_PRECISION);
     return new Vector(x, y);
   }
 

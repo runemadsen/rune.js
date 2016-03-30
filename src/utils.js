@@ -31,6 +31,10 @@ var Utils = {
     if(a.moveable && b.moveable)    b.moveable(a);
     if(a.sizeable && b.sizeable)    b.sizeable(a);
     if(a.styleable && b.styleable)  b.styleable(a);
+  },
+
+  round: function(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
   }
 
 };
