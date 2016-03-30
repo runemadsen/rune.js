@@ -1,5 +1,5 @@
 import assign from "lodash/object/assign"
-import { Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
 import Ellipse from "./ellipse"
 import Utils from '../utils'
 
@@ -8,7 +8,10 @@ class Circle {
   constructor(x, y, radius) {
     this.moveable();
     this.styleable();
+    this.vectorsAcceptable(arguments);
+  }
 
+  init(x, y, radius) {
     this.vars.x = x;
     this.vars.y = y;
     this.vars.radius = radius;
@@ -39,6 +42,6 @@ class Circle {
 }
 
 // Should we figure out a better way to do mixins for ES6?
-assign(Circle.prototype, Moveable, Styleable, { type: "circle" });
+assign(Circle.prototype, Moveable, Styleable, VectorsAcceptable, { type: "circle" });
 
 export default Circle;

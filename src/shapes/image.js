@@ -1,5 +1,5 @@
 import assign from "lodash/object/assign"
-import { Moveable, Sizeable } from "../mixins"
+import { Moveable, Sizeable, VectorsAcceptable } from "../mixins"
 import Utils from '../utils'
 
 class Image {
@@ -7,6 +7,10 @@ class Image {
   constructor(url, x, y, width, height) {
     this.moveable();
     this.sizeable();
+    this.vectorsAcceptable(arguments);
+  }
+
+  init(url, x, y, width, height) {
     this.vars.url = url;
     this.vars.x = x;
     this.vars.y = y;
@@ -30,6 +34,6 @@ class Image {
 }
 
 // Should we figure out a better way to do mixins for ES6?
-assign(Image.prototype, Moveable, Sizeable, { type: "image" });
+assign(Image.prototype, Moveable, Sizeable, VectorsAcceptable, { type: "image" });
 
 export default Image;

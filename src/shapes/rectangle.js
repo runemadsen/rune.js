@@ -1,5 +1,5 @@
 import assign from "lodash/object/assign"
-import { Moveable, Styleable, Sizeable } from "../mixins"
+import { Moveable, Styleable, Sizeable, VectorsAcceptable } from "../mixins"
 import Polygon from './polygon'
 import Utils from '../utils'
 
@@ -9,6 +9,10 @@ class Rectangle {
     this.moveable();
     this.sizeable();
     this.styleable();
+    this.vectorsAcceptable(arguments);
+  }
+
+  init(x, y, width, height) {
     this.vars.x = x;
     this.vars.y = y;
     this.vars.width = width;
@@ -50,6 +54,6 @@ class Rectangle {
   }
 }
 
-assign(Rectangle.prototype, Moveable, Sizeable, Styleable, { type: "rectangle" });
+assign(Rectangle.prototype, Moveable, Sizeable, Styleable, VectorsAcceptable, { type: "rectangle" });
 
 export default Rectangle;

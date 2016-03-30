@@ -1,7 +1,7 @@
 import each from "lodash/collection/each"
 import map from "lodash/collection/map"
 import assign from "lodash/object/assign"
-import { Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
 import Anchor from '../anchor'
 import Vector from '../vector'
 import Polygon from './polygon'
@@ -12,6 +12,10 @@ class Path {
   constructor(x, y) {
     this.moveable();
     this.styleable();
+    this.vectorsAcceptable(arguments);
+  }
+
+  init(x, y) {
     this.vars.anchors = [];
     if(typeof x !== 'undefined') this.vars.x = x;
     if(typeof y !== 'undefined') this.vars.y = y;
@@ -191,6 +195,6 @@ class Path {
 
 }
 
-assign(Path.prototype, Moveable, Styleable, { type: "path"});
+assign(Path.prototype, Moveable, Styleable, VectorsAcceptable, { type: "path"});
 
 export default Path;

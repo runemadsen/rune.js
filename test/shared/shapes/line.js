@@ -9,6 +9,22 @@ describe("Rune.Line", function() {
     g.add(s);
   });
 
+  describe("constructor", function() {
+
+    it("should accept vector arguments", function() {
+      var v1 = new Rune.Vector(10, 15);
+      var v2 = new Rune.Vector(20, 25);
+      var l1 = new Rune.Line(v1.x, v1.y, v2.x, v2.y);
+      var l2 = new Rune.Line(v1, v2.x, v2.y);
+      var l3 = new Rune.Line(v1, v2);
+      expect(l1.vars.x).toEqual(l2.vars.x);
+      expect(l2.vars.x).toEqual(l3.vars.x);
+      expect(l1.vars.y).toEqual(l2.vars.y);
+      expect(l2.vars.y).toEqual(l3.vars.y);
+    });
+
+  });
+
   describe("copy()", function() {
 
     it("copies the object", function() {

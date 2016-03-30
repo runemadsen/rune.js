@@ -1,5 +1,5 @@
 import assign from "lodash/object/assign"
-import { Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
 import Vector from '../vector'
 import Utils from '../utils'
 
@@ -8,6 +8,10 @@ class Line {
   constructor(x, y, x2, y2) {
     this.moveable();
     this.styleable();
+    this.vectorsAcceptable(arguments);
+  }
+
+  init(x, y, x2, y2) {
     this.vars.x = x;
     this.vars.y = y;
     this.vars.x2 = x2;
@@ -35,6 +39,6 @@ class Line {
 
 }
 
-assign(Line.prototype, Moveable, Styleable, {type: "line"});
+assign(Line.prototype, Moveable, Styleable, VectorsAcceptable, {type: "line"});
 
 export default Line;

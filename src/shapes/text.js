@@ -1,5 +1,5 @@
 import assign from "lodash/object/assign"
-import { Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
 import Utils from '../utils'
 
 class Text {
@@ -7,6 +7,10 @@ class Text {
   constructor(text, x, y) {
     this.moveable();
     this.styleable();
+    this.vectorsAcceptable(arguments);
+  }
+
+  init(text, x, y) {
     this.vars.text = text;
     this.vars.x = x;
     this.vars.y = y;
@@ -48,6 +52,6 @@ class Text {
 
 }
 
-assign(Text.prototype, Moveable, Styleable, { type: "text" });
+assign(Text.prototype, Moveable, Styleable, VectorsAcceptable, { type: "text" });
 
 export default Text;
