@@ -72,8 +72,8 @@ class Vector {
   rotate(degrees) {
     var rad = Utils.radians(this.rotation() + degrees);
     var len = this.length();
-    var x = Math.cos(rad) * len;
-    var y = Math.sin(rad) * len;
+    var x = Math.round(Math.cos(rad) * len);
+    var y = Math.round(Math.sin(rad) * len);
     return new Vector(x, y);
   }
 
