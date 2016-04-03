@@ -114,6 +114,14 @@ gulp.task("test:node", ['build:node', 'specs:node'], function() {
   return gulp.src(['tmp/rune_node_specs.js']).pipe(jasmine({verbose: true, includeStackTrace:true}));
 });
 
+// Benchmark
+// -------------------------------------------------
+
+gulp.task("benchmark", ['build:node'], function() {
+  var benchmark = require('./test/benchmark');
+  benchmark();
+});
+
 // NPM
 // -------------------------------------------------
 
