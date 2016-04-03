@@ -1,5 +1,5 @@
 import assign from "lodash/object/assign"
-import { Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
 import Utils from '../utils'
 
 class Triangle {
@@ -7,7 +7,10 @@ class Triangle {
   constructor(x, y, x2, y2, x3, y3) {
     this.moveable();
     this.styleable();
+    this.vectorsAcceptable(arguments);
+  }
 
+  init(x, y, x2, y2, x3, y3) {
     this.vars.x = x;
     this.vars.y = y;
 
@@ -41,6 +44,6 @@ class Triangle {
 
 }
 
-assign(Triangle.prototype, Moveable, Styleable, {type: "triangle"});
+assign(Triangle.prototype, Moveable, Styleable, VectorsAcceptable, {type: "triangle"});
 
 export default Triangle;

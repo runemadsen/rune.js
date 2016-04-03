@@ -2,7 +2,7 @@ import assign from "lodash/object/assign"
 import each from "lodash/collection/each"
 import map from "lodash/collection/map"
 import flatten from "lodash/array/flatten"
-import { Moveable, Styleable } from "../mixins"
+import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
 import Vector from '../vector'
 import Utils from '../utils'
 
@@ -11,13 +11,21 @@ class Polygon {
   constructor(x, y) {
     this.moveable();
     this.styleable();
+    this.vectorsAcceptable(arguments);
+  }
+
+  init(x, y) {
     this.vars.vectors = [];
     if(typeof x !== 'undefined') this.vars.x = x;
     if(typeof y !== 'undefined') this.vars.y = y;
   }
 
   lineTo(x, y) {
-    this.vars.vectors.push(new Vector(x, y));
+    if (x instanceof Vector) {
+      this.vars.vectors.push(x);
+    } else {
+      this.vars.vectors.push(new Vector(x, y));
+    }
     return this;
   }
 
@@ -194,6 +202,6 @@ class Polygon {
   }
 }
 
-assign(Polygon.prototype, Moveable, Styleable, { type: "polygon" });
+assign(Polygon.prototype, Moveable, Styleable, VectorsAcceptable, { type: "polygon" });
 
 export default Polygon;

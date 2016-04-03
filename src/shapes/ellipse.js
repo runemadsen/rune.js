@@ -1,5 +1,5 @@
 import assign from "lodash/object/assign"
-import { Moveable, Sizeable, Styleable } from "../mixins"
+import { Moveable, Sizeable, Styleable, VectorsAcceptable } from "../mixins"
 import Polygon from './polygon'
 import Utils from '../utils'
 
@@ -9,6 +9,10 @@ class Ellipse {
     this.moveable();
     this.sizeable();
     this.styleable();
+    this.vectorsAcceptable(arguments);
+  }
+
+  init(x, y, width, height) {
     this.vars.x = x;
     this.vars.y = y;
     this.vars.width = width;
@@ -57,6 +61,6 @@ class Ellipse {
 }
 
 // Should we figure out a better way to do mixins for ES6?
-assign(Ellipse.prototype, Moveable, Sizeable, Styleable, {type: "ellipse"});
+assign(Ellipse.prototype, Moveable, Sizeable, Styleable, VectorsAcceptable, {type: "ellipse"});
 
 export default Ellipse;

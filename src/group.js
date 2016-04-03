@@ -1,7 +1,7 @@
 import without from "lodash/array/without"
 import assign from "lodash/object/assign"
 import each from "lodash/collection/each"
-import { Moveable } from "./mixins"
+import { Moveable, VectorsAcceptable } from "./mixins"
 import Utils from './utils'
 import Vector from './vector'
 
@@ -9,6 +9,10 @@ class Group {
 
   constructor(x, y) {
     this.moveable();
+    this.vectorsAcceptable(arguments);
+  }
+
+  init(x, y) {
     this.children = [];
 
     if(typeof x !== 'undefined') this.vars.x = x;
@@ -48,6 +52,6 @@ class Group {
 }
 
 // Should we figure out a better way to do mixins for ES6?
-assign(Group.prototype, Moveable, {type: "group"});
+assign(Group.prototype, Moveable, VectorsAcceptable, {type: "group"});
 
 export default Group;

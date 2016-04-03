@@ -90,62 +90,62 @@ class Rune {
   // --------------------------------------------------
 
   group(x, y, parent) {
-    var g = new Group(x, y);
-    Utils.groupLogic(g, this.stage, parent);
+    var g = Utils.invokeConstructor(Group, arguments);
+    Utils.groupLogicFromArguments(g, this.stage, arguments);
     return g;
   }
 
   triangle(x, y, x2, y2, x3, y3, parent) {
-    var t = new Triangle(x, y, x2, y2, x3, y3);
-    Utils.groupLogic(t, this.stage, parent);
+    var t = Utils.invokeConstructor(Triangle, arguments);
+    Utils.groupLogicFromArguments(t, this.stage, arguments);
     return t;
   }
 
   rect(x, y, width, height, parent) {
-    var r = new Rectangle(x, y, width, height);
-    Utils.groupLogic(r, this.stage, parent);
+    var r = Utils.invokeConstructor(Rectangle, arguments);
+    Utils.groupLogicFromArguments(r, this.stage, arguments);
     return r;
   }
 
   ellipse(x, y, width, height, parent) {
-    var e = new Ellipse(x, y, width, height);
-    Utils.groupLogic(e, this.stage, parent);
+    var e = Utils.invokeConstructor(Ellipse, arguments);
+    Utils.groupLogicFromArguments(e, this.stage, arguments);
     return e;
   }
 
   circle(x, y, radius, parent) {
-    var c = new Circle(x, y,radius);
-    Utils.groupLogic(c, this.stage, parent);
+    var c = Utils.invokeConstructor(Circle, arguments);
+    Utils.groupLogicFromArguments(c, this.stage, arguments);
     return c;
   }
 
   line(x1, y1, x2, y2, parent) {
-    var l = new Line(x1, y1, x2, y2);
-    Utils.groupLogic(l, this.stage, parent);
+    var l = Utils.invokeConstructor(Line, arguments);
+    Utils.groupLogicFromArguments(l, this.stage, arguments);
     return l;
   }
 
   polygon(x, y, parent) {
-    var p = new Polygon(x, y);
-    Utils.groupLogic(p, this.stage, parent);
+    var p = Utils.invokeConstructor(Polygon, arguments);
+    Utils.groupLogicFromArguments(p, this.stage, arguments);
     return p;
   }
 
   path(x, y, parent) {
-    var p = new Path(x, y);
-    Utils.groupLogic(p, this.stage, parent);
+    var p = Utils.invokeConstructor(Path, arguments);
+    Utils.groupLogicFromArguments(p, this.stage, arguments);
     return p;
   }
 
   text(textString, x, y, parent) {
-    var t = new Text(textString, x, y);
-    Utils.groupLogic(t, this.stage, parent);
+    var t = Utils.invokeConstructor(Text, arguments);
+    Utils.groupLogicFromArguments(t, this.stage, arguments);
     return t;
   }
 
   image(url, x, y, width, height, parent) {
-    var i = new Image(url, x, y, width, height);
-    Utils.groupLogic(i, this.stage, parent);
+    var i = Utils.invokeConstructor(Image, arguments);
+    Utils.groupLogicFromArguments(i, this.stage, arguments);
     return i;
   }
 

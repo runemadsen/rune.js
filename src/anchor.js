@@ -1,5 +1,6 @@
 import Bezier from "./bezier"
 import Vector from "./vector"
+import Utils from './utils'
 
 class Anchor {
 
@@ -38,18 +39,31 @@ class Anchor {
 
   setMove(x, y) {
     this.command = 'move';
-    this.vec1 = new Vector(x, y);
+    if (x instanceof Vector) {
+      this.vec1 = x;
+    } else {
+      this.vec1 = new Vector(x, y);
+    }
     return this;
   }
 
   setLine(x, y) {
     this.command = 'line';
-    this.vec1 = new Vector(x, y);
+    if (x instanceof Vector) {
+      this.vec1 = x;
+    } else {
+      this.vec1 = new Vector(x, y);
+    }
     return this;
   }
 
   setCurve(a, b, c, d, e, f) {
+    var args = Utils.expandVectorArguments(arguments);
+    this._setCurveImpl.apply(this, args);
+    return this;
+  }
 
+  _setCurveImpl(a, b, c, d, e, f) {
     // cubic bezier with two control points
     if(typeof f !== 'undefined') {
       this.command = 'cubic';
@@ -64,8 +78,6 @@ class Anchor {
       this.vec1 = new Vector(a, b);
       this.vec2 = new Vector(c, d);
     }
-
-    return this;
   }
 
   setClose() {
