@@ -1,3 +1,8 @@
+## 0.2.19
+
+- Most drawing functions now take vector arguments. Thanks to @philcn.
+- Added `Utils.round()` to fix browser inconsistencies. Thanks for @danielmcq.
+
 ## 0.2.18
 
 - `Rune.Polygon` method `centroid()` now calculates centroid as closed shape.
