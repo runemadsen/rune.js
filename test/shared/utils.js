@@ -48,4 +48,27 @@ describe("Utils", function() {
 
   });
 
+  describe("round()", function(){
+    it("correctly rounds down", function(){
+      expect(Rune.round(1.000004, 5)).toEqual(1);
+      expect(Rune.round(1.00001, 4)).toEqual(1);
+    });
+
+    it("correctly rounds up", function(){
+      expect(Rune.round(1.005, 2)).toEqual(1.01);
+      expect(Rune.round(1.95, 1)).toEqual(2);
+    });
+
+    it("returns the same value when no rounding is required", function(){
+      expect(Rune.round(1.045, 3)).toEqual(1.045);
+      expect(Rune.round(1.95, 3)).toEqual(1.95);
+    });
+
+    it("only accepts integers for decimal places argument", function(){
+      expect( isNaN(Rune.round(8.2442, 7.1)) ).toBe(true);
+      expect( isNaN(Rune.round(8.2442, 2)) ).toBe(false);
+      expect( isNaN(Rune.round(8.2442, null)) ).toBe(true);
+    });
+  })
+
 });
