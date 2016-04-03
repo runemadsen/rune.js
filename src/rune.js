@@ -91,61 +91,61 @@ class Rune {
 
   group(x, y, parent) {
     var g = Utils.invokeConstructor(Group, arguments);
-    Utils.groupLogicFromArguments(g, this.stage, arguments);
+    Utils.groupLogic(g, this.stage, arguments[arguments.length-1]);
     return g;
   }
 
   triangle(x, y, x2, y2, x3, y3, parent) {
     var t = Utils.invokeConstructor(Triangle, arguments);
-    Utils.groupLogicFromArguments(t, this.stage, arguments);
+    Utils.groupLogic(t, this.stage, arguments[arguments.length-1]);
     return t;
   }
 
   rect(x, y, width, height, parent) {
     var r = Utils.invokeConstructor(Rectangle, arguments);
-    Utils.groupLogicFromArguments(r, this.stage, arguments);
+    Utils.groupLogic(r, this.stage, arguments[arguments.length-1]);
     return r;
   }
 
   ellipse(x, y, width, height, parent) {
     var e = Utils.invokeConstructor(Ellipse, arguments);
-    Utils.groupLogicFromArguments(e, this.stage, arguments);
+    Utils.groupLogic(e, this.stage, arguments[arguments.length-1]);
     return e;
   }
 
   circle(x, y, radius, parent) {
     var c = Utils.invokeConstructor(Circle, arguments);
-    Utils.groupLogicFromArguments(c, this.stage, arguments);
+    Utils.groupLogic(c, this.stage, arguments[arguments.length-1]);
     return c;
   }
 
   line(x1, y1, x2, y2, parent) {
     var l = Utils.invokeConstructor(Line, arguments);
-    Utils.groupLogicFromArguments(l, this.stage, arguments);
+    Utils.groupLogic(l, this.stage, arguments[arguments.length-1]);
     return l;
   }
 
   polygon(x, y, parent) {
     var p = Utils.invokeConstructor(Polygon, arguments);
-    Utils.groupLogicFromArguments(p, this.stage, arguments);
+    Utils.groupLogic(p, this.stage, arguments[arguments.length-1]);
     return p;
   }
 
   path(x, y, parent) {
     var p = Utils.invokeConstructor(Path, arguments);
-    Utils.groupLogicFromArguments(p, this.stage, arguments);
+    Utils.groupLogic(p, this.stage, arguments[arguments.length-1]);
     return p;
   }
 
   text(textString, x, y, parent) {
     var t = Utils.invokeConstructor(Text, arguments);
-    Utils.groupLogicFromArguments(t, this.stage, arguments);
+    Utils.groupLogic(t, this.stage, arguments[arguments.length-1]);
     return t;
   }
 
   image(url, x, y, width, height, parent) {
     var i = Utils.invokeConstructor(Image, arguments);
-    Utils.groupLogicFromArguments(i, this.stage, arguments);
+    Utils.groupLogic(i, this.stage, arguments[arguments.length-1]);
     return i;
   }
 

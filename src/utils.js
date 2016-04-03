@@ -29,11 +29,6 @@ var Utils = {
     }
   },
 
-  groupLogicFromArguments: function(child, fallback, argsObject) {
-    var group = argsObject.length > 0 ? argsObject[argsObject.length - 1] : null;
-    this.groupLogic(child, fallback, group);
-  },
-
   copyMixinVars: function(a, b) {
     if(a.moveable && b.moveable)    b.moveable(a);
     if(a.sizeable && b.sizeable)    b.sizeable(a);
