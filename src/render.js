@@ -168,7 +168,24 @@ class Render {
       attr["text-anchor"] = translate[text.vars.textAlign];
     }
 
-    return svg('text', attr, text.vars.text);
+    var lines = text.vars.text.split("\n");
+    var children = [];
+    var deltaY;
+    for (var i=0; i<lines.length; i++){
+      if (i === 0){
+        deltaY = "0em";
+      }else{
+        deltaY = "1.2em";
+
+        if(text.vars.lineHeight){
+          deltaY = text.vars.lineHeight;
+        }
+      }
+      var child = svg('tspan', {x: attr.x, dy: deltaY}, lines[i]);
+      children.push(child);
+    }
+
+    return svg('text', attr, children);
   }
 
   imageToSVG(img) {
