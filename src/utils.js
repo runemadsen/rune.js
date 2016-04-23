@@ -1,4 +1,4 @@
-import Vector from "./vector";
+var Vector = require("./vector");
 
 var Utils = {
 
@@ -64,4 +64,4 @@ var Utils = {
   }
 };
 
-export default Utils;
+module.exports = Utils;

@@ -1,86 +1,87 @@
-import Utils from './utils'
+var Utils = require('./utils');
 
 var ROUND_PRECISION = 9;
 
-class Vector {
-  constructor(x, y) {
-    this.x = x || 0;
-    this.y = y || 0;
-  }
+var Vector = function(x, y) {
+  this.x = x || 0;
+  this.y = y || 0;
+}
 
-  set(x, y) {
+Vector.prototype = {
+
+  set: function(x, y) {
     this.x = x;
     this.y = y;
-  }
+  },
 
-  add (vec) {
+  add: function(vec) {
     return new Vector(this.x + vec.x, this.y + vec.y);
-  }
+  },
 
-  sub(vec) {
+  sub: function(vec) {
     return new Vector(this.x - vec.x, this.y - vec.y);
-  }
+  },
 
-  multiply(scalar) {
+  multiply: function(scalar) {
     return new Vector(this.x * scalar, this.y * scalar);
-  }
+  },
 
-  divide(scalar) {
+  divide: function(scalar) {
     var vec = new Vector(0, 0);
     if(scalar) {
       vec.x = this.x / scalar;
       vec.y = this.y / scalar;
     }
     return vec;
-  }
+  },
 
-  distance(vec) {
+  distance: function(vec) {
     return Math.sqrt(this.distanceSquared(vec));
-  }
+  },
 
-  distanceSquared(vec) {
+  distanceSquared: function(vec) {
     var dx = this.x - vec.x;
     var dy = this.y - vec.y;
     return dx * dx + dy * dy;
-  }
+  },
 
-  lerp(vec, scalar) {
+  lerp: function(vec, scalar) {
     var x = (vec.x - this.x) * scalar + this.x;
     var y = (vec.y - this.y) * scalar + this.y;
     return new Vector(x, y);
-  }
+  },
 
-  dot (vec) {
+  dot: function(vec) {
     return this.x * vec.x + this.y * vec.y;
-  }
+  },
 
-  length() {
+  length: function() {
     return Math.sqrt(this.lengthSquared());
-  }
+  },
 
-  lengthSquared() {
+  lengthSquared: function() {
     return this.x * this.x + this.y * this.y;
-  }
+  },
 
-  normalize() {
+  normalize: function() {
     return this.divide(this.length());
-  }
+  },
 
-  rotation() {
+  rotation: function() {
     return Utils.degrees(Math.atan2(this.y, this.x));
-  }
+  },
 
-  rotate(degrees) {
+  rotate: function(degrees) {
     var rad = Utils.radians(this.rotation() + degrees);
     var len = this.length();
     var x = Utils.round(Math.cos(rad) * len, ROUND_PRECISION);
     var y = Utils.round(Math.sin(rad) * len, ROUND_PRECISION);
     return new Vector(x, y);
-  }
+  },
 
-  copy() {
+  copy: function() {
     return new Vector(this.x, this.y);
-  }
+  },
 
   toString() {
     return "(x: " + this.x + ", y: " + this.y + ")";
@@ -88,4 +89,4 @@ class Vector {
 
 }
 
-export default Vector;
+module.exports = Vector;
