@@ -1,71 +1,4 @@
-import Utils from './utils'
-import Color from './color'
-import Vector from './vector'
-
-var Moveable = {
-
-  moveable: function(copy) {
-    this.vars = this.vars || {};
-    this.vars.x = copy ? copy.vars.x : 0;
-    this.vars.y = copy ? copy.vars.y : 0;
-    this.vars.rotation = copy ? copy.vars.rotation : 0;
-    this.vars.rotationX = copy ? copy.vars.rotationX : 0;
-    this.vars.rotationY = copy ? copy.vars.rotationY : 0;
-  },
-
-  move: function(x, y, relative) {
-    this.vars.x = relative ? this.vars.x + x : x;
-    this.vars.y = relative ? this.vars.y + y : y;
-    return this;
-  },
-
-  rotate: function(deg, x, y, relative) {
-    this.vars.rotation = deg;
-    if(x || y) {
-      this.vars.rotationX = x || 0;
-      this.vars.rotationY = y || 0;
-    }
-    if(relative) {
-      this.vars.rotationX += this.vars.x;
-      this.vars.rotationY += this.vars.y;
-    }
-    return this;
-  },
-
-  addParent: function(group) {
-    group.add(this);
-    return this;
-  },
-
-  removeParent: function() {
-    if(this.parent) this.parent.remove(this);
-    return this;
-  },
-
-  stagepos: function() {
-    var vec = new Vector(this.vars.x, this.vars.y);
-    if(this.parent) {
-      vec = vec.add(this.parent.stagepos());
-    }
-    return vec;
-  }
-
-};
-
-var Sizeable = {
-
-  sizeable: function(copy) {
-    this.vars = this.vars || {};
-    this.vars.width = copy ? copy.vars.width : 0;
-    this.vars.height = copy ? copy.vars.height : 0;
-  },
-
-  scaleSizeable: function(scalar) {
-    this.vars.width *= scalar;
-    this.vars.height *= scalar;
-  }
-
-};
+var Color = require('../color');
 
 var Styleable = {
 
@@ -120,16 +53,4 @@ var Styleable = {
   }
 };
 
-var VectorsAcceptable = {
-
-  vectorsAcceptable: function(argsObject) {
-    var args = Utils.expandVectorArguments(argsObject);
-    if (this.init) {
-      this.init.apply(this, args);
-    } else {
-      throw new Error("init() function does not exist for initializing from vectors");
-    }
-  }
-};
-
-export { Moveable, Sizeable, Styleable, VectorsAcceptable };
+module.exports = Styleable;
