@@ -1,4 +1,4 @@
-var Rune = require("../tmp/rune.node.js");
+var Rune = require("../src/rune.js");
 
 module.exports = function() {
 
@@ -14,9 +14,9 @@ module.exports = function() {
     r.rect(0, 0, 100, 100).fill(col).stroke(255);
   }
 
-  // for(var i = 0; i < 60; i++) {
-  //   r.draw();
-  // }
+  for(var i = 0; i < 60; i++) {
+    r.draw();
+  }
 
   var end = new Date().getTime();
   var time = end - start;

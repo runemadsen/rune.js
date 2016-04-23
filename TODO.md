@@ -2,11 +2,7 @@
 
 ## Next up
 
-- [ ] Rewrite to not use ES6
-- [ ] Store SVG path symbol instead of "curve" and 'line'
-
 - [ ] Implement `changed` for shapes that affects rendering.
-
 - [ ] mouse events should work on individual shapes
 - [ ] Polygon `intersects()` http://bjornharrtell.github.io/jsts/
 - [ ] Polygon `intersection()` http://bjornharrtell.github.io/jsts/
@@ -17,7 +13,6 @@
 ## Backlog
 
 - [ ] Text layout with bounds, lineHeight, etc
-- [ ] SVG converter as Chrome plugin
 - [ ] Fix error around DOM update and mousemove being off
 - [ ] Filters
 - [ ] Blend modes

@@ -83,7 +83,7 @@ gulp.task('specs:node', function() {
 gulp.task('test:browser', ['build', 'specs:browserify'], function() {
 
   // first listen for changes on source files and recompile
-  gulp.watch('src/**/*.js', ['build:browser']);
+  gulp.watch('src/**/*.js', ['build']);
   gulp.watch('test/**/*.js', ['specs:browserify']);
 
   // then listen for changes on recompiled files and restart server.
@@ -94,14 +94,17 @@ gulp.task('test:browser', ['build', 'specs:browserify'], function() {
     .pipe(jasmineBrowser.server({port: 8888}));
 });
 
-gulp.task('test:headless', ['build:browser', 'specs:browserify'], function() {
+gulp.task('test:headless', ['build', 'specs:browserify'], function() {
   return gulp.src(['tmp/rune.js', 'tmp/rune_browserify_specs.js'])
     .pipe(jasmineBrowser.specRunner({console: true}))
     .pipe(jasmineBrowser.headless());
 });
 
 gulp.task("test:node", ['specs:node'], function() {
-  return gulp.src(['tmp/rune_node_specs.js']).pipe(jasmine({verbose: true, includeStackTrace:true}));
+  return gulp.src(['tmp/rune_node_specs.js']).pipe(jasmine({
+    verbose: true,
+    includeStackTrace:true
+  }));
 });
 
 // Benchmark
