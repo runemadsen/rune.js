@@ -26,7 +26,7 @@ Image.prototype = {
     return this;
   },
 
-  copy(parent) {
+  copy: function(parent) {
     var copy = new Image();
     copy.vars.url = this.vars.url;
     Utils.copyMixinVars(this, copy);

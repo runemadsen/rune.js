@@ -54,7 +54,7 @@ Ellipse.prototype = {
     return this;
   },
 
-  copy(parent) {
+  copy: function(parent) {
     var copy = new Ellipse();
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);

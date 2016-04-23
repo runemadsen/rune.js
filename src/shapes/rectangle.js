@@ -50,7 +50,7 @@ Rectangle.prototype = {
     return copy;
   },
 
-  scale(scalar) {
+  scale: function(scalar) {
     this.scaleSizeable(scalar);
     this.scaleStyleable(scalar);
     return this;

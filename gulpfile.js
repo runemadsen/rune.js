@@ -8,7 +8,6 @@ var tar = require('gulp-tar');
 var gzip = require('gulp-gzip');
 var zip = require('gulp-zip');
 var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
 var assign = require('lodash/object/assign');
 var concat = require('gulp-concat');
 var derequire = require('gulp-derequire');
@@ -23,23 +22,11 @@ var watch = require('gulp-watch');
 // -------------------------------------------------
 
 function transpile(infiles, outfile, outdir, extraOpts) {
-
   var opts = assign({}, extraOpts);
-
   return browserify(infiles, opts).bundle()
     .on('error', function(err) { console.error(err); this.emit('end'); })
     .pipe(source(outfile))
-
-    // This is horrible: make .default to root so package can be required
-    // with require('rune.js') and not require('rune.js').default
-    .pipe(replace("exports.default = Rune;", "module.exports = Rune;"))
-
-    // remove requires from file because otherwise the node
-    // module doesn't work.
-    .pipe(derequire())
     .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(outdir));
 }
 
@@ -47,7 +34,7 @@ function transpile(infiles, outfile, outdir, extraOpts) {
 // -------------------------------------------------
 
 gulp.task('build', function() {
-  return transpile('./src/rune.js', 'rune.js', 'tmp', { standalone: "Rune", debug:true })
+  return transpile('./src/rune.js', 'rune.js', 'tmp', { standalone: "Rune" })
 });
 
 // Test
@@ -65,7 +52,7 @@ gulp.task('specs:browser', function() {
 });
 
 gulp.task('specs:browserify', ['specs:browser'], function() {
-  return transpile(['tmp/rune_browser_specs.js'], 'rune_browserify_specs.js', 'tmp', { debug:true })
+  return transpile(['tmp/rune_browser_specs.js'], 'rune_browserify_specs.js', 'tmp', {})
 });
 
 gulp.task('specs:node', function() {
@@ -121,8 +108,9 @@ gulp.task("benchmark", ['build'], function() {
 gulp.task('publish:minify', ['build'], function() {
   return gulp.src(['tmp/rune.js'])
     .pipe(uglify())
+    .on('error', function(err) { console.error(err); })
     .pipe(rename({extname: '.min.js'}))
-    .pipe(gulp.dest('tmp'));
+    .pipe(gulp.dest('tmp'))
 });
 
 gulp.task('publish:zip', ['publish:minify'], function() {

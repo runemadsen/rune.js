@@ -84,7 +84,7 @@ Vector.prototype = {
     return new Vector(this.x, this.y);
   },
 
-  toString() {
+  toString: function() {
     return "(x: " + this.x + ", y: " + this.y + ")";
   }
 
