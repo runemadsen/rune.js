@@ -2,7 +2,7 @@
 // See more here: https://github.com/MoOx/color
 var colorConvert = require('color-convert');
 
-var Color = Function(a, b, c, d, e) {
+var Color = function(a, b, c, d, e) {
 
   this.values = {
     rgb: [0, 0, 0],

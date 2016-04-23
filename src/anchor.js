@@ -37,7 +37,7 @@ Anchor.prototype = {
     if(this.vec2) a.vec2 = this.vec2.copy();
     if(this.vec3) a.vec3 = this.vec3.copy();
     return a;
-  }
+  },
 
   setMove: function(x, y) {
     this.command = 'move';

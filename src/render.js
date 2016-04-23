@@ -1,4 +1,4 @@
-import flatten = require("lodash/array/flatten");
+var flatten = require("lodash/array/flatten");
 var each = require("lodash/collection/each");
 var map = require("lodash/collection/map");
 var Circle = require('./shapes/circle');

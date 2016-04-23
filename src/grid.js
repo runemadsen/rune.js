@@ -1,6 +1,5 @@
 var assign = require("lodash/object/assign");
 var defaults = require("lodash/object/defaults");
-var Shapeable = require("./mixins/shapeable");
 var Moveable = require("./mixins/moveable");
 var Group = require('./group');
 
@@ -89,6 +88,6 @@ Grid.prototype = {
 
 }
 
-assign(Grid.prototype, Shapeable, Moveable, { type: "grid" });
+assign(Grid.prototype, Moveable, { type: "grid" });
 
 module.exports = Grid;

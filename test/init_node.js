@@ -1,4 +1,4 @@
-var Rune = require("../tmp/rune.node.js");
+var Rune = require("../src/rune.js");
 
 // helpers.js and matchers.js will automatically be inserted here.
 

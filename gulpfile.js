@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
-var babelify = require('babelify');
 var replace = require('gulp-replace');
 var rename = require("gulp-rename");
 var tar = require('gulp-tar');
@@ -26,10 +25,8 @@ var watch = require('gulp-watch');
 function transpile(infiles, outfile, outdir, extraOpts) {
 
   var opts = assign({}, extraOpts);
-  var bundler = browserify(infiles, opts)
-    .transform(babelify, {presets: ["es2015"]})
 
-  return bundler.bundle()
+  return browserify(infiles, opts).bundle()
     .on('error', function(err) { console.error(err); this.emit('end'); })
     .pipe(source(outfile))
 
@@ -49,16 +46,9 @@ function transpile(infiles, outfile, outdir, extraOpts) {
 // Build
 // -------------------------------------------------
 
-gulp.task('build:browser', function() {
+gulp.task('build', function() {
   return transpile('./src/rune.js', 'rune.js', 'tmp', { standalone: "Rune", debug:true })
 });
-
-gulp.task('build:node', function() {
-  return transpile('./src/rune.js', 'rune.node.js', 'tmp', { bundleExternal:false, standalone: "Rune", debug:true })
-});
-
-gulp.task('build', ['build:browser', 'build:node']);
-
 
 // Test
 // -------------------------------------------------
@@ -90,7 +80,7 @@ gulp.task('specs:node', function() {
   .pipe(gulp.dest('tmp'));
 });
 
-gulp.task('test:browser', ['build:browser', 'specs:browserify'], function() {
+gulp.task('test:browser', ['build', 'specs:browserify'], function() {
 
   // first listen for changes on source files and recompile
   gulp.watch('src/**/*.js', ['build:browser']);
@@ -110,69 +100,36 @@ gulp.task('test:headless', ['build:browser', 'specs:browserify'], function() {
     .pipe(jasmineBrowser.headless());
 });
 
-gulp.task("test:node", ['build:node', 'specs:node'], function() {
+gulp.task("test:node", ['specs:node'], function() {
   return gulp.src(['tmp/rune_node_specs.js']).pipe(jasmine({verbose: true, includeStackTrace:true}));
 });
 
 // Benchmark
 // -------------------------------------------------
 
-gulp.task("benchmark", ['build:node'], function() {
+gulp.task("benchmark", ['build'], function() {
   var benchmark = require('./test/benchmark');
   benchmark();
-});
-
-// NPM
-// -------------------------------------------------
-
-gulp.task('npm:dir', ['build:node', 'build:browser'], function() {
-  gulp.src(['package.json', 'README.md'])
-    .pipe(gulp.dest('tmp/npm'));
-});
-
-gulp.task('npm:dist', ['npm:dir'], function() {
-  return gulp.src(['tmp/rune.node.js', 'tmp/rune.js'])
-    .pipe(gulp.dest('tmp/npm/dist'));
-});
-
-gulp.task('npm:tar', ['npm:dist'], function() {
-  var p = require('./package.json')
-  return gulp.src(['tmp/npm/**'], { base: "tmp"})
-    .pipe(tar('node-'+p.version+'.tar'))
-    .pipe(gzip())
-    .pipe(gulp.dest('tmp'));
-});
-
-gulp.task('npm:publish', ['npm:tar'], function(cb) {
-
-  var p = require('./package.json');
-
-  exec('npm publish tmp/node-'+p.version+'.tar.gz', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb(err);
-  });
-
 });
 
 // GitHub
 // -------------------------------------------------
 
-gulp.task('github:minify', ['build:browser'], function() {
+gulp.task('publish:minify', ['build'], function() {
   return gulp.src(['tmp/rune.js'])
     .pipe(uglify())
     .pipe(rename({extname: '.min.js'}))
     .pipe(gulp.dest('tmp'));
 });
 
-gulp.task('github:zip', ['github:minify'], function() {
+gulp.task('publish:zip', ['publish:minify'], function() {
   var p = require('./package.json')
   return gulp.src(['tmp/rune.js', 'tmp/rune.min.js'])
     .pipe(zip('github-'+p.version+'.zip'))
     .pipe(gulp.dest('tmp'));
 });
 
-gulp.task('github:publish', ['github:zip'], function() {
+gulp.task('publish', ['publish:zip'], function() {
 
   var creds = require('./credentials.json');
   var p = require('./package.json');
@@ -213,8 +170,4 @@ gulp.task('github:publish', ['github:zip'], function() {
       })
   });
 
-});
-
-gulp.task('publish', ['npm:publish', 'github:publish'], function() {
-  console.log("Published!");
 });

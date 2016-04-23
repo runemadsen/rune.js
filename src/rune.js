@@ -1,7 +1,7 @@
 var defaults = require('lodash/object/defaults');
 var assign = require("lodash/object/assign");
 var each = require("lodash/collection/each");
-var Vector = require("./vector";);
+var Vector = require("./vector");
 var Anchor = require("./anchor");
 var Color = require("./color");
 var Group = require("./group");
@@ -25,8 +25,7 @@ var Styleable = require('./mixins/styleable');
 // Constructor
 // --------------------------------------------------
 
-var Rune = function(options)
-
+var Rune = function(options) {
   var params = defaults(options || {}, {
       width: 640,
       height: 480,

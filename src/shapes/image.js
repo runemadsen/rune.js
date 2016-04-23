@@ -1,6 +1,7 @@
 var assign = require("lodash/object/assign");
 var Moveable = require("../mixins/moveable");
 var Styleable = require("../mixins/styleable");
+var Sizeable = require("../mixins/sizeable");
 var VectorsAcceptable = require("../mixins/vectors_acceptable");
 var Utils = require('../utils');
 
