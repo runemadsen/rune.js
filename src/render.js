@@ -1,29 +1,29 @@
-import flatten from "lodash/array/flatten"
-import each from "lodash/collection/each"
-import map from "lodash/collection/map"
-import Circle from './shapes/circle'
-import Rectangle from './shapes/rectangle'
-import Line from './shapes/line'
-import h from 'virtual-dom/h'
-import diff from 'virtual-dom/diff'
-import patch from 'virtual-dom/patch'
-import createElement from 'virtual-dom/create-element'
-import svg from 'virtual-dom/virtual-hyperscript/svg'
+import flatten = require("lodash/array/flatten");
+var each = require("lodash/collection/each");
+var map = require("lodash/collection/map");
+var Circle = require('./shapes/circle');
+var Rectangle = require('./shapes/rectangle');
+var Line = require('./shapes/line');
+var h = require('virtual-dom/h');
+var diff = require('virtual-dom/diff');
+var patch = require('virtual-dom/patch');
+var createElement = require('virtual-dom/create-element');
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
-class Render {
+var Render = function(params) {
+  this.params = params
+  this.tree = svg('svg', {
+    xmlns: 'http://www.w3.org/2000/svg',
+    'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+    width: this.s(params.width),
+    height: this.s(params.height)
+  });
+  this.el = createElement(this.tree);
+}
 
-  constructor(params) {
-    this.params = params
-    this.tree = svg('svg', {
-      xmlns: 'http://www.w3.org/2000/svg',
-      'xmlns:xlink': 'http://www.w3.org/1999/xlink',
-      width: this.s(params.width),
-      height: this.s(params.height)
-    });
-    this.el = createElement(this.tree);
-  }
+Render.prototype = {
 
-  render(stage, opts) {
+  render: function(stage, opts) {
 
     var newTree = svg('svg', {
       width: this.s(this.params.width),
@@ -33,27 +33,27 @@ class Render {
     var diffTree = diff(this.tree, newTree);
     this.el = patch(this.el, diffTree);
     this.tree = newTree;
-  }
+  },
 
   // Shape converters
   // --------------------------------------------------
 
-  objectToSVG(object, opts) {
+  objectToSVG: function(object, opts) {
     if(this[object.type + "ToSVG"])
       return this[object.type + "ToSVG"](object, opts);
     else
       console.error("Rune.Render: Object not recognized", object)
-  }
+  },
 
-  objectsToSVG(objects, opts) {
+  objectsToSVG: function(objects, opts) {
     var newObjects = [];
     for(var i = 0; i < objects.length; i++) {
       newObjects.push(this.objectToSVG(objects[i], opts));
     }
     return flatten(newObjects, true);
-  }
+  },
 
-  rectangleToSVG(rect) {
+  rectangleToSVG: function(rect) {
     var attr = {
       x: this.s(rect.vars.x),
       y: this.s(rect.vars.y),
@@ -65,9 +65,9 @@ class Render {
     this.transformAttribute(attr, rect);
     this.styleableAttributes(rect, attr);
     return svg('rect', attr);
-  }
+  },
 
-  ellipseToSVG(ellipse) {
+  ellipseToSVG: function(ellipse) {
     var attr = {
       cx: this.s(ellipse.vars.x),
       cy: this.s(ellipse.vars.y),
@@ -77,9 +77,9 @@ class Render {
     this.transformAttribute(attr, ellipse);
     this.styleableAttributes(ellipse, attr);
     return svg('ellipse', attr);
-  }
+  },
 
-  circleToSVG(circle) {
+  circleToSVG: function(circle) {
     var attr = {
       cx: this.s(circle.vars.x),
       cy: this.s(circle.vars.y),
@@ -88,9 +88,9 @@ class Render {
     this.transformAttribute(attr, circle);
     this.styleableAttributes(circle, attr);
     return svg('circle', attr);
-  }
+  },
 
-  lineToSVG(line) {
+  lineToSVG: function(line) {
     var attr = {
       x1: this.s(line.vars.x),
       y1: this.s(line.vars.y),
@@ -100,18 +100,18 @@ class Render {
     this.transformAttribute(attr, line);
     this.styleableAttributes(line, attr);
     return svg('line', attr);
-  }
+  },
 
-  triangleToSVG(tri) {
+  triangleToSVG: function(tri) {
     var attr = {
       points: '0 0 ' + tri.vars.x2 + ' ' + tri.vars.y2 + ' ' + tri.vars.x3 + ' ' + tri.vars.y3
     };
     this.transformAttribute(attr, tri);
     this.styleableAttributes(tri, attr);
     return svg('polygon', attr);
-  }
+  },
 
-  polygonToSVG(polygon) {
+  polygonToSVG: function(polygon) {
     var attr = {
       points: map(polygon.vars.vectors, function(vec) {
         return vec.x + " " + vec.y;
@@ -120,9 +120,9 @@ class Render {
     this.transformAttribute(attr, polygon);
     this.styleableAttributes(polygon, attr);
     return svg('polygon', attr);
-  }
+  },
 
-  pathToSVG(path, opts) {
+  pathToSVG: function(path, opts) {
     var attr = {};
     this.dAttribute(path, attr);
     this.transformAttribute(attr, path);
@@ -137,9 +137,9 @@ class Render {
 
     if(opts && opts.debug) els = els.concat(this.debugPathToSVG(path));
     return els;
-  }
+  },
 
-  textToSVG(text, opts) {
+  textToSVG: function(text, opts) {
     var attr = {
       x: this.s(text.vars.x),
       y: this.s(text.vars.y),
@@ -169,9 +169,9 @@ class Render {
     }
 
     return svg('text', attr, text.vars.text);
-  }
+  },
 
-  imageToSVG(img) {
+  imageToSVG: function(img) {
     var attr = {
       "xlink:href" : this.s(img.vars.url),
       x: this.s(img.vars.x),
@@ -183,41 +183,41 @@ class Render {
     });
     this.transformAttribute(attr, img);
     return svg('image', attr);
-  }
+  },
 
-  groupToSVG(group, opts) {
+  groupToSVG: function(group, opts) {
     if(!group.children || group.children.length == 0) return;
     var attr = {}
     this.transformAttribute(attr, group);
     return svg('g', attr, this.objectsToSVG(group.children, opts));
-  }
+  },
 
-  gridToSVG(grid, opts) {
+  gridToSVG: function(grid, opts) {
     var attr = {}
     this.transformAttribute(attr, grid);
     var groups = this.objectsToSVG(grid.modules);
     if(opts && opts.debug) groups = groups.concat(this.debugGridToSVG(grid));
 
     return svg('g', attr, flatten(groups, true));
-  }
+  },
 
   // Multiple attributes
   // --------------------------------------------------
 
-  optionalAttributes (object, attr, keys) {
+  optionalAttributes: function(object, attr, keys) {
     each(keys, function(attribute, variable) {
       if(object.vars[variable]) {
         attr[attribute] = this.s(object.vars[variable]);
       }
     }, this);
-  }
+  },
 
-  sizeableAttributes(object, attr) {
+  sizeableAttributes: function(object, attr) {
     attr.width = this.s(object.vars.width);
     attr.height = this.s(object.vars.height);
-  }
+  },
 
-  styleableAttributes(object, attr) {
+  styleableAttributes: function(object, attr) {
 
     if(object.vars.fill === false)    attr.fill = "none";
     else if(object.vars.fill) {
@@ -239,12 +239,12 @@ class Render {
     if(object.vars.strokeMiterlimit)  attr["stroke-miterlimit"] = this.s(object.vars.strokeMiterlimit);
     if(object.vars.strokeDash)        attr["stroke-dasharray"] = object.vars.strokeDash;
     if(object.vars.strokeDashOffset)  attr["stroke-dashoffset"] = this.s(object.vars.strokeDashOffset);
-  }
+  },
 
   // Single attributes
   // --------------------------------------------------
 
-  transformAttribute(attr, shape) {
+  transformAttribute: function(attr, shape) {
 
     var vars = shape.vars;
     var strings = [];
@@ -262,36 +262,35 @@ class Render {
 
     if(strings.length > 0)
       attr.transform = strings.join(" ").trim();
-  }
+  },
 
-  dAttribute(object, attr) {
+  dAttribute: function(object, attr) {
     attr.d = map(object.vars.anchors, function(a) {
-
       if(a.command == 'move') {
-        return (a.relative ? "m" : "M") + " " + [a.vec1.x, a.vec1.y].join(' ');
+        return "M " + a.vec1.x + " " + a.vec1.y;
       }
       else if(a.command == 'line') {
-        return (a.relative ? "l" : "L") + " " + [a.vec1.x, a.vec1.y].join(' ');
+        return "L " + a.vec1.x + " " + a.vec1.y;
       }
       else if(a.command == 'cubic'){
-        return (a.relative ? "c" : "C") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y, a.vec3.x, a.vec3.y].join(' ');
+        return "C " + a.vec1.x + " " + a.vec1.y + " " + a.vec2.x + " " + a.vec2.y + " " + a.vec3.x + " " + a.vec3.y;
       }
       else if(a.command == 'quad' && typeof a.vec2 !== 'undefined') {
-        return (a.relative ? "q" : "Q") + " " + [a.vec1.x, a.vec1.y, a.vec2.x, a.vec2.y].join(' ');
+        return "Q " + a.vec1.x + " " + a.vec1.y + " " + a.vec2.x + " " + a.vec2.y;
       }
       else if(a.command == 'quad'){
-        return (a.relative ? "t" : "T") + " " + [a.vec1.x, a.vec1.y].join(' ');
+        return "T " + a.vec1.x + " " + a.vec1.y;
       }
       else if(a.command == 'close'){
         return "Z";
       }
     }).join(" ").trim();
-  }
+  },
 
   // Debug
   // --------------------------------------------------
 
-  debugPathToSVG(path) {
+  debugPathToSVG: function(path) {
 
     var t = this;
     var els = [];
@@ -313,9 +312,9 @@ class Render {
     });
 
     return els;
-  }
+  },
 
-  debugGridToSVG(grid) {
+  debugGridToSVG: function(grid) {
 
     var t = this;
     var els = [];
@@ -342,33 +341,33 @@ class Render {
     }
 
     return els;
-  }
+  },
 
-  debugCircle (x, y) {
+  debugCircle: function(x, y) {
     var c = new Circle(x, y, 4)
       .fill(212, 18, 229)
       .stroke(false);
     return this.circleToSVG(c);
-  }
+  },
 
-  debugRect (x, y, width, height) {
+  debugRect: function(x, y, width, height) {
     var r = new Rectangle(x, y, width, height)
       .stroke(212, 18, 229).fill(false);
     return this.rectangleToSVG(r);
-  }
+  },
 
-  debugLine (x1, y1, x2, y2) {
+  debugLine: function(x1, y1, x2, y2) {
     var l = new Line(x1, y1, x2, y2)
       .stroke(212, 18, 229);
     return this.lineToSVG(l);
-  }
+  },
 
   // Helpers
   // --------------------------------------------------
 
   // function to turn any non-string into a string. We need
   // this when running server-side node.
-  s(val) {
+  s: function(val) {
     if(typeof val !== 'string' && typeof val.toString !== 'undefined')
       return val.toString();
     return val;
@@ -376,4 +375,4 @@ class Render {
 
 }
 
-export default Render;
+module.exports = Render;

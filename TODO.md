@@ -3,6 +3,8 @@
 ## Next up
 
 - [ ] Rewrite to not use ES6
+- [ ] Store SVG path symbol instead of "curve" and 'line'
+
 - [ ] Implement `changed` for shapes that affects rendering.
 
 - [ ] mouse events should work on individual shapes

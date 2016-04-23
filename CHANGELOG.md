@@ -1,3 +1,8 @@
+## 0.3.0
+
+- Code is now node modules instead of ES6. This makes a lot of things easier.
+- Rendering is now a bit faster.
+
 ## 0.2.19
 
 - Most drawing functions now take vector arguments. Thanks to @philcn.
