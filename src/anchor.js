@@ -6,6 +6,8 @@ var Anchor = function() {};
 
 Anchor.prototype = {
 
+  type: "anchor",
+
   add: function(vec) {
     var a = this.copy();
     if(a.vec1) a.vec1 = a.vec1.add(vec);

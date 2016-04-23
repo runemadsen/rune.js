@@ -1,5 +1,3 @@
-var Vector = require("./vector");
-
 var Utils = {
 
   random: function(a, b) {
@@ -53,7 +51,7 @@ var Utils = {
   expandVectorArguments: function(argObject) {
     var args = this.argumentsToArray(argObject);
     for (var i = 0; i < args.length; i++) {
-      if (args[i] instanceof Vector) {
+      if(args[i] && args[i].type == 'vector') {
         var vec = args[i];
         args.splice(i, 1);
         args.splice(i, 0, vec.y);

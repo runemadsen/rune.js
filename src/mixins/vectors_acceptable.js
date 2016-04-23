@@ -11,3 +11,5 @@ var VectorsAcceptable = {
     }
   }
 };
+
+module.exports = VectorsAcceptable;

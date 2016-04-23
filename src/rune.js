@@ -56,7 +56,6 @@ var Rune = function(options) {
   }
 
   this.initEvents();
-
 };
 
 Rune.prototype = {

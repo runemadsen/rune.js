@@ -1,5 +1,4 @@
 var Utils = require('./utils');
-
 var ROUND_PRECISION = 9;
 
 var Vector = function(x, y) {
@@ -8,6 +7,8 @@ var Vector = function(x, y) {
 }
 
 Vector.prototype = {
+
+  type: "vector",
 
   set: function(x, y) {
     this.x = x;

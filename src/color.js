@@ -48,9 +48,12 @@ var Color = function(a, b, c, d, e) {
     this.setValues('rgb', {r:a, g:b, b:c});
     if(d) this.setValues('alpha', d);
   }
+
 };
 
 Color.prototype = {
+
+  type: "color",
 
   rgb: function(vals) {
     return this.setSpace("rgb", arguments);

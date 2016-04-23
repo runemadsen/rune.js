@@ -71,6 +71,7 @@ describe("Rune.Circle", function() {
   describe("scale()", function() {
 
     it("scales the circle", function() {
+      console.log(s)
       spyOn(s, 'scaleStyleable');
       s.scale(2);
       expect(s.vars.x).toEqual(10);
