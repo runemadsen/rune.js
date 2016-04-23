@@ -1,54 +1,56 @@
-import each from "lodash/collection/each"
-import map from "lodash/collection/map"
-import assign from "lodash/object/assign"
-import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
-import Anchor from '../anchor'
-import Vector from '../vector'
-import Polygon from './polygon'
-import Utils from '../utils'
+var each = require("lodash/collection/each");
+var map = require("lodash/collection/map");
+var assign = require("lodash/object/assign");
+var Moveable = require("../mixins/moveable");
+var Styleable = require("../mixins/styleable");
+var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Anchor = require('../anchor');
+var Vector = require('../vector');
+var Polygon = require('./polygon');
+var Utils = require('../utils');
 
-class Path {
+var Path = function(x, y) {
+  this.moveable();
+  this.styleable();
+  this.vectorsAcceptable(arguments);
+}
 
-  constructor(x, y) {
-    this.moveable();
-    this.styleable();
-    this.vectorsAcceptable(arguments);
-  }
+Path.prototype = {
 
-  init(x, y) {
+  init: function(x, y) {
     this.vars.anchors = [];
     if(typeof x !== 'undefined') this.vars.x = x;
     if(typeof y !== 'undefined') this.vars.y = y;
-  }
+  },
 
-  moveTo(x, y) {
+  moveTo: function(x, y) {
     this.vars.anchors.push(new Anchor().setMove(x, y));
     return this;
-  }
+  },
 
-  lineTo(x, y) {
+  lineTo: function(x, y) {
     this.checkStartMove();
     this.vars.anchors.push(new Anchor().setLine(x, y));
     return this;
-  }
+  },
 
-  curveTo(a, b, c, d, e, f) {
+  curveTo: function(a, b, c, d, e, f) {
     this.checkStartMove();
     this.vars.anchors.push(new Anchor().setCurve(a, b, c, d, e, f));
     return this;
-  }
+  },
 
-  closePath() {
+  closePath: function() {
     this.checkStartMove();
     this.vars.anchors.push(new Anchor().setClose());
     return this;
-  }
+  },
 
-  startVector() {
+  startVector: function() {
     return this.vars.anchors[0] && this.vars.anchors[0].command == 'move' ? this.vars.anchors[0].vec1.copy() : new Vector(0, 0);
-  }
+  },
 
-  subpaths(parent) {
+  subpaths: function(parent) {
     var subs = [];
     var lastSplit = 0;
 
@@ -67,9 +69,9 @@ class Path {
       }
     }, this);
     return subs;
-  }
+  },
 
-  length() {
+  length: function() {
 
     var len = 0;
     var paths = this.subpaths(false);
@@ -97,9 +99,9 @@ class Path {
     }
 
     return len;
-  }
+  },
 
-  vectorAtLength(len) {
+  vectorAtLength: function(len) {
     var tmpLen = 0;
     var paths = this.subpaths(false);
 
@@ -134,13 +136,13 @@ class Path {
     }
 
     return this.startVector();
-  }
+  },
 
-  vectorAt(scalar) {
+  vectorAt: function(scalar) {
     return this.vectorAtLength(this.length() * scalar);
-  }
+  },
 
-  toPolygons(opts, parent) {
+  toPolygons: function(opts, parent) {
 
     var paths = this.subpaths(false);
     var polys = [];
@@ -165,29 +167,31 @@ class Path {
     }
 
     return polys;
-  }
+  },
 
-  copy(parent) {
+  copy: function(parent) {
     var copy = new Path();
     copy.vars.anchors = map(this.vars.anchors, function(a) { return a.copy(); });
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
-  }
+  },
 
-  scale(scalar) {
+  scale: function(scalar) {
     this.scaleStyleable(scalar);
     this.vars.anchors = map(this.vars.anchors, function(anchor) {
       return anchor.multiply(scalar);
     });
     return this;
-  }
+  },
 
-  fillRule(val) { this.vars.fillRule = val; return this; }
+  fillRule: function(val) {
+    this.vars.fillRule = val; return this;
+  },
 
   // Paths must start with a moveTo. This function is checks if
   // there is a moveTo at the beginning, and adds one if not.
-  checkStartMove() {
+  checkStartMove: function() {
     if(this.vars.anchors.length == 0) {
       this.moveTo(0, 0);
     }
@@ -197,4 +201,4 @@ class Path {
 
 assign(Path.prototype, Moveable, Styleable, VectorsAcceptable, { type: "path"});
 
-export default Path;
+module.exports = Path;

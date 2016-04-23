@@ -1,35 +1,37 @@
-import assign from "lodash/object/assign"
-import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
-import Utils from '../utils'
+var assign = require("lodash/object/assign");
+var Moveable = require("../mixins/moveable");
+var Styleable = require("../mixins/styleable");
+var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Utils = require('../utils');
 
-class Text {
+var Text = function(text, x, y) {
+  this.moveable();
+  this.styleable();
+  this.vectorsAcceptable(arguments);
+}
 
-  constructor(text, x, y) {
-    this.moveable();
-    this.styleable();
-    this.vectorsAcceptable(arguments);
-  }
+Text.prototype = {
 
-  init(text, x, y) {
+  init: function(text, x, y) {
     this.vars.text = text;
     this.vars.x = x;
     this.vars.y = y;
     this.vars.fontSize = 16;
-  }
+  },
 
-  toPolygon() {
+  toPolygon: function() {
     throw new Error("You need the Rune.Font plugin to convert text to polygon");
-  }
+  },
 
-  textAlign(textAlign) { this.vars.textAlign = textAlign; return this; }
-  fontFamily(fontFamily) { this.vars.fontFamily = fontFamily; return this; }
-  fontStyle(fontStyle) { this.vars.fontStyle = fontStyle; return this; }
-  fontWeight(fontWeight) { this.vars.fontWeight = fontWeight; return this; }
-  fontSize(fontSize) { this.vars.fontSize = fontSize; return this; }
-  letterSpacing(letterSpacing) { this.vars.letterSpacing = letterSpacing; return this; }
-  textDecoration(textDecoration) { this.vars.textDecoration = textDecoration; return this; }
+  textAlign: function(textAlign) { this.vars.textAlign = textAlign; return this; },
+  fontFamily: function(fontFamily) { this.vars.fontFamily = fontFamily; return this; },
+  fontStyle: function(fontStyle) { this.vars.fontStyle = fontStyle; return this; },
+  fontWeight: function(fontWeight) { this.vars.fontWeight = fontWeight; return this; },
+  fontSize: function(fontSize) { this.vars.fontSize = fontSize; return this; },
+  letterSpacing: function(letterSpacing) { this.vars.letterSpacing = letterSpacing; return this; },
+  textDecoration: function(textDecoration) { this.vars.textDecoration = textDecoration; return this; },
 
-  copy(parent) {
+  copy: function(parent) {
     var copy = new Text();
     copy.vars.text = this.vars.text;
     copy.vars.textAlign = this.vars.textAlign;
@@ -42,9 +44,9 @@ class Text {
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
-  }
+  },
 
-  scale(scalar) {
+  scale: function(scalar) {
     this.scaleStyleable(scalar);
     this.vars.fontSize *= scalar;
     return this;
@@ -54,4 +56,4 @@ class Text {
 
 assign(Text.prototype, Moveable, Styleable, VectorsAcceptable, { type: "text" });
 
-export default Text;
+module.exports = Text;

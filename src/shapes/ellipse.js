@@ -1,25 +1,28 @@
-import assign from "lodash/object/assign"
-import { Moveable, Sizeable, Styleable, VectorsAcceptable } from "../mixins"
-import Polygon from './polygon'
-import Utils from '../utils'
+var assign = require("lodash/object/assign");
+var Moveable = require("../mixins/moveable");
+var Sizeable = require("../mixins/sizeable");
+var Styleable = require("../mixins/styleable");
+var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Polygon = require('./polygon');
+var Utils = require('../utils');
 
-class Ellipse {
+var Ellipse = function(x, y, width, height) {
+  this.moveable();
+  this.sizeable();
+  this.styleable();
+  this.vectorsAcceptable(arguments);
+}
 
-  constructor(x, y, width, height) {
-    this.moveable();
-    this.sizeable();
-    this.styleable();
-    this.vectorsAcceptable(arguments);
-  }
+Ellipse.prototype = {
 
-  init(x, y, width, height) {
+  init: function(x, y, width, height) {
     this.vars.x = x;
     this.vars.y = y;
     this.vars.width = width;
     this.vars.height = height;
-  }
+  },
 
-  toPolygon(opts, parent) {
+  toPolygon: function(opts, parent) {
 
     var numVectors = 16;
 
@@ -43,13 +46,13 @@ class Ellipse {
     Utils.groupLogic(poly, this.parent, parent);
 
     return poly;
-  }
+  },
 
-  scale(scalar) {
+  scale: function(scalar) {
     this.scaleSizeable(scalar);
     this.scaleStyleable(scalar);
     return this;
-  }
+  },
 
   copy(parent) {
     var copy = new Ellipse();
@@ -60,7 +63,6 @@ class Ellipse {
 
 }
 
-// Should we figure out a better way to do mixins for ES6?
 assign(Ellipse.prototype, Moveable, Sizeable, Styleable, VectorsAcceptable, {type: "ellipse"});
 
-export default Ellipse;
+module.exports = Ellipse;

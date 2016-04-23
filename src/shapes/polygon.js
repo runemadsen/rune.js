@@ -1,35 +1,37 @@
-import assign from "lodash/object/assign"
-import each from "lodash/collection/each"
-import map from "lodash/collection/map"
-import flatten from "lodash/array/flatten"
-import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
-import Vector from '../vector'
-import Utils from '../utils'
+var assign = require("lodash/object/assign");
+var each = require("lodash/collection/each");
+var map = require("lodash/collection/map");
+var flatten = require("lodash/array/flatten");
+var Moveable = require("../mixins/moveable");
+var Styleable = require("../mixins/styleable");
+var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Vector = require('../vector');
+var Utils = require('../utils');
 
-class Polygon {
+var Polygon = function(x, y) {
+  this.moveable();
+  this.styleable();
+  this.vectorsAcceptable(arguments);
+}
 
-  constructor(x, y) {
-    this.moveable();
-    this.styleable();
-    this.vectorsAcceptable(arguments);
-  }
+Polygon.prototype = {
 
-  init(x, y) {
+  init: function(x, y) {
     this.vars.vectors = [];
     if(typeof x !== 'undefined') this.vars.x = x;
     if(typeof y !== 'undefined') this.vars.y = y;
-  }
+  },
 
-  lineTo(x, y) {
+  lineTo: function(x, y) {
     if (x instanceof Vector) {
       this.vars.vectors.push(x);
     } else {
       this.vars.vectors.push(new Vector(x, y));
     }
     return this;
-  }
+  },
 
-  length() {
+  length: function() {
     var len = 0;
     for(var i = 0; i < this.vars.vectors.length; i++) {
       var start = this.vars.vectors[i];
@@ -37,9 +39,9 @@ class Polygon {
       len += stop.sub(start).length();
     }
     return len;
-  }
+  },
 
-  vectorAtLength(len) {
+  vectorAtLength: function(len) {
 
     var tmpLen = 0;
 
@@ -58,13 +60,13 @@ class Polygon {
     }
 
     return this.vars.vectors[0].copy();
-  }
+  },
 
-  vectorAt(scalar) {
+  vectorAt: function(scalar) {
     return this.vectorAtLength(this.length() * scalar);
-  }
+  },
 
-  area() {
+  area: function() {
     var area = 0;
     for(var i = 0; i < this.vars.vectors.length-1; i++)
     {
@@ -72,9 +74,9 @@ class Polygon {
     }
     area /= 2;
     return Math.abs(area);
-  }
+  },
 
-  bounds() {
+  bounds: function() {
     var xmax = undefined;
     var ymax = undefined;
     var xmin = undefined;
@@ -93,9 +95,9 @@ class Polygon {
       width: xmax - xmin,
       height: ymax - ymin
     };
-  }
+  },
 
-  centroid() {
+  centroid: function() {
     var areaAcc = 0.0;
     var xAcc = 0.0;
     var yAcc = 0.0;
@@ -110,9 +112,9 @@ class Polygon {
     var x = xAcc/(6.0*areaAcc);
     var y = yAcc/(6.0*areaAcc);
     return new Vector(x, y);
-  }
+  },
 
-  toPolygon(opts, parent) {
+  toPolygon: function(opts, parent) {
 
     if(opts && opts.spacing) {
 
@@ -131,19 +133,19 @@ class Polygon {
     }
 
     return this;
-  }
+  },
 
-  copy(parent) {
+  copy: function(parent) {
     var copy = new Polygon();
     copy.vars.vectors = map(this.vars.vectors, function(v) { return v.copy(); });
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
-  }
+  },
 
   // Code from ContainsPoint function here:
   // http://polyk.ivank.net
-  contains(x, y) {
+  contains: function(x, y) {
 
     // get stage position
     var addPos = this.stagepos();
@@ -191,9 +193,9 @@ class Polygon {
 		}
 
 		return (depth & 1) == 1;
-  }
+  },
 
-  scale(scalar) {
+  scale: function(scalar) {
     this.scaleStyleable(scalar);
     this.vars.vectors = map(this.vars.vectors, function(vec) {
       return vec.multiply(scalar);
@@ -204,4 +206,4 @@ class Polygon {
 
 assign(Polygon.prototype, Moveable, Styleable, VectorsAcceptable, { type: "polygon" });
 
-export default Polygon;
+module.exports = Polygon;

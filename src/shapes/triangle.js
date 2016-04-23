@@ -1,16 +1,18 @@
-import assign from "lodash/object/assign"
-import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
-import Utils from '../utils'
+var assign = require("lodash/object/assign");
+var Moveable = require("../mixins/moveable");
+var Styleable = require("../mixins/styleable");
+var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Utils = require('../utils');
 
-class Triangle {
+var Triangle = function(x, y, x2, y2, x3, y3) {
+  this.moveable();
+  this.styleable();
+  this.vectorsAcceptable(arguments);
+}
 
-  constructor(x, y, x2, y2, x3, y3) {
-    this.moveable();
-    this.styleable();
-    this.vectorsAcceptable(arguments);
-  }
+Triangle.prototype = {
 
-  init(x, y, x2, y2, x3, y3) {
+  init: function(x, y, x2, y2, x3, y3) {
     this.vars.x = x;
     this.vars.y = y;
 
@@ -20,9 +22,9 @@ class Triangle {
     this.vars.y2 = y2 - y;
     this.vars.x3 = x3 - x;
     this.vars.y3 = y3 - y;
-  }
+  },
 
-  copy(parent) {
+  copy: function(parent) {
     var copy = new Triangle();
     copy.vars.x2 = this.vars.x2;
     copy.vars.y2 = this.vars.y2;
@@ -31,9 +33,9 @@ class Triangle {
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
-  }
+  },
 
-  scale(scalar) {
+  scale: function(scalar) {
     this.scaleStyleable(scalar);
     this.vars.x2 *= scalar;
     this.vars.y2 *= scalar;
@@ -46,4 +48,4 @@ class Triangle {
 
 assign(Triangle.prototype, Moveable, Styleable, VectorsAcceptable, {type: "triangle"});
 
-export default Triangle;
+module.exports = Triangle;

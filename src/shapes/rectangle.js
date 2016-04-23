@@ -1,31 +1,34 @@
-import assign from "lodash/object/assign"
-import { Moveable, Styleable, Sizeable, VectorsAcceptable } from "../mixins"
-import Polygon from './polygon'
-import Utils from '../utils'
+var assign = require("lodash/object/assign");
+var Moveable = require("../mixins/moveable");
+var Styleable = require("../mixins/styleable");
+var Sizeable = require("../mixins/sizeable");
+var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Polygon = require('./polygon');
+var Utils = require('../utils');
 
-class Rectangle {
+var Rectangle = function(x, y, width, height) {
+  this.moveable();
+  this.sizeable();
+  this.styleable();
+  this.vectorsAcceptable(arguments);
+}
 
-  constructor(x, y, width, height) {
-    this.moveable();
-    this.sizeable();
-    this.styleable();
-    this.vectorsAcceptable(arguments);
-  }
+Rectangle.prototype = {
 
-  init(x, y, width, height) {
+  init: function(x, y, width, height) {
     this.vars.x = x;
     this.vars.y = y;
     this.vars.width = width;
     this.vars.height = height;
-  }
+  },
 
-  round(rx, ry) {
+  round: function(rx, ry) {
     if(!ry) ry = rx;
     this.vars.rx = rx;
     this.vars.ry = ry;
-  }
+  },
 
-  toPolygon(opts, parent) {
+  toPolygon: function(opts, parent) {
     var poly =  new Polygon(this.vars.x, this.vars.y)
       .lineTo(0, 0)
       .lineTo(this.vars.width, 0)
@@ -38,14 +41,14 @@ class Rectangle {
     Utils.groupLogic(poly, this.parent, parent);
 
     return poly;
-  }
+  },
 
-  copy(parent) {
+  copy: function(parent) {
     var copy = new Rectangle();
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
-  }
+  },
 
   scale(scalar) {
     this.scaleSizeable(scalar);
@@ -56,4 +59,4 @@ class Rectangle {
 
 assign(Rectangle.prototype, Moveable, Sizeable, Styleable, VectorsAcceptable, { type: "rectangle" });
 
-export default Rectangle;
+module.exports = Rectangle;

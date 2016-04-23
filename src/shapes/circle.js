@@ -1,37 +1,39 @@
-import assign from "lodash/object/assign"
-import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
-import Ellipse from "./ellipse"
-import Utils from '../utils'
+var assign = require("lodash/object/assign");
+var Moveable = require("../mixins/moveable");
+var Styleable = require("../mixins/styleable");
+var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Ellipse = require("./ellipse");
+var Utils = require('../utils');
 
-class Circle {
+var Circle = function(x, y, radius) {
+  this.moveable();
+  this.styleable();
+  this.vectorsAcceptable(arguments);
+}
 
-  constructor(x, y, radius) {
-    this.moveable();
-    this.styleable();
-    this.vectorsAcceptable(arguments);
-  }
+Circle.prototype = {
 
-  init(x, y, radius) {
+  init: function(x, y, radius) {
     this.vars.x = x;
     this.vars.y = y;
     this.vars.radius = radius;
-  }
+  },
 
-  toPolygon(opts, parent) {
+  toPolygon: function(opts, parent) {
     var ellipse = new Ellipse(this.vars.x, this.vars.y, this.vars.radius*2, this.vars.radius*2);
     var poly = ellipse.toPolygon(opts, false);
     Utils.copyMixinVars(this, poly);
     Utils.groupLogic(poly, this.parent, parent);
     return poly;
-  }
+  },
 
-  scale(scalar) {
+  scale: function(scalar) {
     this.scaleStyleable(scalar);
     this.vars.radius *= scalar;
     return this;
-  }
+  },
 
-  copy(parent) {
+  copy: function(parent) {
     var copy = new Circle();
     copy.vars.radius = this.vars.radius;
     Utils.copyMixinVars(this, copy);
@@ -41,7 +43,6 @@ class Circle {
 
 }
 
-// Should we figure out a better way to do mixins for ES6?
 assign(Circle.prototype, Moveable, Styleable, VectorsAcceptable, { type: "circle" });
 
-export default Circle;
+module.exports = Circle;

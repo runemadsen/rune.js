@@ -1,27 +1,29 @@
-import assign from "lodash/object/assign"
-import { Moveable, Sizeable, VectorsAcceptable } from "../mixins"
-import Utils from '../utils'
+var assign = require("lodash/object/assign");
+var Moveable = require("../mixins/moveable");
+var Styleable = require("../mixins/styleable");
+var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Utils = require('../utils');
 
-class Image {
+var Image = function(url, x, y, width, height) {
+  this.moveable();
+  this.sizeable();
+  this.vectorsAcceptable(arguments);
+}
 
-  constructor(url, x, y, width, height) {
-    this.moveable();
-    this.sizeable();
-    this.vectorsAcceptable(arguments);
-  }
+Image.prototype = {
 
-  init(url, x, y, width, height) {
+  init: function(url, x, y, width, height) {
     this.vars.url = url;
     this.vars.x = x;
     this.vars.y = y;
     this.vars.width = width;
     this.vars.height = height;
-  }
+  },
 
-  scale(scalar) {
+  scale: function(scalar) {
     this.scaleSizeable(scalar);
     return this;
-  }
+  },
 
   copy(parent) {
     var copy = new Image();
@@ -33,7 +35,6 @@ class Image {
 
 }
 
-// Should we figure out a better way to do mixins for ES6?
 assign(Image.prototype, Moveable, Sizeable, VectorsAcceptable, { type: "image" });
 
-export default Image;
+module.exports = Image;

@@ -1,33 +1,35 @@
-import assign from "lodash/object/assign"
-import { Moveable, Styleable, VectorsAcceptable } from "../mixins"
-import Vector from '../vector'
-import Utils from '../utils'
+var assign = require("lodash/object/assign");
+var Moveable = require("../mixins/moveable");
+var Styleable = require("../mixins/styleable");
+var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Vector = require('../vector');
+var Utils = require('../utils');
 
-class Line {
+var Line = function(x, y, x2, y2) {
+  this.moveable();
+  this.styleable();
+  this.vectorsAcceptable(arguments);
+}
 
-  constructor(x, y, x2, y2) {
-    this.moveable();
-    this.styleable();
-    this.vectorsAcceptable(arguments);
-  }
+Line.prototype = {
 
-  init(x, y, x2, y2) {
+  init: function(x, y, x2, y2) {
     this.vars.x = x;
     this.vars.y = y;
     this.vars.x2 = x2;
     this.vars.y2 = y2;
-  }
+  },
 
-  copy(parent) {
+  copy: function(parent) {
     var copy = new Line();
     copy.vars.x2 = this.vars.x2;
     copy.vars.y2 = this.vars.y2;
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
-  }
+  },
 
-  scale(scalar) {
+  scale: function(scalar) {
     this.scaleStyleable(scalar);
     var start = new Vector(this.vars.x, this.vars.y)
     var end = new Vector(this.vars.x2, this.vars.y2)
@@ -41,4 +43,4 @@ class Line {
 
 assign(Line.prototype, Moveable, Styleable, VectorsAcceptable, {type: "line"});
 
-export default Line;
+module.exports = Line;
