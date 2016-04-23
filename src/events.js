@@ -34,4 +34,4 @@ var Events = {
 
 }
 
-export default Events;
+module.exports = Events;

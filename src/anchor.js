@@ -1,34 +1,36 @@
-import Bezier from "./bezier"
-import Vector from "./vector"
-import Utils from './utils'
+var Bezier = require('./bezier');
+var Vector = require('./vector');
+var Utils = require('./utils');
 
-class Anchor {
+var Anchor = function() {};
 
-  add(vec) {
+Anchor.prototype = {
+
+  add: function(vec) {
     var a = this.copy();
     if(a.vec1) a.vec1 = a.vec1.add(vec);
     if(a.vec2) a.vec2 = a.vec2.add(vec);
     if(a.vec3) a.vec3 = a.vec3.add(vec);
     return a;
-  }
+  },
 
-  sub(vec) {
+  sub: function(vec) {
     var a = this.copy();
     if(a.vec1) a.vec1 = a.vec1.sub(vec);
     if(a.vec2) a.vec2 = a.vec2.sub(vec);
     if(a.vec3) a.vec3 = a.vec3.sub(vec);
     return a;
-  }
+  },
 
-  multiply(scalar) {
+  multiply: function(scalar) {
     var a = this.copy();
     if(a.vec1) a.vec1 = a.vec1.multiply(scalar);
     if(a.vec2) a.vec2 = a.vec2.multiply(scalar);
     if(a.vec3) a.vec3 = a.vec3.multiply(scalar);
     return a;
-  }
+  },
 
-  copy() {
+  copy: function() {
     var a = new Anchor();
     a.command = this.command;
     if(this.vec1) a.vec1 = this.vec1.copy();
@@ -37,7 +39,7 @@ class Anchor {
     return a;
   }
 
-  setMove(x, y) {
+  setMove: function(x, y) {
     this.command = 'move';
     if (x instanceof Vector) {
       this.vec1 = x;
@@ -45,9 +47,9 @@ class Anchor {
       this.vec1 = new Vector(x, y);
     }
     return this;
-  }
+  },
 
-  setLine(x, y) {
+  setLine: function(x, y) {
     this.command = 'line';
     if (x instanceof Vector) {
       this.vec1 = x;
@@ -55,15 +57,15 @@ class Anchor {
       this.vec1 = new Vector(x, y);
     }
     return this;
-  }
+  },
 
-  setCurve(a, b, c, d, e, f) {
+  setCurve: function(a, b, c, d, e, f) {
     var args = Utils.expandVectorArguments(arguments);
     this._setCurveImpl.apply(this, args);
     return this;
-  }
+  },
 
-  _setCurveImpl(a, b, c, d, e, f) {
+  _setCurveImpl: function(a, b, c, d, e, f) {
     // cubic bezier with two control points
     if(typeof f !== 'undefined') {
       this.command = 'cubic';
@@ -78,14 +80,14 @@ class Anchor {
       this.vec1 = new Vector(a, b);
       this.vec2 = new Vector(c, d);
     }
-  }
+  },
 
-  setClose() {
+  setClose: function() {
     this.command = 'close';
     return this;
-  }
+  },
 
-  length() {
+  length: function() {
     if(this.command == 'move') {
       return 0;
     }
@@ -101,9 +103,9 @@ class Anchor {
     else {
       throw new Error("Cannot compute length for this type of anchor")
     }
-  }
+  },
 
-  vectorAt(scalar) {
+  vectorAt: function(scalar) {
 
     if(scalar > 1) scalar = 1;
     if(scalar < 0) scalar = 0;
@@ -129,4 +131,4 @@ class Anchor {
 
 }
 
-export default Anchor;
+module.exports = Anchor;

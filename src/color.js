@@ -1,176 +1,175 @@
 // This code was adapted from the brilliant color lib by MoOx
 // See more here: https://github.com/MoOx/color
-import colorConvert from 'color-convert';
+var colorConvert = require('color-convert');
 
-class Color {
+var Color = Function(a, b, c, d, e) {
 
-  constructor(a, b, c, d, e) {
-
-    this.values = {
-      rgb: [0, 0, 0],
-      hsl: [0, 0, 0],
-      hsv: [0, 0, 0],
-      hwb: [0, 0, 0],
-      cmyk: [0, 0, 0, 0],
-      alpha: 1
-    }
-
-    // COLOR
-    if(a instanceof Color) {
-      return a;
-    }
-
-    // HSB
-    else if(a == 'hsv') {
-      this.setValues('hsv', {h:b % 360, s:c, v:d});
-      if(e) this.setValues('alpha', e);
-    }
-
-    // HEX
-    else if(typeof a === 'string') {
-
-      // convert HEX to RGB
-      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(a);
-      if(result) {
-        this.setValues('rgb', [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)])
-      } else {
-        throw new Error("Unable to parse color from string \"" + a + "\"");
-      }
-      if(b) this.setValues('alpha', b);
-    }
-
-    // GRAYSCALE
-    else if(typeof c === 'undefined') {
-      this.setValues('rgb', {r:a, g:a, b:a});
-      if(b) this.setValues('alpha', b);
-    }
-
-    // RGB
-    else if(typeof a !== 'undefined') {
-      this.setValues('rgb', {r:a, g:b, b:c});
-      if(d) this.setValues('alpha', d);
-    }
-
+  this.values = {
+    rgb: [0, 0, 0],
+    hsl: [0, 0, 0],
+    hsv: [0, 0, 0],
+    hwb: [0, 0, 0],
+    cmyk: [0, 0, 0, 0],
+    alpha: 1
   }
 
-  rgb(vals) {
+  // COLOR
+  if(a instanceof Color) {
+    return a;
+  }
+
+  // HSB
+  else if(a == 'hsv') {
+    this.setValues('hsv', {h:b % 360, s:c, v:d});
+    if(e) this.setValues('alpha', e);
+  }
+
+  // HEX
+  else if(typeof a === 'string') {
+
+    // convert HEX to RGB
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(a);
+    if(result) {
+      this.setValues('rgb', [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)])
+    } else {
+      throw new Error("Unable to parse color from string \"" + a + "\"");
+    }
+    if(b) this.setValues('alpha', b);
+  }
+
+  // GRAYSCALE
+  else if(typeof c === 'undefined') {
+    this.setValues('rgb', {r:a, g:a, b:a});
+    if(b) this.setValues('alpha', b);
+  }
+
+  // RGB
+  else if(typeof a !== 'undefined') {
+    this.setValues('rgb', {r:a, g:b, b:c});
+    if(d) this.setValues('alpha', d);
+  }
+};
+
+Color.prototype = {
+
+  rgb: function(vals) {
     return this.setSpace("rgb", arguments);
-  }
+  },
 
-  hsl(vals) {
+  hsl: function(vals) {
     return this.setSpace("hsl", arguments);
-  }
+  },
 
-  hsv(vals) {
+  hsv: function(vals) {
     return this.setSpace("hsv", arguments);
-  }
+  },
 
-  hwb(vals) {
+  hwb: function(vals) {
     return this.setSpace("hwb", arguments);
-  }
+  },
 
-  cmyk(vals) {
+  cmyk: function(vals) {
     return this.setSpace("cmyk", arguments);
-  }
+  },
 
-  rgbArray() {
+  rgbArray: function() {
     return this.values.rgb;
-  }
+  },
 
-  hslArray() {
+  hslArray: function() {
     return this.values.hsl;
-  }
+  },
 
-  hsvArray() {
+  hsvArray: function() {
     return this.values.hsv;
-  }
+  },
 
-  hwbArray() {
+  hwbArray: function() {
     if (this.values.alpha !== 1) {
       return this.values.hwb.concat([this.values.alpha])
     }
     return this.values.hwb;
-  }
+  },
 
-  cmykArray() {
+  cmykArray: function() {
     return this.values.cmyk;
-  }
+  },
 
-  rgbaArray() {
+  rgbaArray: function() {
     var rgb = this.values.rgb;
     return rgb.concat([this.values.alpha]);
-  }
+  },
 
-  hslaArray() {
+  hslaArray: function() {
     var hsl = this.values.hsl;
     return hsl.concat([this.values.alpha]);
-  }
+  },
 
-  alpha(val) {
+  alpha: function(val) {
     if (val === undefined) {
        return this.values.alpha;
     }
     this.setValues("alpha", val);
     return this;
-  }
+  },
 
-  red(val) {
+  red: function(val) {
     return this.setChannel("rgb", 0, val);
-  }
+  },
 
-  green(val) {
+  green: function(val) {
     return this.setChannel("rgb", 1, val);
-  }
+  },
 
-  blue(val) {
+  blue: function(val) {
     return this.setChannel("rgb", 2, val);
-  }
+  },
 
-  hue(val) {
+  hue: function(val) {
     return this.setChannel("hsl", 0, val);
-  }
+  },
 
-  saturation(val) {
+  saturation: function(val) {
     return this.setChannel("hsl", 1, val);
-  }
+  },
 
-  lightness(val) {
+  lightness: function(val) {
     return this.setChannel("hsl", 2, val);
-  }
+  },
 
-  saturationv(val) {
+  saturationv: function(val) {
     return this.setChannel("hsv", 1, val);
-  }
+  },
 
-  whiteness(val) {
+  whiteness: function(val) {
     return this.setChannel("hwb", 1, val);
-  }
+  },
 
-  blackness(val) {
+  blackness: function(val) {
     return this.setChannel("hwb", 2, val);
-  }
+  },
 
-  value(val) {
+  value: function(val) {
     return this.setChannel("hsv", 2, val);
-  }
+  },
 
-  cyan(val) {
+  cyan: function(val) {
     return this.setChannel("cmyk", 0, val);
-  }
+  },
 
-  magenta(val) {
+  magenta: function(val) {
     return this.setChannel("cmyk", 1, val);
-  }
+  },
 
-  yellow(val) {
+  yellow: function(val) {
     return this.setChannel("cmyk", 2, val);
-  }
+  },
 
-  black(val) {
+  black: function(val) {
     return this.setChannel("cmyk", 3, val);
-  }
+  },
 
-  luminosity() {
+  luminosity: function() {
     // http://www.w3.org/TR/WCAG20/#relativeluminancedef
     var rgb = this.values.rgb;
     var lum = [];
@@ -180,9 +179,9 @@ class Color {
                 : Math.pow(((chan + 0.055) / 1.055), 2.4)
     }
     return 0.2126 * lum[0] + 0.7152 * lum[1] + 0.0722 * lum[2];
-  }
+  },
 
-  contrast(color2) {
+  contrast: function(color2) {
     // http://www.w3.org/TR/WCAG20/#contrast-ratiodef
     var lum1 = this.luminosity();
     var lum2 = color2.luminosity();
@@ -190,105 +189,105 @@ class Color {
        return (lum1 + 0.05) / (lum2 + 0.05)
     };
     return (lum2 + 0.05) / (lum1 + 0.05);
-  }
+  },
 
-  level(color2) {
+  level: function(color2) {
     var contrastRatio = this.contrast(color2);
     return (contrastRatio >= 7.1)
       ? 'AAA'
       : (contrastRatio >= 4.5)
        ? 'AA'
        : '';
-  }
+  },
 
-  dark() {
+  dark: function() {
     // YIQ equation from http://24ways.org/2010/calculating-color-contrast
     var rgb = this.values.rgb,
         yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
     return yiq < 128;
-  }
+  },
 
-  light() {
+  light: function() {
     return !this.dark();
-  }
+  },
 
-  negate() {
+  negate: function() {
     var rgb = []
     for (var i = 0; i < 3; i++) {
        rgb[i] = 255 - this.values.rgb[i];
     }
     this.setValues("rgb", rgb);
     return this;
-  }
+  },
 
-  lighten(ratio) {
+  lighten: function(ratio) {
     this.values.hsl[2] += this.values.hsl[2] * ratio;
     this.setValues("hsl", this.values.hsl);
     return this;
-  }
+  },
 
-  darken(ratio) {
+  darken: function(ratio) {
     this.values.hsl[2] -= this.values.hsl[2] * ratio;
     this.setValues("hsl", this.values.hsl);
     return this;
-  }
+  },
 
-  saturate(ratio) {
+  saturate: function(ratio) {
     this.values.hsl[1] += this.values.hsl[1] * ratio;
     this.setValues("hsl", this.values.hsl);
     return this;
-  }
+  },
 
-  desaturate(ratio) {
+  desaturate: function(ratio) {
     this.values.hsl[1] -= this.values.hsl[1] * ratio;
     this.setValues("hsl", this.values.hsl);
     return this;
-  }
+  },
 
-  whiten(ratio) {
+  whiten: function(ratio) {
     this.values.hwb[1] += this.values.hwb[1] * ratio;
     this.setValues("hwb", this.values.hwb);
     return this;
-  }
+  },
 
-  blacken(ratio) {
+  blacken: function(ratio) {
     this.values.hwb[2] += this.values.hwb[2] * ratio;
     this.setValues("hwb", this.values.hwb);
     return this;
-  }
+  },
 
-  greyscale() {
+  greyscale: function() {
     var rgb = this.values.rgb;
     // http://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
     var val = rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11;
     this.setValues("rgb", [val, val, val]);
     return this;
-  }
+  },
 
-  clearer(ratio) {
+  clearer: function(ratio) {
     this.setValues("alpha", this.values.alpha - (this.values.alpha * ratio));
     return this;
-  }
+  },
 
-  opaquer(ratio) {
+  opaquer: function(ratio) {
     this.setValues("alpha", this.values.alpha + (this.values.alpha * ratio));
     return this;
-  }
+  },
 
-  rotate(degrees) {
+  rotate: function(degrees) {
     var hue = this.values.hsl[0];
     hue = (hue + degrees) % 360;
     hue = hue < 0 ? 360 + hue : hue;
     this.values.hsl[0] = hue;
     this.setValues("hsl", this.values.hsl);
     return this;
-  }
+  },
 
   /**
    * Ported from sass implementation in C
    * https://github.com/sass/libsass/blob/0e6b4a2850092356aa3ece07c6b249f0221caced/functions.cpp#L209
    */
-  mix(mixinColor, weight) {
+  mix: function(mixinColor, weight) {
     var color1 = this;
     var color2 = mixinColor;
     var p = weight !== undefined ? weight : 0.5;
@@ -306,17 +305,17 @@ class Color {
         w1 * color1.blue() + w2 * color2.blue()
       )
       .alpha(color1.alpha() * p + color2.alpha() * (1 - p));
-  }
+  },
 
-  toJSON() {
+  toJSON: function() {
     return this.rgb();
-  }
+  },
 
-  copy() {
+  copy: function() {
     return new Color().rgb(this.rgb());
-  }
+  },
 
-  getValues(space) {
+  getValues: function(space) {
     var vals = {};
     for (var i = 0; i < space.length; i++) {
       vals[space.charAt(i)] = this.values[space][i];
@@ -326,9 +325,9 @@ class Color {
     }
     // {r: 255, g: 255, b: 255, a: 0.4}
     return vals;
-  }
+  },
 
-  setValues(space, vals) {
+  setValues: function(space, vals) {
 
     var spaces = {
       "rgb": ["red", "green", "blue"],
@@ -394,9 +393,9 @@ class Color {
       }
     }
     return true;
-  }
+  },
 
-  setSpace(space, args) {
+  setSpace: function(space, args) {
     var vals = args[0];
     if (vals === undefined) {
       // color.rgb()
@@ -408,9 +407,9 @@ class Color {
     }
     this.setValues(space, vals);
     return this;
-  }
+  },
 
-  setChannel(space, index, val) {
+  setChannel: function(space, index, val) {
     if (val === undefined) {
       // color.red()
       return this.values[space][index];
@@ -426,4 +425,4 @@ class Color {
 // Modules should be accessible through Color
 Color.Convert = colorConvert;
 
-export default Color;
+module.exports = Color;
