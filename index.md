@@ -15,7 +15,7 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG 
 
 To use in the browser, [**download the latest release**](https://github.com/runemadsen/rune.js/releases/latest) on GitHub. The ZIP file has both an uncompressed and a compressed version, with all dependencies included, ready to use in the browser.
 
-To use in Node, [**install the package via NPM**](https://www.npmjs.com/package/rune.js). The NPM package is a UMD module that works both for commonjs and requirejs.
+To use in Node, [**install the package via NPM**](https://www.npmjs.com/package/rune.js).
 
 ## Getting started
 
@@ -56,6 +56,8 @@ If you want to use Rune.js in node, it's as simple as requiring the `rune.js` mo
 ```js
 var Rune = require('rune.js');
 var r = new Rune({...});
+// draw shapes
+console.log(r.getEl());
 ```
 
 ### Basic shapes
