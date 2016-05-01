@@ -2,7 +2,7 @@
 
 ## Next up
 
-- [ ] Implement `changed` for shapes that affects rendering.
+- [ ] Groups hold an array of renderStrings for all children. Only if a child changed, it is re-rendered. Shapes use have chainable methods for all properties in vars.
 - [ ] mouse events should work on individual shapes
 - [ ] Polygon `intersects()` http://bjornharrtell.github.io/jsts/
 - [ ] Polygon `intersection()` http://bjornharrtell.github.io/jsts/
