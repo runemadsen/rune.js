@@ -44,7 +44,8 @@ var r = new Rune({
   height: 400
 });
 
-r.rect(0, 0, 200, 200).fill(0, 0, 255);
+r.rect(0, 0, 200, 200)
+  .fill(0, 0, 255);
 
 r.draw();
 ```
@@ -65,8 +66,6 @@ console.log(r.getEl());
 `Rune.js` comes with a number of built-in functions to help you draw both simple and complex shapes.
 
 ```js
-// some simple shapes
-
 r.line(0, 0, 100, 100);
 
 r.rect(0, 0, 100, 50);
@@ -77,11 +76,14 @@ r.circle(0, 0, 100);
 
 r.triangle(0, 0, 100, 0, 100, 100);
 
-// more complex shapes
+r.polygon(0, 0)
+  .lineTo(100, 0)
+  .lineTo(100, 100)
+  .lineTo(0, 100);
 
-r.polygon(0, 0).lineTo(100, 0).lineTo(100, 100).lineTo(0, 100);
-
-r.path(0, 0).lineTo(100, 0).curveTo(100, 100, 0, 100, 0, 0);
+r.path(0, 0)
+  .lineTo(100, 0)
+  .curveTo(100, 100, 0, 100, 0, 0);
 ```
 
 You can read about these functions in the [documentation](documentation.html), but they all create a new shape object and add it to the stage. Shape objects can be saved into variables, and many of their functions allow chaining.
