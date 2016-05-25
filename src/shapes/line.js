@@ -11,7 +11,9 @@ var Line = function(x, y, x2, y2) {
   this.vectorsAcceptable(arguments);
 }
 
-Line.prototype = {
+assign(Line.prototype, Moveable, Styleable, VectorsAcceptable, {
+
+  type: "line",
 
   init: function(x, y, x2, y2) {
     this.vars.x = x;
@@ -37,10 +39,17 @@ Line.prototype = {
     this.vars.x2 = vec.x;
     this.vars.y2 = vec.y;
     return this;
+  },
+
+  move: function(x, y, relative) {
+    var change = new Vector(this.vars.x2, this.vars.y2).sub(new Vector(this.vars.x, this.vars.y));
+    this.vars.x = relative ? this.vars.x + x : x;
+    this.vars.y = relative ? this.vars.y + y : y;
+    this.vars.x2 = this.vars.x + change.x;
+    this.vars.y2 = this.vars.y + change.y;
+    return this;
   }
 
-}
-
-assign(Line.prototype, Moveable, Styleable, VectorsAcceptable, {type: "line"});
+});
 
 module.exports = Line;

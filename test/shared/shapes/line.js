@@ -62,4 +62,25 @@ describe("Rune.Line", function() {
 
   });
 
+  describe("move()", function() {
+
+    it("moves the absolute", function() {
+      s.move(50, 60);
+      expect(s.vars.x).toEqual(50);
+      expect(s.vars.y).toEqual(60);
+      expect(s.vars.x2).toEqual(60);
+      expect(s.vars.y2).toEqual(70);
+    });
+
+    // it("moves the relative", function() {
+    //   s.move(10, 20, true);
+    //   expect(s.vars.x).toEqual(10);
+    //   expect(s.vars.y).toEqual(15);
+    //   expect(s.vars.x2).toEqual(30);
+    //   expect(s.vars.y2).toEqual(35);
+    //   expect(s.scaleStyleable).toHaveBeenCalledWith(2);
+    // });
+
+  });
+
 });

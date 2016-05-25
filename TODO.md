@@ -2,7 +2,7 @@
 
 ## Next up
 
-- [ ] Groups hold an array of renderStrings for all children. Only if a child changed, it is re-rendered. Shapes use have chainable methods for all properties in vars.
+- [ ] Groups hold an array of renderStrings for all children. Only if a child changed, it is re-rendered. Shapes have chainable methods for all properties in vars.
 - [ ] mouse events should work on individual shapes
 - [ ] Polygon `intersects()` http://bjornharrtell.github.io/jsts/
 - [ ] Polygon `intersection()` http://bjornharrtell.github.io/jsts/
@@ -25,3 +25,6 @@
 - [ ] Debug should have full polygon vectors and anchor vectors
 - [ ] Ability to set debug line color and debug circle color
 - [ ] SVG parser
+
+
+## Ideas

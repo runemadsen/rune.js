@@ -1,3 +1,7 @@
+## 0.3.2
+
+- `Rune.Line` method `move()` now moves the entire line and not just the starting position.
+
 ## 0.3.0
 
 - Code is now node modules instead of ES6. This makes a lot of things easier.
