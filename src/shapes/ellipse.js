@@ -59,6 +59,18 @@ Ellipse.prototype = {
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
+  },
+
+  render: function(opts) {
+    var attr = {
+      cx: Utils.s(this.vars.x),
+      cy: Utils.s(this.vars.y),
+      rx: Utils.s(this.vars.width / 2),
+      ry: Utils.s(this.vars.height / 2)
+    }
+    this.moveableAttributes(attr);
+    this.styleableAttributes(attr);
+    return svg('ellipse', attr);
   }
 
 }

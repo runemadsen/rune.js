@@ -9,6 +9,12 @@ var Sizeable = {
   scaleSizeable: function(scalar) {
     this.vars.width *= scalar;
     this.vars.height *= scalar;
+  },
+
+  sizeableAttributes: function(attr) {
+    attr.width = Utils.s(this.vars.width);
+    attr.height = Utils.s(this.vars.height);
+    return attr;
   }
 
 }

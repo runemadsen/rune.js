@@ -46,6 +46,30 @@ var Moveable = {
       vec = vec.add(this.parent.stagepos());
     }
     return vec;
+  },
+
+  // Render
+  // ---------------------------------------------------
+
+  moveableAttributes: function(attr) {
+
+    var strings = [];
+
+    if(this.vars.rotation) {
+      var rot = "rotate(" + this.vars.rotation;
+      if(this.vars.rotationX || this.vars.rotationY)
+        rot += " " + this.vars.rotationX + " " + this.vars.rotationY;
+      strings.push(rot + ")");
+    }
+
+    if((this.type == "group" || this.type == "path" || this.type == "polygon" || this.type == "grid" || this.type == "triangle") && (this.vars.x || this.vars.y)) {
+      strings.push("translate(" + this.vars.x + " " + this.vars.y + ")");
+    }
+
+    if(strings.length > 0)
+      attr.transform = strings.join(" ").trim();
+
+    return attr;
   }
 
 };

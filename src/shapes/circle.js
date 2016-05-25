@@ -39,6 +39,17 @@ Circle.prototype = {
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
+  },
+
+  render: function(opts) {
+    var attr = {
+      cx: Utils.s(this.vars.x),
+      cy: Utils.s(this.vars.y),
+      r: Utils.s(this.vars.radius)
+    }
+    this.moveableAttributes(attr);
+    this.styleableAttributes(attr);
+    return svg('circle', attr);
   }
 
 }

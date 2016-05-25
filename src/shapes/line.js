@@ -48,6 +48,18 @@ assign(Line.prototype, Moveable, Styleable, VectorsAcceptable, {
     this.vars.x2 = this.vars.x + change.x;
     this.vars.y2 = this.vars.y + change.y;
     return this;
+  },
+
+  render: function(opts) {
+    var attr = {
+      x1: Utils.s(this.vars.x),
+      y1: Utils.s(this.vars.y),
+      x2: Utils.s(this.vars.x2),
+      y2: Utils.s(this.vars.y2)
+    }
+    this.moveableAttributes(attr);
+    this.styleableAttributes(attr);
+    return svg('line', attr);
   }
 
 });

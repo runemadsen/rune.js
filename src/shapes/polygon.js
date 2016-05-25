@@ -201,6 +201,17 @@ Polygon.prototype = {
       return vec.multiply(scalar);
     });
     return this;
+  },
+
+  render: function(opts) {
+    var attr = {
+      points: map(this.vars.vectors, function(vec) {
+        return vec.x + " " + vec.y;
+      }).join(" ")
+    };
+    this.moveableAttributes(attr);
+    this.styleableAttributes(attr);
+    return svg('polygon', attr);
   }
 }
 

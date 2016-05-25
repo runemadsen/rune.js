@@ -8,7 +8,6 @@ var Group = require("./group");
 var Grid = require("./grid");
 var Utils = require("./utils");
 var Events = require("./events");
-var Render = require("./render");
 var Circle = require("./shapes/circle");
 var Ellipse = require("./shapes/ellipse");
 var Line = require("./shapes/line");
@@ -21,6 +20,12 @@ var Image = require("./shapes/image");
 var Sizeable = require('./mixins/sizeable');
 var Moveable = require('./mixins/moveable');
 var Styleable = require('./mixins/styleable');
+
+var h = require('virtual-dom/h');
+var diff = require('virtual-dom/diff');
+var patch = require('virtual-dom/patch');
+var createElement = require('virtual-dom/create-element');
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 // Constructor
 // --------------------------------------------------
@@ -36,7 +41,13 @@ var Rune = function(options) {
 
   this.width = params.width;
   this.height = params.height;
-  this.renderer = new Render(params);
+  this.tree = svg('svg', {
+    xmlns: 'http://www.w3.org/2000/svg',
+    'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+    width: this.s(params.width),
+    height: this.s(params.height)
+  });
+  this.el = createElement(this.tree);
   this.stage = new Group();
   this.debug = params.debug;
   this.frameCount = 1;
@@ -71,7 +82,7 @@ Rune.prototype = {
   },
 
   relativePos: function(pageX, pageY) {
-    var bounds = this.renderer.el.getBoundingClientRect();
+    var bounds = this.el.getBoundingClientRect();
     var relX = pageX - bounds.left;
     var relY = pageY - bounds.top;
     return { x: relX, y: relY };
@@ -81,7 +92,7 @@ Rune.prototype = {
     var mouseEvents = ['mousemove', 'mousedown', 'mouseup', 'click'];
     each(mouseEvents, function(mouseEvent) {
       var that = this;
-      this.renderer.el.addEventListener(mouseEvent, function(e) {
+      this.el.addEventListener(mouseEvent, function(e) {
         var rel = that.relativePos(e.pageX, e.pageY);
         that.trigger(mouseEvent, { x: rel.x, y: rel.y });
       });
@@ -195,17 +206,22 @@ Rune.prototype = {
   // Render functions
   // --------------------------------------------------
 
-  getEl: function() {
-    return this.renderer.el;
-  },
-
   appendTo: function(container) {
-    container.appendChild(this.renderer.el);
+    container.appendChild(this.el);
     return this;
   },
 
   draw: function() {
-    this.renderer.render(this.stage, { debug: this.debug });
+
+    var newTree = svg('svg', {
+      width: this.s(this.width),
+      height: this.s(this.height)
+    }, [this.stage.render({ debug: this.debug})]);
+
+    var diffTree = diff(this.tree, newTree);
+    this.el = patch(this.el, diffTree);
+    this.tree = newTree;
+
     this.frameCount += 1;
   }
 

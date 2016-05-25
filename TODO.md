@@ -2,6 +2,7 @@
 
 ## Next up
 
+- Go through the entire docs and check for changes like getEl(), etc.
 - [ ] Groups hold an array of renderStrings for all children. Only if a child changed, it is re-rendered. Shapes have chainable methods for all properties in vars.
 - [ ] mouse events should work on individual shapes
 - [ ] Polygon `intersects()` http://bjornharrtell.github.io/jsts/

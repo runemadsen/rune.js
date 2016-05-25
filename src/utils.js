@@ -1,5 +1,13 @@
 var Utils = {
 
+  // function to turn any non-string into a string. We need
+  // this when running server-side node.
+  s: function(val) {
+    if(typeof val !== 'string' && typeof val.toString !== 'undefined')
+      return val.toString();
+    return val;
+  },
+
   random: function(a, b) {
     if(typeof b === 'undefined') {
       b = a;

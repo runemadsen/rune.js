@@ -42,6 +42,15 @@ Triangle.prototype = {
     this.vars.x3 *= scalar;
     this.vars.y3 *= scalar;
     return this;
+  },
+
+  render: function(opts) {
+    var attr = {
+      points: '0 0 ' + this.vars.x2 + ' ' + this.vars.y2 + ' ' + this.vars.x3 + ' ' + this.vars.y3
+    };
+    this.moveableAttributes(attr);
+    this.styleableAttributes(attr);
+    return svg('polygon', attr);
   }
 
 }

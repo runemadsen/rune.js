@@ -54,6 +54,20 @@ Rectangle.prototype = {
     this.scaleSizeable(scalar);
     this.scaleStyleable(scalar);
     return this;
+  },
+
+  render: function(opts) {
+    var attr = {
+      x: Utils.s(thisvars.x),
+      y: Utils.s(thisvars.y),
+      width: Utils.s(thisvars.width),
+      height: Utils.s(thisvars.height)
+    }
+    if(thisvars.rx)  attr.rx = Utils.s(thisvars.rx);
+    if(thisvars.ry)  attr.ry = Utils.s(thisvars.ry);
+    this.moveableAttributes(attr);
+    this.styleableAttributes(attr);
+    return svg('rect', attr);
   }
 }
 

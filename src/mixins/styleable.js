@@ -50,7 +50,34 @@ var Styleable = {
     else {
       this.vars.strokeWidth = scalar;
     }
+  },
+
+  styleableAttributes: function(attr) {
+
+    if(this.vars.fill === false)    attr.fill = "none";
+    else if(this.vars.fill) {
+      attr.fill = "rgb(" + this.vars.fill.values.rgb[0] + ", " + this.vars.fill.values.rgb[1] + ", " + this.vars.fill.values.rgb[2] + ")";
+      var alpha = this.vars.fill.values.alpha;
+      if(alpha < 1) attr["fill-opacity"] = Utils.s(alpha);
+    }
+
+    if(this.vars.stroke === false)  attr.stroke = "none";
+    else if(this.vars.stroke) {
+      attr.stroke = "rgb(" + this.vars.stroke.values.rgb[0] + ", " + this.vars.stroke.values.rgb[1] + ", " + this.vars.stroke.values.rgb[2] + ")";
+      var alpha = this.vars.stroke.values.alpha;
+      if(alpha < 1) attr["stroke-opacity"] = Utils.s(alpha);
+    }
+
+    if(this.vars.strokeWidth)       attr["stroke-width"] = Utils.s(this.vars.strokeWidth);
+    if(this.vars.strokeCap)         attr["stroke-linecap"] = this.vars.strokeCap;
+    if(this.vars.strokeJoin)        attr["stroke-linejoin"] = this.vars.strokeJoin;
+    if(this.vars.strokeMiterlimit)  attr["stroke-miterlimit"] = Utils.s(this.vars.strokeMiterlimit);
+    if(this.vars.strokeDash)        attr["stroke-dasharray"] = this.vars.strokeDash;
+    if(this.vars.strokeDashOffset)  attr["stroke-dashoffset"] = Utils.s(this.vars.strokeDashOffset);
+
+    return attr;
   }
+
 };
 
 module.exports = Styleable;
