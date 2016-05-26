@@ -5,13 +5,12 @@ describe("Rune.Render", function() {
 
   beforeEach(function() {
     r = new Rune({width:200, height:300});
-    el = r.getEl();
   });
 
   it("should create SVG element", function() {
-    expect(el.tagName).toEqual('svg');
-    expect(el).toHaveAttr('width', "200");
-    expect(el).toHaveAttr('height', "300");
+    expect(r.el.tagName).toEqual('svg');
+    expect(r.el).toHaveAttr('width', "200");
+    expect(r.el).toHaveAttr('height', "300");
   });
 
   describe("All shapes", function() {
@@ -27,7 +26,7 @@ describe("Rune.Render", function() {
         .strokeDash(false)
         .strokeDashOffset(false)
       r.draw();
-      var rect = el.childNodes[0];
+      var rect = r.el.childNodes[0];
       expect(rect).toBeTag("rect");
       expect(rect).toHaveAttr('fill', "none")
       expect(rect).toHaveAttr('stroke', "none")
@@ -43,7 +42,7 @@ describe("Rune.Render", function() {
       r.rect(0, 0, 0, 0)
         .rotate(45, 0, 10);
       r.draw();
-      var rect = el.childNodes[0];
+      var rect = r.el.childNodes[0];
       expect(rect).toHaveRotation(45, 0, 10);
     });
 
@@ -55,8 +54,8 @@ describe("Rune.Render", function() {
       var s = r.rect(100, 105, 300, 400);
       drawShared(s);
       r.draw();
-      var rect = el.childNodes[0]
-      expect(el.childNodes.length).toEqual(1);
+      var rect = r.el.childNodes[0]
+      expect(r.el.childNodes.length).toEqual(1);
       expect(rect).toBeTag("rect");
       expect(rect).toHaveAttrs({
         x: s.vars.x,
@@ -73,7 +72,7 @@ describe("Rune.Render", function() {
     it("should render rounded corners", function() {
       var s = r.rect(100, 105, 300, 400).round(25, 15);
       r.draw();
-      var rect = el.childNodes[0];
+      var rect = r.el.childNodes[0];
       expect(rect).toHaveAttrs({ rx: 25, ry: 15 });
     });
 
@@ -85,8 +84,8 @@ describe("Rune.Render", function() {
       var s = r.ellipse(100, 105, 300, 400);
       drawShared(s);
       r.draw();
-      var ellipse = el.childNodes[0];
-      expect(el.childNodes.length).toEqual(1);
+      var ellipse = r.el.childNodes[0];
+      expect(r.el.childNodes.length).toEqual(1);
       expect(ellipse).toBeTag("ellipse");
       expect(ellipse).toHaveAttrs({
         cx: s.vars.x,
@@ -106,8 +105,8 @@ describe("Rune.Render", function() {
       var s = r.circle(100, 105, 300);
       drawShared(s);
       r.draw();
-      var circle = el.childNodes[0];
-      expect(el.childNodes.length).toEqual(1);
+      var circle = r.el.childNodes[0];
+      expect(r.el.childNodes.length).toEqual(1);
       expect(circle).toBeTag("circle");
       expect(circle).toHaveAttrs({
         cx: s.vars.x,
@@ -126,8 +125,8 @@ describe("Rune.Render", function() {
       var s = r.line(100, 105, 200, 205);
       drawShared(s);
       r.draw();
-      var line = el.childNodes[0];
-      expect(el.childNodes.length).toEqual(1);
+      var line = r.el.childNodes[0];
+      expect(r.el.childNodes.length).toEqual(1);
       expect(line).toBeTag("line");
       expect(line).toHaveAttrs({
         x1: s.vars.x,
@@ -147,8 +146,8 @@ describe("Rune.Render", function() {
       var s = r.triangle(100, 150, 300, 150, 200, 350);
       drawShared(s);
       r.draw();
-      var triangle = el.childNodes[0];
-      expect(el.childNodes.length).toEqual(1);
+      var triangle = r.el.childNodes[0];
+      expect(r.el.childNodes.length).toEqual(1);
       expect(triangle).toBeTag("polygon");
       expect(triangle).toHaveAttr("points", "0 0 200 0 100 200");
       expect(triangle).toHaveTranslation(100, 150);
@@ -166,8 +165,8 @@ describe("Rune.Render", function() {
         .lineTo(300, 301);
       drawShared(s);
       r.draw();
-      var polygon = el.childNodes[0];
-      expect(el.childNodes.length).toEqual(1);
+      var polygon = r.el.childNodes[0];
+      expect(r.el.childNodes.length).toEqual(1);
       expect(polygon).toBeTag("polygon");
       expect(polygon).toHaveAttr("points", "100 101 200 201 300 301")
       expect(polygon).toHaveTranslation(10, 15);
@@ -183,8 +182,8 @@ describe("Rune.Render", function() {
       drawShared(s);
       setAllAnchors(s);
       r.draw();
-      var path = el.childNodes[0];
-      expect(el.childNodes.length).toEqual(1);
+      var path = r.el.childNodes[0];
+      expect(r.el.childNodes.length).toEqual(1);
       expect(path).toBeTag("path");
       expect(path).toHaveAttr("d", "M 0 0 L 104 105 M 106 107 C 108 109 110 111 112 113 Q 114 115 116 117 Z")
       expect(path).toHaveTranslation(10, 15);
@@ -200,10 +199,10 @@ describe("Rune.Render", function() {
       _.each(optionals, function(val, func) {
         var shape = r.path(10, 15);
         r.draw();
-        expect(el.childNodes[0].getAttribute(val[0])).toBeNull();
+        expect(r.el.childNodes[0].getAttribute(val[0])).toBeNull();
         shape[func](val[1]);
         r.draw();
-        expect(el.childNodes[0].getAttribute(val[0])).toEqual(val[1] + "");
+        expect(r.el.childNodes[0].getAttribute(val[0])).toEqual(val[1] + "");
       });
     });
 
@@ -220,8 +219,8 @@ describe("Rune.Render", function() {
     it("should render text", function() {
       drawShared(s);
       r.draw();
-      var text = el.childNodes[0];
-      expect(el.childNodes.length).toEqual(1);
+      var text = r.el.childNodes[0];
+      expect(r.el.childNodes.length).toEqual(1);
       expect(text).toBeTag("text");
       expect(text).toHaveAttrs({
         x: s.vars.x,
@@ -243,10 +242,10 @@ describe("Rune.Render", function() {
 
       _.each(optionals, function(v, k) {
         r.draw();
-        expect(el.childNodes[0].getAttribute(v[0])).toBeNull();
+        expect(r.el.childNodes[0].getAttribute(v[0])).toBeNull();
         s[k](v[1]);
         r.draw();
-        expect(el.childNodes[0].getAttribute(v[0])).toEqual(v[1] + "");
+        expect(r.el.childNodes[0].getAttribute(v[0])).toEqual(v[1] + "");
       });
     });
 
@@ -261,7 +260,7 @@ describe("Rune.Render", function() {
         _.each(aligns, function(align) {
           s.textAlign(align[0]);
           r.draw();
-          var jshape = el.childNodes[0];
+          var jshape = r.el.childNodes[0];
           expect(jshape).toHaveAttr("text-anchor", align[1]);
         });
       });
@@ -275,8 +274,8 @@ describe("Rune.Render", function() {
     it("should render image", function() {
       r.image("myimage.jpg", 10, 15);
       r.draw();
-      var img = el.childNodes[0];
-      expect(el.childNodes.length).toEqual(1);
+      var img = r.el.childNodes[0];
+      expect(r.el.childNodes.length).toEqual(1);
       expect(img).toBeTag("image");
       expect(img).toHaveAttrs({
         x: 10,
@@ -290,7 +289,7 @@ describe("Rune.Render", function() {
     it("should render width and height if set", function() {
       r.image("myimage.jpg", 10, 15, 300, 400);
       r.draw();
-      var img = el.childNodes[0];
+      var img = r.el.childNodes[0];
       expect(img).toHaveAttrs({
         width: 300,
         height: 400
@@ -308,8 +307,8 @@ describe("Rune.Render", function() {
       g.add(e)
       r.draw();
 
-      var jgroup = el.childNodes[0];
-      expect(el.childNodes.length).toEqual(1);
+      var jgroup = r.el.childNodes[0];
+      expect(r.el.childNodes.length).toEqual(1);
       expect(jgroup).toBeTag("g");
       expect(jgroup).toHaveTranslation(10, 15);
       expect(jgroup).toHaveRotation(g.vars.rotation);
@@ -326,7 +325,7 @@ describe("Rune.Render", function() {
     it("should not render if empty", function() {
       var g = r.group(10, 15);
       r.draw();
-      expect(el.childNodes.length).toEqual(0);
+      expect(r.el.childNodes.length).toEqual(0);
     })
 
   });
@@ -348,8 +347,8 @@ describe("Rune.Render", function() {
       g.add(ellipse, 2, 3)
       r.draw();
 
-      var jgrid = el.childNodes[0];
-      expect(el.childNodes.length).toEqual(1);
+      var jgrid = r.el.childNodes[0];
+      expect(r.el.childNodes.length).toEqual(1);
       expect(jgrid).toBeTag("g")
       expect(jgrid).toHaveTranslation(10, 15);
       expect(jgrid).toHaveRotation(45);
@@ -376,7 +375,7 @@ describe("Rune.Render", function() {
       var p = r.path(10, 10);
       p.curveTo(100, 105, 200, 205, 300, 305).closePath();
       r.draw();
-      expect(el.childNodes.length).toBe(1)
+      expect(r.el.childNodes.length).toBe(1)
     });
 
     it("should render cubic curve helpers", function() {
@@ -384,17 +383,17 @@ describe("Rune.Render", function() {
       var p = r.path(10, 10);
       p.curveTo(100, 105, 200, 205, 300, 305).closePath();
       r.draw();
-      expect(el.childNodes[1]).toBeTag('line')
-      expect(el.childNodes[2]).toBeTag('line')
-      expect(el.childNodes[3]).toBeTag('circle')
-      expect(el.childNodes[4]).toBeTag('circle')
-      expect(el.childNodes[5]).toBeTag('circle')
+      expect(r.el.childNodes[1]).toBeTag('line')
+      expect(r.el.childNodes[2]).toBeTag('line')
+      expect(r.el.childNodes[3]).toBeTag('circle')
+      expect(r.el.childNodes[4]).toBeTag('circle')
+      expect(r.el.childNodes[5]).toBeTag('circle')
 
-      expect(el.childNodes[1]).toHaveAttrs({x1: 110, y1: 115, x2:310, y2:315});
-      expect(el.childNodes[2]).toHaveAttrs({x1: 210, y1: 215, x2:310, y2:315});
-      expect(el.childNodes[3]).toHaveAttrs({cx: 110, cy: 115});
-      expect(el.childNodes[4]).toHaveAttrs({cx: 210, cy: 215});
-      expect(el.childNodes[5]).toHaveAttrs({cx: 310, cy: 315});
+      expect(r.el.childNodes[1]).toHaveAttrs({x1: 110, y1: 115, x2:310, y2:315});
+      expect(r.el.childNodes[2]).toHaveAttrs({x1: 210, y1: 215, x2:310, y2:315});
+      expect(r.el.childNodes[3]).toHaveAttrs({cx: 110, cy: 115});
+      expect(r.el.childNodes[4]).toHaveAttrs({cx: 210, cy: 215});
+      expect(r.el.childNodes[5]).toHaveAttrs({cx: 310, cy: 315});
     });
 
     it("should render quad curve helpers", function() {
@@ -402,12 +401,12 @@ describe("Rune.Render", function() {
       var p = r.path(10, 10);
       p.curveTo(200, 205, 300, 305).closePath();
       r.draw();
-      expect(el.childNodes[1]).toBeTag('line')
-      expect(el.childNodes[2]).toBeTag('circle')
-      expect(el.childNodes[3]).toBeTag('circle')
-      expect(el.childNodes[1]).toHaveAttrs({x1: 210, y1: 215, x2:310, y2:315});
-      expect(el.childNodes[2]).toHaveAttrs({cx: 210, cy: 215});
-      expect(el.childNodes[3]).toHaveAttrs({cx: 310, cy: 315});
+      expect(r.el.childNodes[1]).toBeTag('line')
+      expect(r.el.childNodes[2]).toBeTag('circle')
+      expect(r.el.childNodes[3]).toBeTag('circle')
+      expect(r.el.childNodes[1]).toHaveAttrs({x1: 210, y1: 215, x2:310, y2:315});
+      expect(r.el.childNodes[2]).toHaveAttrs({cx: 210, cy: 215});
+      expect(r.el.childNodes[3]).toHaveAttrs({cx: 310, cy: 315});
 
     });
 
@@ -424,7 +423,7 @@ describe("Rune.Render", function() {
       });
       r.draw();
 
-      var child = el.childNodes[0];
+      var child = r.el.childNodes[0];
       expect(child).toBeTag("g");
       expect(child).toHaveTranslation(10, 15);
 

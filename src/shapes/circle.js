@@ -4,6 +4,7 @@ var Styleable = require("../mixins/styleable");
 var VectorsAcceptable = require("../mixins/vectors_acceptable");
 var Ellipse = require("./ellipse");
 var Utils = require('../utils');
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Circle = function(x, y, radius) {
   this.moveable();

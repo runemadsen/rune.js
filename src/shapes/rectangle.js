@@ -5,6 +5,7 @@ var Sizeable = require("../mixins/sizeable");
 var VectorsAcceptable = require("../mixins/vectors_acceptable");
 var Polygon = require('./polygon');
 var Utils = require('../utils');
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Rectangle = function(x, y, width, height) {
   this.moveable();
@@ -58,13 +59,13 @@ Rectangle.prototype = {
 
   render: function(opts) {
     var attr = {
-      x: Utils.s(thisvars.x),
-      y: Utils.s(thisvars.y),
-      width: Utils.s(thisvars.width),
-      height: Utils.s(thisvars.height)
+      x: Utils.s(this.vars.x),
+      y: Utils.s(this.vars.y),
+      width: Utils.s(this.vars.width),
+      height: Utils.s(this.vars.height)
     }
-    if(thisvars.rx)  attr.rx = Utils.s(thisvars.rx);
-    if(thisvars.ry)  attr.ry = Utils.s(thisvars.ry);
+    if(this.vars.rx)  attr.rx = Utils.s(this.vars.rx);
+    if(this.vars.ry)  attr.ry = Utils.s(this.vars.ry);
     this.moveableAttributes(attr);
     this.styleableAttributes(attr);
     return svg('rect', attr);

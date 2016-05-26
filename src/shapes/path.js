@@ -8,6 +8,7 @@ var Anchor = require('../anchor');
 var Vector = require('../vector');
 var Polygon = require('./polygon');
 var Utils = require('../utils');
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Path = function(x, y) {
   this.moveable();
@@ -195,6 +196,69 @@ Path.prototype = {
     if(this.vars.anchors.length == 0) {
       this.moveTo(0, 0);
     }
+  },
+
+  render: function(opts) {
+
+    var attr = this.moveableAttributes({});
+    this.styleableAttributes(attr);
+
+    attr.d = map(this.vars.anchors, function(a) {
+      if(a.command == 'move') {
+        return "M " + a.vec1.x + " " + a.vec1.y;
+      }
+      else if(a.command == 'line') {
+        return "L " + a.vec1.x + " " + a.vec1.y;
+      }
+      else if(a.command == 'cubic'){
+        return "C " + a.vec1.x + " " + a.vec1.y + " " + a.vec2.x + " " + a.vec2.y + " " + a.vec3.x + " " + a.vec3.y;
+      }
+      else if(a.command == 'quad' && typeof a.vec2 !== 'undefined') {
+        return "Q " + a.vec1.x + " " + a.vec1.y + " " + a.vec2.x + " " + a.vec2.y;
+      }
+      else if(a.command == 'quad'){
+        return "T " + a.vec1.x + " " + a.vec1.y;
+      }
+      else if(a.command == 'close'){
+        return "Z";
+      }
+    }).join(" ").trim();
+
+    this.optionalAttributes(attr, {
+      "fillRule" : "fill-rule"
+    });
+
+    var els = [
+      svg('path', attr)
+    ];
+
+    if(opts.debug) els = els.concat(this.renderDebug());
+    return els;
+  },
+
+  renderDebug: function() {
+
+    var t = this;
+    var els = [];
+
+    each(this.vars.anchors, function(a, i) {
+      if(a.command == 'cubic'){
+        els.push(t.debugLine(t.vars.x + a.vec1.x, t.vars.y + a.vec1.y, t.vars.x + a.vec3.x, t.vars.y + a.vec3.y));
+        els.push(t.debugLine(t.vars.x + a.vec2.x, t.vars.y + a.vec2.y, t.vars.x + a.vec3.x, t.vars.y + a.vec3.y));
+        for(var i = 1; i < 4; i++) {
+          els.push(t.debugCircle(t.vars.x + a["vec"+i].x, t.vars.y + a["vec"+i].y))
+        }
+      }
+      else if(a.command == 'quad' && typeof a.vec2 !== 'undefined') {
+        els.push(t.debugLine(t.vars.x + a.vec1.x, t.vars.y + a.vec1.y, t.vars.x + a.vec2.x, t.vars.y + a.vec2.y));
+        for(var i = 1; i < 3; i++) {
+          els.push(t.debugCircle(t.vars.x + a["vec"+i].x, t.vars.y + a["vec"+i].y))
+        }
+      }
+    });
+
+    return els;
+
   }
 
 }

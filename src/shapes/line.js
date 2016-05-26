@@ -4,6 +4,7 @@ var Styleable = require("../mixins/styleable");
 var VectorsAcceptable = require("../mixins/vectors_acceptable");
 var Vector = require('../vector');
 var Utils = require('../utils');
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Line = function(x, y, x2, y2) {
   this.moveable();

@@ -3,6 +3,7 @@ var Moveable = require("../mixins/moveable");
 var Styleable = require("../mixins/styleable");
 var VectorsAcceptable = require("../mixins/vectors_acceptable");
 var Utils = require('../utils');
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Triangle = function(x, y, x2, y2, x3, y3) {
   this.moveable();

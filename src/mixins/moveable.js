@@ -1,4 +1,7 @@
 var Vector = require('../vector');
+var Utils = require("../utils");
+var each = require("lodash/collection/each");
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Moveable = {
 
@@ -70,6 +73,48 @@ var Moveable = {
       attr.transform = strings.join(" ").trim();
 
     return attr;
+  },
+
+  optionalAttributes: function(attr, keys) {
+    each(keys, function(attribute, variable) {
+      if(this.vars[variable]) {
+        attr[attribute] = Utils.s(this.vars[variable]);
+      }
+    }, this);
+  },
+
+  // Render Debug
+  // ---------------------------------------------------
+
+  debugCircle: function(x, y) {
+    return svg('circle', {
+      cx: Utils.s(x),
+      cy: Utils.s(y),
+      r: Utils.s(4),
+      fill: "rgb(212, 18, 229)"
+    });
+  },
+
+  debugRect: function(x, y, width, height) {
+    return svg('rect', {
+      x: Utils.s(x),
+      y: Utils.s(y),
+      width: Utils.s(width),
+      height: Utils.s(height),
+      stroke: "rgb(212, 18, 229)",
+      fill: "none"
+    });
+  },
+
+  debugLine: function(x1, y1, x2, y2) {
+    return svg('line', {
+      x1: Utils.s(x1),
+      y1: Utils.s(y1),
+      x2: Utils.s(x2),
+      y2: Utils.s(y2),
+      stroke: "rgb(212, 18, 229)",
+      fill: "none"
+    });
   }
 
 };

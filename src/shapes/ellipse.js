@@ -5,6 +5,7 @@ var Styleable = require("../mixins/styleable");
 var VectorsAcceptable = require("../mixins/vectors_acceptable");
 var Polygon = require('./polygon');
 var Utils = require('../utils');
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Ellipse = function(x, y, width, height) {
   this.moveable();

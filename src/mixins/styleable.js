@@ -1,4 +1,5 @@
 var Color = require('../color');
+var Utils = require('../utils');
 
 var Styleable = {
 

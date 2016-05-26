@@ -1,5 +1,6 @@
 var without = require("lodash/array/without");
 var assign = require("lodash/object/assign");
+var flatten = require("lodash/array/flatten");
 var each = require("lodash/collection/each");
 var map = require("lodash/collection/map");
 var Moveable = require("./mixins/moveable");
@@ -53,11 +54,15 @@ Group.prototype = {
 
   render: function(opts) {
     if(!this.children || this.children.length == 0) return;
-    var attr = this.moveableAttributes({}, group);
+    var attr = this.moveableAttributes({});
+    return svg('g', attr, this.renderChildren(opts));
+  },
+
+  renderChildren: function(opts) {
     var children = map(this.children, function(child) {
       return child.render(opts);
     });
-    return svg('g', attr, flatten(children, true));
+    return flatten(children, true);
   }
 
 }

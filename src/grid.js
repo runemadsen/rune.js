@@ -1,7 +1,10 @@
 var assign = require("lodash/object/assign");
+var map = require("lodash/collection/map");
+var flatten = require("lodash/array/flatten");
 var defaults = require("lodash/object/defaults");
 var Moveable = require("./mixins/moveable");
 var Group = require('./group');
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Grid = function(options) {
 
@@ -84,6 +87,42 @@ Grid.prototype = {
         this.modules.push(new Group(groupX, groupY));
       }
     }
+  },
+
+  render: function(opts) {
+    var attr = this.moveableAttributes({});
+    var groups = map(this.modules, function(module) {
+      return module.render(opts);
+    });
+    if(opts.debug) groups = groups.concat(this.renderDebug());
+    return svg('g', attr, flatten(groups, true));
+  },
+
+  renderDebug: function() {
+    var els = [];
+
+    // draw container rect
+    els.push(this.debugRect(0, 0, this.vars.width, this.vars.height));
+
+    // draw lines for columns
+    var x = 0;
+    for(var i = 0; i < this.vars.columns-1; i++) {
+      x += this.vars.moduleWidth;
+      els.push(this.debugLine(x, 0, x, this.vars.height));
+      x += this.vars.gutterWidth;
+      els.push(this.debugLine(x, 0, x, this.vars.height));
+    }
+
+    // draw lines for rows
+    var y = 0;
+    for(var i = 0; i < this.vars.rows-1; i++) {
+      y += this.vars.moduleHeight;
+      els.push(this.debugLine(0, y, this.vars.width, y));
+      y += this.vars.gutterHeight;
+      els.push(this.debugLine(0, y, this.vars.width, y));
+    }
+
+    return els;
   }
 
 }

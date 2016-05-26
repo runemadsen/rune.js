@@ -3,6 +3,7 @@ var Moveable = require("../mixins/moveable");
 var Styleable = require("../mixins/styleable");
 var VectorsAcceptable = require("../mixins/vectors_acceptable");
 var Utils = require('../utils');
+var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Text = function(text, x, y) {
   this.moveable();
@@ -50,6 +51,38 @@ Text.prototype = {
     this.scaleStyleable(scalar);
     this.vars.fontSize *= scalar;
     return this;
+  },
+
+  render: function(opts) {
+    var attr = {
+      x: Utils.s(this.vars.x),
+      y: Utils.s(this.vars.y),
+    }
+    this.moveableAttributes(attr);
+    this.styleableAttributes(attr);
+
+    // attributes that need specific handling
+    if(this.vars.textAlign) {
+      var translate = { "left":"start", "center":"middle", "right":"end" };
+      attr["text-anchor"] = translate[this.vars.textAlign];
+    }
+
+    this.optionalAttributes(attr, {
+      "fontFamily" : "font-family",
+      "textAlign" : "text-align",
+      "fontStyle" : "font-style",
+      "fontWeight" : "font-weight",
+      "fontSize" : "font-size",
+      "letterSpacing" : "letter-spacing",
+      "textDecoration" : "text-decoration"
+    });
+
+    if(this.vars.textAlign) {
+      var translate = { "left":"start", "center":"middle", "right":"end" };
+      attr["text-anchor"] = translate[this.vars.textAlign];
+    }
+
+    return svg('text', attr, this.vars.text);
   }
 
 }

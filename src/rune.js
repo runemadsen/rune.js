@@ -44,8 +44,8 @@ var Rune = function(options) {
   this.tree = svg('svg', {
     xmlns: 'http://www.w3.org/2000/svg',
     'xmlns:xlink': 'http://www.w3.org/1999/xlink',
-    width: this.s(params.width),
-    height: this.s(params.height)
+    width: params.width.toString(),
+    height: params.height.toString()
   });
   this.el = createElement(this.tree);
   this.stage = new Group();
@@ -214,9 +214,9 @@ Rune.prototype = {
   draw: function() {
 
     var newTree = svg('svg', {
-      width: this.s(this.width),
-      height: this.s(this.height)
-    }, [this.stage.render({ debug: this.debug})]);
+      width: Utils.s(this.width),
+      height: Utils.s(this.height)
+    }, [this.stage.renderChildren({ debug: this.debug})]);
 
     var diffTree = diff(this.tree, newTree);
     this.el = patch(this.el, diffTree);
