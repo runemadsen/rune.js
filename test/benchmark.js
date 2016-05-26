@@ -21,4 +21,5 @@ module.exports = function() {
   var end = new Date().getTime();
   var time = end - start;
   console.log('Execution time: ' + time + 'ms');
+  console.log("Before render changes this was 8 to 14 seconds");
 }
