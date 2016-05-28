@@ -5,6 +5,13 @@ var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Moveable = {
 
+  changed: function() {
+    if(this.parent && !this.parentNotified) {
+      this.parent.changedChildren.push(this.childId);
+      this.parentNotified = true;
+    }
+  },
+
   moveable: function(copy) {
     this.vars = this.vars || {};
     this.vars.x = copy ? copy.vars.x : 0;

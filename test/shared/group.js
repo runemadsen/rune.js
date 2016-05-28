@@ -35,7 +35,7 @@ describe("Rune.Group", function() {
       expect(s).not.toBeChildOf(g1);
     });
 
-    it('assigns childID to child and adds to changed', function() {
+    it('assigns childID to child and calls child.changed()', function() {
       var g = new Rune.Group();
       var s = new Rune.Ellipse();
       var s2 = new Rune.Ellipse();

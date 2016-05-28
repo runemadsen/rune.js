@@ -46,6 +46,26 @@ describe("Rune.Moveable", function() {
 
   });
 
+  describe('changed()', function() {
+
+    it('should set parentNotified and add to parents changedChildren array', function() {
+      g.add(m);
+      g.changedChildren = [];
+      expect(m.parentNotified).toBe(true);
+      m.parentNotified = false;
+      m.changed();
+      expect(g.changedChildren[0]).toEqual(m.childId);
+      expect(m.parentNotified).toBe(true);
+    });
+
+    it('should not set parentNotified if no parent', function() {
+      expect(m.parentNotified).toBeFalsy();
+      m.changed();
+      expect(m.parentNotified).toBeFalsy();
+    });
+
+  });
+
   describe("move()", function() {
 
     it("moves absolute", function() {

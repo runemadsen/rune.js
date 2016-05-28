@@ -26,10 +26,10 @@ Group.prototype = {
 
   add: function(child) {
     if(child.parent) child.parent.remove(child);
-    child.childId = this.children.length;
     this.children.push(child);
-    this.changedChildren.push(child.childId);
     child.parent = this;
+    child.childId = this.children.length-1;
+    child.changed();
   },
 
   remove: function(child) {
