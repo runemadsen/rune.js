@@ -18,6 +18,8 @@ Group.prototype = {
 
   init: function(x, y) {
     this.children = [];
+    this.changedChildren = [];
+    this.renderedChildren = [];
     if(typeof x !== 'undefined') this.vars.x = x;
     if(typeof y !== 'undefined') this.vars.y = y;
   },
@@ -26,6 +28,7 @@ Group.prototype = {
     if(child.parent) child.parent.remove(child);
     child.childId = this.children.length;
     this.children.push(child);
+    this.changedChildren.push(child.childId);
     child.parent = this;
   },
 
@@ -61,10 +64,15 @@ Group.prototype = {
   },
 
   renderChildren: function(opts) {
-    var children = map(this.children, function(child) {
-      return child.render(opts);
-    });
-    return flatten(children, true);
+
+    // loop through the changed children
+    while(this.changedChildren.length > 0) {
+      var childId = this.changedChildren.shift();
+      this.renderedChildren[childId] = this.children[childId].render(opts);
+    }
+
+    // FIGURE OUT HOW NOT TO FLATTEN EVERY TIME!
+    return flatten(this.renderedChildren, true);
   }
 
 }
