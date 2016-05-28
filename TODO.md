@@ -2,6 +2,7 @@
 
 ## Next up
 
+- [ ] Render: groups changed || parentNotified
 - [ ] Render: Don't diff if main stage didn't change
 - [ ] Render: add methods for all .vars
 - [ ] mouse events should work on individual shapes
