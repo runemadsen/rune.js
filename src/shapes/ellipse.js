@@ -1,27 +1,22 @@
 var assign = require("lodash/object/assign");
-var Moveable = require("../mixins/moveable");
-var Sizeable = require("../mixins/sizeable");
-var Styleable = require("../mixins/styleable");
-var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Shape = require("../mixins/shape");
+var Box = require("../mixins/box");
+var Styles = require("../mixins/styles");
 var Polygon = require('./polygon');
 var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Ellipse = function(x, y, width, height) {
-  this.moveable();
-  this.sizeable();
-  this.styleable();
-  this.vectorsAcceptable(arguments);
+  this.shape();
+  this.box();
+  this.styles();
+  this.vars.x = x;
+  this.vars.y = y;
+  this.vars.width = width;
+  this.vars.height = height;
 }
 
 Ellipse.prototype = {
-
-  init: function(x, y, width, height) {
-    this.vars.x = x;
-    this.vars.y = y;
-    this.vars.width = width;
-    this.vars.height = height;
-  },
 
   toPolygon: function(opts, parent) {
 
@@ -50,8 +45,8 @@ Ellipse.prototype = {
   },
 
   scale: function(scalar) {
-    this.scaleSizeable(scalar);
-    this.scaleStyleable(scalar);
+    this.scaleBox(scalar);
+    this.scaleStyles(scalar);
     this.changed();
     return this;
   },
@@ -70,13 +65,13 @@ Ellipse.prototype = {
       rx: Utils.s(this.vars.width / 2),
       ry: Utils.s(this.vars.height / 2)
     }
-    this.moveableAttributes(attr);
-    this.styleableAttributes(attr);
+    this.shapeAttributes(attr);
+    this.stylesAttributes(attr);
     return svg('ellipse', attr);
   }
 
 }
 
-assign(Ellipse.prototype, Moveable, Sizeable, Styleable, VectorsAcceptable, {type: "ellipse"});
+assign(Ellipse.prototype, Shape, Box, Styles, {type: "ellipse"});
 
 module.exports = Ellipse;

@@ -55,13 +55,13 @@ describe("Rune.Ellipse", function() {
   describe("scale()", function() {
 
     it("scales the ellipse", function() {
-      spyOn(s, 'scaleSizeable');
-      spyOn(s, 'scaleStyleable');
+      spyOn(s, 'scaleBox');
+      spyOn(s, 'scaleStyles');
       s.scale(2);
       expect(s.vars.x).toEqual(10);
       expect(s.vars.y).toEqual(15);
-      expect(s.scaleSizeable).toHaveBeenCalledWith(2);
-      expect(s.scaleStyleable).toHaveBeenCalledWith(2);
+      expect(s.scaleBox).toHaveBeenCalledWith(2);
+      expect(s.scaleStyles).toHaveBeenCalledWith(2);
     });
 
   });

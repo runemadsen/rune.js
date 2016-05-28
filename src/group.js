@@ -3,26 +3,21 @@ var assign = require("lodash/object/assign");
 var flatten = require("lodash/array/flatten");
 var each = require("lodash/collection/each");
 var map = require("lodash/collection/map");
-var Moveable = require("./mixins/moveable");
-var VectorsAcceptable = require("./mixins/vectors_acceptable");
+var Shape = require("./mixins/shape");
 var Utils = require('./utils');
 var Vector = require('./vector');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Group = function(x, y) {
-  this.moveable();
-  this.vectorsAcceptable(arguments);
+  this.shape();
+  this.children = [];
+  this.changedChildren = [];
+  this.renderedChildren = [];
+  if(typeof x !== 'undefined') this.vars.x = x;
+  if(typeof y !== 'undefined') this.vars.y = y;
 }
 
 Group.prototype = {
-
-  init: function(x, y) {
-    this.children = [];
-    this.changedChildren = [];
-    this.renderedChildren = [];
-    if(typeof x !== 'undefined') this.vars.x = x;
-    if(typeof y !== 'undefined') this.vars.y = y;
-  },
 
   add: function(child) {
     if(child.parent) child.parent.remove(child);
@@ -60,7 +55,7 @@ Group.prototype = {
 
   render: function(opts) {
     if(!this.children || this.children.length == 0) return;
-    var attr = this.moveableAttributes({});
+    var attr = this.shapeAttributes({});
     return svg('g', attr, this.renderChildren(opts));
   },
 
@@ -80,6 +75,6 @@ Group.prototype = {
 }
 
 // Should we figure out a better way to do mixins for ES6?
-assign(Group.prototype, Moveable, VectorsAcceptable, {type: "group"});
+assign(Group.prototype, Shape, {type: "group"});
 
 module.exports = Group;

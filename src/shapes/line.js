@@ -1,27 +1,22 @@
 var assign = require("lodash/object/assign");
-var Moveable = require("../mixins/moveable");
-var Styleable = require("../mixins/styleable");
-var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Shape = require("../mixins/shape");
+var Styles = require("../mixins/styles");
 var Vector = require('../vector');
 var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Line = function(x, y, x2, y2) {
-  this.moveable();
-  this.styleable();
-  this.vectorsAcceptable(arguments);
+  this.shape();
+  this.styles();
+  this.vars.x = x;
+  this.vars.y = y;
+  this.vars.x2 = x2;
+  this.vars.y2 = y2;
 }
 
-assign(Line.prototype, Moveable, Styleable, VectorsAcceptable, {
+assign(Line.prototype, Shape, Styles, {
 
   type: "line",
-
-  init: function(x, y, x2, y2) {
-    this.vars.x = x;
-    this.vars.y = y;
-    this.vars.x2 = x2;
-    this.vars.y2 = y2;
-  },
 
   copy: function(parent) {
     var copy = new Line();
@@ -33,7 +28,7 @@ assign(Line.prototype, Moveable, Styleable, VectorsAcceptable, {
   },
 
   scale: function(scalar) {
-    this.scaleStyleable(scalar);
+    this.scaleStyles(scalar);
     var start = new Vector(this.vars.x, this.vars.y)
     var end = new Vector(this.vars.x2, this.vars.y2)
     var vec = end.sub(start).multiply(scalar).add(start);
@@ -60,8 +55,8 @@ assign(Line.prototype, Moveable, Styleable, VectorsAcceptable, {
       x2: Utils.s(this.vars.x2),
       y2: Utils.s(this.vars.y2)
     }
-    this.moveableAttributes(attr);
-    this.styleableAttributes(attr);
+    this.shapeAttributes(attr);
+    this.stylesAttributes(attr);
     return svg('line', attr);
   }
 

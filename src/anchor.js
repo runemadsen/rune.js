@@ -62,12 +62,6 @@ Anchor.prototype = {
   },
 
   setCurve: function(a, b, c, d, e, f) {
-    var args = Utils.expandVectorArguments(arguments);
-    this._setCurveImpl.apply(this, args);
-    return this;
-  },
-
-  _setCurveImpl: function(a, b, c, d, e, f) {
     // cubic bezier with two control points
     if(typeof f !== 'undefined') {
       this.command = 'cubic';
@@ -82,6 +76,7 @@ Anchor.prototype = {
       this.vec1 = new Vector(a, b);
       this.vec2 = new Vector(c, d);
     }
+    return this;
   },
 
   setClose: function() {

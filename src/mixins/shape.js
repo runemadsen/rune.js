@@ -3,7 +3,7 @@ var Utils = require("../utils");
 var each = require("lodash/collection/each");
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
-var Moveable = {
+var Shape = {
 
   changed: function() {
     if(this.parent && !this.parentNotified) {
@@ -12,7 +12,7 @@ var Moveable = {
     }
   },
 
-  moveable: function(copy) {
+  shape: function(copy) {
     this.vars = this.vars || {};
     this.vars.x = copy ? copy.vars.x : 0;
     this.vars.y = copy ? copy.vars.y : 0;
@@ -42,7 +42,7 @@ var Moveable = {
     return this;
   },
 
-  addParent: function(group) {
+  addTo: function(group) {
     group.add(this);
     return this;
   },
@@ -63,7 +63,7 @@ var Moveable = {
   // Render
   // ---------------------------------------------------
 
-  moveableAttributes: function(attr) {
+  shapeAttributes: function(attr) {
 
     var strings = [];
 
@@ -128,4 +128,4 @@ var Moveable = {
 
 };
 
-module.exports = Moveable;
+module.exports = Shape;

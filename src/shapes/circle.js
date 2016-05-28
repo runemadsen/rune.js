@@ -1,24 +1,19 @@
 var assign = require("lodash/object/assign");
-var Moveable = require("../mixins/moveable");
-var Styleable = require("../mixins/styleable");
-var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Shape = require("../mixins/shape");
+var Styles = require("../mixins/styles");
 var Ellipse = require("./ellipse");
 var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Circle = function(x, y, radius) {
-  this.moveable();
-  this.styleable();
-  this.vectorsAcceptable(arguments);
+  this.shape();
+  this.styles();
+  this.vars.x = x;
+  this.vars.y = y;
+  this.vars.radius = radius;
 }
 
 Circle.prototype = {
-
-  init: function(x, y, radius) {
-    this.vars.x = x;
-    this.vars.y = y;
-    this.vars.radius = radius;
-  },
 
   toPolygon: function(opts, parent) {
     var ellipse = new Ellipse(this.vars.x, this.vars.y, this.vars.radius*2, this.vars.radius*2);
@@ -29,7 +24,7 @@ Circle.prototype = {
   },
 
   scale: function(scalar) {
-    this.scaleStyleable(scalar);
+    this.scaleStyles(scalar);
     this.vars.radius *= scalar;
     this.changed();
     return this;
@@ -49,13 +44,13 @@ Circle.prototype = {
       cy: Utils.s(this.vars.y),
       r: Utils.s(this.vars.radius)
     }
-    this.moveableAttributes(attr);
-    this.styleableAttributes(attr);
+    this.shapeAttributes(attr);
+    this.stylesAttributes(attr);
     return svg('circle', attr);
   }
 
 }
 
-assign(Circle.prototype, Moveable, Styleable, VectorsAcceptable, { type: "circle" });
+assign(Circle.prototype, Shape, Styles, { type: "circle" });
 
 module.exports = Circle;

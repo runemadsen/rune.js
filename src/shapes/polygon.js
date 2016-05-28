@@ -2,26 +2,21 @@ var assign = require("lodash/object/assign");
 var each = require("lodash/collection/each");
 var map = require("lodash/collection/map");
 var flatten = require("lodash/array/flatten");
-var Moveable = require("../mixins/moveable");
-var Styleable = require("../mixins/styleable");
-var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Shape = require("../mixins/shape");
+var Styles = require("../mixins/styles");
 var Vector = require('../vector');
 var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Polygon = function(x, y) {
-  this.moveable();
-  this.styleable();
-  this.vectorsAcceptable(arguments);
+  this.shape();
+  this.styles();
+  this.vars.vectors = [];
+  if(typeof x !== 'undefined') this.vars.x = x;
+  if(typeof y !== 'undefined') this.vars.y = y;
 }
 
 Polygon.prototype = {
-
-  init: function(x, y) {
-    this.vars.vectors = [];
-    if(typeof x !== 'undefined') this.vars.x = x;
-    if(typeof y !== 'undefined') this.vars.y = y;
-  },
 
   lineTo: function(x, y) {
     if (x instanceof Vector) {
@@ -198,7 +193,7 @@ Polygon.prototype = {
   },
 
   scale: function(scalar) {
-    this.scaleStyleable(scalar);
+    this.scaleStyles(scalar);
     this.vars.vectors = map(this.vars.vectors, function(vec) {
       return vec.multiply(scalar);
     });
@@ -212,12 +207,12 @@ Polygon.prototype = {
         return vec.x + " " + vec.y;
       }).join(" ")
     };
-    this.moveableAttributes(attr);
-    this.styleableAttributes(attr);
+    this.shapeAttributes(attr);
+    this.stylesAttributes(attr);
     return svg('polygon', attr);
   }
 }
 
-assign(Polygon.prototype, Moveable, Styleable, VectorsAcceptable, { type: "polygon" });
+assign(Polygon.prototype, Shape, Styles, { type: "polygon" });
 
 module.exports = Polygon;

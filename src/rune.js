@@ -17,9 +17,9 @@ var Polygon = require("./shapes/polygon");
 var Rectangle = require("./shapes/rectangle");
 var Text = require("./shapes/text");
 var Image = require("./shapes/image");
-var Sizeable = require('./mixins/sizeable');
-var Moveable = require('./mixins/moveable');
-var Styleable = require('./mixins/styleable');
+var Box = require('./mixins/box');
+var Shape = require('./mixins/shape');
+var Styles = require('./mixins/styles');
 
 var h = require('virtual-dom/h');
 var diff = require('virtual-dom/diff');
@@ -103,62 +103,62 @@ Rune.prototype = {
   // --------------------------------------------------
 
   group: function(x, y, parent) {
-    var g = Utils.invokeConstructor(Group, arguments);
-    Utils.groupLogic(g, this.stage, arguments[arguments.length-1]);
+    var g = new Group(x, y);
+    Utils.groupLogic(g, this.stage, parent);
     return g;
   },
 
   triangle: function(x, y, x2, y2, x3, y3, parent) {
-    var t = Utils.invokeConstructor(Triangle, arguments);
-    Utils.groupLogic(t, this.stage, arguments[arguments.length-1]);
+    var t = new Triangle(x, y, x2, y2, x3, y3);
+    Utils.groupLogic(t, this.stage, parent);
     return t;
   },
 
   rect: function(x, y, width, height, parent) {
-    var r = Utils.invokeConstructor(Rectangle, arguments);
-    Utils.groupLogic(r, this.stage, arguments[arguments.length-1]);
+    var r = new Rectangle(x, y, width, height);
+    Utils.groupLogic(r, this.stage, parent);
     return r;
   },
 
   ellipse: function(x, y, width, height, parent) {
-    var e = Utils.invokeConstructor(Ellipse, arguments);
-    Utils.groupLogic(e, this.stage, arguments[arguments.length-1]);
+    var e = new Ellipse(x, y, width, height);
+    Utils.groupLogic(e, this.stage, parent);
     return e;
   },
 
   circle: function(x, y, radius, parent) {
-    var c = Utils.invokeConstructor(Circle, arguments);
-    Utils.groupLogic(c, this.stage, arguments[arguments.length-1]);
+    var c = new Circle(x, y, radius, parent);
+    Utils.groupLogic(c, this.stage, parent);
     return c;
   },
 
   line: function(x1, y1, x2, y2, parent) {
-    var l = Utils.invokeConstructor(Line, arguments);
-    Utils.groupLogic(l, this.stage, arguments[arguments.length-1]);
+    var l = new Line(x1, y1, x2, y2);
+    Utils.groupLogic(l, this.stage, parent);
     return l;
   },
 
   polygon: function(x, y, parent) {
-    var p = Utils.invokeConstructor(Polygon, arguments);
-    Utils.groupLogic(p, this.stage, arguments[arguments.length-1]);
+    var p = new Polygon(x, y);
+    Utils.groupLogic(p, this.stage, parent);
     return p;
   },
 
   path: function(x, y, parent) {
-    var p = Utils.invokeConstructor(Path, arguments);
-    Utils.groupLogic(p, this.stage, arguments[arguments.length-1]);
+    var p = new Path(x, y);
+    Utils.groupLogic(p, this.stage, parent);
     return p;
   },
 
   text: function(textString, x, y, parent) {
-    var t = Utils.invokeConstructor(Text, arguments);
-    Utils.groupLogic(t, this.stage, arguments[arguments.length-1]);
+    var t = new Text(textString, x, y);
+    Utils.groupLogic(t, this.stage, parent);
     return t;
   },
 
   image: function(url, x, y, width, height, parent) {
-    var i = Utils.invokeConstructor(Image, arguments);
-    Utils.groupLogic(i, this.stage, arguments[arguments.length-1]);
+    var i = new Image(url, x, y, width, height);
+    Utils.groupLogic(i, this.stage, parent);
     return i;
   },
 
@@ -249,8 +249,8 @@ Rune.Image = Image;
 
 // Right now I need these for mixin tests.
 // Rewrite so we don't need them.
-Rune.Moveable = Moveable;
-Rune.Styleable = Styleable;
-Rune.Sizeable = Sizeable;
+Rune.Shape = Shape;
+Rune.Styles = Styles;
+Rune.Box = Box;
 
 module.exports = Rune;

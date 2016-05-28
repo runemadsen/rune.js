@@ -1,12 +1,12 @@
-describe("Rune.Moveable", function() {
+describe("Rune.Shape", function() {
 
   var m;
   var g;
 
   beforeEach(function() {
     g = new Rune.Group(50, 25);
-    m = newMixin(Rune.Moveable);
-    m.moveable();
+    m = newMixin(Rune.Shape);
+    m.shape();
   });
 
   describe('change tracking', function() {
@@ -44,31 +44,31 @@ describe("Rune.Moveable", function() {
   describe("moveable()", function() {
 
     it("assigns default variables", function() {
-      expect(typeof m.moveable).toEqual("function");
+      expect(typeof m.shape).toEqual("function");
       expect(m.vars.x).toEqual(0);
       expect(m.vars.y).toEqual(0);
       expect(m.vars.rotation).toEqual(0);
     });
 
     it("copies variables from object", function() {
-      setMoveableVars(m);
-      var m2 = newMixin(Rune.Moveable);
-      m2.moveable(m);
+      setShapeVars(m);
+      var m2 = newMixin(Rune.Shape);
+      m2.shape(m);
       expect(m2.vars.x).toEqual(10);
       expect(m2.vars.y).toEqual(15);
       expect(m2.vars.rotation).toEqual(45);
     });
 
     it("copies negative values from object", function() {
-      setMoveableVars(m, {
+      setShapeVars(m, {
         x:-10,
         y:-15,
         rotation:-20,
         rotationX:-25,
         rotationY:-30
       });
-      var m2 = newMixin(Rune.Moveable);
-      m2.moveable(m);
+      var m2 = newMixin(Rune.Shape);
+      m2.shape(m);
       expect(m2.vars.x).toEqual(-10);
       expect(m2.vars.y).toEqual(-15);
       expect(m2.vars.rotation).toEqual(-20);
@@ -81,14 +81,14 @@ describe("Rune.Moveable", function() {
   describe("move()", function() {
 
     it("moves absolute", function() {
-      setMoveableVars(m);
+      setShapeVars(m);
       m.move(200, 205);
       expect(m.vars.x).toEqual(200);
       expect(m.vars.y).toEqual(205);
     });
 
     it("moves relative", function() {
-      setMoveableVars(m);
+      setShapeVars(m);
       m.move(200, 205, true);
       expect(m.vars.x).toEqual(210);
       expect(m.vars.y).toEqual(220);
@@ -132,11 +132,11 @@ describe("Rune.Moveable", function() {
 
   });
 
-  describe("addParent()", function() {
+  describe("addTo()", function() {
 
     it("adds child to parent", function() {
       expect(m).not.toBeChildOf(g);
-      m.addParent(g);
+      m.addTo(g);
       expect(m).toBeChildOf(g);
     });
 

@@ -15,11 +15,11 @@ describe("Rune.Image", function() {
   describe("scale()", function() {
 
     it("scales the image", function() {
-      spyOn(s, 'scaleSizeable');
+      spyOn(s, 'scaleBox');
       s.scale(2);
       expect(s.vars.x).toEqual(10);
       expect(s.vars.y).toEqual(15);
-      expect(s.scaleSizeable).toHaveBeenCalledWith(2);
+      expect(s.scaleBox).toHaveBeenCalledWith(2);
     });
 
   });

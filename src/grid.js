@@ -2,13 +2,13 @@ var assign = require("lodash/object/assign");
 var map = require("lodash/collection/map");
 var flatten = require("lodash/array/flatten");
 var defaults = require("lodash/object/defaults");
-var Moveable = require("./mixins/moveable");
+var Shape = require("./mixins/shape");
 var Group = require('./group');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Grid = function(options) {
 
-  this.moveable();
+  this.shape();
   this.modules = [];
 
   var req = defaults(options || {}, {
@@ -90,7 +90,7 @@ Grid.prototype = {
   },
 
   render: function(opts) {
-    var attr = this.moveableAttributes({});
+    var attr = this.shapeAttributes({});
     var groups = map(this.modules, function(module) {
       return module.render(opts);
     });
@@ -127,6 +127,6 @@ Grid.prototype = {
 
 }
 
-assign(Grid.prototype, Moveable, { type: "grid" });
+assign(Grid.prototype, Shape, { type: "grid" });
 
 module.exports = Grid;

@@ -59,14 +59,14 @@ function newMixin() {
 function getMixinVars(shape) {
 
   var keys = [];
-  if(shape.moveable) {
-    keys = keys.concat(_.keys(getMoveableVars()))
+  if(shape.shape) {
+    keys = keys.concat(_.keys(getShapeVars()))
   }
-  if(shape.sizeable) {
-    keys = keys.concat(_.keys(getSizeableVars()))
+  if(shape.box) {
+    keys = keys.concat(_.keys(getBoxVars()))
   }
-  if(shape.styleable) {
-    keys = keys.concat(_.keys(getStyleableVars()))
+  if(shape.styles) {
+    keys = keys.concat(_.keys(getStylesVars()))
   }
 
   var vars = {};
@@ -79,21 +79,21 @@ function getMixinVars(shape) {
 // Sets variables in object that comes from
 // all the mixins that the shape extends.
 function setMixinVars(shape) {
-  if(shape.moveable) {
-    setMoveableVars(shape)
+  if(shape.shape) {
+    setShapeVars(shape)
   }
-  if(shape.sizeable) {
-    setSizeableVars(shape)
+  if(shape.box) {
+    setBoxVars(shape)
   }
-  if(shape.styleable) {
-    setStyleableVars(shape)
+  if(shape.styles) {
+    setStylesVars(shape)
   }
 }
 
 // Mixin getters
 // -------------------------------------------
 
-function getMoveableVars(opts) {
+function getShapeVars(opts) {
   return _.defaults(opts || {}, {
     x:10,
     y:15,
@@ -103,14 +103,14 @@ function getMoveableVars(opts) {
   });
 }
 
-function getSizeableVars(opts) {
+function getBoxVars(opts) {
   return _.defaults(opts || {}, {
     width:300,
     height:305
   });
 }
 
-function getStyleableVars(opts) {
+function getStylesVars(opts) {
   return _.defaults(opts || {}, {
     fill: new Rune.Color(255, 0, 0),
     stroke: new Rune.Color(0, 255, 0),
@@ -126,18 +126,18 @@ function getStyleableVars(opts) {
 // Mixin setters
 // -------------------------------------------
 
-function setMoveableVars(shape, opts) {
-  var vars = getMoveableVars(opts)
+function setShapeVars(shape, opts) {
+  var vars = getShapeVars(opts)
   _.extend(shape.vars, vars);
 }
 
-function setSizeableVars(shape, opts) {
-  var vars = getSizeableVars(opts)
+function setBoxVars(shape, opts) {
+  var vars = getBoxVars(opts)
   _.extend(shape.vars, vars);
 }
 
-function setStyleableVars(shape, opts) {
-  var vars = getStyleableVars(opts)
+function setStylesVars(shape, opts) {
+  var vars = getStylesVars(opts)
   _.extend(shape.vars, vars);
 }
 

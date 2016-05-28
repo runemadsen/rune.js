@@ -1,9 +1,8 @@
 var each = require("lodash/collection/each");
 var map = require("lodash/collection/map");
 var assign = require("lodash/object/assign");
-var Moveable = require("../mixins/moveable");
-var Styleable = require("../mixins/styleable");
-var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Shape = require("../mixins/shape");
+var Styles = require("../mixins/styles");
 var Anchor = require('../anchor');
 var Vector = require('../vector');
 var Polygon = require('./polygon');
@@ -11,18 +10,14 @@ var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Path = function(x, y) {
-  this.moveable();
-  this.styleable();
-  this.vectorsAcceptable(arguments);
+  this.shape();
+  this.styles();
+  this.vars.anchors = [];
+  if(typeof x !== 'undefined') this.vars.x = x;
+  if(typeof y !== 'undefined') this.vars.y = y;
 }
 
 Path.prototype = {
-
-  init: function(x, y) {
-    this.vars.anchors = [];
-    if(typeof x !== 'undefined') this.vars.x = x;
-    if(typeof y !== 'undefined') this.vars.y = y;
-  },
 
   moveTo: function(x, y) {
     this.vars.anchors.push(new Anchor().setMove(x, y));
@@ -183,7 +178,7 @@ Path.prototype = {
   },
 
   scale: function(scalar) {
-    this.scaleStyleable(scalar);
+    this.scaleStyles(scalar);
     this.vars.anchors = map(this.vars.anchors, function(anchor) {
       return anchor.multiply(scalar);
     });
@@ -207,8 +202,8 @@ Path.prototype = {
 
   render: function(opts) {
 
-    var attr = this.moveableAttributes({});
-    this.styleableAttributes(attr);
+    var attr = this.shapeAttributes({});
+    this.stylesAttributes(attr);
 
     attr.d = map(this.vars.anchors, function(a) {
       if(a.command == 'move') {
@@ -270,6 +265,6 @@ Path.prototype = {
 
 }
 
-assign(Path.prototype, Moveable, Styleable, VectorsAcceptable, { type: "path"});
+assign(Path.prototype, Shape, Styles, { type: "path"});
 
 module.exports = Path;

@@ -1,17 +1,17 @@
-var Sizeable = {
+var Box = {
 
-  sizeable: function(copy) {
+  box: function(copy) {
     this.vars = this.vars || {};
     this.vars.width = copy ? copy.vars.width : 0;
     this.vars.height = copy ? copy.vars.height : 0;
   },
 
-  scaleSizeable: function(scalar) {
+  scaleBox: function(scalar) {
     this.vars.width *= scalar;
     this.vars.height *= scalar;
   },
 
-  sizeableAttributes: function(attr) {
+  boxAttributes: function(attr) {
     attr.width = Utils.s(this.vars.width);
     attr.height = Utils.s(this.vars.height);
     return attr;
@@ -19,4 +19,4 @@ var Sizeable = {
 
 }
 
-module.exports = Sizeable;
+module.exports = Box;

@@ -200,7 +200,7 @@ describe("Rune.Polygon", function() {
   describe("scale()", function() {
 
     it("scales the polygon", function() {
-      spyOn(s, 'scaleStyleable');
+      spyOn(s, 'scaleStyles');
       s.scale(2);
       expect(s.vars.x).toEqual(10);
       expect(s.vars.y).toEqual(15);
@@ -208,7 +208,7 @@ describe("Rune.Polygon", function() {
       expect(s.vars.vectors[1]).toEqualVector(120, 0);
       expect(s.vars.vectors[2]).toEqualVector(160, 120);
       expect(s.vars.vectors[3]).toEqualVector(40, 120);
-      expect(s.scaleStyleable).toHaveBeenCalledWith(2);
+      expect(s.scaleStyles).toHaveBeenCalledWith(2);
     });
 
   });

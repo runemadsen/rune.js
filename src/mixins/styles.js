@@ -1,9 +1,9 @@
 var Color = require('../color');
 var Utils = require('../utils');
 
-var Styleable = {
+var Styles = {
 
-  styleable: function(copy) {
+  styles: function(copy) {
 
     this.vars = this.vars || {};
     this.vars.fill = new Color(128);
@@ -75,7 +75,7 @@ var Styleable = {
     return this;
   },
 
-  scaleStyleable: function(scalar) {
+  scaleStyles: function(scalar) {
     if(this.vars.strokeWidth) {
       this.vars.strokeWidth *= scalar;
     }
@@ -84,7 +84,7 @@ var Styleable = {
     }
   },
 
-  styleableAttributes: function(attr) {
+  stylesAttributes: function(attr) {
 
     if(this.vars.fill === false)    attr.fill = "none";
     else if(this.vars.fill) {
@@ -112,4 +112,4 @@ var Styleable = {
 
 };
 
-module.exports = Styleable;
+module.exports = Styles;

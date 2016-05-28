@@ -247,7 +247,7 @@ describe("Rune.Path", function() {
 
     it("scales the path", function() {
       var p = new Rune.Path(10, 15);
-      spyOn(p, 'scaleStyleable');
+      spyOn(p, 'scaleStyles');
       setAllAnchors(p);
       p.scale(2);
       expect(p.vars.x).toEqual(10);
@@ -257,7 +257,7 @@ describe("Rune.Path", function() {
       expect(p.vars.anchors[2]).toBeAnchorMove(212, 214);
       expect(p.vars.anchors[3]).toBeAnchorCubic(216, 218, 220, 222, 224, 226);
       expect(p.vars.anchors[4]).toBeAnchorQuad(228, 230, 232, 234);
-      expect(p.scaleStyleable).toHaveBeenCalledWith(2);
+      expect(p.scaleStyles).toHaveBeenCalledWith(2);
     });
 
   });

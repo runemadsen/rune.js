@@ -10,16 +10,12 @@ describe("Rune.Line", function() {
 
   describe("constructor", function() {
 
-    it("should accept vector arguments", function() {
-      var v1 = new Rune.Vector(10, 15);
-      var v2 = new Rune.Vector(20, 25);
-      var l1 = new Rune.Line(v1.x, v1.y, v2.x, v2.y);
-      var l2 = new Rune.Line(v1, v2.x, v2.y);
-      var l3 = new Rune.Line(v1, v2);
-      expect(l1.vars.x).toEqual(l2.vars.x);
-      expect(l2.vars.x).toEqual(l3.vars.x);
-      expect(l1.vars.y).toEqual(l2.vars.y);
-      expect(l2.vars.y).toEqual(l3.vars.y);
+    it("should set variables", function() {
+      var l = new Rune.Line(10, 15, 20, 25);
+      expect(l.vars.x).toEqual(10);
+      expect(l.vars.y).toEqual(15);
+      expect(l.vars.x2).toEqual(20);
+      expect(l.vars.y2).toEqual(25);
     });
 
   });
@@ -33,13 +29,13 @@ describe("Rune.Line", function() {
   describe("scale()", function() {
 
     it("scales the line", function() {
-      spyOn(s, 'scaleStyleable');
+      spyOn(s, 'scaleStyles');
       s.scale(2);
       expect(s.vars.x).toEqual(10);
       expect(s.vars.y).toEqual(15);
       expect(s.vars.x2).toEqual(30);
       expect(s.vars.y2).toEqual(35);
-      expect(s.scaleStyleable).toHaveBeenCalledWith(2);
+      expect(s.scaleStyles).toHaveBeenCalledWith(2);
     });
 
   });

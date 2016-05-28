@@ -2,15 +2,20 @@
 
 ## Next up
 
-- [ ] Render: groups changed || parentNotified
-- [ ] Render: Don't diff if main stage didn't change
 - [ ] Render: add methods for all .vars
+- [ ] Figure out vars.object changed (fill, vector, etc) or just say "call changed()"?
+- [ ] 'draw' should be called 'update'
+- [ ] Remove vector acceptable for now
 - [ ] mouse events should work on individual shapes
 - [ ] Polygon `intersects()` http://bjornharrtell.github.io/jsts/
 - [ ] Polygon `intersection()` http://bjornharrtell.github.io/jsts/
 - [ ] Polygon `difference()` http://bjornharrtell.github.io/jsts/
 - [ ] Polygon `union()` http://bjornharrtell.github.io/jsts/
 - [ ] Polygon `symdifference()` http://bjornharrtell.github.io/jsts/
+
+docs:
+  - addParent -> addTo
+  - draw -> update
 
 ## Backlog
 

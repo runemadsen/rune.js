@@ -1,27 +1,22 @@
 var assign = require("lodash/object/assign");
-var Moveable = require("../mixins/moveable");
-var Styleable = require("../mixins/styleable");
-var Sizeable = require("../mixins/sizeable");
-var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Shape = require("../mixins/shape");
+var Styles = require("../mixins/styles");
+var Box = require("../mixins/box");
 var Polygon = require('./polygon');
 var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Rectangle = function(x, y, width, height) {
-  this.moveable();
-  this.sizeable();
-  this.styleable();
-  this.vectorsAcceptable(arguments);
+  this.shape();
+  this.box();
+  this.styles();
+  this.vars.x = x;
+  this.vars.y = y;
+  this.vars.width = width;
+  this.vars.height = height;
 }
 
 Rectangle.prototype = {
-
-  init: function(x, y, width, height) {
-    this.vars.x = x;
-    this.vars.y = y;
-    this.vars.width = width;
-    this.vars.height = height;
-  },
 
   round: function(rx, ry) {
     if(!ry) ry = rx;
@@ -54,8 +49,8 @@ Rectangle.prototype = {
   },
 
   scale: function(scalar) {
-    this.scaleSizeable(scalar);
-    this.scaleStyleable(scalar);
+    this.scaleBox(scalar);
+    this.scaleStyles(scalar);
     this.changed();
     return this;
   },
@@ -69,12 +64,12 @@ Rectangle.prototype = {
     }
     if(this.vars.rx)  attr.rx = Utils.s(this.vars.rx);
     if(this.vars.ry)  attr.ry = Utils.s(this.vars.ry);
-    this.moveableAttributes(attr);
-    this.styleableAttributes(attr);
+    this.shapeAttributes(attr);
+    this.stylesAttributes(attr);
     return svg('rect', attr);
   }
 }
 
-assign(Rectangle.prototype, Moveable, Sizeable, Styleable, VectorsAcceptable, { type: "rectangle" });
+assign(Rectangle.prototype, Shape, Box, Styles, { type: "rectangle" });
 
 module.exports = Rectangle;

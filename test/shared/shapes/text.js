@@ -60,12 +60,12 @@ describe("Rune.Text", function() {
   });
 
   it("scales the rectangle", function() {
-    spyOn(s, 'scaleStyleable');
+    spyOn(s, 'scaleStyles');
     s.scale(2);
     expect(s.vars.x).toEqual(10);
     expect(s.vars.y).toEqual(15);
     expect(s.vars.fontSize).toEqual(32);
-    expect(s.scaleStyleable).toHaveBeenCalledWith(2);
+    expect(s.scaleStyles).toHaveBeenCalledWith(2);
   });
 
 });

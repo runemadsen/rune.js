@@ -59,7 +59,7 @@
 
 - `Rune.Polygon` now has a `contains(x,y)` function to know whether a point is inside or outside a polygon
 - Group and shapes now have a `stagepos()` function that returns their absolute position according to the stage
-- Removing `Groupable` mixin in favor of `Moveable`
+- Removing `Groupable` mixin in favor of `Shape`
 - Replacing underscore with lodash to shrink size of library
 - Updated code to use Babel 6
 - Removed bezier.js library to shrink size of library

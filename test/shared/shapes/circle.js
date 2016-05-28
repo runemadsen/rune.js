@@ -55,12 +55,12 @@ describe("Rune.Circle", function() {
   describe("scale()", function() {
 
     it("scales the circle", function() {
-      spyOn(s, 'scaleStyleable');
+      spyOn(s, 'scaleStyles');
       s.scale(2);
       expect(s.vars.x).toEqual(10);
       expect(s.vars.y).toEqual(15);
       expect(s.vars.radius).toEqual(600);
-      expect(s.scaleStyleable).toHaveBeenCalledWith(2);
+      expect(s.scaleStyles).toHaveBeenCalledWith(2);
     });
 
   });

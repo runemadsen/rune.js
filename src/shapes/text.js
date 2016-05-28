@@ -1,24 +1,19 @@
 var assign = require("lodash/object/assign");
-var Moveable = require("../mixins/moveable");
-var Styleable = require("../mixins/styleable");
-var VectorsAcceptable = require("../mixins/vectors_acceptable");
+var Shape = require("../mixins/shape");
+var Styles = require("../mixins/styles");
 var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Text = function(text, x, y) {
-  this.moveable();
-  this.styleable();
-  this.vectorsAcceptable(arguments);
+  this.shape();
+  this.styles();
+  this.vars.text = text;
+  this.vars.x = x;
+  this.vars.y = y;
+  this.vars.fontSize = 16;
 }
 
 Text.prototype = {
-
-  init: function(text, x, y) {
-    this.vars.text = text;
-    this.vars.x = x;
-    this.vars.y = y;
-    this.vars.fontSize = 16;
-  },
 
   toPolygon: function() {
     throw new Error("You need the Rune.Font plugin to convert text to polygon");
@@ -82,7 +77,7 @@ Text.prototype = {
   },
 
   scale: function(scalar) {
-    this.scaleStyleable(scalar);
+    this.scaleStyles(scalar);
     this.vars.fontSize *= scalar;
     this.changed();
     return this;
@@ -93,8 +88,8 @@ Text.prototype = {
       x: Utils.s(this.vars.x),
       y: Utils.s(this.vars.y),
     }
-    this.moveableAttributes(attr);
-    this.styleableAttributes(attr);
+    this.shapeAttributes(attr);
+    this.stylesAttributes(attr);
 
     // attributes that need specific handling
     if(this.vars.textAlign) {
@@ -122,6 +117,6 @@ Text.prototype = {
 
 }
 
-assign(Text.prototype, Moveable, Styleable, VectorsAcceptable, { type: "text" });
+assign(Text.prototype, Shape, Styles, { type: "text" });
 
 module.exports = Text;

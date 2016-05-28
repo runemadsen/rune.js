@@ -1,24 +1,24 @@
-describe("Rune.Styleable", function() {
+describe("Rune.Styles", function() {
 
   var m;
 
   beforeEach(function() {
-    m = newMixin(Rune.Moveable, Rune.Styleable);
-    m.styleable();
+    m = newMixin(Rune.Shape, Rune.Styles);
+    m.styles();
   });
 
   describe("styleable()", function() {
 
     it("assigns default variable", function() {
-      expect(typeof m.styleable).toEqual("function");
+      expect(typeof m.styles).toEqual("function");
       expect(m.vars.fill.rgbArray()).toEqual([128, 128, 128]);
       expect(m.vars.stroke.rgbArray()).toEqual([0, 0, 0]);
     });
 
     it("copies variables from object", function() {
-      setStyleableVars(m);
-      var copy = newMixin(Rune.Styleable);
-      copy.styleable(m);
+      setStylesVars(m);
+      var copy = newMixin(Rune.Styles);
+      copy.styles(m);
       expect(copy.vars.fill).toEqual(m.vars.fill);
       expect(copy.vars.stroke).toEqual(m.vars.stroke);
       expect(copy.vars.strokeWidth).toEqual(m.vars.strokeWidth);
@@ -32,15 +32,15 @@ describe("Rune.Styleable", function() {
     it("copies false variables from object", function() {
       m.fill(false);
       m.stroke(false);
-      var m2 = newMixin(Rune.Styleable);
-      m2.styleable(m);
+      var m2 = newMixin(Rune.Styles);
+      m2.styles(m);
       expect(m2.vars.fill).toBe(false);
       expect(m2.vars.stroke).toBe(false);
     });
 
     it("copies zero colors", function() {
-      var m2 = newMixin(Rune.Styleable);
-      m2.styleable(m);
+      var m2 = newMixin(Rune.Styles);
+      m2.styles(m);
       expect(m2.vars.fill).toEqual(m.vars.fill);
       expect(m2.vars.stroke).toEqual(m.vars.stroke);
     });
@@ -90,16 +90,16 @@ describe("Rune.Styleable", function() {
 
   });
 
-  describe("scaleStyleable()", function() {
+  describe("scaleStyles()", function() {
 
     it("scales default strokeWidth", function() {
-      m.scaleStyleable(3);
+      m.scaleStyles(3);
       expect(m.vars.strokeWidth).toEqual(3);
     });
 
     it("scales a specific strokeWidth", function() {
       m.vars.strokeWidth = 4;
-      m.scaleStyleable(3);
+      m.scaleStyles(3);
       expect(m.vars.strokeWidth).toEqual(12);
     })
 
