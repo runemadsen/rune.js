@@ -24,6 +24,7 @@ var Moveable = {
   move: function(x, y, relative) {
     this.vars.x = relative ? this.vars.x + x : x;
     this.vars.y = relative ? this.vars.y + y : y;
+    this.changed();
     return this;
   },
 
@@ -37,6 +38,7 @@ var Moveable = {
       this.vars.rotationX += this.vars.x;
       this.vars.rotationY += this.vars.y;
     }
+    this.changed();
     return this;
   },
 

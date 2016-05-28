@@ -28,21 +28,52 @@ var Styleable = {
   fill: function(a, b, c, d, e) {
     if(a === false) this.vars.fill = false;
     else            this.vars.fill = new Color(a, b, c, d, e);
+    this.changed();
     return this;
   },
 
   stroke: function(a, b, c, d, e) {
     if(a === false) this.vars.stroke = false;
     else            this.vars.stroke = new Color(a, b, c, d, e);
+    this.changed();
     return this;
   },
 
-  strokeWidth:      function(val) { this.vars.strokeWidth = val; return this; },
-  strokeCap:        function(val) { this.vars.strokeCap = val; return this; },
-  strokeJoin:       function(val) { this.vars.strokeJoin = val; return this; },
-  strokeMiterlimit: function(val) { this.vars.strokeMiterlimit = val; return this; },
-  strokeDash:       function(val) { this.vars.strokeDash = val; return this; },
-  strokeDashOffset: function(val) { this.vars.strokeDashOffset= val; return this; },
+  strokeWidth:      function(val) {
+    this.vars.strokeWidth = val;
+    this.changed();
+    return this;
+  },
+
+  strokeCap:        function(val) {
+    this.vars.strokeCap = val;
+    this.changed();
+    return this;
+  },
+
+  strokeJoin:       function(val) {
+    this.vars.strokeJoin = val;
+    this.changed();
+    return this;
+  },
+
+  strokeMiterlimit: function(val) {
+    this.vars.strokeMiterlimit = val;
+    this.changed();
+    return this;
+  },
+
+  strokeDash:       function(val) {
+    this.vars.strokeDash = val;
+    this.changed();
+    return this;
+  },
+
+  strokeDashOffset: function(val) {
+    this.vars.strokeDashOffset= val;
+    this.changed();
+    return this;
+  },
 
   scaleStyleable: function(scalar) {
     if(this.vars.strokeWidth) {

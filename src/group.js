@@ -34,6 +34,7 @@ Group.prototype = {
 
   remove: function(child) {
     this.children = without(this.children, child);
+    this.changedChildren = without(this.changedChildren, child.childId);
     child.childId = null;
     child.parent = false;
   },
@@ -69,6 +70,7 @@ Group.prototype = {
     while(this.changedChildren.length > 0) {
       var childId = this.changedChildren.shift();
       this.renderedChildren[childId] = this.children[childId].render(opts);
+      this.children[childId].parentNotified = false;
     }
 
     // FIGURE OUT HOW NOT TO FLATTEN EVERY TIME!

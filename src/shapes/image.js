@@ -24,6 +24,7 @@ Image.prototype = {
 
   scale: function(scalar) {
     this.scaleSizeable(scalar);
+    this.changed();
     return this;
   },
 

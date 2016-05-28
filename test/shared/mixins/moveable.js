@@ -9,6 +9,38 @@ describe("Rune.Moveable", function() {
     m.moveable();
   });
 
+  describe('change tracking', function() {
+
+    it('assigns and removes childId and changedChildren', function() {
+      expect(g.changedChildren.length).toBe(0);
+      g.add(m);
+      expect(m.childId).toBe(0);
+      expect(g.changedChildren[0]).toBe(0);
+      g.remove(m);
+      expect(m.childId).toBeFalsy();
+      expect(g.changedChildren.length).toBe(0)
+    });
+
+    it('should assign parentNotified and changedChildren on changed()', function() {
+      g.add(m);
+      g.changedChildren = [];
+      expect(m.parentNotified).toBe(true);
+      m.parentNotified = false;
+      m.changed();
+      expect(m.parentNotified).toBe(true);
+      expect(g.changedChildren[0]).toEqual(m.childId);
+    });
+
+    it('should clear parentNotified when group is rendered', function() {
+      m.render = function(){};
+      g.add(m);
+      m.changed();
+      g.render();
+      expect(m.parentNotified).toBe(false);
+    });
+
+  });
+
   describe("moveable()", function() {
 
     it("assigns default variables", function() {
@@ -42,26 +74,6 @@ describe("Rune.Moveable", function() {
       expect(m2.vars.rotation).toEqual(-20);
       expect(m2.vars.rotationX).toEqual(-25);
       expect(m2.vars.rotationY).toEqual(-30);
-    });
-
-  });
-
-  describe('changed()', function() {
-
-    it('should set parentNotified and add to parents changedChildren array', function() {
-      g.add(m);
-      g.changedChildren = [];
-      expect(m.parentNotified).toBe(true);
-      m.parentNotified = false;
-      m.changed();
-      expect(g.changedChildren[0]).toEqual(m.childId);
-      expect(m.parentNotified).toBe(true);
-    });
-
-    it('should not set parentNotified if no parent', function() {
-      expect(m.parentNotified).toBeFalsy();
-      m.changed();
-      expect(m.parentNotified).toBeFalsy();
     });
 
   });

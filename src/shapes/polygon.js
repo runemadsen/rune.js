@@ -29,6 +29,7 @@ Polygon.prototype = {
     } else {
       this.vars.vectors.push(new Vector(x, y));
     }
+    this.changed();
     return this;
   },
 
@@ -201,6 +202,7 @@ Polygon.prototype = {
     this.vars.vectors = map(this.vars.vectors, function(vec) {
       return vec.multiply(scalar);
     });
+    this.changed();
     return this;
   },
 

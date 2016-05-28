@@ -31,6 +31,7 @@ Circle.prototype = {
   scale: function(scalar) {
     this.scaleStyleable(scalar);
     this.vars.radius *= scalar;
+    this.changed();
     return this;
   },
 

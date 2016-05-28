@@ -24,13 +24,47 @@ Text.prototype = {
     throw new Error("You need the Rune.Font plugin to convert text to polygon");
   },
 
-  textAlign: function(textAlign) { this.vars.textAlign = textAlign; return this; },
-  fontFamily: function(fontFamily) { this.vars.fontFamily = fontFamily; return this; },
-  fontStyle: function(fontStyle) { this.vars.fontStyle = fontStyle; return this; },
-  fontWeight: function(fontWeight) { this.vars.fontWeight = fontWeight; return this; },
-  fontSize: function(fontSize) { this.vars.fontSize = fontSize; return this; },
-  letterSpacing: function(letterSpacing) { this.vars.letterSpacing = letterSpacing; return this; },
-  textDecoration: function(textDecoration) { this.vars.textDecoration = textDecoration; return this; },
+  textAlign: function(textAlign) {
+    this.vars.textAlign = textAlign; ;
+    this.changed();
+    return this
+  },
+
+  fontFamily: function(fontFamily) {
+    this.vars.fontFamily = fontFamily;
+    this.changed();
+    return this;
+  },
+
+  fontStyle: function(fontStyle) {
+    this.vars.fontStyle = fontStyle;
+    this.changed();
+    return this;
+  },
+
+  fontWeight: function(fontWeight) {
+    this.vars.fontWeight = fontWeight;
+    this.changed();
+    return this;
+  },
+
+  fontSize: function(fontSize) {
+    this.vars.fontSize = fontSize;
+    this.changed();
+    return this;
+  },
+
+  letterSpacing: function(letterSpacing) {
+    this.vars.letterSpacing = letterSpacing;
+    this.changed();
+    return this;
+  },
+
+  textDecoration: function(textDecoration) {
+    this.vars.textDecoration = textDecoration;
+    this.changed();
+    return this;
+  },
 
   copy: function(parent) {
     var copy = new Text();
@@ -50,6 +84,7 @@ Text.prototype = {
   scale: function(scalar) {
     this.scaleStyleable(scalar);
     this.vars.fontSize *= scalar;
+    this.changed();
     return this;
   },
 

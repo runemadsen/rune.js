@@ -3,7 +3,7 @@ describe("Rune.Styleable", function() {
   var m;
 
   beforeEach(function() {
-    m = newMixin(Rune.Styleable);
+    m = newMixin(Rune.Moveable, Rune.Styleable);
     m.styleable();
   });
 

@@ -26,24 +26,28 @@ Path.prototype = {
 
   moveTo: function(x, y) {
     this.vars.anchors.push(new Anchor().setMove(x, y));
+    this.changed();
     return this;
   },
 
   lineTo: function(x, y) {
     this.checkStartMove();
     this.vars.anchors.push(new Anchor().setLine(x, y));
+    this.changed();
     return this;
   },
 
   curveTo: function(a, b, c, d, e, f) {
     this.checkStartMove();
     this.vars.anchors.push(new Anchor().setCurve(a, b, c, d, e, f));
+    this.changed();
     return this;
   },
 
   closePath: function() {
     this.checkStartMove();
     this.vars.anchors.push(new Anchor().setClose());
+    this.changed();
     return this;
   },
 
@@ -183,11 +187,14 @@ Path.prototype = {
     this.vars.anchors = map(this.vars.anchors, function(anchor) {
       return anchor.multiply(scalar);
     });
+    this.changed();
     return this;
   },
 
   fillRule: function(val) {
-    this.vars.fillRule = val; return this;
+    this.vars.fillRule = val;
+    this.changed();
+    return this;
   },
 
   // Paths must start with a moveTo. This function is checks if

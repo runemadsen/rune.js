@@ -39,6 +39,7 @@ assign(Line.prototype, Moveable, Styleable, VectorsAcceptable, {
     var vec = end.sub(start).multiply(scalar).add(start);
     this.vars.x2 = vec.x;
     this.vars.y2 = vec.y;
+    this.changed();
     return this;
   },
 
@@ -48,6 +49,7 @@ assign(Line.prototype, Moveable, Styleable, VectorsAcceptable, {
     this.vars.y = relative ? this.vars.y + y : y;
     this.vars.x2 = this.vars.x + change.x;
     this.vars.y2 = this.vars.y + change.y;
+    this.changed();
     return this;
   },
 

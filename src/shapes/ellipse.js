@@ -52,6 +52,7 @@ Ellipse.prototype = {
   scale: function(scalar) {
     this.scaleSizeable(scalar);
     this.scaleStyleable(scalar);
+    this.changed();
     return this;
   },
 

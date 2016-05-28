@@ -27,6 +27,8 @@ Rectangle.prototype = {
     if(!ry) ry = rx;
     this.vars.rx = rx;
     this.vars.ry = ry;
+    this.changed();
+    return this;
   },
 
   toPolygon: function(opts, parent) {
@@ -54,6 +56,7 @@ Rectangle.prototype = {
   scale: function(scalar) {
     this.scaleSizeable(scalar);
     this.scaleStyleable(scalar);
+    this.changed();
     return this;
   },
 
