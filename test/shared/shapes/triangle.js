@@ -6,7 +6,6 @@ describe("Rune.Triangle", function() {
   beforeEach(function() {
     s = new Rune.Triangle(10, 15, 20, 25, 30, 35);
     g = new Rune.Group();
-    g.add(s);
   });
 
   describe("constructor", function() {
@@ -31,31 +30,10 @@ describe("Rune.Triangle", function() {
 
   });
 
-  describe("move()", function() {
-
-  });
-
   describe("copy()", function() {
-
-    it("copies the object", function() {
-      setMixinVars(s);
-      var copy = s.copy();
-      expect(copy).not.toBe(s);
-      expect(copy).toEqual(s);
+    it("has shared copy functionality", function() {
+      expectCopy(s);
     });
-
-    it("adds copy to parent", function() {
-      expect(g.children.length).toEqual(1);
-      s.copy();
-      expect(g.children.length).toEqual(2);
-    });
-
-    it("does not add copy to parent", function() {
-      expect(g.children.length).toEqual(1);
-      s.copy(false);
-      expect(g.children.length).toEqual(1);
-    });
-
   });
 
   describe("scale()", function() {
