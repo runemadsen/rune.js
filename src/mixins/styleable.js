@@ -39,19 +39,19 @@ var Styleable = {
     return this;
   },
 
-  strokeWidth:      function(val) {
+  strokeWidth: function(val) {
     this.vars.strokeWidth = val;
     this.changed();
     return this;
   },
 
-  strokeCap:        function(val) {
+  strokeCap: function(val) {
     this.vars.strokeCap = val;
     this.changed();
     return this;
   },
 
-  strokeJoin:       function(val) {
+  strokeJoin: function(val) {
     this.vars.strokeJoin = val;
     this.changed();
     return this;
@@ -63,7 +63,7 @@ var Styleable = {
     return this;
   },
 
-  strokeDash:       function(val) {
+  strokeDash: function(val) {
     this.vars.strokeDash = val;
     this.changed();
     return this;
