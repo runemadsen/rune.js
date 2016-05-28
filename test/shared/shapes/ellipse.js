@@ -6,7 +6,6 @@ describe("Rune.Ellipse", function() {
   beforeEach(function() {
     s = new Rune.Ellipse(10, 15, 300, 305);
     g = new Rune.Group();
-    g.add(s);
   });
 
   describe("toPolygon()", function() {
@@ -26,12 +25,14 @@ describe("Rune.Ellipse", function() {
     });
 
     it("adds polygon to parent", function() {
+      g.add(s);
       expect(g.children.length).toEqual(1);
       s.toPolygon();
       expect(g.children.length).toEqual(2);
     });
 
     it("does not add polygon to parent", function() {
+      g.add(s);
       expect(g.children.length).toEqual(1);
       s.toPolygon({}, false);
       expect(g.children.length).toEqual(1);
@@ -46,26 +47,9 @@ describe("Rune.Ellipse", function() {
   });
 
   describe("copy()", function() {
-
-    it("copies the object", function() {
-      setMixinVars(s);
-      var copy = s.copy();
-      expect(copy).not.toBe(s);
-      expect(copy).toEqual(s);
+    it("has shared copy functionality", function() {
+      expectCopy(s);
     });
-
-    it("adds copy to parent", function() {
-      expect(g.children.length).toEqual(1);
-      s.copy();
-      expect(g.children.length).toEqual(2);
-    });
-
-    it("does not add copy to parent", function() {
-      expect(g.children.length).toEqual(1);
-      s.copy(false);
-      expect(g.children.length).toEqual(1);
-    });
-
   });
 
   describe("scale()", function() {

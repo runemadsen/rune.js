@@ -10,7 +10,6 @@ describe("Rune.Polygon", function() {
       .lineTo(60, 0)
       .lineTo(80, 60)
       .lineTo(20, 60);
-    g.add(s);
   });
 
   describe("Polygon()", function() {
@@ -154,12 +153,14 @@ describe("Rune.Polygon", function() {
     });
 
     it("adds polygon to parent", function() {
+      g.add(s);
       expect(g.children.length).toEqual(1);
       s.toPolygon({ spacing: 25 });
       expect(g.children.length).toEqual(2);
     });
 
     it("does not add polygon to parent", function() {
+      g.add(s);
       expect(g.children.length).toEqual(1);
       s.toPolygon({ spacing: 25 }, false);
       expect(g.children.length).toEqual(1);
@@ -174,38 +175,22 @@ describe("Rune.Polygon", function() {
   });
 
   describe("copy()", function() {
-
-    it("copies the object", function() {
-      setMixinVars(s);
+    it("has shared copy functionality", function() {
+      expectCopy(s);
       var copy = s.copy();
-      expect(copy).not.toBe(s);
-      expect(copy.vars.vectors).not.toBe(s.vars.vectors);
-      expect(copy).toEqual(s);
+      expect(copy.vars.vectors).not.toBe(s.vars.vectors)
     });
-
-    it("adds copy to parent", function() {
-      expect(g.children.length).toEqual(1);
-      s.copy();
-      expect(g.children.length).toEqual(2);
-    });
-
-    it("does not add copy to parent", function() {
-      expect(g.children.length).toEqual(1);
-      s.copy(false);
-      expect(g.children.length).toEqual(1);
-    });
-
   });
 
   describe("contains()", function() {
 
     it("uses absolute stage position if parent", function() {
+      g.add(s);
       expect(s.contains(50, 50)).toBe(false)
       expect(s.contains(120, 75)).toBe(true)
     });
 
     it("uses relative position if no parent", function() {
-      g.remove(s);
       expect(s.contains(5, 5)).toBe(false)
       expect(s.contains(20, 20)).toBe(true)
     });

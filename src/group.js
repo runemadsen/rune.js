@@ -24,12 +24,14 @@ Group.prototype = {
 
   add: function(child) {
     if(child.parent) child.parent.remove(child);
+    child.childId = this.children.length;
     this.children.push(child);
     child.parent = this;
   },
 
   remove: function(child) {
     this.children = without(this.children, child);
+    child.childId = null;
     child.parent = false;
   },
 

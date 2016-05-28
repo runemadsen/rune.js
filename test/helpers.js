@@ -11,6 +11,27 @@ function drawShared(shape) {
     .strokeDashOffset(10);
 }
 
+function expectCopy(s) {
+
+  // should copy shape
+  setMixinVars(s);
+  var copy = s.copy();
+  expect(copy).not.toBe(s);
+  expect(copy).toEqual(s);
+
+  var g = new Rune.Group();
+  g.add(s);
+
+  // should not add to parent
+  expect(g.children.length).toEqual(1);
+  s.copy(false);
+  expect(g.children.length).toEqual(1);
+
+  // should add to parent
+  s.copy();
+  expect(g.children.length).toEqual(2);
+}
+
 function expectShared(el) {
   expect(el).toHaveRotation(45, 100, 105);
   expect(el).toHaveAttr("fill", "rgb(255, 0, 0)");

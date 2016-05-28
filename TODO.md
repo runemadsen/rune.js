@@ -2,7 +2,7 @@
 
 ## Next up
 
-- [ ] Implement `changed()` on shapes
+- [ ] Implement `changed()` on shapes. IF MAIN STAGE DIDNT CHANGE, DONT EVEN BOTHER DIFFING.
 - [ ] mouse events should work on individual shapes
 - [ ] Polygon `intersects()` http://bjornharrtell.github.io/jsts/
 - [ ] Polygon `intersection()` http://bjornharrtell.github.io/jsts/

@@ -13,7 +13,6 @@ describe("Rune.Path", function() {
       .lineTo(75, 75)
       .lineTo(-75, 75)
       .closePath();
-    g.add(s);
   });
 
   describe("Path()", function() {
@@ -173,12 +172,14 @@ describe("Rune.Path", function() {
     });
 
     it("adds subpaths to parent", function() {
+      g.add(s);
       expect(g.children.length).toEqual(1);
       s.subpaths();
       expect(g.children.length).toEqual(3);
     });
 
     it("does not add subpaths to parent", function() {
+      g.add(s);
       expect(g.children.length).toEqual(1);
       s.subpaths(false);
       expect(g.children.length).toEqual(1);
@@ -212,12 +213,14 @@ describe("Rune.Path", function() {
     });
 
     it("adds polygon to parent", function() {
+      g.add(s);
       expect(g.children.length).toEqual(1);
       s.toPolygons({ spacing: 25 });
       expect(g.children.length).toEqual(3);
     });
 
     it("does not add polygon to parent", function() {
+      g.add(s);
       expect(g.children.length).toEqual(1);
       s.toPolygons({ spacing: 25 }, false);
       expect(g.children.length).toEqual(1);
@@ -232,28 +235,12 @@ describe("Rune.Path", function() {
   });
 
   describe("copy()", function() {
-
-    it("copies the object", function() {
-      setMixinVars(s);
+    it("has shared copy functionality", function() {
       setAllAnchors(s);
+      expectCopy(s);
       var copy = s.copy();
-      expect(copy).not.toBe(s);
       expect(copy.vars.anchors).not.toBe(s.vars.anchors)
-      expect(copy).toEqual(s);
     });
-
-    it("adds copy to parent", function() {
-      expect(g.children.length).toEqual(1);
-      s.copy();
-      expect(g.children.length).toEqual(2);
-    });
-
-    it("does not add copy to parent", function() {
-      expect(g.children.length).toEqual(1);
-      s.copy(false);
-      expect(g.children.length).toEqual(1);
-    });
-
   });
 
   describe("scale()", function() {

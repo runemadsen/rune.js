@@ -24,7 +24,7 @@ describe("Rune.Group", function() {
       expect(s).toBeChildOf(g);
     });
 
-    it("removes child from parent", function() {
+    it("removes child from parent former parent", function() {
       var g1 = new Rune.Group();
       var g2 = new Rune.Group();
       var s = new Rune.Ellipse();
@@ -35,17 +35,28 @@ describe("Rune.Group", function() {
       expect(s).not.toBeChildOf(g1);
     });
 
+    it('assigns childID to child and adds to changed', function() {
+      var g = new Rune.Group();
+      var s = new Rune.Ellipse();
+      var s2 = new Rune.Ellipse();
+      g.add(s);
+      g.add(s2);
+      expect(s.childId).toBe(0);
+      expect(s2.childId).toBe(1);
+    });
+
   });
 
   describe("remove()", function() {
 
-    it("removes child", function() {
+    it("removes child and childId", function() {
       var g = new Rune.Group();
       var s = new Rune.Ellipse();
       g.add(s);
       g.remove(s);
       expect(s).not.toBeChildOf(g);
-    })
+      expect(s.childId).toBeFalsy();
+    });
 
   });
 
