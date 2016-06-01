@@ -19,7 +19,6 @@ docs:
 ## Backlog
 
 - [ ] Text layout with bounds, lineHeight, etc
-- [ ] Fix error around DOM update and mousemove being off
 - [ ] Filters
 - [ ] Blend modes
 - [ ] masking

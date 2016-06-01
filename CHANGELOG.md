@@ -7,6 +7,10 @@
 
 ## 0.3.0
 
+- All mouseevents were off when the window scrolled
+
+## 0.3.1
+
 - Code is now node modules instead of ES6. This makes a lot of things easier.
 - Rendering is now a bit faster.
 
