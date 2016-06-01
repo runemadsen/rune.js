@@ -192,7 +192,7 @@ Rune.prototype = {
 
   playNow: function() {
     var that = this;
-    this.trigger('draw', { frameCount: this.frameCount });
+    this.trigger('update', { frameCount: this.frameCount });
     this.animationFrame = requestAnimationFrame(function() {
       that.play();
     });

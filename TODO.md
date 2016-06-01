@@ -2,10 +2,9 @@
 
 ## Next up
 
+- [ ] Var should be called `state`
 - [ ] Render: add methods for all .vars
 - [ ] Figure out vars.object changed (fill, vector, etc) or just say "call changed()"?
-- [ ] 'draw' should be called 'update'
-- [ ] Remove vector acceptable for now
 - [ ] mouse events should work on individual shapes
 - [ ] Polygon `intersects()` http://bjornharrtell.github.io/jsts/
 - [ ] Polygon `intersection()` http://bjornharrtell.github.io/jsts/
