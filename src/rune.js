@@ -72,8 +72,8 @@ Rune.prototype = {
 
   relativePos: function(pageX, pageY) {
     var bounds = this.renderer.el.getBoundingClientRect();
-    var relX = pageX - bounds.left;
-    var relY = pageY - bounds.top;
+    var relX = pageX - window.scrollX - bounds.left;
+    var relY = pageY - window.scrollY - bounds.top;
     return { x: relX, y: relY };
   },
 

@@ -17,6 +17,7 @@
   </style>
 </head>
 <body>
+  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
   <div id="canvas"></div>
   <script type="text/javascript">
 
@@ -27,13 +28,12 @@ var r = new Rune({
   debug: true
 });
 
-var myGroup = r.group(30, 30);
-r.path(0, 0, myGroup)
-  .lineTo(100, 100)
-  .curveTo(100, 200, 0, 200, 100, 0)
-  .closePath()
+r.on('mousemove', function(mouse) {
+  console.log(mouse)
+  r.ellipse(mouse.x, mouse.y, 2, 2);
+});
 
-r.draw();
+r.play();
 
   </script>
 </body>
