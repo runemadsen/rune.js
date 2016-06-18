@@ -4,10 +4,11 @@ describe("Box", function() {
 
   beforeEach(function() {
     m = newMixin(Rune.Box);
+    m.changed = function(){};
     m.box();
   });
 
-  describe("shape()", function() {
+  describe("box()", function() {
 
     it("assigns default variables", function() {
       expect(typeof m.box).toEqual("function");
@@ -26,7 +27,6 @@ describe("Box", function() {
   });
 
   describe("scaleBox()", function() {
-
     it("scales width and height", function() {
       m.vars.width = 200;
       m.vars.height = 300;
@@ -34,7 +34,22 @@ describe("Box", function() {
       expect(m.vars.width).toEqual(600);
       expect(m.vars.height).toEqual(900);
     });
+  });
 
+  describe("width()", function() {
+    it("sets the width", function() {
+      m.vars.width = 200;
+      m.width(100);
+      expect(m.vars.width).toEqual(100);
+    });
+  });
+
+  describe("height()", function() {
+    it("sets the height", function() {
+      m.vars.height = 200;
+      m.height(100);
+      expect(m.vars.height).toEqual(100);
+    });
   });
 
 });

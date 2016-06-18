@@ -6,6 +6,18 @@ var Box = {
     this.vars.height = copy ? copy.vars.height : 0;
   },
 
+  width: function(width, relative) {
+    this.vars.width = relative ? this.vars.width + width : width;
+    this.changed();
+    return this;
+  },
+
+  height: function(height, relative) {
+    this.vars.height = relative ? this.vars.height + height : height;
+    this.changed();
+    return this;
+  },
+
   scaleBox: function(scalar) {
     this.vars.width *= scalar;
     this.vars.height *= scalar;
