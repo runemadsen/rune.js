@@ -2,7 +2,6 @@
 
 ## Next up
 
-- Move all shape state into .state (make getters for .modules, etc)
 - Color
   - stroke and fill getters
   - Assign parent in shape setters
