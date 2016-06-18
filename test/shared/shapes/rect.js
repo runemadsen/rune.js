@@ -12,20 +12,20 @@ describe("Rune.Rectangle", function() {
 
     it("defaults to corner vectors", function() {
       var poly = s.toPolygon();
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(4);
-      expect(poly.vars.vectors[0]).toEqualVector(0, 0);
-      expect(poly.vars.vectors[1]).toEqualVector(300, 0);
-      expect(poly.vars.vectors[2]).toEqualVector(300, 305);
-      expect(poly.vars.vectors[3]).toEqualVector(0, 305);
+      expect(poly.state.x).toEqual(10);
+      expect(poly.state.y).toEqual(15);
+      expect(poly.state.vectors.length).toEqual(4);
+      expect(poly.state.vectors[0]).toEqualVector(0, 0);
+      expect(poly.state.vectors[1]).toEqualVector(300, 0);
+      expect(poly.state.vectors[2]).toEqualVector(300, 305);
+      expect(poly.state.vectors[3]).toEqualVector(0, 305);
     });
 
     it("returns polygon with even spaced vectors", function() {
       var poly = s.toPolygon({ spacing: 50 });
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(25);
+      expect(poly.state.x).toEqual(10);
+      expect(poly.state.y).toEqual(15);
+      expect(poly.state.vectors.length).toEqual(25);
     });
 
     it("adds polygon to parent", function() {
@@ -42,7 +42,7 @@ describe("Rune.Rectangle", function() {
       expect(g.children.length).toEqual(1);
     });
 
-    it("copies the mixin vars", function() {
+    it("copies the mixin state", function() {
       setMixinVars(s)
       var p = s.toPolygon();
       expect(getMixinVars(p)).toBeIn(getMixinVars(s));
@@ -60,14 +60,14 @@ describe("Rune.Rectangle", function() {
 
     it('sets uniform round corners', function() {
       s.round(25);
-      expect(s.vars.rx).toEqual(25);
-      expect(s.vars.ry).toEqual(25);
+      expect(s.state.rx).toEqual(25);
+      expect(s.state.ry).toEqual(25);
     });
 
     it('sets roundness for both x and y', function() {
       s.round(25, 15);
-      expect(s.vars.rx).toEqual(25);
-      expect(s.vars.ry).toEqual(15);
+      expect(s.state.rx).toEqual(25);
+      expect(s.state.ry).toEqual(15);
     });
 
   });
@@ -78,8 +78,8 @@ describe("Rune.Rectangle", function() {
       spyOn(s, 'scaleBox');
       spyOn(s, 'scaleStyles');
       s.scale(2);
-      expect(s.vars.x).toEqual(10);
-      expect(s.vars.y).toEqual(15);
+      expect(s.state.x).toEqual(10);
+      expect(s.state.y).toEqual(15);
       expect(s.scaleBox).toHaveBeenCalledWith(2);
       expect(s.scaleStyles).toHaveBeenCalledWith(2);
     });

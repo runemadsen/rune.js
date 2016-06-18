@@ -17,8 +17,8 @@ describe("Rune.Image", function() {
     it("scales the image", function() {
       spyOn(s, 'scaleBox');
       s.scale(2);
-      expect(s.vars.x).toEqual(10);
-      expect(s.vars.y).toEqual(15);
+      expect(s.state.x).toEqual(10);
+      expect(s.state.y).toEqual(15);
       expect(s.scaleBox).toHaveBeenCalledWith(2);
     });
 

@@ -1,31 +1,31 @@
 var Box = {
 
   box: function(copy) {
-    this.vars = this.vars || {};
-    this.vars.width = copy ? copy.vars.width : 0;
-    this.vars.height = copy ? copy.vars.height : 0;
+    this.state = this.state || {};
+    this.state.width = copy ? copy.state.width : 0;
+    this.state.height = copy ? copy.state.height : 0;
   },
 
   width: function(width, relative) {
-    this.vars.width = relative ? this.vars.width + width : width;
+    this.state.width = relative ? this.state.width + width : width;
     this.changed();
     return this;
   },
 
   height: function(height, relative) {
-    this.vars.height = relative ? this.vars.height + height : height;
+    this.state.height = relative ? this.state.height + height : height;
     this.changed();
     return this;
   },
 
   scaleBox: function(scalar) {
-    this.vars.width *= scalar;
-    this.vars.height *= scalar;
+    this.state.width *= scalar;
+    this.state.height *= scalar;
   },
 
   boxAttributes: function(attr) {
-    attr.width = Utils.s(this.vars.width);
-    attr.height = Utils.s(this.vars.height);
+    attr.width = Utils.s(this.state.width);
+    attr.height = Utils.s(this.state.height);
     return attr;
   }
 

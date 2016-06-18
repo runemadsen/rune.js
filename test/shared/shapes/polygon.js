@@ -16,12 +16,12 @@ describe("Rune.Polygon", function() {
 
     it("should have optional x and y", function() {
       var p1 = new Rune.Polygon();
-      expect(p1.vars.x).toEqual(0);
-      expect(p1.vars.y).toEqual(0);
+      expect(p1.state.x).toEqual(0);
+      expect(p1.state.y).toEqual(0);
 
       var p2 = new Rune.Polygon(100, 101);
-      expect(p2.vars.x).toEqual(100);
-      expect(p2.vars.y).toEqual(101);
+      expect(p2.state.x).toEqual(100);
+      expect(p2.state.y).toEqual(101);
     });
 
   });
@@ -33,9 +33,9 @@ describe("Rune.Polygon", function() {
         .lineTo(100, 101)
         .lineTo(200, 201)
         .lineTo(300, 301);
-      expect(p.vars.vectors[0]).toEqualVector(100, 101)
-      expect(p.vars.vectors[1]).toEqualVector(200, 201)
-      expect(p.vars.vectors[2]).toEqualVector(300, 301)
+      expect(p.state.vectors[0]).toEqualVector(100, 101)
+      expect(p.state.vectors[1]).toEqualVector(200, 201)
+      expect(p.state.vectors[2]).toEqualVector(300, 301)
     });
 
   });
@@ -137,19 +137,19 @@ describe("Rune.Polygon", function() {
 
     it("should return vectors with spacing", function() {
       var res = s.toPolygon({ spacing: 25 });
-      expect(res.vars.x).toEqual(10);
-      expect(res.vars.y).toEqual(15);
-      expect(res.vars.vectors.length).toEqual(10);
-      expect(res.vars.vectors[0]).toEqualVector(0, 0);
-      expect(res.vars.vectors[1]).toEqualVector(25, 0);
-      expect(res.vars.vectors[2]).toEqualVector(50, 0);
-      expect(res.vars.vectors[3]).toEqualVector(64.74341649025257, 14.230249470757707);
-      expect(res.vars.vectors[4]).toEqualVector(72.64911064067351, 37.94733192202055);
-      expect(res.vars.vectors[5]).toEqualVector(78.24555320336759, 60);
-      expect(res.vars.vectors[6]).toEqualVector(53.24555320336759, 60);
-      expect(res.vars.vectors[7]).toEqualVector(28.245553203367592,60);
-      expect(res.vars.vectors[8]).toEqualVector(14.701778718652967,44.1053361559589);
-      expect(res.vars.vectors[9]).toEqualVector(6.796084568232018,20.388253704696055);
+      expect(res.state.x).toEqual(10);
+      expect(res.state.y).toEqual(15);
+      expect(res.state.vectors.length).toEqual(10);
+      expect(res.state.vectors[0]).toEqualVector(0, 0);
+      expect(res.state.vectors[1]).toEqualVector(25, 0);
+      expect(res.state.vectors[2]).toEqualVector(50, 0);
+      expect(res.state.vectors[3]).toEqualVector(64.74341649025257, 14.230249470757707);
+      expect(res.state.vectors[4]).toEqualVector(72.64911064067351, 37.94733192202055);
+      expect(res.state.vectors[5]).toEqualVector(78.24555320336759, 60);
+      expect(res.state.vectors[6]).toEqualVector(53.24555320336759, 60);
+      expect(res.state.vectors[7]).toEqualVector(28.245553203367592,60);
+      expect(res.state.vectors[8]).toEqualVector(14.701778718652967,44.1053361559589);
+      expect(res.state.vectors[9]).toEqualVector(6.796084568232018,20.388253704696055);
     });
 
     it("adds polygon to parent", function() {
@@ -166,7 +166,7 @@ describe("Rune.Polygon", function() {
       expect(g.children.length).toEqual(1);
     });
 
-    it("copies the mixin vars", function() {
+    it("copies the mixin state", function() {
       setMixinVars(s)
       var p = s.toPolygon({ spacing: 25 });
       expect(getMixinVars(p)).toBeIn(getMixinVars(s));
@@ -178,7 +178,7 @@ describe("Rune.Polygon", function() {
     it("has shared copy functionality", function() {
       expectCopy(s);
       var copy = s.copy();
-      expect(copy.vars.vectors).not.toBe(s.vars.vectors)
+      expect(copy.state.vectors).not.toBe(s.state.vectors)
     });
   });
 
@@ -202,12 +202,12 @@ describe("Rune.Polygon", function() {
     it("scales the polygon", function() {
       spyOn(s, 'scaleStyles');
       s.scale(2);
-      expect(s.vars.x).toEqual(10);
-      expect(s.vars.y).toEqual(15);
-      expect(s.vars.vectors[0]).toEqualVector(0, 0);
-      expect(s.vars.vectors[1]).toEqualVector(120, 0);
-      expect(s.vars.vectors[2]).toEqualVector(160, 120);
-      expect(s.vars.vectors[3]).toEqualVector(40, 120);
+      expect(s.state.x).toEqual(10);
+      expect(s.state.y).toEqual(15);
+      expect(s.state.vectors[0]).toEqualVector(0, 0);
+      expect(s.state.vectors[1]).toEqualVector(120, 0);
+      expect(s.state.vectors[2]).toEqualVector(160, 120);
+      expect(s.state.vectors[3]).toEqualVector(40, 120);
       expect(s.scaleStyles).toHaveBeenCalledWith(2);
     });
 

@@ -11,22 +11,22 @@ describe("Rune.Styles", function() {
 
     it("assigns default variable", function() {
       expect(typeof m.styles).toEqual("function");
-      expect(m.vars.fill.rgbArray()).toEqual([128, 128, 128]);
-      expect(m.vars.stroke.rgbArray()).toEqual([0, 0, 0]);
+      expect(m.state.fill.rgbArray()).toEqual([128, 128, 128]);
+      expect(m.state.stroke.rgbArray()).toEqual([0, 0, 0]);
     });
 
     it("copies variables from object", function() {
       setStylesVars(m);
       var copy = newMixin(Rune.Styles);
       copy.styles(m);
-      expect(copy.vars.fill).toEqual(m.vars.fill);
-      expect(copy.vars.stroke).toEqual(m.vars.stroke);
-      expect(copy.vars.strokeWidth).toEqual(m.vars.strokeWidth);
-      expect(copy.vars.strokeCap).toEqual(m.vars.strokeCap);
-      expect(copy.vars.strokeJoin).toEqual(m.vars.strokeJoin);
-      expect(copy.vars.strokeMiterlimit).toEqual(m.vars.strokeMiterlimit);
-      expect(copy.vars.strokeDash).toEqual(m.vars.strokeDash);
-      expect(copy.vars.strokeDashOffset).toEqual(m.vars.strokeDashOffset);
+      expect(copy.state.fill).toEqual(m.state.fill);
+      expect(copy.state.stroke).toEqual(m.state.stroke);
+      expect(copy.state.strokeWidth).toEqual(m.state.strokeWidth);
+      expect(copy.state.strokeCap).toEqual(m.state.strokeCap);
+      expect(copy.state.strokeJoin).toEqual(m.state.strokeJoin);
+      expect(copy.state.strokeMiterlimit).toEqual(m.state.strokeMiterlimit);
+      expect(copy.state.strokeDash).toEqual(m.state.strokeDash);
+      expect(copy.state.strokeDashOffset).toEqual(m.state.strokeDashOffset);
     });
 
     it("copies false variables from object", function() {
@@ -34,15 +34,15 @@ describe("Rune.Styles", function() {
       m.stroke(false);
       var m2 = newMixin(Rune.Styles);
       m2.styles(m);
-      expect(m2.vars.fill).toBe(false);
-      expect(m2.vars.stroke).toBe(false);
+      expect(m2.state.fill).toBe(false);
+      expect(m2.state.stroke).toBe(false);
     });
 
     it("copies zero colors", function() {
       var m2 = newMixin(Rune.Styles);
       m2.styles(m);
-      expect(m2.vars.fill).toEqual(m.vars.fill);
-      expect(m2.vars.stroke).toEqual(m.vars.stroke);
+      expect(m2.state.fill).toEqual(m.state.fill);
+      expect(m2.state.stroke).toEqual(m.state.stroke);
     });
 
   });
@@ -51,13 +51,13 @@ describe("Rune.Styles", function() {
 
     it("sets fill to color", function() {
       var res = m.fill("#ff0000");
-      expect(m.vars.fill.rgbArray()).toEqual([255, 0, 0]);
+      expect(m.state.fill.rgbArray()).toEqual([255, 0, 0]);
       expect(m).toEqual(res);
     });
 
     it("sets fill to false", function() {
       m.fill(false);
-      expect(m.vars.fill).toEqual(false);
+      expect(m.state.fill).toEqual(false);
     });
 
   });
@@ -66,13 +66,13 @@ describe("Rune.Styles", function() {
 
     it("sets stroke to color", function() {
       var res = m.stroke("#ff0000");
-      expect(m.vars.stroke.rgbArray()).toEqual([255, 0, 0]);
+      expect(m.state.stroke.rgbArray()).toEqual([255, 0, 0]);
       expect(m).toEqual(res);
     });
 
     it("sets stroke to false", function() {
       m.stroke(false);
-      expect(m.vars.stroke).toEqual(false);
+      expect(m.state.stroke).toEqual(false);
     });
 
   });
@@ -83,7 +83,7 @@ describe("Rune.Styles", function() {
       var funcs = ["strokeWidth", "strokeCap", "strokeJoin", "strokeMiterlimit", "strokeDash", "strokeDashOffset"]
       _.each(funcs, function(func) {
         var res = m[func](5);
-        expect(m.vars[func]).toEqual(5)
+        expect(m.state[func]).toEqual(5)
         expect(m).toEqual(res);
       });
     })
@@ -94,13 +94,13 @@ describe("Rune.Styles", function() {
 
     it("scales default strokeWidth", function() {
       m.scaleStyles(3);
-      expect(m.vars.strokeWidth).toEqual(3);
+      expect(m.state.strokeWidth).toEqual(3);
     });
 
     it("scales a specific strokeWidth", function() {
-      m.vars.strokeWidth = 4;
+      m.state.strokeWidth = 4;
       m.scaleStyles(3);
-      expect(m.vars.strokeWidth).toEqual(12);
+      expect(m.state.strokeWidth).toEqual(12);
     })
 
   });

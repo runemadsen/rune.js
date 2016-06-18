@@ -1,6 +1,6 @@
 ## 0.4.0
 
-- Implementing completely new rendering method, only re-rendering shapes that changed. This makes it a no no to reach in and change `.vars` without calling the `.changed()` method on a shape. `.changed()` is automatically called for all shape methods that change the shape. Render time for 10k shapes fell from 12 seconds to 600 milliseconds.
+- Implementing completely new rendering method, only re-rendering shapes that changed. This makes it a no no to reach in and change `.state` without calling the `.changed()` method on a shape. `.changed()` is automatically called for all shape methods that change the shape. Render time for 10k shapes fell from 12 seconds to 600 milliseconds.
 - `draw` event is now called `update`.
 - Shape functions no longer accept vectors. Will re-implement soon.
 - `Rune.Line` method `move()` now moves the entire line and not just the starting position.

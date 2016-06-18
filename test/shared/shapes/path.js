@@ -19,12 +19,12 @@ describe("Rune.Path", function() {
 
     it("should have optional x and y", function() {
       var p1 = new Rune.Path();
-      expect(p1.vars.x).toEqual(0);
-      expect(p1.vars.y).toEqual(0);
+      expect(p1.state.x).toEqual(0);
+      expect(p1.state.y).toEqual(0);
 
       var p2 = new Rune.Path(100, 101);
-      expect(p2.vars.x).toEqual(100);
-      expect(p2.vars.y).toEqual(101);
+      expect(p2.state.x).toEqual(100);
+      expect(p2.state.y).toEqual(101);
     });
 
   });
@@ -34,11 +34,11 @@ describe("Rune.Path", function() {
     it("should create anchors", function() {
       var p = new Rune.Path();
       setAllAnchors(p);
-      expect(p.vars.anchors[0]).toBeAnchorMove(0, 0);
-      expect(p.vars.anchors[1]).toBeAnchorLine(104, 105);
-      expect(p.vars.anchors[2]).toBeAnchorMove(106, 107);
-      expect(p.vars.anchors[3]).toBeAnchorCubic(108, 109, 110, 111, 112, 113);
-      expect(p.vars.anchors[4]).toBeAnchorQuad(114, 115, 116, 117);
+      expect(p.state.anchors[0]).toBeAnchorMove(0, 0);
+      expect(p.state.anchors[1]).toBeAnchorLine(104, 105);
+      expect(p.state.anchors[2]).toBeAnchorMove(106, 107);
+      expect(p.state.anchors[3]).toBeAnchorCubic(108, 109, 110, 111, 112, 113);
+      expect(p.state.anchors[4]).toBeAnchorQuad(114, 115, 116, 117);
     });
 
   });
@@ -50,7 +50,7 @@ describe("Rune.Path", function() {
       _.each(funcs, function(func) {
         var p = new Rune.Path();
         var res = p[func](5);
-        expect(p.vars[func]).toEqual(5)
+        expect(p.state[func]).toEqual(5)
         expect(p).toEqual(res);
       });
     })
@@ -122,21 +122,21 @@ describe("Rune.Path", function() {
       var p1 = paths[0];
       var p2 = paths[1];
 
-      expect(p1.vars.x).toEqual(10);
-      expect(p1.vars.y).toEqual(15);
-      expect(p1.vars.anchors.length).toEqual(4);
-      expect(p1.vars.anchors[0]).toBeAnchorMove(0, 0);
-      expect(p1.vars.anchors[1]).toBeAnchorLine(100, 100);
-      expect(p1.vars.anchors[2]).toBeAnchorCubic(100, 200, -100, 200, -100, 100);
-      expect(p1.vars.anchors[3]).toBeAnchorQuad(-100, 0, 0, 0);
+      expect(p1.state.x).toEqual(10);
+      expect(p1.state.y).toEqual(15);
+      expect(p1.state.anchors.length).toEqual(4);
+      expect(p1.state.anchors[0]).toBeAnchorMove(0, 0);
+      expect(p1.state.anchors[1]).toBeAnchorLine(100, 100);
+      expect(p1.state.anchors[2]).toBeAnchorCubic(100, 200, -100, 200, -100, 100);
+      expect(p1.state.anchors[3]).toBeAnchorQuad(-100, 0, 0, 0);
 
-      expect(p2.vars.x).toEqual(10);
-      expect(p2.vars.y).toEqual(15);
-      expect(p2.vars.anchors.length).toEqual(4);
-      expect(p2.vars.anchors[0]).toBeAnchorMove(0, 25);
-      expect(p2.vars.anchors[1]).toBeAnchorLine(75, 75);
-      expect(p2.vars.anchors[2]).toBeAnchorLine(-75, 75);
-      expect(p2.vars.anchors[3]).toBeAnchorClose();
+      expect(p2.state.x).toEqual(10);
+      expect(p2.state.y).toEqual(15);
+      expect(p2.state.anchors.length).toEqual(4);
+      expect(p2.state.anchors[0]).toBeAnchorMove(0, 25);
+      expect(p2.state.anchors[1]).toBeAnchorLine(75, 75);
+      expect(p2.state.anchors[2]).toBeAnchorLine(-75, 75);
+      expect(p2.state.anchors[3]).toBeAnchorClose();
     });
 
     it("returns subpaths separated by closeShape", function() {
@@ -155,20 +155,20 @@ describe("Rune.Path", function() {
       var p1 = paths[0];
       var p2 = paths[1];
 
-      expect(p1.vars.x).toEqual(10);
-      expect(p1.vars.y).toEqual(15);
-      expect(p1.vars.anchors.length).toEqual(4);
-      expect(p1.vars.anchors[0]).toBeAnchorMove(0, 0);
-      expect(p1.vars.anchors[1]).toBeAnchorLine(100, 100);
-      expect(p1.vars.anchors[2]).toBeAnchorLine(0, 100);
-      expect(p1.vars.anchors[3]).toBeAnchorClose();
+      expect(p1.state.x).toEqual(10);
+      expect(p1.state.y).toEqual(15);
+      expect(p1.state.anchors.length).toEqual(4);
+      expect(p1.state.anchors[0]).toBeAnchorMove(0, 0);
+      expect(p1.state.anchors[1]).toBeAnchorLine(100, 100);
+      expect(p1.state.anchors[2]).toBeAnchorLine(0, 100);
+      expect(p1.state.anchors[3]).toBeAnchorClose();
 
-      expect(p2.vars.x).toEqual(10);
-      expect(p2.vars.y).toEqual(15);
-      expect(p2.vars.anchors.length).toEqual(3);
-      expect(p2.vars.anchors[0]).toBeAnchorLine(-100, 100);
-      expect(p2.vars.anchors[1]).toBeAnchorLine(0, 100);
-      expect(p2.vars.anchors[2]).toBeAnchorClose();
+      expect(p2.state.x).toEqual(10);
+      expect(p2.state.y).toEqual(15);
+      expect(p2.state.anchors.length).toEqual(3);
+      expect(p2.state.anchors[0]).toBeAnchorLine(-100, 100);
+      expect(p2.state.anchors[1]).toBeAnchorLine(0, 100);
+      expect(p2.state.anchors[2]).toBeAnchorClose();
     });
 
     it("adds subpaths to parent", function() {
@@ -185,7 +185,7 @@ describe("Rune.Path", function() {
       expect(g.children.length).toEqual(1);
     });
 
-    it("copies the mixin vars", function() {
+    it("copies the mixin state", function() {
       setMixinVars(s);
       var paths = s.subpaths();
       expect(getMixinVars(paths[0])).toBeIn(getMixinVars(s));
@@ -202,14 +202,14 @@ describe("Rune.Path", function() {
       expect(res.length).toEqual(2);
 
       var poly1 = res[0];
-      expect(poly1.vars.x).toEqual(10);
-      expect(poly1.vars.y).toEqual(15);
-      expect(poly1.vars.vectors.length).toEqual(24);
+      expect(poly1.state.x).toEqual(10);
+      expect(poly1.state.y).toEqual(15);
+      expect(poly1.state.vectors.length).toEqual(24);
 
       var poly2 = res[1];
-      expect(poly2.vars.x).toEqual(10);
-      expect(poly2.vars.y).toEqual(15);
-      expect(poly2.vars.vectors.length).toEqual(14);
+      expect(poly2.state.x).toEqual(10);
+      expect(poly2.state.y).toEqual(15);
+      expect(poly2.state.vectors.length).toEqual(14);
     });
 
     it("adds polygon to parent", function() {
@@ -226,7 +226,7 @@ describe("Rune.Path", function() {
       expect(g.children.length).toEqual(1);
     });
 
-    it("copies the mixin vars", function() {
+    it("copies the mixin state", function() {
       setMixinVars(s)
       var p = s.toPolygons({ spacing: 25 });
       expect(getMixinVars(p)).toBeIn(getMixinVars(s));
@@ -239,7 +239,7 @@ describe("Rune.Path", function() {
       setAllAnchors(s);
       expectCopy(s);
       var copy = s.copy();
-      expect(copy.vars.anchors).not.toBe(s.vars.anchors)
+      expect(copy.state.anchors).not.toBe(s.state.anchors)
     });
   });
 
@@ -250,13 +250,13 @@ describe("Rune.Path", function() {
       spyOn(p, 'scaleStyles');
       setAllAnchors(p);
       p.scale(2);
-      expect(p.vars.x).toEqual(10);
-      expect(p.vars.y).toEqual(15);
-      expect(p.vars.anchors[0]).toBeAnchorMove(0, 0);
-      expect(p.vars.anchors[1]).toBeAnchorLine(208, 210);
-      expect(p.vars.anchors[2]).toBeAnchorMove(212, 214);
-      expect(p.vars.anchors[3]).toBeAnchorCubic(216, 218, 220, 222, 224, 226);
-      expect(p.vars.anchors[4]).toBeAnchorQuad(228, 230, 232, 234);
+      expect(p.state.x).toEqual(10);
+      expect(p.state.y).toEqual(15);
+      expect(p.state.anchors[0]).toBeAnchorMove(0, 0);
+      expect(p.state.anchors[1]).toBeAnchorLine(208, 210);
+      expect(p.state.anchors[2]).toBeAnchorMove(212, 214);
+      expect(p.state.anchors[3]).toBeAnchorCubic(216, 218, 220, 222, 224, 226);
+      expect(p.state.anchors[4]).toBeAnchorQuad(228, 230, 232, 234);
       expect(p.scaleStyles).toHaveBeenCalledWith(2);
     });
 

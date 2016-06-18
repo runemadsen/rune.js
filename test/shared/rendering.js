@@ -15,7 +15,7 @@ describe("Rendering", function() {
 
   describe("All shapes", function() {
 
-    it("should handle false vars", function() {
+    it("should handle false state", function() {
       r.rect(0, 0, 0, 0)
         .fill(false)
         .stroke(false)
@@ -58,10 +58,10 @@ describe("Rendering", function() {
       expect(r.el.childNodes.length).toEqual(1);
       expect(rect).toBeTag("rect");
       expect(rect).toHaveAttrs({
-        x: s.vars.x,
-        y: s.vars.y,
-        width: s.vars.width,
-        height: s.vars.height
+        x: s.state.x,
+        y: s.state.y,
+        width: s.state.width,
+        height: s.state.height
       });
       expect(rect).toNotHaveAttr("rx");
       expect(rect).toNotHaveAttr("ry");
@@ -88,10 +88,10 @@ describe("Rendering", function() {
       expect(r.el.childNodes.length).toEqual(1);
       expect(ellipse).toBeTag("ellipse");
       expect(ellipse).toHaveAttrs({
-        cx: s.vars.x,
-        cy: s.vars.y,
-        rx: s.vars.width / 2,
-        ry: s.vars.height / 2
+        cx: s.state.x,
+        cy: s.state.y,
+        rx: s.state.width / 2,
+        ry: s.state.height / 2
       });
       expect(ellipse).not.toHaveTranslation(100, 105);
       expectShared(ellipse);
@@ -109,9 +109,9 @@ describe("Rendering", function() {
       expect(r.el.childNodes.length).toEqual(1);
       expect(circle).toBeTag("circle");
       expect(circle).toHaveAttrs({
-        cx: s.vars.x,
-        cy: s.vars.y,
-        r: s.vars.radius
+        cx: s.state.x,
+        cy: s.state.y,
+        r: s.state.radius
       });
       expect(circle).not.toHaveTranslation(100, 105);
       expectShared(circle);
@@ -129,10 +129,10 @@ describe("Rendering", function() {
       expect(r.el.childNodes.length).toEqual(1);
       expect(line).toBeTag("line");
       expect(line).toHaveAttrs({
-        x1: s.vars.x,
-        y1: s.vars.y,
-        x2: s.vars.x2,
-        y2: s.vars.y2
+        x1: s.state.x,
+        y1: s.state.y,
+        x2: s.state.x2,
+        y2: s.state.y2
       });
       expect(line).not.toHaveTranslation(100, 105);
       expectShared(line);
@@ -190,7 +190,7 @@ describe("Rendering", function() {
       expectShared(path);
     });
 
-    it("should render optional vars", function() {
+    it("should render optional state", function() {
 
       var optionals = {
         fillRule: ["fill-rule", "evenodd"]
@@ -223,15 +223,15 @@ describe("Rendering", function() {
       expect(r.el.childNodes.length).toEqual(1);
       expect(text).toBeTag("text");
       expect(text).toHaveAttrs({
-        x: s.vars.x,
-        y: s.vars.y
+        x: s.state.x,
+        y: s.state.y
       });
       expect(text).not.toHaveTranslation(10, 15);
       expect(text.childNodes[0].data).toEqual("Hello")
       expectShared(text);
     });
 
-    it("should render optional vars", function() {
+    it("should render optional state", function() {
 
       var optionals = {
         fontFamily: ["font-family", "Georgia"],
@@ -311,7 +311,7 @@ describe("Rendering", function() {
       expect(r.el.childNodes.length).toEqual(1);
       expect(jgroup).toBeTag("g");
       expect(jgroup).toHaveTranslation(10, 15);
-      expect(jgroup).toHaveRotation(g.vars.rotation);
+      expect(jgroup).toHaveRotation(g.state.rotation);
 
       var jellipse = jgroup.childNodes[0];
       expect(jellipse).toBeTag("circle");
@@ -448,14 +448,14 @@ describe("Rendering", function() {
       _.times(8, function(i) { expect(child.childNodes[i + 1]).toBeTag('line') });
 
       expect(child.childNodes[0]).toHaveAttrs({x: 0, y: 0, width:115, height:130});
-      expect(child.childNodes[1]).toHaveAttrs({x1: 25, y1: 0, x2:25, y2:grid.vars.height});
-      expect(child.childNodes[2]).toHaveAttrs({x1: 45, y1: 0, x2:45, y2:grid.vars.height});
-      expect(child.childNodes[3]).toHaveAttrs({x1: 70, y1: 0, x2:70, y2:grid.vars.height});
-      expect(child.childNodes[4]).toHaveAttrs({x1: 90, y1: 0, x2:90, y2:grid.vars.height});
-      expect(child.childNodes[5]).toHaveAttrs({x1: 0, y1: 30, x2:grid.vars.width, y2:30});
-      expect(child.childNodes[6]).toHaveAttrs({x1: 0, y1: 50, x2:grid.vars.width, y2:50});
-      expect(child.childNodes[7]).toHaveAttrs({x1: 0, y1: 80, x2:grid.vars.width, y2:80});
-      expect(child.childNodes[8]).toHaveAttrs({x1: 0, y1: 100, x2:grid.vars.width, y2:100});
+      expect(child.childNodes[1]).toHaveAttrs({x1: 25, y1: 0, x2:25, y2:grid.state.height});
+      expect(child.childNodes[2]).toHaveAttrs({x1: 45, y1: 0, x2:45, y2:grid.state.height});
+      expect(child.childNodes[3]).toHaveAttrs({x1: 70, y1: 0, x2:70, y2:grid.state.height});
+      expect(child.childNodes[4]).toHaveAttrs({x1: 90, y1: 0, x2:90, y2:grid.state.height});
+      expect(child.childNodes[5]).toHaveAttrs({x1: 0, y1: 30, x2:grid.state.width, y2:30});
+      expect(child.childNodes[6]).toHaveAttrs({x1: 0, y1: 50, x2:grid.state.width, y2:50});
+      expect(child.childNodes[7]).toHaveAttrs({x1: 0, y1: 80, x2:grid.state.width, y2:80});
+      expect(child.childNodes[8]).toHaveAttrs({x1: 0, y1: 100, x2:grid.state.width, y2:100});
     });
 
   })

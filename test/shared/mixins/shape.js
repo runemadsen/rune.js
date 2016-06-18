@@ -45,18 +45,18 @@ describe("Rune.Shape", function() {
 
     it("assigns default variables", function() {
       expect(typeof m.shape).toEqual("function");
-      expect(m.vars.x).toEqual(0);
-      expect(m.vars.y).toEqual(0);
-      expect(m.vars.rotation).toEqual(0);
+      expect(m.state.x).toEqual(0);
+      expect(m.state.y).toEqual(0);
+      expect(m.state.rotation).toEqual(0);
     });
 
     it("copies variables from object", function() {
       setShapeVars(m);
       var m2 = newMixin(Rune.Shape);
       m2.shape(m);
-      expect(m2.vars.x).toEqual(10);
-      expect(m2.vars.y).toEqual(15);
-      expect(m2.vars.rotation).toEqual(45);
+      expect(m2.state.x).toEqual(10);
+      expect(m2.state.y).toEqual(15);
+      expect(m2.state.rotation).toEqual(45);
     });
 
     it("copies negative values from object", function() {
@@ -69,11 +69,11 @@ describe("Rune.Shape", function() {
       });
       var m2 = newMixin(Rune.Shape);
       m2.shape(m);
-      expect(m2.vars.x).toEqual(-10);
-      expect(m2.vars.y).toEqual(-15);
-      expect(m2.vars.rotation).toEqual(-20);
-      expect(m2.vars.rotationX).toEqual(-25);
-      expect(m2.vars.rotationY).toEqual(-30);
+      expect(m2.state.x).toEqual(-10);
+      expect(m2.state.y).toEqual(-15);
+      expect(m2.state.rotation).toEqual(-20);
+      expect(m2.state.rotationX).toEqual(-25);
+      expect(m2.state.rotationY).toEqual(-30);
     });
 
   });
@@ -83,15 +83,15 @@ describe("Rune.Shape", function() {
     it("moves absolute", function() {
       setShapeVars(m);
       m.move(200, 205);
-      expect(m.vars.x).toEqual(200);
-      expect(m.vars.y).toEqual(205);
+      expect(m.state.x).toEqual(200);
+      expect(m.state.y).toEqual(205);
     });
 
     it("moves relative", function() {
       setShapeVars(m);
       m.move(200, 205, true);
-      expect(m.vars.x).toEqual(210);
-      expect(m.vars.y).toEqual(220);
+      expect(m.state.x).toEqual(210);
+      expect(m.state.y).toEqual(220);
     });
 
     it("is chainable", function() {
@@ -105,24 +105,24 @@ describe("Rune.Shape", function() {
 
     it("rotates on degree", function() {
       m.rotate(45);
-      expect(m.vars.rotation).toEqual(45);
-      expect(m.vars.rotationX).toEqual(0);
-      expect(m.vars.rotationY).toEqual(0);
+      expect(m.state.rotation).toEqual(45);
+      expect(m.state.rotationX).toEqual(0);
+      expect(m.state.rotationY).toEqual(0);
     });
 
     it("rotates on degree and xy", function() {
       m.rotate(45, 100, 105);
-      expect(m.vars.rotation).toEqual(45);
-      expect(m.vars.rotationX).toEqual(100);
-      expect(m.vars.rotationY).toEqual(105);
+      expect(m.state.rotation).toEqual(45);
+      expect(m.state.rotationX).toEqual(100);
+      expect(m.state.rotationY).toEqual(105);
     });
 
     it("rotates relative to own xy", function() {
       m.move(10, 15)
       m.rotate(45, 100, 105, true);
-      expect(m.vars.rotation).toEqual(45);
-      expect(m.vars.rotationX).toEqual(110);
-      expect(m.vars.rotationY).toEqual(120);
+      expect(m.state.rotation).toEqual(45);
+      expect(m.state.rotationX).toEqual(110);
+      expect(m.state.rotationY).toEqual(120);
     });
 
     it("is chainable", function() {

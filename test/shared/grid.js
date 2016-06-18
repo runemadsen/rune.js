@@ -6,16 +6,16 @@ describe("Rune.Grid", function() {
 
     it("has default settings", function() {
       var grid = new Rune.Grid();
-      expect(grid.vars.x).toEqual(0);
-      expect(grid.vars.y).toEqual(0);
-      expect(grid.vars.gutterWidth).toEqual(0);
-      expect(grid.vars.gutterHeight).toEqual(0);
-      expect(grid.vars.columns).toEqual(10);
-      expect(grid.vars.rows).toEqual(1);
-      expect(grid.vars.moduleWidth).toEqual(50);
-      expect(grid.vars.moduleHeight).toEqual(500);
-      expect(grid.vars.width).toEqual(500);
-      expect(grid.vars.height).toEqual(500);
+      expect(grid.state.x).toEqual(0);
+      expect(grid.state.y).toEqual(0);
+      expect(grid.state.gutterWidth).toEqual(0);
+      expect(grid.state.gutterHeight).toEqual(0);
+      expect(grid.state.columns).toEqual(10);
+      expect(grid.state.rows).toEqual(1);
+      expect(grid.state.moduleWidth).toEqual(50);
+      expect(grid.state.moduleHeight).toEqual(500);
+      expect(grid.state.width).toEqual(500);
+      expect(grid.state.height).toEqual(500);
     });
 
     it("works with all variables", function() {
@@ -28,24 +28,24 @@ describe("Rune.Grid", function() {
         rows: 5
       });
 
-      expect(grid.vars.x).toEqual(0);
-      expect(grid.vars.y).toEqual(0);
-      expect(grid.vars.gutterWidth).toEqual(15);
-      expect(grid.vars.gutterHeight).toEqual(20);
-      expect(grid.vars.columns).toEqual(10);
-      expect(grid.vars.rows).toEqual(5);
-      expect(grid.vars.moduleWidth).toEqual(50);
-      expect(grid.vars.moduleHeight).toEqual(40);
-      expect(grid.vars.width).toEqual(635);
-      expect(grid.vars.height).toEqual(280);
+      expect(grid.state.x).toEqual(0);
+      expect(grid.state.y).toEqual(0);
+      expect(grid.state.gutterWidth).toEqual(15);
+      expect(grid.state.gutterHeight).toEqual(20);
+      expect(grid.state.columns).toEqual(10);
+      expect(grid.state.rows).toEqual(5);
+      expect(grid.state.moduleWidth).toEqual(50);
+      expect(grid.state.moduleHeight).toEqual(40);
+      expect(grid.state.width).toEqual(635);
+      expect(grid.state.height).toEqual(280);
 
       expect(grid.modules.length).toBe(50);
       expect(grid.modules[0].type).toEqual("group");
-      expect(grid.modules[0].vars.x).toEqual(0);
-      expect(grid.modules[0].vars.y).toEqual(0);
+      expect(grid.modules[0].state.x).toEqual(0);
+      expect(grid.modules[0].state.y).toEqual(0);
       expect(grid.modules[14].type).toEqual("group");
-      expect(grid.modules[14].vars.x).toEqual(260);
-      expect(grid.modules[14].vars.y).toEqual(60);
+      expect(grid.modules[14].state.x).toEqual(260);
+      expect(grid.modules[14].state.y).toEqual(60);
     });
 
     it("works with gutter shorthand", function() {
@@ -56,16 +56,16 @@ describe("Rune.Grid", function() {
         columns: 10,
         rows: 5
       });
-      expect(grid.vars.x).toEqual(0);
-      expect(grid.vars.y).toEqual(0);
-      expect(grid.vars.gutterWidth).toEqual(15);
-      expect(grid.vars.gutterHeight).toEqual(15);
-      expect(grid.vars.columns).toEqual(10);
-      expect(grid.vars.rows).toEqual(5);
-      expect(grid.vars.moduleWidth).toEqual(46.5);
-      expect(grid.vars.moduleHeight).toEqual(88);
-      expect(grid.vars.width).toEqual(600);
-      expect(grid.vars.height).toEqual(500);
+      expect(grid.state.x).toEqual(0);
+      expect(grid.state.y).toEqual(0);
+      expect(grid.state.gutterWidth).toEqual(15);
+      expect(grid.state.gutterHeight).toEqual(15);
+      expect(grid.state.columns).toEqual(10);
+      expect(grid.state.rows).toEqual(5);
+      expect(grid.state.moduleWidth).toEqual(46.5);
+      expect(grid.state.moduleHeight).toEqual(88);
+      expect(grid.state.width).toEqual(600);
+      expect(grid.state.height).toEqual(500);
     });
 
     it("works with no gutter", function() {
@@ -75,16 +75,16 @@ describe("Rune.Grid", function() {
         columns: 10,
         rows: 5
       });
-      expect(grid.vars.x).toEqual(0);
-      expect(grid.vars.y).toEqual(0);
-      expect(grid.vars.gutterWidth).toEqual(0);
-      expect(grid.vars.gutterHeight).toEqual(0);
-      expect(grid.vars.columns).toEqual(10);
-      expect(grid.vars.rows).toEqual(5);
-      expect(grid.vars.moduleWidth).toEqual(60);
-      expect(grid.vars.moduleHeight).toEqual(100);
-      expect(grid.vars.width).toEqual(600);
-      expect(grid.vars.height).toEqual(500);
+      expect(grid.state.x).toEqual(0);
+      expect(grid.state.y).toEqual(0);
+      expect(grid.state.gutterWidth).toEqual(0);
+      expect(grid.state.gutterHeight).toEqual(0);
+      expect(grid.state.columns).toEqual(10);
+      expect(grid.state.rows).toEqual(5);
+      expect(grid.state.moduleWidth).toEqual(60);
+      expect(grid.state.moduleHeight).toEqual(100);
+      expect(grid.state.width).toEqual(600);
+      expect(grid.state.height).toEqual(500);
     });
 
   });
@@ -101,8 +101,8 @@ describe("Rune.Grid", function() {
       });
       var module = grid.getModule(2, 3)
       expect(module.type).toEqual("group")
-      expect(module.vars.x).toEqual(60);
-      expect(module.vars.y).toEqual(120);
+      expect(module.state.x).toEqual(60);
+      expect(module.state.y).toEqual(120);
     });
 
   });

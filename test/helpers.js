@@ -69,11 +69,11 @@ function getMixinVars(shape) {
     keys = keys.concat(_.keys(getStylesVars()))
   }
 
-  var vars = {};
+  var state = {};
   _.each(keys, function(key) {
-    vars[key] = shape.vars[key];
+    state[key] = shape.state[key];
   });
-  return vars;
+  return state;
 }
 
 // Sets variables in object that comes from
@@ -127,18 +127,18 @@ function getStylesVars(opts) {
 // -------------------------------------------
 
 function setShapeVars(shape, opts) {
-  var vars = getShapeVars(opts)
-  _.extend(shape.vars, vars);
+  var state = getShapeVars(opts)
+  _.extend(shape.state, state);
 }
 
 function setBoxVars(shape, opts) {
-  var vars = getBoxVars(opts)
-  _.extend(shape.vars, vars);
+  var state = getBoxVars(opts)
+  _.extend(shape.state, state);
 }
 
 function setStylesVars(shape, opts) {
-  var vars = getStylesVars(opts)
-  _.extend(shape.vars, vars);
+  var state = getStylesVars(opts)
+  _.extend(shape.state, state);
 }
 
 function setAllAnchors(path) {

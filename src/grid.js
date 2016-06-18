@@ -42,7 +42,7 @@ var Grid = function(options) {
     req.height = (req.moduleHeight * req.rows) + (req.gutterHeight * (req.rows-1))
   }
 
-  assign(this.vars, req);
+  assign(this.state, req);
 
   this.computeGrid();
 }
@@ -55,7 +55,7 @@ Grid.prototype = {
     if(!row) row = 1;
 
     // index is x + (y * width)
-    var index = (column-1) + ((row-1) * this.vars.columns)
+    var index = (column-1) + ((row-1) * this.state.columns)
 
     if(this.modules[index])
       this.modules[index].add(child)
@@ -66,7 +66,7 @@ Grid.prototype = {
   getModule: function(column, row) {
 
     // index is x + (y * width)
-    var index = (column-1) + ((row-1) * this.vars.columns)
+    var index = (column-1) + ((row-1) * this.state.columns)
 
     if(this.modules[index])
       return this.modules[index]
@@ -78,11 +78,11 @@ Grid.prototype = {
 
     this.modules = [];
 
-    for(var y = 0; y < this.vars.rows; y++) {
-      for(var x = 0; x < this.vars.columns; x++) {
+    for(var y = 0; y < this.state.rows; y++) {
+      for(var x = 0; x < this.state.columns; x++) {
 
-        var groupX = (x * this.vars.moduleWidth) + (x * this.vars.gutterWidth);
-        var groupY = (y * this.vars.moduleHeight) + (y * this.vars.gutterHeight);
+        var groupX = (x * this.state.moduleWidth) + (x * this.state.gutterWidth);
+        var groupY = (y * this.state.moduleHeight) + (y * this.state.gutterHeight);
 
         this.modules.push(new Group(groupX, groupY));
       }
@@ -102,24 +102,24 @@ Grid.prototype = {
     var els = [];
 
     // draw container rect
-    els.push(this.debugRect(0, 0, this.vars.width, this.vars.height));
+    els.push(this.debugRect(0, 0, this.state.width, this.state.height));
 
     // draw lines for columns
     var x = 0;
-    for(var i = 0; i < this.vars.columns-1; i++) {
-      x += this.vars.moduleWidth;
-      els.push(this.debugLine(x, 0, x, this.vars.height));
-      x += this.vars.gutterWidth;
-      els.push(this.debugLine(x, 0, x, this.vars.height));
+    for(var i = 0; i < this.state.columns-1; i++) {
+      x += this.state.moduleWidth;
+      els.push(this.debugLine(x, 0, x, this.state.height));
+      x += this.state.gutterWidth;
+      els.push(this.debugLine(x, 0, x, this.state.height));
     }
 
     // draw lines for rows
     var y = 0;
-    for(var i = 0; i < this.vars.rows-1; i++) {
-      y += this.vars.moduleHeight;
-      els.push(this.debugLine(0, y, this.vars.width, y));
-      y += this.vars.gutterHeight;
-      els.push(this.debugLine(0, y, this.vars.width, y));
+    for(var i = 0; i < this.state.rows-1; i++) {
+      y += this.state.moduleHeight;
+      els.push(this.debugLine(0, y, this.state.width, y));
+      y += this.state.gutterHeight;
+      els.push(this.debugLine(0, y, this.state.width, y));
     }
 
     return els;

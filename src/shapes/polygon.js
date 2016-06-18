@@ -11,18 +11,18 @@ var svg = require('virtual-dom/virtual-hyperscript/svg');
 var Polygon = function(x, y) {
   this.shape();
   this.styles();
-  this.vars.vectors = [];
-  if(typeof x !== 'undefined') this.vars.x = x;
-  if(typeof y !== 'undefined') this.vars.y = y;
+  this.state.vectors = [];
+  if(typeof x !== 'undefined') this.state.x = x;
+  if(typeof y !== 'undefined') this.state.y = y;
 }
 
 Polygon.prototype = {
 
   lineTo: function(x, y) {
     if (x instanceof Vector) {
-      this.vars.vectors.push(x);
+      this.state.vectors.push(x);
     } else {
-      this.vars.vectors.push(new Vector(x, y));
+      this.state.vectors.push(new Vector(x, y));
     }
     this.changed();
     return this;
@@ -30,9 +30,9 @@ Polygon.prototype = {
 
   length: function() {
     var len = 0;
-    for(var i = 0; i < this.vars.vectors.length; i++) {
-      var start = this.vars.vectors[i];
-      var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
+    for(var i = 0; i < this.state.vectors.length; i++) {
+      var start = this.state.vectors[i];
+      var stop = this.state.vectors[(i+1)%this.state.vectors.length];
       len += stop.sub(start).length();
     }
     return len;
@@ -42,9 +42,9 @@ Polygon.prototype = {
 
     var tmpLen = 0;
 
-    for(var i = 0; i < this.vars.vectors.length; i++) {
-      var start = this.vars.vectors[i];
-      var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
+    for(var i = 0; i < this.state.vectors.length; i++) {
+      var start = this.state.vectors[i];
+      var stop = this.state.vectors[(i+1)%this.state.vectors.length];
       var vec = stop.sub(start);
       var veclen = vec.length();
 
@@ -56,7 +56,7 @@ Polygon.prototype = {
       tmpLen += veclen;
     }
 
-    return this.vars.vectors[0].copy();
+    return this.state.vectors[0].copy();
   },
 
   vectorAt: function(scalar) {
@@ -65,9 +65,9 @@ Polygon.prototype = {
 
   area: function() {
     var area = 0;
-    for(var i = 0; i < this.vars.vectors.length-1; i++)
+    for(var i = 0; i < this.state.vectors.length-1; i++)
     {
-      area += this.vars.vectors[i].x * this.vars.vectors[i+1].y - this.vars.vectors[i+1].x * this.vars.vectors[i].y;
+      area += this.state.vectors[i].x * this.state.vectors[i+1].y - this.state.vectors[i+1].x * this.state.vectors[i].y;
     }
     area /= 2;
     return Math.abs(area);
@@ -79,7 +79,7 @@ Polygon.prototype = {
     var xmin = undefined;
     var ymin = undefined;
 
-    each(this.vars.vectors, function(vec) {
+    each(this.state.vectors, function(vec) {
       if(typeof xmin === 'undefined' || vec.x < xmin)  xmin = vec.x;
       if(typeof xmax === 'undefined' || vec.x > xmax)  xmax = vec.x;
       if(typeof ymin === 'undefined' || vec.y < ymin)  ymin = vec.y;
@@ -98,9 +98,9 @@ Polygon.prototype = {
     var areaAcc = 0.0;
     var xAcc = 0.0;
     var yAcc = 0.0;
-    for(var i = 0; i < this.vars.vectors.length; i++) {
-      var start = this.vars.vectors[i];
-      var stop = this.vars.vectors[(i+1)%this.vars.vectors.length];
+    for(var i = 0; i < this.state.vectors.length; i++) {
+      var start = this.state.vectors[i];
+      var stop = this.state.vectors[(i+1)%this.state.vectors.length];
       areaAcc += start.x * stop.y - stop.x * start.y;
       xAcc += (start.x + stop.x) * (start.x * stop.y - stop.x * start.y);
       yAcc += (start.y + stop.y) * (start.x * stop.y - stop.x * start.y);
@@ -115,7 +115,7 @@ Polygon.prototype = {
 
     if(opts && opts.spacing) {
 
-      var poly = new Polygon(this.vars.x, this.vars.y);
+      var poly = new Polygon(this.state.x, this.state.y);
       var len = this.length();
       var num = len / opts.spacing;
       for(var i = 0; i < num; i++) {
@@ -134,7 +134,7 @@ Polygon.prototype = {
 
   copy: function(parent) {
     var copy = new Polygon();
-    copy.vars.vectors = map(this.vars.vectors, function(v) { return v.copy(); });
+    copy.state.vectors = map(this.state.vectors, function(v) { return v.copy(); });
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
@@ -151,7 +151,7 @@ Polygon.prototype = {
     // This might be slow, so let's rewrite this at some point.
 
 
-    var p = flatten(map(this.vars.vectors, function(vector) {
+    var p = flatten(map(this.state.vectors, function(vector) {
       return [addPos.x + vector.x, addPos.y + vector.y]
     }, this));
 
@@ -194,7 +194,7 @@ Polygon.prototype = {
 
   scale: function(scalar) {
     this.scaleStyles(scalar);
-    this.vars.vectors = map(this.vars.vectors, function(vec) {
+    this.state.vectors = map(this.state.vectors, function(vec) {
       return vec.multiply(scalar);
     });
     this.changed();
@@ -203,7 +203,7 @@ Polygon.prototype = {
 
   render: function(opts) {
     var attr = {
-      points: map(this.vars.vectors, function(vec) {
+      points: map(this.state.vectors, function(vec) {
         return vec.x + " " + vec.y;
       }).join(" ")
     };

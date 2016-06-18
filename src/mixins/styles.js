@@ -5,107 +5,107 @@ var Styles = {
 
   styles: function(copy) {
 
-    this.vars = this.vars || {};
-    this.vars.fill = new Color(128);
-    this.vars.stroke = new Color(0);
+    this.state = this.state || {};
+    this.state.fill = new Color(128);
+    this.state.stroke = new Color(0);
 
     if(copy) {
-      if(copy.vars.fill === false)  this.vars.fill = false;
-      else if(copy.vars.fill)       this.vars.fill = copy.vars.fill.copy();
+      if(copy.state.fill === false)  this.state.fill = false;
+      else if(copy.state.fill)       this.state.fill = copy.state.fill.copy();
 
-      if(copy.vars.stroke === false)  this.vars.stroke = false;
-      else if(copy.vars.stroke)       this.vars.stroke = copy.vars.stroke.copy();
+      if(copy.state.stroke === false)  this.state.stroke = false;
+      else if(copy.state.stroke)       this.state.stroke = copy.state.stroke.copy();
 
-      if(copy.vars.strokeWidth)       this.vars.strokeWidth = copy.vars.strokeWidth;
-      if(copy.vars.strokeCap)         this.vars.strokeCap = copy.vars.strokeCap;
-      if(copy.vars.strokeJoin)        this.vars.strokeJoin = copy.vars.strokeJoin;
-      if(copy.vars.strokeMiterlimit)  this.vars.strokeMiterlimit = copy.vars.strokeMiterlimit;
-      if(copy.vars.strokeDash)        this.vars.strokeDash = copy.vars.strokeDash;
-      if(copy.vars.strokeDashOffset)  this.vars.strokeDashOffset = copy.vars.strokeDashOffset;
+      if(copy.state.strokeWidth)       this.state.strokeWidth = copy.state.strokeWidth;
+      if(copy.state.strokeCap)         this.state.strokeCap = copy.state.strokeCap;
+      if(copy.state.strokeJoin)        this.state.strokeJoin = copy.state.strokeJoin;
+      if(copy.state.strokeMiterlimit)  this.state.strokeMiterlimit = copy.state.strokeMiterlimit;
+      if(copy.state.strokeDash)        this.state.strokeDash = copy.state.strokeDash;
+      if(copy.state.strokeDashOffset)  this.state.strokeDashOffset = copy.state.strokeDashOffset;
     }
   },
 
   fill: function(a, b, c, d, e) {
-    if(a === false) this.vars.fill = false;
-    else            this.vars.fill = new Color(a, b, c, d, e);
+    if(a === false) this.state.fill = false;
+    else            this.state.fill = new Color(a, b, c, d, e);
     this.changed();
     return this;
   },
 
   stroke: function(a, b, c, d, e) {
-    if(a === false) this.vars.stroke = false;
-    else            this.vars.stroke = new Color(a, b, c, d, e);
+    if(a === false) this.state.stroke = false;
+    else            this.state.stroke = new Color(a, b, c, d, e);
     this.changed();
     return this;
   },
 
   strokeWidth: function(val) {
-    this.vars.strokeWidth = val;
+    this.state.strokeWidth = val;
     this.changed();
     return this;
   },
 
   strokeCap: function(val) {
-    this.vars.strokeCap = val;
+    this.state.strokeCap = val;
     this.changed();
     return this;
   },
 
   strokeJoin: function(val) {
-    this.vars.strokeJoin = val;
+    this.state.strokeJoin = val;
     this.changed();
     return this;
   },
 
   strokeMiterlimit: function(val) {
-    this.vars.strokeMiterlimit = val;
+    this.state.strokeMiterlimit = val;
     this.changed();
     return this;
   },
 
   strokeDash: function(val) {
-    this.vars.strokeDash = val;
+    this.state.strokeDash = val;
     this.changed();
     return this;
   },
 
   strokeDashOffset: function(val) {
-    this.vars.strokeDashOffset= val;
+    this.state.strokeDashOffset= val;
     this.changed();
     return this;
   },
 
   scaleStyles: function(scalar) {
-    if(this.vars.strokeWidth) {
-      this.vars.strokeWidth *= scalar;
+    if(this.state.strokeWidth) {
+      this.state.strokeWidth *= scalar;
     }
     else {
-      this.vars.strokeWidth = scalar;
+      this.state.strokeWidth = scalar;
     }
   },
 
   stylesAttributes: function(attr) {
 
-    if(this.vars.fill === false)    attr.fill = "none";
-    else if(this.vars.fill) {
-      attr.fill = "rgb(" + this.vars.fill.values.rgb[0] + ", " + this.vars.fill.values.rgb[1] + ", " + this.vars.fill.values.rgb[2] + ")";
-      var alpha = this.vars.fill.values.alpha;
+    if(this.state.fill === false)    attr.fill = "none";
+    else if(this.state.fill) {
+      attr.fill = "rgb(" + this.state.fill.values.rgb[0] + ", " + this.state.fill.values.rgb[1] + ", " + this.state.fill.values.rgb[2] + ")";
+      var alpha = this.state.fill.values.alpha;
       if(alpha < 1) attr["fill-opacity"] = Utils.s(alpha);
     }
 
-    if(this.vars.stroke === false)  attr.stroke = "none";
-    else if(this.vars.stroke) {
-      attr.stroke = "rgb(" + this.vars.stroke.values.rgb[0] + ", " + this.vars.stroke.values.rgb[1] + ", " + this.vars.stroke.values.rgb[2] + ")";
-      var alpha = this.vars.stroke.values.alpha;
+    if(this.state.stroke === false)  attr.stroke = "none";
+    else if(this.state.stroke) {
+      attr.stroke = "rgb(" + this.state.stroke.values.rgb[0] + ", " + this.state.stroke.values.rgb[1] + ", " + this.state.stroke.values.rgb[2] + ")";
+      var alpha = this.state.stroke.values.alpha;
       if(alpha < 1) attr["stroke-opacity"] = Utils.s(alpha);
     }
 
-    if(this.vars.strokeWidth)       attr["stroke-width"] = Utils.s(this.vars.strokeWidth);
-    if(this.vars.strokeCap)         attr["stroke-linecap"] = this.vars.strokeCap;
-    if(this.vars.strokeJoin)        attr["stroke-linejoin"] = this.vars.strokeJoin;
-    if(this.vars.strokeMiterlimit)  attr["stroke-miterlimit"] = Utils.s(this.vars.strokeMiterlimit);
-    if(this.vars.strokeDash)        attr["stroke-dasharray"] = this.vars.strokeDash;
-    if(this.vars.strokeDashOffset)  attr["stroke-dashoffset"] = Utils.s(this.vars.strokeDashOffset);
+    if(this.state.strokeWidth)       attr["stroke-width"] = Utils.s(this.state.strokeWidth);
+    if(this.state.strokeCap)         attr["stroke-linecap"] = this.state.strokeCap;
+    if(this.state.strokeJoin)        attr["stroke-linejoin"] = this.state.strokeJoin;
+    if(this.state.strokeMiterlimit)  attr["stroke-miterlimit"] = Utils.s(this.state.strokeMiterlimit);
+    if(this.state.strokeDash)        attr["stroke-dasharray"] = this.state.strokeDash;
+    if(this.state.strokeDashOffset)  attr["stroke-dashoffset"] = Utils.s(this.state.strokeDashOffset);
 
     return attr;
   }

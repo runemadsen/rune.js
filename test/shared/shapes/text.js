@@ -20,7 +20,7 @@ describe("Rune.Text", function() {
 
   function expectTextVars(text) {
     _.each(textVars, function(v, k) {
-      expect(s.vars[k]).toEqual(v);
+      expect(s.state[k]).toEqual(v);
     });
   }
 
@@ -28,7 +28,7 @@ describe("Rune.Text", function() {
     s = new Rune.Text("Hello", 10, 15);
   });
 
-  describe("Common text vars", function() {
+  describe("Common text state", function() {
 
     it("sets var", function() {
       setTextVars(s);
@@ -62,9 +62,9 @@ describe("Rune.Text", function() {
   it("scales the rectangle", function() {
     spyOn(s, 'scaleStyles');
     s.scale(2);
-    expect(s.vars.x).toEqual(10);
-    expect(s.vars.y).toEqual(15);
-    expect(s.vars.fontSize).toEqual(32);
+    expect(s.state.x).toEqual(10);
+    expect(s.state.y).toEqual(15);
+    expect(s.state.fontSize).toEqual(32);
     expect(s.scaleStyles).toHaveBeenCalledWith(2);
   });
 

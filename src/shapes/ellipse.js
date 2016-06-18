@@ -10,10 +10,10 @@ var Ellipse = function(x, y, width, height) {
   this.shape();
   this.box();
   this.styles();
-  this.vars.x = x;
-  this.vars.y = y;
-  this.vars.width = width;
-  this.vars.height = height;
+  this.state.x = x;
+  this.state.y = y;
+  this.state.width = width;
+  this.state.height = height;
 }
 
 Ellipse.prototype = {
@@ -25,16 +25,16 @@ Ellipse.prototype = {
     // if we're calculating the number of vectors based on spacing
     // find circumference and divide by spacing.
     if(opts && opts.spacing) {
-      var circumference = Math.PI * (this.vars.width+this.vars.height);
+      var circumference = Math.PI * (this.state.width+this.state.height);
       numVectors = circumference / opts.spacing;
     }
 
     var vectorAngle = 360/numVectors;
 
-    var poly =  new Polygon(this.vars.x, this.vars.y);
+    var poly =  new Polygon(this.state.x, this.state.y);
     for(var i = 0; i < numVectors; i++) {
-      var x = Math.cos(Utils.radians(i * vectorAngle)) * this.vars.width;
-      var y = Math.sin(Utils.radians(i * vectorAngle)) * this.vars.height;
+      var x = Math.cos(Utils.radians(i * vectorAngle)) * this.state.width;
+      var y = Math.sin(Utils.radians(i * vectorAngle)) * this.state.height;
       poly.lineTo(x, y);
     }
 
@@ -60,10 +60,10 @@ Ellipse.prototype = {
 
   render: function(opts) {
     var attr = {
-      cx: Utils.s(this.vars.x),
-      cy: Utils.s(this.vars.y),
-      rx: Utils.s(this.vars.width / 2),
-      ry: Utils.s(this.vars.height / 2)
+      cx: Utils.s(this.state.x),
+      cy: Utils.s(this.state.y),
+      rx: Utils.s(this.state.width / 2),
+      ry: Utils.s(this.state.height / 2)
     }
     this.shapeAttributes(attr);
     this.stylesAttributes(attr);

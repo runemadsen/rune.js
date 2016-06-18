@@ -12,58 +12,58 @@ var svg = require('virtual-dom/virtual-hyperscript/svg');
 var Path = function(x, y) {
   this.shape();
   this.styles();
-  this.vars.anchors = [];
-  if(typeof x !== 'undefined') this.vars.x = x;
-  if(typeof y !== 'undefined') this.vars.y = y;
+  this.state.anchors = [];
+  if(typeof x !== 'undefined') this.state.x = x;
+  if(typeof y !== 'undefined') this.state.y = y;
 }
 
 Path.prototype = {
 
   moveTo: function(x, y) {
-    this.vars.anchors.push(new Anchor().setMove(x, y));
+    this.state.anchors.push(new Anchor().setMove(x, y));
     this.changed();
     return this;
   },
 
   lineTo: function(x, y) {
     this.checkStartMove();
-    this.vars.anchors.push(new Anchor().setLine(x, y));
+    this.state.anchors.push(new Anchor().setLine(x, y));
     this.changed();
     return this;
   },
 
   curveTo: function(a, b, c, d, e, f) {
     this.checkStartMove();
-    this.vars.anchors.push(new Anchor().setCurve(a, b, c, d, e, f));
+    this.state.anchors.push(new Anchor().setCurve(a, b, c, d, e, f));
     this.changed();
     return this;
   },
 
   closePath: function() {
     this.checkStartMove();
-    this.vars.anchors.push(new Anchor().setClose());
+    this.state.anchors.push(new Anchor().setClose());
     this.changed();
     return this;
   },
 
   startVector: function() {
-    return this.vars.anchors[0] && this.vars.anchors[0].command == 'move' ? this.vars.anchors[0].vec1.copy() : new Vector(0, 0);
+    return this.state.anchors[0] && this.state.anchors[0].command == 'move' ? this.state.anchors[0].vec1.copy() : new Vector(0, 0);
   },
 
   subpaths: function(parent) {
     var subs = [];
     var lastSplit = 0;
 
-    each(this.vars.anchors, function(anchor, i) {
+    each(this.state.anchors, function(anchor, i) {
 
       var isMove = anchor.command == 'move';
-      var isAfterClose = this.vars.anchors[i-1] && this.vars.anchors[i-1].command == 'close'
-      var isLast = i == this.vars.anchors.length-1;
+      var isAfterClose = this.state.anchors[i-1] && this.state.anchors[i-1].command == 'close'
+      var isLast = i == this.state.anchors.length-1;
 
       if(i > lastSplit && (isMove || isAfterClose || isLast)) {
         if(isLast) i++;
         var sub = this.copy(parent);
-        sub.vars.anchors = sub.vars.anchors.slice(lastSplit, i);
+        sub.state.anchors = sub.state.anchors.slice(lastSplit, i);
         subs.push(sub);
         lastSplit = i;
       }
@@ -78,7 +78,7 @@ Path.prototype = {
 
     for(var p = 0; p < paths.length; p++) {
 
-      var anchors = paths[p].vars.anchors;
+      var anchors = paths[p].state.anchors;
 
       // find length of all anchors in subpath.
       // if last stop is close, use beginning
@@ -107,7 +107,7 @@ Path.prototype = {
 
     for(var p = 0; p < paths.length; p++) {
 
-      var anchors = paths[p].vars.anchors;
+      var anchors = paths[p].state.anchors;
 
       // find length of all anchors in subpath.
       // if last stop is close, use beginning
@@ -151,7 +151,7 @@ Path.prototype = {
     if(opts && opts.spacing) {
 
       each(paths, function(path) {
-        var poly = new Polygon(path.vars.x, path.vars.y);
+        var poly = new Polygon(path.state.x, path.state.y);
         var len = path.length();
         var num = len / opts.spacing;
         for(var i = 0; i < num; i++) {
@@ -171,7 +171,7 @@ Path.prototype = {
 
   copy: function(parent) {
     var copy = new Path();
-    copy.vars.anchors = map(this.vars.anchors, function(a) { return a.copy(); });
+    copy.state.anchors = map(this.state.anchors, function(a) { return a.copy(); });
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
@@ -179,7 +179,7 @@ Path.prototype = {
 
   scale: function(scalar) {
     this.scaleStyles(scalar);
-    this.vars.anchors = map(this.vars.anchors, function(anchor) {
+    this.state.anchors = map(this.state.anchors, function(anchor) {
       return anchor.multiply(scalar);
     });
     this.changed();
@@ -187,7 +187,7 @@ Path.prototype = {
   },
 
   fillRule: function(val) {
-    this.vars.fillRule = val;
+    this.state.fillRule = val;
     this.changed();
     return this;
   },
@@ -195,7 +195,7 @@ Path.prototype = {
   // Paths must start with a moveTo. This function is checks if
   // there is a moveTo at the beginning, and adds one if not.
   checkStartMove: function() {
-    if(this.vars.anchors.length == 0) {
+    if(this.state.anchors.length == 0) {
       this.moveTo(0, 0);
     }
   },
@@ -205,7 +205,7 @@ Path.prototype = {
     var attr = this.shapeAttributes({});
     this.stylesAttributes(attr);
 
-    attr.d = map(this.vars.anchors, function(a) {
+    attr.d = map(this.state.anchors, function(a) {
       if(a.command == 'move') {
         return "M " + a.vec1.x + " " + a.vec1.y;
       }
@@ -243,18 +243,18 @@ Path.prototype = {
     var t = this;
     var els = [];
 
-    each(this.vars.anchors, function(a, i) {
+    each(this.state.anchors, function(a, i) {
       if(a.command == 'cubic'){
-        els.push(t.debugLine(t.vars.x + a.vec1.x, t.vars.y + a.vec1.y, t.vars.x + a.vec3.x, t.vars.y + a.vec3.y));
-        els.push(t.debugLine(t.vars.x + a.vec2.x, t.vars.y + a.vec2.y, t.vars.x + a.vec3.x, t.vars.y + a.vec3.y));
+        els.push(t.debugLine(t.state.x + a.vec1.x, t.state.y + a.vec1.y, t.state.x + a.vec3.x, t.state.y + a.vec3.y));
+        els.push(t.debugLine(t.state.x + a.vec2.x, t.state.y + a.vec2.y, t.state.x + a.vec3.x, t.state.y + a.vec3.y));
         for(var i = 1; i < 4; i++) {
-          els.push(t.debugCircle(t.vars.x + a["vec"+i].x, t.vars.y + a["vec"+i].y))
+          els.push(t.debugCircle(t.state.x + a["vec"+i].x, t.state.y + a["vec"+i].y))
         }
       }
       else if(a.command == 'quad' && typeof a.vec2 !== 'undefined') {
-        els.push(t.debugLine(t.vars.x + a.vec1.x, t.vars.y + a.vec1.y, t.vars.x + a.vec2.x, t.vars.y + a.vec2.y));
+        els.push(t.debugLine(t.state.x + a.vec1.x, t.state.y + a.vec1.y, t.state.x + a.vec2.x, t.state.y + a.vec2.y));
         for(var i = 1; i < 3; i++) {
-          els.push(t.debugCircle(t.vars.x + a["vec"+i].x, t.vars.y + a["vec"+i].y))
+          els.push(t.debugCircle(t.state.x + a["vec"+i].x, t.state.y + a["vec"+i].y))
         }
       }
     });

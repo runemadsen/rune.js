@@ -7,10 +7,10 @@ var svg = require('virtual-dom/virtual-hyperscript/svg');
 var Text = function(text, x, y) {
   this.shape();
   this.styles();
-  this.vars.text = text;
-  this.vars.x = x;
-  this.vars.y = y;
-  this.vars.fontSize = 16;
+  this.state.text = text;
+  this.state.x = x;
+  this.state.y = y;
+  this.state.fontSize = 16;
 }
 
 Text.prototype = {
@@ -20,57 +20,57 @@ Text.prototype = {
   },
 
   textAlign: function(textAlign) {
-    this.vars.textAlign = textAlign; ;
+    this.state.textAlign = textAlign; ;
     this.changed();
     return this
   },
 
   fontFamily: function(fontFamily) {
-    this.vars.fontFamily = fontFamily;
+    this.state.fontFamily = fontFamily;
     this.changed();
     return this;
   },
 
   fontStyle: function(fontStyle) {
-    this.vars.fontStyle = fontStyle;
+    this.state.fontStyle = fontStyle;
     this.changed();
     return this;
   },
 
   fontWeight: function(fontWeight) {
-    this.vars.fontWeight = fontWeight;
+    this.state.fontWeight = fontWeight;
     this.changed();
     return this;
   },
 
   fontSize: function(fontSize) {
-    this.vars.fontSize = fontSize;
+    this.state.fontSize = fontSize;
     this.changed();
     return this;
   },
 
   letterSpacing: function(letterSpacing) {
-    this.vars.letterSpacing = letterSpacing;
+    this.state.letterSpacing = letterSpacing;
     this.changed();
     return this;
   },
 
   textDecoration: function(textDecoration) {
-    this.vars.textDecoration = textDecoration;
+    this.state.textDecoration = textDecoration;
     this.changed();
     return this;
   },
 
   copy: function(parent) {
     var copy = new Text();
-    copy.vars.text = this.vars.text;
-    copy.vars.textAlign = this.vars.textAlign;
-    copy.vars.fontFamily = this.vars.fontFamily;
-    copy.vars.fontStyle = this.vars.fontStyle;
-    copy.vars.fontWeight = this.vars.fontWeight;
-    copy.vars.fontSize = this.vars.fontSize;
-    copy.vars.letterSpacing = this.vars.letterSpacing;
-    copy.vars.textDecoration = this.vars.textDecoration;
+    copy.state.text = this.state.text;
+    copy.state.textAlign = this.state.textAlign;
+    copy.state.fontFamily = this.state.fontFamily;
+    copy.state.fontStyle = this.state.fontStyle;
+    copy.state.fontWeight = this.state.fontWeight;
+    copy.state.fontSize = this.state.fontSize;
+    copy.state.letterSpacing = this.state.letterSpacing;
+    copy.state.textDecoration = this.state.textDecoration;
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
@@ -78,23 +78,23 @@ Text.prototype = {
 
   scale: function(scalar) {
     this.scaleStyles(scalar);
-    this.vars.fontSize *= scalar;
+    this.state.fontSize *= scalar;
     this.changed();
     return this;
   },
 
   render: function(opts) {
     var attr = {
-      x: Utils.s(this.vars.x),
-      y: Utils.s(this.vars.y),
+      x: Utils.s(this.state.x),
+      y: Utils.s(this.state.y),
     }
     this.shapeAttributes(attr);
     this.stylesAttributes(attr);
 
     // attributes that need specific handling
-    if(this.vars.textAlign) {
+    if(this.state.textAlign) {
       var translate = { "left":"start", "center":"middle", "right":"end" };
-      attr["text-anchor"] = translate[this.vars.textAlign];
+      attr["text-anchor"] = translate[this.state.textAlign];
     }
 
     this.optionalAttributes(attr, {
@@ -107,12 +107,12 @@ Text.prototype = {
       "textDecoration" : "text-decoration"
     });
 
-    if(this.vars.textAlign) {
+    if(this.state.textAlign) {
       var translate = { "left":"start", "center":"middle", "right":"end" };
-      attr["text-anchor"] = translate[this.vars.textAlign];
+      attr["text-anchor"] = translate[this.state.textAlign];
     }
 
-    return svg('text', attr, this.vars.text);
+    return svg('text', attr, this.state.text);
   }
 
 }

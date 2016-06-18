@@ -4,12 +4,12 @@ describe("Rune.Group", function() {
 
      it("should have optional x and y", function() {
       var g1 = new Rune.Group();
-      expect(g1.vars.x).toEqual(0);
-      expect(g1.vars.y).toEqual(0);
+      expect(g1.state.x).toEqual(0);
+      expect(g1.state.y).toEqual(0);
 
       var g2 = new Rune.Group(100, 101);
-      expect(g2.vars.x).toEqual(100);
-      expect(g2.vars.y).toEqual(101);
+      expect(g2.state.x).toEqual(100);
+      expect(g2.state.y).toEqual(101);
     });
 
   });
@@ -114,13 +114,13 @@ describe("Rune.Group", function() {
       g.add(childGroup);
       g.add(childShape);
       g.scale(2);
-      expect(g.vars.x).toEqual(10);
-      expect(g.vars.y).toEqual(15);
-      expect(childGroup.vars.x).toEqual(40);
-      expect(childGroup.vars.y).toEqual(50);
-      expect(childShape.vars.x).toEqual(60);
-      expect(childShape.vars.y).toEqual(70);
-      expect(childShape.vars.radius).toEqual(80);
+      expect(g.state.x).toEqual(10);
+      expect(g.state.y).toEqual(15);
+      expect(childGroup.state.x).toEqual(40);
+      expect(childGroup.state.y).toEqual(50);
+      expect(childShape.state.x).toEqual(60);
+      expect(childShape.state.y).toEqual(70);
+      expect(childShape.state.radius).toEqual(80);
     });
 
   });

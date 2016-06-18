@@ -8,31 +8,37 @@ var svg = require('virtual-dom/virtual-hyperscript/svg');
 var Circle = function(x, y, radius) {
   this.shape();
   this.styles();
-  this.vars.x = x;
-  this.vars.y = y;
-  this.vars.radius = radius;
+  this.state.x = x;
+  this.state.y = y;
+  this.state.radius = radius;
 }
 
 Circle.prototype = {
 
   toPolygon: function(opts, parent) {
-    var ellipse = new Ellipse(this.vars.x, this.vars.y, this.vars.radius*2, this.vars.radius*2);
+    var ellipse = new Ellipse(this.state.x, this.state.y, this.state.radius*2, this.state.radius*2);
     var poly = ellipse.toPolygon(opts, false);
     Utils.copyMixinVars(this, poly);
     Utils.groupLogic(poly, this.parent, parent);
     return poly;
   },
 
+  radius: function(radius, relative) {
+    this.state.radius = relative ? this.state.radius + radius : radius;
+    this.changed();
+    return this;
+  },
+
   scale: function(scalar) {
     this.scaleStyles(scalar);
-    this.vars.radius *= scalar;
+    this.state.radius *= scalar;
     this.changed();
     return this;
   },
 
   copy: function(parent) {
     var copy = new Circle();
-    copy.vars.radius = this.vars.radius;
+    copy.state.radius = this.state.radius;
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
@@ -40,9 +46,9 @@ Circle.prototype = {
 
   render: function(opts) {
     var attr = {
-      cx: Utils.s(this.vars.x),
-      cy: Utils.s(this.vars.y),
-      r: Utils.s(this.vars.radius)
+      cx: Utils.s(this.state.x),
+      cy: Utils.s(this.state.y),
+      r: Utils.s(this.state.radius)
     }
     this.shapeAttributes(attr);
     this.stylesAttributes(attr);

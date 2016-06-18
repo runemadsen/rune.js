@@ -13,8 +13,8 @@ var Group = function(x, y) {
   this.children = [];
   this.changedChildren = [];
   this.renderedChildren = [];
-  if(typeof x !== 'undefined') this.vars.x = x;
-  if(typeof y !== 'undefined') this.vars.y = y;
+  if(typeof x !== 'undefined') this.state.x = x;
+  if(typeof y !== 'undefined') this.state.y = y;
 }
 
 Group.prototype = {
@@ -46,8 +46,8 @@ Group.prototype = {
 
   scale: function(scalar) {
     each(this.children, function(child) {
-      child.vars.x *= scalar;
-      child.vars.y *= scalar;
+      child.state.x *= scalar;
+      child.state.y *= scalar;
       child.scale(scalar);
     });
     return this;

@@ -8,11 +8,11 @@ var svg = require('virtual-dom/virtual-hyperscript/svg');
 var Image = function(url, x, y, width, height) {
   this.shape();
   this.box();
-  this.vars.url = url;
-  this.vars.x = x;
-  this.vars.y = y;
-  this.vars.width = width;
-  this.vars.height = height;
+  this.state.url = url;
+  this.state.x = x;
+  this.state.y = y;
+  this.state.width = width;
+  this.state.height = height;
 }
 
 Image.prototype = {
@@ -25,7 +25,7 @@ Image.prototype = {
 
   copy: function(parent) {
     var copy = new Image();
-    copy.vars.url = this.vars.url;
+    copy.state.url = this.state.url;
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
@@ -33,9 +33,9 @@ Image.prototype = {
 
   render: function(opts) {
     var attr = {
-      "xlink:href" : Utils.s(this.vars.url),
-      x: Utils.s(this.vars.x),
-      y: Utils.s(this.vars.y)
+      "xlink:href" : Utils.s(this.state.url),
+      x: Utils.s(this.state.x),
+      y: Utils.s(this.state.y)
     }
     this.optionalAttributes(attr, {
       "width" : "width",

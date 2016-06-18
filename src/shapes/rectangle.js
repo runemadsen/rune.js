@@ -10,28 +10,28 @@ var Rectangle = function(x, y, width, height) {
   this.shape();
   this.box();
   this.styles();
-  this.vars.x = x;
-  this.vars.y = y;
-  this.vars.width = width;
-  this.vars.height = height;
+  this.state.x = x;
+  this.state.y = y;
+  this.state.width = width;
+  this.state.height = height;
 }
 
 Rectangle.prototype = {
 
   round: function(rx, ry) {
     if(!ry) ry = rx;
-    this.vars.rx = rx;
-    this.vars.ry = ry;
+    this.state.rx = rx;
+    this.state.ry = ry;
     this.changed();
     return this;
   },
 
   toPolygon: function(opts, parent) {
-    var poly =  new Polygon(this.vars.x, this.vars.y)
+    var poly =  new Polygon(this.state.x, this.state.y)
       .lineTo(0, 0)
-      .lineTo(this.vars.width, 0)
-      .lineTo(this.vars.width, this.vars.height)
-      .lineTo(0, this.vars.height);
+      .lineTo(this.state.width, 0)
+      .lineTo(this.state.width, this.state.height)
+      .lineTo(0, this.state.height);
 
     if(opts) poly = poly.toPolygon(opts, false);
 
@@ -57,13 +57,13 @@ Rectangle.prototype = {
 
   render: function(opts) {
     var attr = {
-      x: Utils.s(this.vars.x),
-      y: Utils.s(this.vars.y),
-      width: Utils.s(this.vars.width),
-      height: Utils.s(this.vars.height)
+      x: Utils.s(this.state.x),
+      y: Utils.s(this.state.y),
+      width: Utils.s(this.state.width),
+      height: Utils.s(this.state.height)
     }
-    if(this.vars.rx)  attr.rx = Utils.s(this.vars.rx);
-    if(this.vars.ry)  attr.ry = Utils.s(this.vars.ry);
+    if(this.state.rx)  attr.rx = Utils.s(this.state.rx);
+    if(this.state.ry)  attr.ry = Utils.s(this.state.ry);
     this.shapeAttributes(attr);
     this.stylesAttributes(attr);
     return svg('rect', attr);

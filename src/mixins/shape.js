@@ -17,30 +17,30 @@ var Shape = {
   },
 
   shape: function(copy) {
-    this.vars = this.vars || {};
-    this.vars.x = copy ? copy.vars.x : 0;
-    this.vars.y = copy ? copy.vars.y : 0;
-    this.vars.rotation = copy ? copy.vars.rotation : 0;
-    this.vars.rotationX = copy ? copy.vars.rotationX : 0;
-    this.vars.rotationY = copy ? copy.vars.rotationY : 0;
+    this.state = this.state || {};
+    this.state.x = copy ? copy.state.x : 0;
+    this.state.y = copy ? copy.state.y : 0;
+    this.state.rotation = copy ? copy.state.rotation : 0;
+    this.state.rotationX = copy ? copy.state.rotationX : 0;
+    this.state.rotationY = copy ? copy.state.rotationY : 0;
   },
 
   move: function(x, y, relative) {
-    this.vars.x = relative ? this.vars.x + x : x;
-    this.vars.y = relative ? this.vars.y + y : y;
+    this.state.x = relative ? this.state.x + x : x;
+    this.state.y = relative ? this.state.y + y : y;
     this.changed();
     return this;
   },
 
   rotate: function(deg, x, y, relative) {
-    this.vars.rotation = deg;
+    this.state.rotation = deg;
     if(x || y) {
-      this.vars.rotationX = x || 0;
-      this.vars.rotationY = y || 0;
+      this.state.rotationX = x || 0;
+      this.state.rotationY = y || 0;
     }
     if(relative) {
-      this.vars.rotationX += this.vars.x;
-      this.vars.rotationY += this.vars.y;
+      this.state.rotationX += this.state.x;
+      this.state.rotationY += this.state.y;
     }
     this.changed();
     return this;
@@ -57,7 +57,7 @@ var Shape = {
   },
 
   stagepos: function() {
-    var vec = new Vector(this.vars.x, this.vars.y);
+    var vec = new Vector(this.state.x, this.state.y);
     if(this.parent) {
       vec = vec.add(this.parent.stagepos());
     }
@@ -71,15 +71,15 @@ var Shape = {
 
     var strings = [];
 
-    if(this.vars.rotation) {
-      var rot = "rotate(" + this.vars.rotation;
-      if(this.vars.rotationX || this.vars.rotationY)
-        rot += " " + this.vars.rotationX + " " + this.vars.rotationY;
+    if(this.state.rotation) {
+      var rot = "rotate(" + this.state.rotation;
+      if(this.state.rotationX || this.state.rotationY)
+        rot += " " + this.state.rotationX + " " + this.state.rotationY;
       strings.push(rot + ")");
     }
 
-    if((this.type == "group" || this.type == "path" || this.type == "polygon" || this.type == "grid" || this.type == "triangle") && (this.vars.x || this.vars.y)) {
-      strings.push("translate(" + this.vars.x + " " + this.vars.y + ")");
+    if((this.type == "group" || this.type == "path" || this.type == "polygon" || this.type == "grid" || this.type == "triangle") && (this.state.x || this.state.y)) {
+      strings.push("translate(" + this.state.x + " " + this.state.y + ")");
     }
 
     if(strings.length > 0)
@@ -90,8 +90,8 @@ var Shape = {
 
   optionalAttributes: function(attr, keys) {
     each(keys, function(attribute, variable) {
-      if(this.vars[variable]) {
-        attr[attribute] = Utils.s(this.vars[variable]);
+      if(this.state[variable]) {
+        attr[attribute] = Utils.s(this.state[variable]);
       }
     }, this);
   },

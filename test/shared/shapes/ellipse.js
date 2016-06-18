@@ -12,16 +12,16 @@ describe("Rune.Ellipse", function() {
 
     it("defaults to 16 vectors", function() {
       var poly = s.toPolygon();
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(16);
+      expect(poly.state.x).toEqual(10);
+      expect(poly.state.y).toEqual(15);
+      expect(poly.state.vectors.length).toEqual(16);
     });
 
     it("returns polygon with even spaced vectors", function() {
       var poly = s.toPolygon({ spacing: 50 });
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(39);
+      expect(poly.state.x).toEqual(10);
+      expect(poly.state.y).toEqual(15);
+      expect(poly.state.vectors.length).toEqual(39);
     });
 
     it("adds polygon to parent", function() {
@@ -38,7 +38,7 @@ describe("Rune.Ellipse", function() {
       expect(g.children.length).toEqual(1);
     });
 
-    it("copies the mixin vars", function() {
+    it("copies the mixin state", function() {
       setMixinVars(s)
       var p = s.toPolygon();
       expect(getMixinVars(p)).toBeIn(getMixinVars(s));
@@ -58,8 +58,8 @@ describe("Rune.Ellipse", function() {
       spyOn(s, 'scaleBox');
       spyOn(s, 'scaleStyles');
       s.scale(2);
-      expect(s.vars.x).toEqual(10);
-      expect(s.vars.y).toEqual(15);
+      expect(s.state.x).toEqual(10);
+      expect(s.state.y).toEqual(15);
       expect(s.scaleBox).toHaveBeenCalledWith(2);
       expect(s.scaleStyles).toHaveBeenCalledWith(2);
     });

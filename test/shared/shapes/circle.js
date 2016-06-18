@@ -8,20 +8,27 @@ describe("Rune.Circle", function() {
     g = new Rune.Group();
   });
 
+  describe("radius()", function() {
+    it("sets the radius", function() {
+      s.radius(400);
+      expect(s.state.radius).toEqual(400);
+    });
+  });
+
   describe("toPolygon()", function() {
 
     it("defaults to 16 vectors", function() {
       var poly = s.toPolygon();
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(16);
+      expect(poly.state.x).toEqual(10);
+      expect(poly.state.y).toEqual(15);
+      expect(poly.state.vectors.length).toEqual(16);
     });
 
     it("returns polygon with even spaced vectors", function() {
       var poly = s.toPolygon({ spacing: 50 });
-      expect(poly.vars.x).toEqual(10);
-      expect(poly.vars.y).toEqual(15);
-      expect(poly.vars.vectors.length).toEqual(76);
+      expect(poly.state.x).toEqual(10);
+      expect(poly.state.y).toEqual(15);
+      expect(poly.state.vectors.length).toEqual(76);
     });
 
     it("adds polygon to parent", function() {
@@ -38,7 +45,7 @@ describe("Rune.Circle", function() {
       expect(g.children.length).toEqual(1);
     });
 
-    it("copies the mixin vars", function() {
+    it("copies the mixin state", function() {
       setMixinVars(s)
       var p = s.toPolygon();
       expect(getMixinVars(p)).toBeIn(getMixinVars(s));
@@ -57,9 +64,9 @@ describe("Rune.Circle", function() {
     it("scales the circle", function() {
       spyOn(s, 'scaleStyles');
       s.scale(2);
-      expect(s.vars.x).toEqual(10);
-      expect(s.vars.y).toEqual(15);
-      expect(s.vars.radius).toEqual(600);
+      expect(s.state.x).toEqual(10);
+      expect(s.state.y).toEqual(15);
+      expect(s.state.radius).toEqual(600);
       expect(s.scaleStyles).toHaveBeenCalledWith(2);
     });
 
