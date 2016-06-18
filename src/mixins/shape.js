@@ -7,8 +7,15 @@ var Shape = {
 
   changed: function() {
     if(this.parent && !this.parentNotified) {
+
+      // let the parent know that this child changed
       this.parent.changedChildren.push(this.childId);
+
+      // let's not do it again
       this.parentNotified = true;
+
+      // let the parent do this for its parent
+      this.parent.changed();
     }
   },
 

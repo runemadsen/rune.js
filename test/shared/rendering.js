@@ -1,4 +1,4 @@
-describe("Rune.Render", function() {
+describe("Rendering", function() {
 
   var r;
   var el;
@@ -326,7 +326,24 @@ describe("Rune.Render", function() {
       var g = r.group(10, 15);
       r.draw();
       expect(r.el.childNodes.length).toEqual(0);
-    })
+    });
+
+    it("should rerender if child group changed", function() {
+      var parent = r.group(10, 15);
+      var child = r.group(20, 25, parent);
+      var c = r.circle(10, 15, 100, child);
+      r.draw();
+      c.move(1, 2, true);
+      r.draw();
+      var jcirc = r.el.childNodes[0].childNodes[0].childNodes[0];
+      expect(jcirc).toBeTag("circle");
+      expect(jcirc).toHaveAttrs({
+        cx: 11,
+        cy: 17,
+        r: 100
+      });
+
+    });
 
   });
 
