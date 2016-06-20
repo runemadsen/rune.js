@@ -5,7 +5,7 @@ title: "Rune.js Documentation"
 
 # Rune.js
 
-Rune.js is a JavaScript library for programming graphic design systems with SVG in the browser or node.js. It features a chainable drawing API, an unobtrusive scene graph, and a range of features aimed specifically at graphic designers: native support for color conversion, grid systems, typography, pixel iteration, as well as an expanding set of computational geometry helpers. Oh, and it uses [virtual-dom](https://github.com/Matt-Esch/virtual-dom) under the hood.
+Rune.js is a JavaScript library for programming graphic design systems with SVG in both the browser or node.js. It features a chainable drawing API, an unobtrusive scene graph, and a range of features aimed specifically at graphic designers: native support for color conversion, grid systems, typography, pixel iteration, as well as an expanding set of computational geometry helpers. Oh, and it uses [virtual-dom](https://github.com/Matt-Esch/virtual-dom) under the hood.
 
 {% include banner.html %}
 
@@ -266,9 +266,9 @@ You can find a lot more example code in [the color examples](http://printingcode
 
 ### The stage and groups
 
-If you're coming from Processing, the concept of a stage graph might be a bit unfamiliar. However, the basics are actually pretty simple to understand. In Processing, the `rect()` function will just draw a rectangle on the screen. You have no way to later access the x, y, width or height of that rectangle.
+If you're coming from Processing, the concept of a scene graph might be a bit unfamiliar. However, the basics are actually pretty simple to understand. In Processing, the `rect()` function will just draw a rectangle on the screen. You have no way to later access the x, y, width or height of that rectangle.
 
-In `Rune.js`, that same function will actually create a `Rune.Rectangle` object, and add it to the stage. Every time the `draw()` method is called, `Rune.js` will look through the stage objects and draw all of them on the screen in order. The benefit is that shape objects will always hold the current state of the shape. See [Shape variables](#shape-variables) for more.
+In `Rune.js`, that same function will actually create a `Rectangle` object, and add it to the stage. Every time the `draw()` method is called, `Rune.js` will look through the stage objects and draw all of them on the screen in order. The benefit is that shape objects will always hold the current state of the shape. See [Shape variables](#shape-variables) for more.
 
 You can use groups to group many shapes together. A group can be created by using the `group()` function.
 
@@ -316,35 +316,31 @@ The main stage is actually just a group, which can be accessed via `r.stage`. Se
 
 ### Shape variables
 
-All shapes have a `vars` object that hold the current state of the shape. This is mostly done to separate functions and state, so you can use `fill()` to set the fill color, and `vars.fill` to access the current color.
-
-You can use this `vars` object to get information about the shape. For example, here's how you get the current position of a shape.
+All shapes have a `state` object that holds the current state of the shape. You can use this `state` object to get information about the shape. For example, here's how you get the current position of a shape.
 
 ```js
-var x = myShape.vars.x;
-var y = myShape.vars.y;
+var x = myShape.state.x;
+var y = myShape.state.y;
 console.log("my shape is at", x, y);
 ```
 
-Unless you know what you're doing, **the vars object should only be used to read values**. You can easily figure out what variables a shape has by doing `console.log(myShape.vars)`, and opening the web inspector to browse the variables.
+Unless you know what you're doing, do not manipulate this state object directly. If you do change something in state, remember to call `changed()` on the shape to force a re-render.
 
-### Draw loop
+### Update loop
 
-`Rune.js` will draw the entire stage graph to the screen when you call the `draw()` function. However, there's also a built-in draw event that you can use for animation. This event is fired 60 times a second by default. So moving a rectangle across the screen 1px at the time is as simple as this.
+You can use the `play()` function to repeatedly draw the scene to the screen 60 times a second. `Rune.js` will also fire a `update` event on every frame, so you can animate your shapes. Here's a simple example that moves a rectangle across the screen.
 
 ```js
 var rectangle = r.rect(0, 0, 100, 50);
 
-r.on('draw', function() {
+r.on('update', function() {
   rectangle.move(1, 0, true);
 });
 
 r.play()
 ```
 
-Notice that you need to call `play()` to start triggering the draw events.
-
-It's very important to understand the difference between the code above that moves a single rectangle object, and the code below which adds a new rectangle to the stage on every frame.
+It's very important to understand the difference between the code above that moves a single rectangle object, and the code below which adds a new rectangle to the stage on every frame. The code below will eventually slow down, so the above code is much better.
 
 ```js
 var x = 0;

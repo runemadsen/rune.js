@@ -155,9 +155,9 @@ Can be used to scale both shapes and groups. If called on a shape, the shape wil
 
 Keep in mind that scaling is a one-time transformation that only affects the current state of the shape. So calling `scale()` on an empty polygon, path or group will have no affect at all.
 
-### `addParent(parent)`
+### `addTo(group)`
 
-Changes the parent of the shape to group passed in the `parent` parameter.
+Changes the parent of the shape to the group passed in the `group` parameter.
 
 ### `removeParent()`
 
@@ -224,6 +224,14 @@ Gives the rectangle rounded corners.
 - `x` - x-axis radius of the ellipse used to round off the corners of the rectangle
 - `y` - (optional) y-axis radius of the ellipse used to round off the corners of the rectangle
 
+### `width(num, relative)`
+
+Changes the width of the rectangle. If the second argument is set to `true`, the value will be added to the width of the shape.
+
+### `height(num, relative)`
+
+Changes the height of the rectangle. If the second argument is set to `true`, the value will be added to the height of the shape.
+
 ## Rune.Line
 
 ### `new Rune.Line(x1, y1, x2, y2)`
@@ -241,11 +249,23 @@ Creates a new line object. The new line is not added to the stage.
 
 Creates a new circle object. The new circle is not added to the stage.
 
+### `radius(degree, relative)`
+
+Changes the radius of the rectangle. If the second argument is set to `true`, the value will be added to the radius of the shape.
+
 ## Rune.Ellipse
 
 ### `new Rune.Ellipse(x, y, width, height)`
 
 Creates a new ellipse object. The new circle is not added to the stage.
+
+### `width(num, relative)`
+
+Changes the width of the rectangle. If the second argument is set to `true`, the value will be added to the width of the shape.
+
+### `height(num, relative)`
+
+Changes the height of the rectangle. If the second argument is set to `true`, the value will be added to the height of the shape.
 
 ## Rune.Triangle
 
@@ -397,6 +417,14 @@ Specifies the font decoration. `weight` can be a string of `"none"`, `"underline
 ### `new Rune.Image(url, x, y, width, height)`
 
 Creates a new image object that is not added to the stage. SVG does not support initial image sizes, so you must specify a width and a height for the image.
+
+### `width(num, relative)`
+
+Changes the width of the image. If the second argument is set to `true`, the value will be added to the width of the shape.
+
+### `height(num, relative)`
+
+Changes the height of the image. If the second argument is set to `true`, the value will be added to the height of the shape.
 
 ## Rune.Group
 
