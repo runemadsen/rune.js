@@ -8,13 +8,13 @@ describe("Rune", function() {
 
   describe("on()", function() {
 
-    describe("draw", function() {
+    describe("update", function() {
 
-      it("triggers draw event", function(done) {
+      it("triggers update event", function(done) {
         var mock = { draw: function(){} };
         spyOn(mock, 'draw');
         var r = new Rune();
-        r.on('draw', mock.draw);
+        r.on('update', mock.draw);
         r.play();
         setTimeout(function() {
           expect(mock.draw).toHaveBeenCalled();
@@ -32,7 +32,7 @@ describe("Rune", function() {
       var mock = { onetime: function(){} };
       spyOn(mock, 'onetime');
       var r = new Rune();
-      r.on('draw', function() {
+      r.on('update', function() {
         mock.onetime();
         r.pause();
       });
@@ -56,7 +56,7 @@ describe("Rune", function() {
 
     it("defaults to 60 fps", function(done) {
       var r = new Rune();
-      r.on('draw', mock.draw);
+      r.on('update', mock.draw);
       r.play();
       setTimeout(function() {
         expect(mock.draw.calls.count() > 14).toBe(true)
@@ -67,7 +67,7 @@ describe("Rune", function() {
 
     it("follows framerate", function(done) {
       var r = new Rune({frameRate:10});
-      r.on('draw', mock.draw);
+      r.on('update', mock.draw);
       r.play();
       setTimeout(function() {
         expect(mock.draw.calls.count() > 1).toBe(true)
