@@ -17,7 +17,6 @@
   </style>
 </head>
 <body>
-  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
   <div id="canvas"></div>
   <script type="text/javascript">
 
@@ -28,12 +27,11 @@ var r = new Rune({
   debug: true
 });
 
-r.on('mousemove', function(mouse) {
-  console.log(mouse)
-  r.ellipse(mouse.x, mouse.y, 2, 2);
-});
+var c = r.circle(0, 0, 100);
+var parent = r.group(100, 100);
+parent.add(c);
 
-r.play();
+r.draw();
 
   </script>
 </body>

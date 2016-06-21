@@ -30,7 +30,19 @@ Group.prototype = {
   remove: function(child) {
     this.children = without(this.children, child);
     this.changedChildren = without(this.changedChildren, child.childId);
+
+    // Lower id's of all children above by one
+    for(var i = child.childId; i < this.children.length; i++) {
+      this.children[i].childId--;
+    }
+
+    // lower id's of all changedChildren by one
+    for(var i = 0; i < this.changedChildren; i++) {
+      if(this.changedChildren[i] > child.childId) this.changedChildren[i]--;
+    }
+
     child.childId = null;
+    child.parentNotified = false;
     child.parent = false;
   },
 
@@ -74,7 +86,6 @@ Group.prototype = {
 
 }
 
-// Should we figure out a better way to do mixins for ES6?
 assign(Group.prototype, Shape, {type: "group"});
 
 module.exports = Group;

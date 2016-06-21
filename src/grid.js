@@ -57,10 +57,11 @@ Grid.prototype = {
     // index is x + (y * width)
     var index = (column-1) + ((row-1) * this.state.columns)
 
-    if(this.modules[index])
+    if(this.modules[index]) {
       this.modules[index].add(child)
-    else
+    } else {
       throw new Error("Column or row does not exist");
+    }
   },
 
   getModule: function(column, row) {

@@ -143,13 +143,4 @@ describe("Rune.Grid", function() {
 
   });
 
-  // copy
-
-  // you can add object into the modules
-  // add(object, col, row)
-
-  // TODO: you can change the grid dimensions to have all objects move
-  // but if you added an object and moved it, it's going to move it
-  // relative to the new position.
-
 });

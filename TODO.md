@@ -1,4 +1,6 @@
-# TODO
+# TODO BEFORE RELEASE
+
+- Grid is not rendering
 
 ## Backlog
 

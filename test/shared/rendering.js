@@ -345,6 +345,14 @@ describe("Rendering", function() {
 
     });
 
+    it("should render in group if moved from stage to group", function() {
+      var c = r.circle(10, 15, 100);
+      var parent = r.group(10, 15);
+      parent.add(c);
+      r.draw();
+      console.log(r.el);
+    });
+
   });
 
   describe("Rune.Grid", function() {

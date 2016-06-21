@@ -82,7 +82,7 @@ Rune.prototype = {
   },
 
   relativePos: function(pageX, pageY) {
-    var bounds = this.renderer.el.getBoundingClientRect();
+    var bounds = this.el.getBoundingClientRect();
     var relX = pageX - window.scrollX - bounds.left;
     var relY = pageY - window.scrollY - bounds.top;
     return { x: relX, y: relY };
@@ -216,7 +216,7 @@ Rune.prototype = {
     var newTree = svg('svg', {
       width: Utils.s(this.width),
       height: Utils.s(this.height)
-    }, [this.stage.renderChildren({ debug: this.debug})]);
+    }, [this.stage.renderChildren({ debug: this.debug })]);
 
     var diffTree = diff(this.tree, newTree);
     this.el = patch(this.el, diffTree);
