@@ -3,7 +3,7 @@
 This is a release that **changes the existing API**. It fixes a number of problem discovered while using Rune.js. Most important, it implements a new React-inspired rendering mechanism that only re-renders changed objects. The library used to loop through every object to generate a virtual DOM patch. This would make the actual DOM change fast, but it still took up a lot of memory to iterate through every object. This new release changes the rendering so only shapes that changes are re-rendered in memory, making the library efficient both in the memory cycles and in the the DOM manipulation phase.
 
 - `.vars` is now called `.state`
-- `draw` event is now called `update`.
+- `draw` event is now called `update`. This should make it clearer to not to Processing-style overpainting.
 - Implemented a new rendering strategy. This makes it a no no to change`.state` directly without calling the `.changed()` method on a shape. `.changed()` is automatically called for all shape functions that change the shape. Render time for 10k shapes fell from 12 seconds to 400 milliseconds.
 - `Line` method `move()` now moves the entire line and not just the starting position.
 - Shape functions no longer accept vectors. Will re-implement soon.
