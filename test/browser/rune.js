@@ -25,28 +25,29 @@ describe("Browser", function() {
 
     });
 
-    describe("when width and height are numbers", function() {
-      it("should use those numbers", function() {
-        var r = new Rune({width: 100, height: 105, container:".parent"});
-        expect(r.width).toEqual(100);
-        expect(r.height).toEqual(105);
-      });
+    it("should use width and height", function() {
+      var r = new Rune({width: 100, height: 105, container:".parent"});
+      expect(r.width).toEqual(100);
+      expect(r.height).toEqual(105);
     });
 
     describe("when no width and height", function() {
-      it("should set to browser default el dimensions", function() {
+
+      it("should set to el dimensions", function() {
         var r = new Rune({container:".parent"});
         expect(r.width).toEqual(300);
         expect(r.height).toEqual(150);
       });
-    });
 
-    describe("when percentage values", function() {
-      it("should set to el dimensions", function() {
-        var r = new Rune({width: "100%", height: "100%", container:".parent"});
-        expect(r.width).toEqual(500);
-        expect(r.height).toEqual(400);
+      it("should not render width and height in SVG", function() {
+        var r = new Rune({container:".parent"});
+        expect(r.el).not.toHaveAttr('width', "300");
+        expect(r.el).not.toHaveAttr('width', "150");
+        r.draw();
+        expect(r.el).not.toHaveAttr('width', "300");
+        expect(r.el).not.toHaveAttr('width', "150");
       });
+
     });
 
   });

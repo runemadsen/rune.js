@@ -1,3 +1,7 @@
+## 0.4.3
+
+- Removing ability to use percentage string in constructor. Should be done in CSS.
+
 ## 0.4.2
 
 - Better handling for node and browser if instantiating an object with percentage strings or no values for width and height.

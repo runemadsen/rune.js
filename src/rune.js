@@ -42,14 +42,17 @@ var Rune = function(options) {
     xmlns: 'http://www.w3.org/2000/svg',
     'xmlns:xlink': 'http://www.w3.org/1999/xlink'
   }
+
   if(params.width)  {
-    attrs.width = params.width.toString();
+    attrs.width = Utils.s(params.width);
     this.width = params.width;
   }
+
   if(params.height) {
-    attrs.height = params.height.toString();
+    attrs.height = Utils.s(params.height);
     this.height = params.height;
   }
+
   this.tree = svg('svg', attrs);
   this.el = createElement(this.tree);
   this.stage = new Group();
@@ -57,7 +60,6 @@ var Rune = function(options) {
   this.frameCount = 1;
   this.frameRate = params.frameRate;
 
-  // If we are in a browser
   if(params.container && Utils.isBrowser()) {
 
     if(typeof params.container === 'string') {
@@ -67,21 +69,42 @@ var Rune = function(options) {
     if(params.container) {
       this.appendTo(params.container);
       var bounds = this.el.getBoundingClientRect();
-      if(!this.width || typeof this.width == 'string')   this.width = bounds.width;
-      if(!this.height || typeof this.height == 'string') this.height = bounds.height;
+      if(!this.width)   {
+        this.width = bounds.width;
+        this.ignoreWidth = true;
+      }
+      if(!this.height) {
+        this.height = bounds.height;
+        this.ignoreHeight = true;
+      }
     } else {
       console.error("Container element not found");
     }
   }
 
   // last resort to catch no dimensions
-  if(!this.width || typeof this.width == 'string')   this.width = 640;
-  if(!this.height || typeof this.height == 'string') this.height = 480;
+  if(!this.width)   this.width = 640;
+  if(!this.height) this.height = 480;
 
   this.initEvents();
 };
 
 Rune.prototype = {
+
+  // Helpers
+  // --------------------------------------------------
+
+  //
+  handleSize: function() {
+
+  },
+
+  relativePos: function(pageX, pageY) {
+    var bounds = this.el.getBoundingClientRect();
+    var relX = pageX - window.scrollX - bounds.left;
+    var relY = pageY - window.scrollY - bounds.top;
+    return { x: relX, y: relY };
+  },
 
   // Events
   // --------------------------------------------------
@@ -91,13 +114,6 @@ Rune.prototype = {
     if(typeof window !== 'undefined') {
       this.initMouseEvents();
     }
-  },
-
-  relativePos: function(pageX, pageY) {
-    var bounds = this.el.getBoundingClientRect();
-    var relX = pageX - window.scrollX - bounds.left;
-    var relY = pageY - window.scrollY - bounds.top;
-    return { x: relX, y: relY };
   },
 
   initMouseEvents: function() {
@@ -225,11 +241,15 @@ Rune.prototype = {
 
   draw: function() {
 
-    var newTree = svg('svg', {
-      width: Utils.s(this.width),
-      height: Utils.s(this.height)
-    }, [this.stage.renderChildren({ debug: this.debug })]);
+    var attrs = {
+      xmlns: 'http://www.w3.org/2000/svg',
+      'xmlns:xlink': 'http://www.w3.org/1999/xlink'
+    }
 
+    if(!this.ignoreWidth)  attrs.width = Utils.s(this.width);
+    if(!this.ignoreHeight) attrs.height = Utils.s(this.height);
+
+    var newTree = svg('svg', attrs, [this.stage.renderChildren({ debug: this.debug })]);
     var diffTree = diff(this.tree, newTree);
     this.el = patch(this.el, diffTree);
     this.tree = newTree;

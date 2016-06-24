@@ -16,14 +16,6 @@ describe("Node", function() {
       });
     });
 
-    describe("when percentage values", function() {
-      it("should set to 640x480", function() {
-        var r = new Rune({width: "100%", height: "100%", container:".parent"});
-        expect(r.width).toEqual(640);
-        expect(r.height).toEqual(480);
-      });
-    });
-
   });
 
 });
