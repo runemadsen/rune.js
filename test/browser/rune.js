@@ -6,6 +6,30 @@ describe("Rune", function() {
     r = new Rune();
   });
 
+  describe("instantiation", function() {
+
+    it("should convert percentage values to actual dimensions", function() {
+
+      // Remove existing els if present
+      var els = document.getElementsByClassName('parent');
+      for(var i = 0; i < els.length; i++) {
+        els[0].parentNode.removeChild(els[0])
+      }
+
+      // create element
+      var div = document.createElement('div');
+      document.body.appendChild(div);
+      div.style.width = "500px";
+      div.style.height = "400px";
+      div.setAttribute('class', 'parent');
+
+      var r = new Rune({width: "100%", height: "100%", container:".parent"});
+      expect(r.width).toEqual(500);
+      expect(r.height).toEqual(400);
+    });
+
+  });
+
   describe("on()", function() {
 
     describe("update", function() {

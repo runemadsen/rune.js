@@ -18,6 +18,20 @@ assign(Line.prototype, Shape, Styles, {
 
   type: "line",
 
+  start: function(x, y, rel) {
+    this.state.x = rel ? this.state.x + x : x;
+    this.state.y = rel ? this.state.y + y : y;
+    this.changed();
+    return this;
+  },
+
+  end: function(x, y, rel) {
+    this.state.x2 = rel ? this.state.x2 + x : x;
+    this.state.y2 = rel ? this.state.y2 + y : y;
+    this.changed();
+    return this;
+  },
+
   copy: function(parent) {
     var copy = new Line();
     copy.state.x2 = this.state.x2;

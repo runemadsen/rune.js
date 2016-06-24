@@ -1,9 +1,10 @@
-# TODO BEFORE RELEASE
+# TODO
 
-- Grid is not rendering
+- Docs: `start()` and `end()`
 
 ## Backlog
 
+- Bezier curve as shape outside path
 - mouse events should work on individual shapes
 - Polygon `intersects()` http://bjornharrtell.github.io/jsts/
 - Polygon `intersection()` http://bjornharrtell.github.io/jsts/

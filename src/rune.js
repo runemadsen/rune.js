@@ -53,6 +53,7 @@ var Rune = function(options) {
   this.frameCount = 1;
   this.frameRate = params.frameRate;
 
+  // If we are in a browser
   if(params.container && typeof window !== 'undefined') {
 
     if(typeof params.container === 'string') {
@@ -63,6 +64,14 @@ var Rune = function(options) {
       this.appendTo(params.container);
     } else {
       console.error("Container element not found");
+    }
+
+    // If width or height is string, get dimension from el
+    // Makes is possible to set width to "100%"
+    if(this.el && (typeof this.width == 'string' || typeof this.height == 'string')) {
+      var bounds = this.el.getBoundingClientRect();
+      if(typeof this.width == 'string')  this.width = bounds.width;
+      if(typeof this.height == 'string') this.height = bounds.height;
     }
   }
 

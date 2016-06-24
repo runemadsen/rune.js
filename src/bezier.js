@@ -152,7 +152,6 @@
     }
     var len = args.length;
     if(len!==6 && len!==8 && len!==9 && len!==12) {
-      console.log(coords);
       throw new Error("This Bezier curve library only supports quadratic and cubic curves (in 2d and 3d)");
     }
     var _3d = (len === 9 || len === 12);

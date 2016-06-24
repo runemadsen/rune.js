@@ -1,3 +1,8 @@
+## 0.4.1
+
+- Added `setStart(x, y)` and `setEnd(x, y)` to `Line`.
+- You can now use percentage strings when instantiating a Rune.js object in a browser. `r.width` and `r.height` will be dynamically set to dimensions of the SVG based on browser rendering.
+
 ## 0.4.0
 
 This is a release that **changes the existing API**. It fixes a number of problem discovered while using Rune.js. Most important, it implements a new React-inspired rendering mechanism that only re-renders changed objects. The library used to loop through every object to generate a virtual DOM patch. This would make the actual DOM change fast, but it still took up a lot of memory to iterate through every object. This new release changes the rendering so only shapes that changes are re-rendered in memory, making the library efficient both in the memory cycles and in the the DOM manipulation phase.

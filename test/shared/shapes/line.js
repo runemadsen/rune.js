@@ -40,6 +40,28 @@ describe("Rune.Line", function() {
 
   });
 
+  describe('start()', function() {
+    it('should set the start position of the line', function() {
+      var l = new Rune.Line(10, 15, 20, 25);
+      l.start(100, 150)
+      expect(l.state.x).toEqual(100);
+      expect(l.state.y).toEqual(150);
+      expect(l.state.x2).toEqual(20);
+      expect(l.state.y2).toEqual(25);
+    });
+  });
+
+  describe('end()', function() {
+    it('should set the end position of the line', function() {
+      var l = new Rune.Line(10, 15, 20, 25);
+      l.end(200, 250)
+      expect(l.state.x).toEqual(10);
+      expect(l.state.y).toEqual(15);
+      expect(l.state.x2).toEqual(200);
+      expect(l.state.y2).toEqual(250);
+    });
+  });
+
   describe("move()", function() {
 
     it("moves the absolute", function() {

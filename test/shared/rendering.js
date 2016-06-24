@@ -350,7 +350,6 @@ describe("Rendering", function() {
       var parent = r.group(10, 15);
       parent.add(c);
       r.draw();
-      console.log(r.el);
     });
 
   });
