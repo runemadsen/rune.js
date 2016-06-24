@@ -1,5 +1,9 @@
 var Utils = {
 
+  isBrowser: function() {
+    return typeof window !== 'undefined';
+  },
+
   // function to turn any non-string into a string. We need
   // this when running server-side node.
   s: function(val) {
@@ -44,7 +48,7 @@ var Utils = {
   round: function(value, decimals) {
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
   }
-  
+
 };
 
 module.exports = Utils;

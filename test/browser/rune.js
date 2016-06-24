@@ -1,4 +1,4 @@
-describe("Rune", function() {
+describe("Browser", function() {
 
   var r;
 
@@ -8,7 +8,7 @@ describe("Rune", function() {
 
   describe("instantiation", function() {
 
-    it("should convert percentage values to actual dimensions", function() {
+    beforeEach(function() {
 
       // Remove existing els if present
       var els = document.getElementsByClassName('parent');
@@ -23,9 +23,30 @@ describe("Rune", function() {
       div.style.height = "400px";
       div.setAttribute('class', 'parent');
 
-      var r = new Rune({width: "100%", height: "100%", container:".parent"});
-      expect(r.width).toEqual(500);
-      expect(r.height).toEqual(400);
+    });
+
+    describe("when width and height are numbers", function() {
+      it("should use those numbers", function() {
+        var r = new Rune({width: 100, height: 105, container:".parent"});
+        expect(r.width).toEqual(100);
+        expect(r.height).toEqual(105);
+      });
+    });
+
+    describe("when no width and height", function() {
+      it("should set to browser default el dimensions", function() {
+        var r = new Rune({container:".parent"});
+        expect(r.width).toEqual(300);
+        expect(r.height).toEqual(150);
+      });
+    });
+
+    describe("when percentage values", function() {
+      it("should set to el dimensions", function() {
+        var r = new Rune({width: "100%", height: "100%", container:".parent"});
+        expect(r.width).toEqual(500);
+        expect(r.height).toEqual(400);
+      });
     });
 
   });

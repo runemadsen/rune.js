@@ -31,22 +31,26 @@ var svg = require('virtual-dom/virtual-hyperscript/svg');
 // --------------------------------------------------
 
 var Rune = function(options) {
+
   var params = defaults(options || {}, {
-      width: 640,
-      height: 480,
       debug: false,
       frameRate: 60
     }
   );
 
-  this.width = params.width;
-  this.height = params.height;
-  this.tree = svg('svg', {
+  var attrs = {
     xmlns: 'http://www.w3.org/2000/svg',
-    'xmlns:xlink': 'http://www.w3.org/1999/xlink',
-    width: params.width.toString(),
-    height: params.height.toString()
-  });
+    'xmlns:xlink': 'http://www.w3.org/1999/xlink'
+  }
+  if(params.width)  {
+    attrs.width = params.width.toString();
+    this.width = params.width;
+  }
+  if(params.height) {
+    attrs.height = params.height.toString();
+    this.height = params.height;
+  }
+  this.tree = svg('svg', attrs);
   this.el = createElement(this.tree);
   this.stage = new Group();
   this.debug = params.debug;
@@ -54,7 +58,7 @@ var Rune = function(options) {
   this.frameRate = params.frameRate;
 
   // If we are in a browser
-  if(params.container && typeof window !== 'undefined') {
+  if(params.container && Utils.isBrowser()) {
 
     if(typeof params.container === 'string') {
       params.container = document.querySelector(params.container);
@@ -62,18 +66,17 @@ var Rune = function(options) {
 
     if(params.container) {
       this.appendTo(params.container);
+      var bounds = this.el.getBoundingClientRect();
+      if(!this.width || typeof this.width == 'string')   this.width = bounds.width;
+      if(!this.height || typeof this.height == 'string') this.height = bounds.height;
     } else {
       console.error("Container element not found");
     }
-
-    // If width or height is string, get dimension from el
-    // Makes is possible to set width to "100%"
-    if(this.el && (typeof this.width == 'string' || typeof this.height == 'string')) {
-      var bounds = this.el.getBoundingClientRect();
-      if(typeof this.width == 'string')  this.width = bounds.width;
-      if(typeof this.height == 'string') this.height = bounds.height;
-    }
   }
+
+  // last resort to catch no dimensions
+  if(!this.width || typeof this.width == 'string')   this.width = 640;
+  if(!this.height || typeof this.height == 'string') this.height = 480;
 
   this.initEvents();
 };

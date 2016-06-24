@@ -1,3 +1,7 @@
+## 0.4.2
+
+- Better handling for node and browser if instantiating an object with percentage strings or no values for width and height.
+
 ## 0.4.1
 
 - Added `setStart(x, y)` and `setEnd(x, y)` to `Line`.
