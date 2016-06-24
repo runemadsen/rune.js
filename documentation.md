@@ -17,8 +17,8 @@ This is the technical documentation for Rune.js. See [Getting started](index.htm
 Creates a new instance to be used for all drawing methods. You can use multiple instances on a single page. `options` is a JavaScript object that can hold the following properties.
 
 - `container` - String selector or DOM element used as container for the SVG.
-- `width` - Number. The width of the SVG
-- `height` - Number. The height of the SVG
+- `width` - Number or percentage string (browser only). The width of the SVG
+- `height` - Number or percentage string (browser only). The height of the SVG
 - `frameRate` - Number. The framerate used for the draw event
 - `debug` - Boolean. Enables debug mode
 
