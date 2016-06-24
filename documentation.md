@@ -17,10 +17,12 @@ This is the technical documentation for Rune.js. See [Getting started](index.htm
 Creates a new instance to be used for all drawing methods. You can use multiple instances on a single page. `options` is a JavaScript object that can hold the following properties.
 
 - `container` - String selector or DOM element used as container for the SVG.
-- `width` - Number or percentage string (browser only). The width of the SVG
-- `height` - Number or percentage string (browser only). The height of the SVG
+- `width` - The number width of the SVG (optional).
+- `height` - The number height of the SVG (optional).
 - `frameRate` - Number. The framerate used for the draw event
 - `debug` - Boolean. Enables debug mode
+
+If `width` and/or `height` is not declared, Node will default to 640x480 while browsers will default to the rendered size of the SVG. This allows you to control the size of the SVG via CSS and still access the width and height inside your Rune.js sketch.
 
 ### `draw()`
 
