@@ -20,18 +20,31 @@
   <div id="canvas"></div>
   <script type="text/javascript">
 
-var r = new Rune({
-  container: "#canvas",
-  width: 800,
-  height: 600,
-  debug: true
-});
+  var r = new Rune({
+    container: "#canvas",
+    width: 800,
+    height: 800,
+    debug: true
+  });
 
-var c = r.circle(0, 0, 100);
-var parent = r.group(100, 100);
-parent.add(c);
 
-r.draw();
+  var myPolygon = r.polygon(200, 200)
+    .lineTo(0, 0)
+    .lineTo(70, 0)
+    .lineTo(200, 300)
+    .lineTo(150, 350);
+
+  for(var x = 0; x < r.width; x+= 50) {
+    for(var y = 0; y < r.height; y+= 50) {
+      if(myPolygon.contains(x, y)) {
+        r.circle(x, y, 25);
+      }
+    }
+  }
+
+  myPolygon.removeParent();
+
+  r.draw();
 
   </script>
 </body>

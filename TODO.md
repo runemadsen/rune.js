@@ -1,6 +1,8 @@
 # TODO
 
 - Docs: `start()` and `end()`
+- Rename circle.radius to diameter? Change toPolygon so they don't double in size
+- Remove lodash and use polyfills instead
 
 ## Backlog
 

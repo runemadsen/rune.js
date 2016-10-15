@@ -70,9 +70,11 @@ describe("Rune.Path", function() {
   });
 
   describe("length()", function() {
+
     it("should return length of all subpaths", function() {
       expect(s.length()).toEqual(912.9528291563602);
     });
+    
   });
 
   describe("vectorAt()", function() {

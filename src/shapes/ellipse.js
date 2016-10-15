@@ -21,6 +21,8 @@ Ellipse.prototype = {
   toPolygon: function(opts, parent) {
 
     var numVectors = 16;
+    var rx = this.state.width/2;
+    var ry = this.state.height/2;
 
     // if we're calculating the number of vectors based on spacing
     // find circumference and divide by spacing.
@@ -33,8 +35,8 @@ Ellipse.prototype = {
 
     var poly =  new Polygon(this.state.x, this.state.y);
     for(var i = 0; i < numVectors; i++) {
-      var x = Math.cos(Utils.radians(i * vectorAngle)) * this.state.width;
-      var y = Math.sin(Utils.radians(i * vectorAngle)) * this.state.height;
+      var x = Math.cos(Utils.radians(i * vectorAngle)) * rx;
+      var y = Math.sin(Utils.radians(i * vectorAngle)) * ry;
       poly.lineTo(x, y);
     }
 

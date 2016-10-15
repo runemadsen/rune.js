@@ -1,3 +1,8 @@
+## 0.4.4
+
+- Fixing rendering problem when using `shape.removeParent()`
+- Fixing toPolygon for ellipse and circle. Now not doubling in size because of radius/diameter shuffling
+
 ## 0.4.3
 
 - Removing ability to use percentage string in constructor. Should be done in CSS.

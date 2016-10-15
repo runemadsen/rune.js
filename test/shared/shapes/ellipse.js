@@ -10,6 +10,12 @@ describe("Rune.Ellipse", function() {
 
   describe("toPolygon()", function() {
 
+    it("converts to the correct size", function() {
+      var bounds = s.toPolygon().bounds();
+      expect(bounds.width).toEqual(300);
+      expect(bounds.height).toEqual(305);
+    });
+
     it("defaults to 16 vectors", function() {
       var poly = s.toPolygon();
       expect(poly.state.x).toEqual(10);

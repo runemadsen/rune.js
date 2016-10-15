@@ -48,6 +48,15 @@ describe("Browser", function() {
         expect(r.el).not.toHaveAttr('width', "150");
       });
 
+      it("should update width and height on resize", function() {
+        var r = new Rune({container:".parent"});
+        expect(r.el).not.toHaveAttr('width', "300");
+        expect(r.el).not.toHaveAttr('width', "150");
+        r.draw();
+        expect(r.el).not.toHaveAttr('width', "300");
+        expect(r.el).not.toHaveAttr('width', "150");
+      });
+
     });
 
   });

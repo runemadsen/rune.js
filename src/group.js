@@ -37,7 +37,7 @@ Group.prototype = {
     }
 
     // lower id's of all changedChildren by one
-    for(var i = 0; i < this.changedChildren; i++) {
+    for(var i = 0; i < this.changedChildren.length; i++) {
       if(this.changedChildren[i] > child.childId) this.changedChildren[i]--;
     }
 
