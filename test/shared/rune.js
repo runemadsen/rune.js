@@ -13,6 +13,12 @@ describe("Rune", function() {
       expect(r.width).toEqual(100);
       expect(r.height).toEqual(105);
     });
+    
+    it("should define namespace in attributes", function() {
+        var r = new Rune();
+        expect(r.tree.properties.attributes.xmlns).not.toEqual(undefined);
+        expect(r.tree.properties.attributes['xmlns:xlink']).not.toEqual(undefined);
+    });
 
   });
 

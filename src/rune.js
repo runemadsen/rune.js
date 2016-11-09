@@ -53,7 +53,11 @@ var Rune = function(options) {
     this.height = params.height;
   }
 
-  this.tree = svg('svg', attrs);
+  var props = {
+      attributes: attrs
+  }
+  
+  this.tree = svg('svg', props);
   this.el = createElement(this.tree);
   this.stage = new Group();
   this.debug = params.debug;
@@ -249,7 +253,11 @@ Rune.prototype = {
     if(!this.ignoreWidth)  attrs.width = Utils.s(this.width);
     if(!this.ignoreHeight) attrs.height = Utils.s(this.height);
 
-    var newTree = svg('svg', attrs, [this.stage.renderChildren({ debug: this.debug })]);
+    var props = {
+       attributes: attrs
+    }
+    
+    var newTree = svg('svg', props, [this.stage.renderChildren({ debug: this.debug })]);
     var diffTree = diff(this.tree, newTree);
     this.el = patch(this.el, diffTree);
     this.tree = newTree;
