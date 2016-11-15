@@ -114,6 +114,10 @@ Converts radians to degrees.
 
 Converts degrees to radians.
 
+### `Rune.map(val, start1, stop1, start2, stop2)`
+
+Maps a value from one range to another.
+
 ## All shapes
 
 All shape instances share the following functions.
