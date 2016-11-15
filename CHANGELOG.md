@@ -1,3 +1,7 @@
+## 0.4.5
+
+- Added `Rune.map()` function. Thanks to [Yining Shi](http://1023.io/)!
+
 ## 0.4.4
 
 - Fixing rendering problem when using `shape.removeParent()`

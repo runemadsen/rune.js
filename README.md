@@ -11,6 +11,8 @@ Follow [@runemadsen](https://twitter.com/runemadsen) for announcements.
 
 1. Clone down this repo
 2. Run `npm install` from the repo folder
-3. Run `gulp test:headless`, `gulp test:browser` and/or `gulp test:node`
+3. Run `gulp test:browser` or `gulp test:node`
 
+## Contributors
 
+- [Yining Shi](http://1023.io/)
