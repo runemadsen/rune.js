@@ -69,6 +69,14 @@ describe("Utils", function() {
       expect( isNaN(Rune.round(8.2442, 2)) ).toBe(false);
       expect( isNaN(Rune.round(8.2442, null)) ).toBe(true);
     });
-  })
+  });
+
+  describe("map()", function() {
+    
+    it("returns scaled value", function() {
+      expect(Rune.map(1, 0, 10, 0, 20)).toEqual(2);
+    });
+
+  });
 
 });
