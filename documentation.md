@@ -255,7 +255,7 @@ Creates a new line object. The new line is not added to the stage.
 
 Creates a new circle object. The new circle is not added to the stage.
 
-### `radius(degree, relative)`
+### `radius(length, relative)`
 
 Changes the radius of the rectangle. If the second argument is set to `true`, the value will be added to the radius of the shape.
 
