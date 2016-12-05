@@ -50,11 +50,11 @@ describe("Browser", function() {
 
       it("should update width and height on resize", function() {
         var r = new Rune({container:".parent"});
-        expect(r.el.getAttribute('width')).tobeNull();
-        expect(r.el.getAttribute('height')).tobeNull();
+        expect(r.el.getAttribute('width')).toBeNull();
+        expect(r.el.getAttribute('height')).toBeNull();
         r.draw();
-        expect(r.el.getAttribute('width')).tobeNull();
-        expect(r.el.getAttribute('height')).tobeNull();
+        expect(r.el.getAttribute('width')).toBeNull();
+        expect(r.el.getAttribute('height')).toBeNull();
       });
 
     });
