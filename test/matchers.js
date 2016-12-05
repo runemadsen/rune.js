@@ -75,44 +75,6 @@ beforeEach(function () {
       };
     },
 
-    toHaveRotation : function() {
-      return {
-        compare: function (el, rotation, rotationX, rotationY) {
-          var result = {
-            pass: true,
-            message: "Has rotation when it shouldn't"
-          }
-
-          var attr = "rotate(" + rotation;
-          if(rotationX || rotationY)
-            attr += " " + rotationX + " " + rotationY;
-          attr += ")";
-
-          if(!el.getAttribute("transform") || el.getAttribute("transform").indexOf(attr) < 0) {
-            result.pass = false;
-            result.message = "Transform does not have rotation or doesnt match: " + el.getAttribute("transform");
-          }
-          return result;
-        }
-      };
-    },
-
-    toHaveTranslation : function() {
-      return {
-        compare: function (el, x, y) {
-          var result = {
-            pass: true,
-            message: "Has translation when it shouldn't"
-          }
-          if(!el.getAttribute("transform") || el.getAttribute("transform").indexOf("translate("+ x + " " + y +")") < 0) {
-            result.pass = false;
-            result.message = "Transform does not have translation";
-          }
-          return result;
-        }
-      };
-    },
-
     toBeAnchorMove: function () {
       return {
         compare: function (vector, x, y) {

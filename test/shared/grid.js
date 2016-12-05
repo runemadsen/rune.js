@@ -189,7 +189,7 @@ describe("Rune.Grid", function() {
 
       var child = r.el.childNodes[0];
       expect(child.tagName).toEqual("g");
-      expect(child).toHaveTranslation(10, 15);
+      expect(child.getAttribute('transform')).toEqual('translate(10 15)');
       expect(child.childNodes[0].tagName).toEqual('rect')
       _.times(8, function(i) { expect(child.childNodes[i + 1].tagName).toEqual('line') });
       expect(child.childNodes[0]).toHaveAttrs({x: 0, y: 0, width:115, height:130});
