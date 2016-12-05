@@ -50,9 +50,20 @@ describe("Rune.Styles", function() {
   describe("fill()", function() {
 
     it("sets fill to color", function() {
-      var res = m.fill("#ff0000");
+      var col = new Rune.Color(255, 0, 0);
+      m.fill(col);
       expect(m.state.fill.rgbArray()).toEqual([255, 0, 0]);
-      expect(m).toEqual(res);
+    });
+
+    it("sets fill to new color", function() {
+      m.fill("#ff0000");
+      expect(m.state.fill.rgbArray()).toEqual([255, 0, 0]);
+    });
+
+    it('sets fill to gradient', function() {
+      var grad = new Rune.Gradient();
+      m.fill(grad);
+      expect(m.state.fill.type).toEqual('gradient');
     });
 
     it("sets fill to false", function() {
@@ -60,19 +71,40 @@ describe("Rune.Styles", function() {
       expect(m.state.fill).toEqual(false);
     });
 
+    it('returns the shape object', function() {
+      var res = m.fill(false);
+      expect(m).toEqual(res);
+    });
+
   });
 
   describe("stroke()", function() {
 
     it("sets stroke to color", function() {
-      var res = m.stroke("#ff0000");
+      var col = new Rune.Color(255, 0, 0);
+      m.stroke(col);
       expect(m.state.stroke.rgbArray()).toEqual([255, 0, 0]);
-      expect(m).toEqual(res);
+    });
+
+    it("sets stroke to new color", function() {
+      m.stroke("#ff0000");
+      expect(m.state.stroke.rgbArray()).toEqual([255, 0, 0]);
+    });
+
+    it('sets stroke to gradient', function() {
+      var grad = new Rune.Gradient();
+      m.stroke(grad);
+      expect(m.state.stroke.type).toEqual('gradient');
     });
 
     it("sets stroke to false", function() {
       m.stroke(false);
       expect(m.state.stroke).toEqual(false);
+    });
+
+    it('returns the shape object', function() {
+      var res = m.stroke(false);
+      expect(m).toEqual(res);
     });
 
   });

@@ -26,15 +26,17 @@ var Styles = {
   },
 
   fill: function(a, b, c, d, e) {
-    if(a === false) this.state.fill = false;
-    else            this.state.fill = new Color(a, b, c, d, e);
+    if(a === false)               this.state.fill = false;
+    else if(a.type == 'gradient') this.state.fill = a;
+    else                          this.state.fill = new Color(a, b, c, d, e);
     this.changed();
     return this;
   },
 
   stroke: function(a, b, c, d, e) {
-    if(a === false) this.state.stroke = false;
-    else            this.state.stroke = new Color(a, b, c, d, e);
+    if(a === false)               this.state.stroke = false;
+    else if(a.type == 'gradient') this.state.stroke = a;
+    else                          this.state.stroke = new Color(a, b, c, d, e);
     this.changed();
     return this;
   },
