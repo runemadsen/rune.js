@@ -1,16 +1,3 @@
-function drawShared(shape) {
-  shape
-    .rotate(45, 100, 105)
-    .fill(255, 0, 0, 0.5)
-    .stroke(0, 255, 0, 0.6)
-    .strokeWidth(5)
-    .strokeCap('round')
-    .strokeJoin('miter')
-    .strokeMiterlimit(7)
-    .strokeDash("3,4,5")
-    .strokeDashOffset(10);
-}
-
 function expectCopy(s) {
 
   // should copy shape
@@ -30,20 +17,6 @@ function expectCopy(s) {
   // should add to parent
   s.copy();
   expect(g.children.length).toEqual(2);
-}
-
-function expectShared(el) {
-  expect(el).toHaveRotation(45, 100, 105);
-  expect(el).toHaveAttr("fill", "rgb(255, 0, 0)");
-  expect(el).toHaveAttr("fill-opacity", "0.5")
-  expect(el).toHaveAttr("stroke", "rgb(0, 255, 0)");
-  expect(el).toHaveAttr("stroke-opacity", "0.6")
-  expect(el).toHaveAttr("stroke-width", "5");
-  expect(el).toHaveAttr("stroke-linecap", "round");
-  expect(el).toHaveAttr("stroke-linejoin", "miter");
-  expect(el).toHaveAttr("stroke-miterlimit", "7");
-  expect(el).toHaveAttr("stroke-dasharray", "3,4,5");
-  expect(el).toHaveAttr("stroke-dashoffset", "10");
 }
 
 function newMixin() {

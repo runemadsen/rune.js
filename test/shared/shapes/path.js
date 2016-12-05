@@ -294,6 +294,37 @@ describe("Rune.Path", function() {
       expect(el.getAttribute('fill-rule')).toEqual('evenodd');
     });
 
+    it("should render cubic curve helpers in debug mode", function() {
+      var r = new Rune({ debug: true });
+      var p = r.path(10, 10);
+      p.curveTo(100, 105, 200, 205, 300, 305).closePath();
+      r.draw();
+      expect(r.el.childNodes[1].tagName).toEqual('line');
+      expect(r.el.childNodes[2].tagName).toEqual('line');
+      expect(r.el.childNodes[3].tagName).toEqual('circle');
+      expect(r.el.childNodes[4].tagName).toEqual('circle');
+      expect(r.el.childNodes[5].tagName).toEqual('circle');
+      expect(r.el.childNodes[1]).toHaveAttrs({x1: 110, y1: 115, x2:310, y2:315});
+      expect(r.el.childNodes[2]).toHaveAttrs({x1: 210, y1: 215, x2:310, y2:315});
+      expect(r.el.childNodes[3]).toHaveAttrs({cx: 110, cy: 115});
+      expect(r.el.childNodes[4]).toHaveAttrs({cx: 210, cy: 215});
+      expect(r.el.childNodes[5]).toHaveAttrs({cx: 310, cy: 315});
+    });
+
+    it("should render quad curve helpers in debug mode", function() {
+      var r = new Rune({ debug: true });
+      var p = r.path(10, 10);
+      p.curveTo(200, 205, 300, 305).closePath();
+      r.draw();
+      expect(r.el.childNodes[1].tagName).toEqual('line')
+      expect(r.el.childNodes[2].tagName).toEqual('circle')
+      expect(r.el.childNodes[3].tagName).toEqual('circle')
+      expect(r.el.childNodes[1]).toHaveAttrs({x1: 210, y1: 215, x2:310, y2:315});
+      expect(r.el.childNodes[2]).toHaveAttrs({cx: 210, cy: 215});
+      expect(r.el.childNodes[3]).toHaveAttrs({cx: 310, cy: 315});
+
+    });
+
   });
 
 });

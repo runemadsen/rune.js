@@ -88,33 +88,119 @@ describe("Rune.Rectangle", function() {
 
   describe("render()", function() {
 
-      var r;
-      beforeEach(function() {
-        r = new Rune();
-      });
+    var r;
+    beforeEach(function() {
+      r = new Rune();
+    });
 
-      it("should render rectangle", function() {
-        r.rect(100, 105, 300, 400);
-        r.draw();
-        var el = r.el.childNodes[0];
-        expect(el.tagName).toEqual("rect");
-        expect(el.getAttribute('x')).toEqual('100');
-        expect(el.getAttribute('y')).toEqual('105');
-        expect(el.getAttribute('width')).toEqual('300');
-        expect(el.getAttribute('height')).toEqual('400');
-        expect(el.getAttribute('rx')).toBeNull();
-        expect(el.getAttribute('ry')).toBeNull();
-        expect(el.getAttribute('transform')).toBeNull();
-      });
+    it("should render rectangle", function() {
+      r.rect(100, 105, 300, 400);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.tagName).toEqual("rect");
+      expect(el.getAttribute('x')).toEqual('100');
+      expect(el.getAttribute('y')).toEqual('105');
+      expect(el.getAttribute('width')).toEqual('300');
+      expect(el.getAttribute('height')).toEqual('400');
+      expect(el.getAttribute('rx')).toBeNull();
+      expect(el.getAttribute('ry')).toBeNull();
+      expect(el.getAttribute('transform')).toBeNull();
+    });
 
-      it("should render rounded corners", function() {
-        r.rect(100, 105, 300, 400).round(25, 15);
-        r.draw();
-        var el = r.el.childNodes[0];
-        expect(el.getAttribute('rx')).toEqual('25');
-        expect(el.getAttribute('ry')).toEqual('15');
-      });
+    it("should render rounded corners", function() {
+      r.rect(100, 105, 300, 400).round(25, 15);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.getAttribute('rx')).toEqual('25');
+      expect(el.getAttribute('ry')).toEqual('15');
+    });
 
   });
+
+  describe('Shared render()', function() {
+
+    var r;
+    beforeEach(function() {
+      r = new Rune();
+    });
+
+    // SHARED TESTS BABY!
+    // These functions test rendering across all shapes with the rect as example.
+    // All other shapes just make sure that the mixin rendering functions are called.
+
+    it('renders styles', function() {
+      r.rect(0, 0, 100, 100)
+        .rotate(45, 100, 105)
+        .fill(255, 0, 0, 0.5)
+        .stroke(0, 255, 0, 0.6)
+        .strokeWidth(5)
+        .strokeCap('round')
+        .strokeJoin('miter')
+        .strokeMiterlimit(7)
+        .strokeDash("3,4,5")
+        .strokeDashOffset(10);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.getAttribute('fill')).toEqual("rgb(255, 0, 0)");
+      expect(el.getAttribute('fill-opacity')).toEqual("0.5")
+      expect(el.getAttribute('stroke')).toEqual("rgb(0, 255, 0)");
+      expect(el.getAttribute('stroke-opacity')).toEqual("0.6")
+      expect(el.getAttribute('stroke-width')).toEqual("5");
+      expect(el.getAttribute('stroke-linecap')).toEqual("round");
+      expect(el.getAttribute('stroke-linejoin')).toEqual("miter");
+      expect(el.getAttribute('stroke-miterlimit')).toEqual("7");
+      expect(el.getAttribute('stroke-dasharray')).toEqual("3,4,5");
+      expect(el.getAttribute('stroke-dashoffset')).toEqual("10");
+    })
+
+    it("renders rotation", function() {
+      r.rect(0, 0, 0, 0).rotate(45);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.getAttribute('transform')).toEqual('rotate(45)');
+    });
+
+    it("renders rotation around x and y", function() {
+      r.rect(0, 0, 0, 0).rotate(45, 0, 10);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.getAttribute('transform')).toEqual('rotate(45 0 10)');
+    });
+
+    it("should render false values correctly", function() {
+      r.rect(0, 0, 0, 0)
+        .fill(false)
+        .stroke(false)
+        .strokeWidth(false)
+        .strokeCap(false)
+        .strokeJoin(false)
+        .strokeMiterlimit(false)
+        .strokeDash(false)
+        .strokeDashOffset(false)
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.getAttribute('fill')).toEqual("none")
+      expect(el.getAttribute('stroke')).toEqual("none")
+      expect(el.getAttribute('stroke-width')).toBeNull();
+      expect(el.getAttribute('stroke-linecap')).toBeNull();
+      expect(el.getAttribute('stroke-linejoin')).toBeNull();
+      expect(el.getAttribute('stroke-miterlimit')).toBeNull();
+      expect(el.getAttribute('stroke-dasharray')).toBeNull();
+      expect(el.getAttribute('stroke-dashoffset')).toBeNull();
+    });
+
+    // it('should renders gradients', function() {
+    //   var gradient = new Rune.Gradient();
+    //   gradient.stop(new Rune.Color(255, 0, 0), 0);
+    //   gradient.stop(new Rune.Color(0, 255, 0), 1);
+    //   r.rect(0, 0, 0, 0).fill(gradient);
+    //   r.draw();
+    //   var defs = r.el.childNodes[0];
+    //   var rect = r.el.childNodes[1];
+    //   expect(defs.tagName).toEqual('defs');
+    //   expect(rect.getAttribute('fill')).toEqual('url(#gradient)')
+    // });
+
+  })
 
 });

@@ -94,9 +94,6 @@ var Styles = {
       var alpha = this.state.fill.values.alpha;
       if(alpha < 1) attr["fill-opacity"] = Utils.s(alpha);
     }
-    else if(this.state.fill.type == 'gradient') {
-      attr.fill = 'Helloooo'
-    }
 
     if(this.state.stroke === false)  attr.stroke = "none";
     else if(this.state.stroke) {

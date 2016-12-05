@@ -13,7 +13,7 @@ describe("Rune", function() {
       expect(r.width).toEqual(100);
       expect(r.height).toEqual(105);
     });
-    
+
     it("should define namespace in attributes", function() {
         var r = new Rune();
         expect(r.tree.properties.attributes.xmlns).not.toEqual(undefined);
@@ -301,6 +301,17 @@ describe("Rune", function() {
     it("should not add", function() {
       var child = r.grid({}, false);
       expect(child.parent).toBeUndefined();
+    });
+
+  });
+
+  describe('render()', function() {
+
+    it("should create SVG element", function() {
+      var r = new Rune({ width:200, height:300 });
+      expect(r.el.tagName).toEqual('svg');
+      expect(r.el.getAttribute('width')).toEqual('200');
+      expect(r.el.getAttribute('height')).toEqual('300');
     });
 
   });

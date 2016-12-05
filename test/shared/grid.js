@@ -1,7 +1,5 @@
 describe("Rune.Grid", function() {
 
-  // you can add it to the stage via r.grid()
-
   describe("constructor", function() {
 
     it("has default settings", function() {
@@ -139,6 +137,70 @@ describe("Rune.Grid", function() {
       expect(s.parent).toBe(mod);
       expect(group.children.length).toBe(0);
       expect(mod.children[0]).toBe(s);
+    });
+
+  });
+
+  describe("render()", function() {
+
+    it("should render grid", function() {
+      var r = new Rune();
+      var g = r.grid({
+        x: 10,
+        y: 15,
+        gutterWidth: 20,
+        gutterHeight: 30,
+        moduleWidth: 40,
+        moduleHeight: 50,
+        columns: 4,
+        rows: 3
+      });
+      var ellipse = new Rune.Circle(10, 15, 100);
+      g.add(ellipse, 2, 3)
+      r.draw();
+
+      var el = r.el.childNodes[0];
+      expect(el.tagName).toEqual("g")
+      expect(el.getAttribute('transform')).toEqual('translate(10 15)');
+
+      var mod = el.childNodes[0];
+      expect(mod.tagName).toEqual("g");
+      expect(mod.getAttribute('transform')).toEqual('translate(60 160)');
+
+      var shape = mod.childNodes[0];
+      expect(shape.tagName).toEqual("circle");
+      expect(shape.getAttribute('cx')).toEqual('10');
+      expect(shape.getAttribute('cy')).toEqual('15');
+      expect(shape.getAttribute('r')).toEqual('100');
+    });
+
+    it("should render helpers in debug mode", function() {
+      var r = new Rune({ debug: true });
+      var grid = r.grid({
+        x: 10,
+        y: 15,
+        gutter: 20,
+        moduleWidth: 25,
+        moduleHeight: 30,
+        columns: 3,
+        rows: 3
+      });
+      r.draw();
+
+      var child = r.el.childNodes[0];
+      expect(child.tagName).toEqual("g");
+      expect(child).toHaveTranslation(10, 15);
+      expect(child.childNodes[0].tagName).toEqual('rect')
+      _.times(8, function(i) { expect(child.childNodes[i + 1].tagName).toEqual('line') });
+      expect(child.childNodes[0]).toHaveAttrs({x: 0, y: 0, width:115, height:130});
+      expect(child.childNodes[1]).toHaveAttrs({x1: 25, y1: 0, x2:25, y2:grid.state.height});
+      expect(child.childNodes[2]).toHaveAttrs({x1: 45, y1: 0, x2:45, y2:grid.state.height});
+      expect(child.childNodes[3]).toHaveAttrs({x1: 70, y1: 0, x2:70, y2:grid.state.height});
+      expect(child.childNodes[4]).toHaveAttrs({x1: 90, y1: 0, x2:90, y2:grid.state.height});
+      expect(child.childNodes[5]).toHaveAttrs({x1: 0, y1: 30, x2:grid.state.width, y2:30});
+      expect(child.childNodes[6]).toHaveAttrs({x1: 0, y1: 50, x2:grid.state.width, y2:50});
+      expect(child.childNodes[7]).toHaveAttrs({x1: 0, y1: 80, x2:grid.state.width, y2:80});
+      expect(child.childNodes[8]).toHaveAttrs({x1: 0, y1: 100, x2:grid.state.width, y2:100});
     });
 
   });
