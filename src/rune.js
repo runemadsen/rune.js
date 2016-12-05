@@ -4,6 +4,7 @@ var each = require("lodash/collection/each");
 var Vector = require("./vector");
 var Anchor = require("./anchor");
 var Color = require("./color");
+var Gradient = require('./gradient');
 var Group = require("./group");
 var Grid = require("./grid");
 var Utils = require("./utils");
@@ -56,7 +57,7 @@ var Rune = function(options) {
   var props = {
       attributes: attrs
   }
-  
+
   this.tree = svg('svg', props);
   this.el = createElement(this.tree);
   this.stage = new Group();
@@ -256,7 +257,7 @@ Rune.prototype = {
     var props = {
        attributes: attrs
     }
-    
+
     var newTree = svg('svg', props, [this.stage.renderChildren({ debug: this.debug })]);
     var diffTree = diff(this.tree, newTree);
     this.el = patch(this.el, diffTree);
@@ -275,6 +276,7 @@ assign(Rune.prototype, Events)
 Rune.Vector = Vector;
 Rune.Anchor = Anchor;
 Rune.Color = Color;
+Rune.Gradient = Gradient;
 Rune.Group = Group;
 Rune.Grid = Grid;
 Rune.Circle = Circle;
