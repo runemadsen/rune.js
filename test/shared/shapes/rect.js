@@ -167,7 +167,7 @@ describe("Rune.Rectangle", function() {
       expect(el.getAttribute('transform')).toEqual('rotate(45 0 10)');
     });
 
-    it("should render false values correctly", function() {
+    it("renders false values correctly", function() {
       r.rect(0, 0, 0, 0)
         .fill(false)
         .stroke(false)
@@ -189,7 +189,7 @@ describe("Rune.Rectangle", function() {
       expect(el.getAttribute('stroke-dashoffset')).toBeNull();
     });
 
-    // it('should renders gradients', function() {
+    // it('renders gradients', function() {
     //   var gradient = new Rune.Gradient();
     //   gradient.stop(new Rune.Color(255, 0, 0), 0);
     //   gradient.stop(new Rune.Color(0, 255, 0), 1);
