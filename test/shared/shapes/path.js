@@ -1,3 +1,11 @@
+function setAllAnchors(path) {
+  path.lineTo(104, 105)
+    .moveTo(106, 107)
+    .curveTo(108, 109, 110, 111, 112, 113)
+    .curveTo(114, 115, 116, 117)
+    .closePath();
+}
+
 describe("Rune.Path", function() {
 
   var g;
@@ -74,7 +82,7 @@ describe("Rune.Path", function() {
     it("should return length of all subpaths", function() {
       expect(s.length()).toEqual(912.9528291563602);
     });
-    
+
   });
 
   describe("vectorAt()", function() {
@@ -260,6 +268,30 @@ describe("Rune.Path", function() {
       expect(p.state.anchors[3]).toBeAnchorCubic(216, 218, 220, 222, 224, 226);
       expect(p.state.anchors[4]).toBeAnchorQuad(228, 230, 232, 234);
       expect(p.scaleStyles).toHaveBeenCalledWith(2);
+    });
+
+  });
+
+  describe("render()", function() {
+
+    it("should render path element", function() {
+      var r = new Rune();
+      var s = r.path(10, 15);
+      setAllAnchors(s);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.tagName).toEqual("path");
+      expect(el.getAttribute('d')).toEqual("M 0 0 L 104 105 M 106 107 C 108 109 110 111 112 113 Q 114 115 116 117 Z");
+      expect(el.getAttribute('transform')).toEqual('translate(10 15)');
+      expect(el.getAttribute('fill-rule')).toBeNull();
+    });
+
+    it("should render fillrule if set", function() {
+      var r = new Rune();
+      var s = r.path(10, 15).fillRule('evenodd')
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.getAttribute('fill-rule')).toEqual('evenodd');
     });
 
   });

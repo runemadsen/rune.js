@@ -140,11 +140,3 @@ function setStylesVars(shape, opts) {
   var state = getStylesVars(opts)
   _.extend(shape.state, state);
 }
-
-function setAllAnchors(path) {
-  path.lineTo(104, 105)
-    .moveTo(106, 107)
-    .curveTo(108, 109, 110, 111, 112, 113)
-    .curveTo(114, 115, 116, 117)
-    .closePath();
-}

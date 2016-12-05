@@ -125,4 +125,42 @@ describe("Rune.Group", function() {
 
   });
 
+  describe("render()", function() {
+
+    it("should render group", function() {
+      var r = new Rune();
+      var g = r.group(10, 15);
+      var e = new Rune.Circle(10, 15, 100);
+      g.add(e)
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.tagName).toEqual("g");
+      expect(el.getAttribute('transform')).toEqual('translate(10 15)');
+      expect(el.childNodes[0].tagName).toEqual('circle');
+    });
+
+    it("should not render if empty", function() {
+      var r = new Rune();
+      var g = r.group(10, 15);
+      r.draw();
+      expect(r.el.childNodes.length).toEqual(0);
+    });
+
+    it("should rerender if child group changed", function() {
+      var r = new Rune();
+      var level1 = r.group(10, 15);
+      var level2 = r.group(20, 25, level1);
+      var shape = r.circle(10, 15, 100, level2);
+      r.draw();
+      shape.move(1, 2, true);
+      r.draw();
+      var el = r.el.childNodes[0].childNodes[0].childNodes[0];
+      expect(el.tagName).toEqual("circle");
+      expect(el.getAttribute('cx')).toEqual('11');
+      expect(el.getAttribute('cy')).toEqual('17');
+      expect(el.getAttribute('r')).toEqual('100')
+    });
+
+  });
+
 });
