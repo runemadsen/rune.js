@@ -33,9 +33,9 @@ describe("Rune.Polygon", function() {
         .lineTo(100, 101)
         .lineTo(200, 201)
         .lineTo(300, 301);
-      expect(p.state.vectors[0]).toEqualVector(100, 101)
-      expect(p.state.vectors[1]).toEqualVector(200, 201)
-      expect(p.state.vectors[2]).toEqualVector(300, 301)
+      expect(p.state.vectors[0]).toEqual(new Rune.Vector(100, 101))
+      expect(p.state.vectors[1]).toEqual(new Rune.Vector(200, 201))
+      expect(p.state.vectors[2]).toEqual(new Rune.Vector(300, 301))
     });
 
   });
@@ -43,7 +43,7 @@ describe("Rune.Polygon", function() {
   describe("centroid()", function() {
     it("should return internal centroid vector", function() {
       var vec = s.centroid();
-      expect(vec).toEqualVector(40, 30);
+      expect(vec).toEqual(new Rune.Vector(40, 30));
     });
   });
 
@@ -94,17 +94,17 @@ describe("Rune.Polygon", function() {
 
     it("should return vector at scalar", function() {
       var res = s.vectorAt(0.5);
-      expect(res).toEqualVector(80, 60);
+      expect(res).toEqual(new Rune.Vector(80, 60));
     });
 
     it("should return vector if scalar is 0", function() {
       var res = s.vectorAt(0);
-      expect(res).toEqualVector(0, 0);
+      expect(res).toEqual(new Rune.Vector(0, 0));
     });
 
     it("should return vector if scalar is 1", function() {
       var res = s.vectorAt(1);
-      expect(res).toEqualVector(0, 0);
+      expect(res).toEqual(new Rune.Vector(0, 0));
     });
 
   });
@@ -113,17 +113,17 @@ describe("Rune.Polygon", function() {
 
     it("should return vector at length", function() {
       var res = s.vectorAtLength(70);
-      expect(res).toEqualVector(63.16227766016838, 9.486832980505138);
+      expect(res).toEqual(new Rune.Vector(63.16227766016838, 9.486832980505138));
     });
 
     it("should return vector if length is 0", function() {
       var res = s.vectorAtLength(0);
-      expect(res).toEqualVector(0, 0);
+      expect(res).toEqual(new Rune.Vector(0, 0));
     });
 
     it("should return vector if length is more length", function() {
       var res = s.vectorAtLength(999999);
-      expect(res).toEqualVector(0, 0);
+      expect(res).toEqual(new Rune.Vector(0, 0));
     });
 
   });
@@ -140,16 +140,16 @@ describe("Rune.Polygon", function() {
       expect(res.state.x).toEqual(10);
       expect(res.state.y).toEqual(15);
       expect(res.state.vectors.length).toEqual(10);
-      expect(res.state.vectors[0]).toEqualVector(0, 0);
-      expect(res.state.vectors[1]).toEqualVector(25, 0);
-      expect(res.state.vectors[2]).toEqualVector(50, 0);
-      expect(res.state.vectors[3]).toEqualVector(64.74341649025257, 14.230249470757707);
-      expect(res.state.vectors[4]).toEqualVector(72.64911064067351, 37.94733192202055);
-      expect(res.state.vectors[5]).toEqualVector(78.24555320336759, 60);
-      expect(res.state.vectors[6]).toEqualVector(53.24555320336759, 60);
-      expect(res.state.vectors[7]).toEqualVector(28.245553203367592,60);
-      expect(res.state.vectors[8]).toEqualVector(14.701778718652967,44.1053361559589);
-      expect(res.state.vectors[9]).toEqualVector(6.796084568232018,20.388253704696055);
+      expect(res.state.vectors[0]).toEqual(new Rune.Vector(0, 0));
+      expect(res.state.vectors[1]).toEqual(new Rune.Vector(25, 0));
+      expect(res.state.vectors[2]).toEqual(new Rune.Vector(50, 0));
+      expect(res.state.vectors[3]).toEqual(new Rune.Vector(64.74341649025257, 14.230249470757707));
+      expect(res.state.vectors[4]).toEqual(new Rune.Vector(72.64911064067351, 37.94733192202055));
+      expect(res.state.vectors[5]).toEqual(new Rune.Vector(78.24555320336759, 60));
+      expect(res.state.vectors[6]).toEqual(new Rune.Vector(53.24555320336759, 60));
+      expect(res.state.vectors[7]).toEqual(new Rune.Vector(28.245553203367592,60));
+      expect(res.state.vectors[8]).toEqual(new Rune.Vector(14.701778718652967,44.1053361559589));
+      expect(res.state.vectors[9]).toEqual(new Rune.Vector(6.796084568232018,20.388253704696055));
     });
 
     it("adds polygon to parent", function() {
@@ -204,10 +204,10 @@ describe("Rune.Polygon", function() {
       s.scale(2);
       expect(s.state.x).toEqual(10);
       expect(s.state.y).toEqual(15);
-      expect(s.state.vectors[0]).toEqualVector(0, 0);
-      expect(s.state.vectors[1]).toEqualVector(120, 0);
-      expect(s.state.vectors[2]).toEqualVector(160, 120);
-      expect(s.state.vectors[3]).toEqualVector(40, 120);
+      expect(s.state.vectors[0]).toEqual(new Rune.Vector(0, 0));
+      expect(s.state.vectors[1]).toEqual(new Rune.Vector(120, 0));
+      expect(s.state.vectors[2]).toEqual(new Rune.Vector(160, 120));
+      expect(s.state.vectors[3]).toEqual(new Rune.Vector(40, 120));
       expect(s.scaleStyles).toHaveBeenCalledWith(2);
     });
 

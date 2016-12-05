@@ -11,7 +11,7 @@ describe("Rune.Vector", function() {
   describe("add()", function() {
     it("adds vectors", function() {
       var res = v1.add(v2);
-      expect(res).toEqualVector(30, 40);
+      expect(res).toEqual(new Rune.Vector(30, 40));
       expect(res).not.toBe(v1);
     });
   });
@@ -19,7 +19,7 @@ describe("Rune.Vector", function() {
   describe("sub()", function() {
     it("subtracts vectors", function() {
       var res = v1.sub(v2);
-      expect(res).toEqualVector(-10, -10);
+      expect(res).toEqual(new Rune.Vector(-10, -10));
       expect(res).not.toBe(v1);
     });
   });
@@ -27,7 +27,7 @@ describe("Rune.Vector", function() {
   describe("multiply()", function() {
     it("multiplies vector", function() {
       var res = v1.multiply(3);
-      expect(res).toEqualVector(30, 45);
+      expect(res).toEqual(new Rune.Vector(30, 45));
       expect(res).not.toBe(v1);
     });
   });
@@ -35,7 +35,7 @@ describe("Rune.Vector", function() {
   describe("divide()", function() {
     it("divides vector", function() {
       var res = v1.divide(3);
-      expect(res).toEqualVector(10 / 3, 5);
+      expect(res).toEqual(new Rune.Vector(10 / 3, 5));
       expect(res).not.toBe(v1);
     });
   });
@@ -50,7 +50,7 @@ describe("Rune.Vector", function() {
   describe("lerp()", function() {
     it("finds lerp", function() {
       var res = v1.lerp(v2, 0.5);
-      expect(res).toEqualVector(15, 20);
+      expect(res).toEqual(new Rune.Vector(15, 20));
       expect(res).not.toBe(v1);
     });
   });
@@ -72,7 +72,7 @@ describe("Rune.Vector", function() {
   describe("normalize()", function() {
     it("normalizes vector", function() {
       var res = v1.normalize();
-      expect(res).toEqualVector(0.5547001962252291, 0.8320502943378437);
+      expect(res).toEqual(new Rune.Vector(0.5547001962252291, 0.8320502943378437));
       expect(res).not.toBe(v1);
     });
   });
@@ -87,7 +87,7 @@ describe("Rune.Vector", function() {
   describe("rotate()", function() {
     it("rotates vector", function() {
       var res = v1.rotate(90);
-      expect(res).toEqualVector(-15, 10);
+      expect(res).toEqual(new Rune.Vector(-15, 10));
       expect(res).not.toBe(v1);
     });
   });

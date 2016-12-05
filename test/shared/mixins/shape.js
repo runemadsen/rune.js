@@ -157,13 +157,13 @@ describe("Rune.Shape", function() {
 
     it("returns relative position without parent", function() {
       m.move(10, 15);
-      expect(m.stagepos()).toEqualVector(10, 15);
+      expect(m.stagepos()).toEqual(new Rune.Vector(10, 15));
     });
 
     it("returns absolute position with parent", function() {
       m.move(10, 15);
       g.add(m);
-      expect(m.stagepos()).toEqualVector(60, 40);
+      expect(m.stagepos()).toEqual(new Rune.Vector(60, 40));
     });
 
   });

@@ -68,12 +68,12 @@ describe("Rune.Path", function() {
   describe("startVector()", function() {
     it("should return 0,0 if first command is not move", function() {
       var p = new Rune.Path(10, 15).lineTo(100, 100);
-      expect(p.startVector()).toEqualVector(0, 0);
+      expect(p.startVector()).toEqual(new Rune.Vector(0, 0));
     });
 
     it("should return move location if first command is move", function() {
       var p = new Rune.Path(10, 15).moveTo(100, 100);
-      expect(p.startVector()).toEqualVector(100, 100);
+      expect(p.startVector()).toEqual(new Rune.Vector(100, 100));
     });
   });
 
@@ -89,17 +89,17 @@ describe("Rune.Path", function() {
 
     it("should return vector at scalar", function() {
       var res = s.vectorAt(0.5);
-      expect(res).toEqualVector(-95.04748002984878, 60.44400406520909);
+      expect(res).toEqual(new Rune.Vector(-95.04748002984878, 60.44400406520909));
     });
 
     it("should return vector if scalar is 0", function() {
       var res = s.vectorAt(0);
-      expect(res).toEqualVector(0, 0);
+      expect(res).toEqual(new Rune.Vector(0, 0));
     });
 
     it("should return vector if scalar is 1", function() {
       var res = s.vectorAt(1);
-      expect(res).toEqualVector(0, 0);
+      expect(res).toEqual(new Rune.Vector(0, 0));
     });
 
   });
@@ -108,17 +108,17 @@ describe("Rune.Path", function() {
 
     it("should return vector at length", function() {
       var res = s.vectorAtLength(70);
-      expect(res).toEqualVector(49.49747468305832, 49.49747468305832);
+      expect(res).toEqual(new Rune.Vector(49.49747468305832, 49.49747468305832));
     });
 
     it("should return vector if length is 0", function() {
       var res = s.vectorAtLength(0);
-      expect(res).toEqualVector(0, 0);
+      expect(res).toEqual(new Rune.Vector(0, 0));
     });
 
     it("should return vector if length is more length", function() {
       var res = s.vectorAtLength(999999);
-      expect(res).toEqualVector(0, 0);
+      expect(res).toEqual(new Rune.Vector(0, 0));
     });
 
   });

@@ -15,10 +15,10 @@ describe("Rune.Rectangle", function() {
       expect(poly.state.x).toEqual(10);
       expect(poly.state.y).toEqual(15);
       expect(poly.state.vectors.length).toEqual(4);
-      expect(poly.state.vectors[0]).toEqualVector(0, 0);
-      expect(poly.state.vectors[1]).toEqualVector(300, 0);
-      expect(poly.state.vectors[2]).toEqualVector(300, 305);
-      expect(poly.state.vectors[3]).toEqualVector(0, 305);
+      expect(poly.state.vectors[0]).toEqual(new Rune.Vector(0, 0));
+      expect(poly.state.vectors[1]).toEqual(new Rune.Vector(300, 0));
+      expect(poly.state.vectors[2]).toEqual(new Rune.Vector(300, 305));
+      expect(poly.state.vectors[3]).toEqual(new Rune.Vector(0, 305));
     });
 
     it("returns polygon with even spaced vectors", function() {

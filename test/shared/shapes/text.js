@@ -116,8 +116,8 @@ describe("Rune.Text", function() {
       _.each(aligns, function(align) {
         s.textAlign(align[0]);
         r.draw();
-        var jshape = r.el.childNodes[0];
-        expect(jshape).toHaveAttr("text-anchor", align[1]);
+        var el = r.el.childNodes[0];
+        expect(el.getAttribute('text-anchor')).toEqual(align[1]);
       });
     });
 

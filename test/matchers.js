@@ -58,57 +58,6 @@ beforeEach(function () {
       };
     },
 
-    toEqualVector: function () {
-      return {
-        compare: function (vec, x, y) {
-
-          var msg;
-          var pass = vec.x == x && vec.y == y;
-
-          if (pass) {
-            msg = "Expected " + vec + " not to equal vector " + new Rune.Vector(x, y);
-          } else {
-            msg = "Expected " + vec + " to equal vector " + new Rune.Vector(x, y);
-          }
-
-          return {
-            pass: pass,
-            message: msg
-          };
-        }
-      };
-    },
-
-    toHaveAttr : function() {
-      return {
-        compare: function (el, k, v) {
-          var att = el.getAttribute(k);
-          var result = {
-            pass: true,
-            message: "yup"
-          }
-          if(att != v + "") {
-            result.pass = false;
-            result.message = "Attribute " + k + " with value " + att + " did not match " + v;
-          }
-          return result;
-        }
-      };
-    },
-
-    toNotHaveAttr : function() {
-      return {
-        compare: function (el, k, v) {
-          var att = el.getAttribute(k);
-          var result = {
-            pass: _.isUndefined(att) || att == null,
-            message: "something"
-          }
-          return result;
-        }
-      };
-    },
-
     toHaveAttrs : function() {
       return {
         compare: function (el, attrs) {

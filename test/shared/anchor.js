@@ -96,17 +96,17 @@ describe("Rune.Anchor", function() {
 
     it("returns vector for line", function() {
       var a = new Rune.Anchor().setLine(100, 100);
-      expect(a.vectorAt(0.5)).toEqualVector(50, 50);
+      expect(a.vectorAt(0.5)).toEqual(new Rune.Vector(50, 50));
     });
 
     it("returns vector for cubic bezier", function() {
       var a = new Rune.Anchor().setCurve(0, 100, 100, 100, 100, 0);
-      expect(a.vectorAt(0.5)).toEqualVector(50, 75);
+      expect(a.vectorAt(0.5)).toEqual(new Rune.Vector(50, 75));
     });
 
     it("returns vector for quad bezier", function() {
       var a = new Rune.Anchor().setCurve(50, 100, 100, 0);
-      expect(a.vectorAt(0.5)).toEqualVector(50, 50);
+      expect(a.vectorAt(0.5)).toEqual(new Rune.Vector(50, 50));
     });
 
   });
