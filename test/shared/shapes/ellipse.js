@@ -72,4 +72,21 @@ describe("Rune.Ellipse", function() {
 
   });
 
+  describe("render()", function() {
+
+    it("should render ellipse", function() {
+      var r = new Rune();
+      var s = r.ellipse(100, 105, 300, 400);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.tagName).toEqual("ellipse");
+      expect(el.getAttribute('cx')).toEqual('100')
+      expect(el.getAttribute('cy')).toEqual('105')
+      expect(el.getAttribute('rx')).toEqual('150')
+      expect(el.getAttribute('ry')).toEqual('200')
+      expect(el.getAttribute('transform')).toBeNull();
+    });
+
+  });
+
 });

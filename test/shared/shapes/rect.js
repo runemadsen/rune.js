@@ -86,4 +86,35 @@ describe("Rune.Rectangle", function() {
 
   });
 
+  describe("render()", function() {
+
+      var r;
+      beforeEach(function() {
+        r = new Rune();
+      });
+
+      it("should render rectangle", function() {
+        r.rect(100, 105, 300, 400);
+        r.draw();
+        var el = r.el.childNodes[0];
+        expect(el.tagName).toEqual("rect");
+        expect(el.getAttribute('x')).toEqual('100');
+        expect(el.getAttribute('y')).toEqual('105');
+        expect(el.getAttribute('width')).toEqual('300');
+        expect(el.getAttribute('height')).toEqual('400');
+        expect(el.getAttribute('rx')).toBeNull();
+        expect(el.getAttribute('ry')).toBeNull();
+        expect(el.getAttribute('transform')).toBeNull();
+      });
+
+      it("should render rounded corners", function() {
+        r.rect(100, 105, 300, 400).round(25, 15);
+        r.draw();
+        var el = r.el.childNodes[0];
+        expect(el.getAttribute('rx')).toEqual('25');
+        expect(el.getAttribute('ry')).toEqual('15');
+      });
+
+  });
+
 });

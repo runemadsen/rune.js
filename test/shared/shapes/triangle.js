@@ -44,4 +44,18 @@ describe("Rune.Triangle", function() {
 
   });
 
+  describe("render()", function() {
+
+    it("should render triangle polygon", function() {
+      var r = new Rune();
+      var s = r.triangle(100, 150, 300, 150, 200, 350);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.tagName).toEqual("polygon");
+      expect(el.getAttribute('points')).toEqual("0 0 200 0 100 200");
+      expect(el.getAttribute('transform')).toEqual('translate(100 150)');
+    });
+
+  });
+
 });

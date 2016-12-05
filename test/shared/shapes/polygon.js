@@ -213,4 +213,21 @@ describe("Rune.Polygon", function() {
 
   });
 
+  describe("render()", function() {
+
+    it("should render polygon", function() {
+      var r = new Rune();
+      var s = r.polygon(10, 15)
+        .lineTo(100, 101)
+        .lineTo(200, 201)
+        .lineTo(300, 301);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.tagName).toEqual("polygon");
+      expect(el.getAttribute('points')).toEqual("100 101 200 201 300 301");
+      expect(el.getAttribute('transform')).toEqual('translate(10 15)');
+    });
+
+  });
+
 });

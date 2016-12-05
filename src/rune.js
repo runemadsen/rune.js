@@ -258,7 +258,9 @@ Rune.prototype = {
        attributes: attrs
     }
 
-    var newTree = svg('svg', props, [this.stage.renderChildren({ debug: this.debug })]);
+    var opts = { debug: this.debug };
+    var children = [this.stage.renderChildren(opts)];
+    var newTree = svg('svg', props, children);
     var diffTree = diff(this.tree, newTree);
     this.el = patch(this.el, diffTree);
     this.tree = newTree;

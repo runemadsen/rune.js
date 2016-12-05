@@ -79,27 +79,6 @@ beforeEach(function () {
       };
     },
 
-    toBeTag: function () {
-      return {
-        compare: function (el, tagname) {
-
-          var msg;
-          var pass = el.tagName == tagname;
-
-          if (pass) {
-            msg = "Expected not to be tag " + tagname;
-          } else {
-            msg = "Expected " + el.tagName + " to be tag " + tagname;
-          }
-
-          return {
-            pass: pass,
-            message: msg
-          };
-        }
-      };
-    },
-
     toHaveAttr : function() {
       return {
         compare: function (el, k, v) {

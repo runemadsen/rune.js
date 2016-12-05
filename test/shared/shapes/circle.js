@@ -72,4 +72,20 @@ describe("Rune.Circle", function() {
 
   });
 
+  describe("render()", function() {
+
+    it("should render circle", function() {
+      var r = new Rune();
+      var s = r.circle(100, 105, 300);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.tagName).toEqual("circle");
+      expect(el.getAttribute('cx')).toEqual('100');
+      expect(el.getAttribute('cy')).toEqual('105');
+      expect(el.getAttribute('r')).toEqual('300')
+      expect(el.getAttribute('transform')).toBeNull();
+    });
+
+  });
+
 });

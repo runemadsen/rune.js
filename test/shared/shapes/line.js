@@ -82,4 +82,21 @@ describe("Rune.Line", function() {
 
   });
 
+  describe("render()", function() {
+
+    it("should render line", function() {
+      var r = new Rune();
+      var s = r.line(100, 105, 200, 205);
+      r.draw();
+      var el = r.el.childNodes[0];
+      expect(el.tagName).toEqual("line");
+      expect(el.getAttribute('x1')).toEqual('100');
+      expect(el.getAttribute('y1')).toEqual('105');
+      expect(el.getAttribute('x2')).toEqual('200');
+      expect(el.getAttribute('y2')).toEqual('205');
+      expect(el.getAttribute('transform')).toBeNull();
+    });
+
+  });
+
 });
