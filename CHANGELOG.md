@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Renamed `Grid.modules` to `Grid.children` and combined functionality with `Rune.Group`
+
 ## 0.4.5
 
 - Added `Rune.map()` function. Thanks to [Yining Shi](http://1023.io/)!

@@ -39,13 +39,13 @@ describe("Rune.Grid", function() {
       expect(grid.state.width).toEqual(635);
       expect(grid.state.height).toEqual(280);
 
-      expect(grid.modules.length).toBe(50);
-      expect(grid.modules[0].type).toEqual("group");
-      expect(grid.modules[0].state.x).toEqual(0);
-      expect(grid.modules[0].state.y).toEqual(0);
-      expect(grid.modules[14].type).toEqual("group");
-      expect(grid.modules[14].state.x).toEqual(260);
-      expect(grid.modules[14].state.y).toEqual(60);
+      expect(grid.children.length).toBe(50);
+      expect(grid.children[0].type).toEqual("group");
+      expect(grid.children[0].state.x).toEqual(0);
+      expect(grid.children[0].state.y).toEqual(0);
+      expect(grid.children[14].type).toEqual("group");
+      expect(grid.children[14].state.x).toEqual(260);
+      expect(grid.children[14].state.y).toEqual(60);
     });
 
     it("works with gutter shorthand", function() {

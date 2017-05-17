@@ -3,13 +3,14 @@ var map = require("lodash/collection/map");
 var flatten = require("lodash/array/flatten");
 var defaults = require("lodash/object/defaults");
 var Shape = require("./mixins/shape");
+var Parent = require("./mixins/parent");
 var Group = require('./group');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Grid = function(options) {
 
   this.shape();
-  this.modules = [];
+  this.setupParent();
 
   var req = defaults(options || {}, {
     x:0,
@@ -57,44 +58,36 @@ Grid.prototype = {
     // index is x + (y * width)
     var index = (column-1) + ((row-1) * this.state.columns)
 
-    if(this.modules[index]) {
-      this.modules[index].add(child)
+    if(this.children[index]) {
+      this.children[index].add(child)
     } else {
       throw new Error("Column or row does not exist");
     }
   },
 
   getModule: function(column, row) {
-
     // index is x + (y * width)
     var index = (column-1) + ((row-1) * this.state.columns)
-
-    if(this.modules[index])
-      return this.modules[index]
+    if(this.children[index])
+      return this.children[index]
     else
       return undefined
   },
 
   computeGrid: function() {
-
-    this.modules = [];
-
     for(var y = 0; y < this.state.rows; y++) {
       for(var x = 0; x < this.state.columns; x++) {
-
         var groupX = (x * this.state.moduleWidth) + (x * this.state.gutterWidth);
         var groupY = (y * this.state.moduleHeight) + (y * this.state.gutterHeight);
-
-        this.modules.push(new Group(groupX, groupY));
+        this.addChild(new Group(groupX, groupY))
       }
     }
   },
 
   render: function(opts) {
+    if(!this.children || this.children.length == 0) return;
     var attr = this.shapeAttributes({});
-    var groups = map(this.modules, function(module) {
-      return module.render(opts);
-    });
+    var groups = this.renderChildren(opts);
     if(opts.debug) groups = groups.concat(this.renderDebug());
     return svg('g', attr, flatten(groups, true));
   },
@@ -128,6 +121,6 @@ Grid.prototype = {
 
 }
 
-assign(Grid.prototype, Shape, { type: "grid" });
+assign(Grid.prototype, Shape, Parent, { type: "grid" });
 
 module.exports = Grid;

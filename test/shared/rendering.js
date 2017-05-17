@@ -391,6 +391,24 @@ describe("Rendering", function() {
 
     });
 
+    it("should rerender when shapes change", function() {
+      var g = r.grid()
+      var ellipse = new Rune.Circle(10, 15, 100);
+      g.add(ellipse, 1, 1)
+      r.draw();
+
+      ellipse.move(20, 25);
+      r.draw();
+
+      var jellipse = r.el.childNodes[0].childNodes[0].childNodes[0];
+      expect(jellipse).toBeTag("circle");
+      expect(jellipse).toHaveAttrs({
+        cx: 20,
+        cy: 25
+      });
+
+    });
+
   });
 
   describe("Debug mode", function() {
