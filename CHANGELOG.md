@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Fixing problem with re-rendering after removing child from group
+
 ## 1.0.0
 
 - Renamed `Grid.modules` to `Grid.children` and combined functionality with `Rune.Group`
