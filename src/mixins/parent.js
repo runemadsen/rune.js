@@ -34,7 +34,7 @@ var Parent = {
     child.childId = null;
     child.parentNotified = false;
     child.parent = false;
-    child.changed();
+    this.changed();
   },
 
   renderChildren: function(opts) {

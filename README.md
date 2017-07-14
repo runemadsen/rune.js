@@ -11,7 +11,7 @@ Follow [@runemadsen](https://twitter.com/runemadsen) for announcements.
 
 1. Clone down this repo
 2. Run `npm install` from the repo folder
-3. Run `gulp test:browser` or `gulp test:node`
+3. Run `npm run test:node` or `npm run test:browser`
 
 ## Contributors
 

@@ -345,11 +345,21 @@ describe("Rendering", function() {
 
     });
 
-    it("should render in group if moved from stage to group", function() {
+    // it("should render in group if moved from stage to group", function() {
+    //   var c = r.circle(10, 15, 100);
+    //   var parent = r.group(10, 15);
+    //   parent.add(c);
+    //   r.draw();
+    // });
+
+    it("should not render group if child was removed from group", function() {
       var c = r.circle(10, 15, 100);
       var parent = r.group(10, 15);
       parent.add(c);
       r.draw();
+      parent.remove(c);
+      r.draw();
+      expect(r.el.childNodes.length).toBe(0);
     });
 
   });

@@ -6,6 +6,10 @@
     "type": "git",
     "url": "git://github.com/runemadsen/rune.js"
   },
+  "scripts" : {
+    "test:node" : "./node_modules/.bin/gulp test:node",
+    "test:browser" : "./node_modules/.bin/gulp test:browser"
+  },
   "main": "src/rune.js",
   "author": "runemadsen",
   "license": "MIT",
