@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Actually fixing problem with re-rendering after removing child from group
+
 ## 1.0.1
 
 - Fixing problem with re-rendering after removing child from group
