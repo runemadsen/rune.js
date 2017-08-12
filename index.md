@@ -58,7 +58,7 @@ If you want to use Rune.js in node, it's as simple as requiring the `rune.js` mo
 var Rune = require('rune.js');
 var r = new Rune({...});
 // draw shapes
-console.log(r.getEl());
+console.log(r.el);
 ```
 
 ### Basic shapes
