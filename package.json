@@ -8,7 +8,8 @@
   },
   "scripts" : {
     "test:node" : "./node_modules/.bin/gulp test:node",
-    "test:browser" : "./node_modules/.bin/gulp test:browser"
+    "test:browser" : "./node_modules/.bin/gulp test:browser",
+    "publish" : "npm publish && ./node_modules/.bin/gulp publish"
   },
   "main": "src/rune.js",
   "author": "runemadsen",
