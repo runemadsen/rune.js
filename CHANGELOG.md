@@ -1,6 +1,7 @@
 ## 1.1.1
 
 - Calling `remove` on a group with a shape that is not in the group will not remove another shape in the group.
+- Adding `viewBox` attribute on resulting SVG.
 
 ## 1.1.0
 
