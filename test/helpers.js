@@ -1,4 +1,4 @@
-function drawShared(shape) {
+global.drawShared = function(shape) {
   shape
     .rotate(45, 100, 105)
     .fill(255, 0, 0, 0.5)
@@ -11,7 +11,7 @@ function drawShared(shape) {
     .strokeDashOffset(10);
 }
 
-function expectCopy(s) {
+global.expectCopy = function(s) {
 
   // should copy shape
   setMixinVars(s);
@@ -32,7 +32,7 @@ function expectCopy(s) {
   expect(g.children.length).toEqual(2);
 }
 
-function expectShared(el) {
+global.expectShared = function(el) {
   expect(el).toHaveRotation(45, 100, 105);
   expect(el).toHaveAttr("fill", "rgb(255, 0, 0)");
   expect(el).toHaveAttr("fill-opacity", "0.5")
@@ -46,7 +46,7 @@ function expectShared(el) {
   expect(el).toHaveAttr("stroke-dashoffset", "10");
 }
 
-function newMixin() {
+global.newMixin = function() {
   var Mixed = function() {};
   _.each(arguments, function(mixin) {
     _.extend(Mixed.prototype, mixin);
@@ -56,7 +56,7 @@ function newMixin() {
 
 // Returns an object with variables that comes from
 // all the mixins that the shape extends.
-function getMixinVars(shape) {
+global.getMixinVars = function(shape) {
 
   var keys = [];
   if(shape.shape) {
@@ -78,7 +78,7 @@ function getMixinVars(shape) {
 
 // Sets variables in object that comes from
 // all the mixins that the shape extends.
-function setMixinVars(shape) {
+global.setMixinVars = function(shape) {
   if(shape.shape) {
     setShapeVars(shape)
   }
@@ -93,7 +93,7 @@ function setMixinVars(shape) {
 // Mixin getters
 // -------------------------------------------
 
-function getShapeVars(opts) {
+global.getShapeVars = function(opts) {
   return _.defaults(opts || {}, {
     x:10,
     y:15,
@@ -103,14 +103,14 @@ function getShapeVars(opts) {
   });
 }
 
-function getBoxVars(opts) {
+global.getBoxVars = function(opts) {
   return _.defaults(opts || {}, {
     width:300,
     height:305
   });
 }
 
-function getStylesVars(opts) {
+global.getStylesVars = function(opts) {
   return _.defaults(opts || {}, {
     fill: new Rune.Color(255, 0, 0),
     stroke: new Rune.Color(0, 255, 0),
@@ -126,22 +126,22 @@ function getStylesVars(opts) {
 // Mixin setters
 // -------------------------------------------
 
-function setShapeVars(shape, opts) {
+global.setShapeVars = function(shape, opts) {
   var state = getShapeVars(opts)
   _.extend(shape.state, state);
 }
 
-function setBoxVars(shape, opts) {
+global.setBoxVars = function(shape, opts) {
   var state = getBoxVars(opts)
   _.extend(shape.state, state);
 }
 
-function setStylesVars(shape, opts) {
+global.setStylesVars = function(shape, opts) {
   var state = getStylesVars(opts)
   _.extend(shape.state, state);
 }
 
-function setAllAnchors(path) {
+global.setAllAnchors = function(path) {
   path.lineTo(104, 105)
     .moveTo(106, 107)
     .curveTo(108, 109, 110, 111, 112, 113)

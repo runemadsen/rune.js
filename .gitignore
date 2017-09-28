@@ -5,3 +5,4 @@ _site
 npm-debug.log
 tmp
 credentials.json
+test/bundle.js
