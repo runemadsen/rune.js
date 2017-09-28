@@ -46,10 +46,10 @@ global.expectShared = function(el) {
   expect(el).toHaveAttr("stroke-dashoffset", "10");
 }
 
-global.newMixin = function() {
+global.newMixin = function(...args) {
   var Mixed = function() {};
-  _.each(arguments, function(mixin) {
-    _.extend(Mixed.prototype, mixin);
+  args.forEach(function(mixin) {
+    Object.assign(Mixed.prototype, mixin);
   });
   return new Mixed();
 }
@@ -60,17 +60,17 @@ global.getMixinVars = function(shape) {
 
   var keys = [];
   if(shape.shape) {
-    keys = keys.concat(_.keys(getShapeVars()))
+    keys = keys.concat(Object.keys(getShapeVars()))
   }
   if(shape.box) {
-    keys = keys.concat(_.keys(getBoxVars()))
+    keys = keys.concat(Object.keys(getBoxVars()))
   }
   if(shape.styles) {
-    keys = keys.concat(_.keys(getStylesVars()))
+    keys = keys.concat(Object.keys(getStylesVars()))
   }
 
   var state = {};
-  _.each(keys, function(key) {
+  keys.forEach(function(key) {
     state[key] = shape.state[key];
   });
   return state;
@@ -94,24 +94,24 @@ global.setMixinVars = function(shape) {
 // -------------------------------------------
 
 global.getShapeVars = function(opts) {
-  return _.defaults(opts || {}, {
+  return Object.assign({
     x:10,
     y:15,
     rotation: 45,
     rotationX: 100,
     rotationY: 105
-  });
+  }, opts);
 }
 
 global.getBoxVars = function(opts) {
-  return _.defaults(opts || {}, {
+  return Object.assign({
     width:300,
     height:305
-  });
+  }, opts);
 }
 
 global.getStylesVars = function(opts) {
-  return _.defaults(opts || {}, {
+  return Object.assign({
     fill: new Rune.Color(255, 0, 0),
     stroke: new Rune.Color(0, 255, 0),
     strokeWidth: 2,
@@ -120,7 +120,7 @@ global.getStylesVars = function(opts) {
     strokeMiterlimit: 2,
     strokeDash: "0,1",
     strokeDashOffset: 4
-  });
+  }, opts);
 }
 
 // Mixin setters
@@ -128,17 +128,17 @@ global.getStylesVars = function(opts) {
 
 global.setShapeVars = function(shape, opts) {
   var state = getShapeVars(opts)
-  _.extend(shape.state, state);
+  Object.assign(shape.state, state);
 }
 
 global.setBoxVars = function(shape, opts) {
   var state = getBoxVars(opts)
-  _.extend(shape.state, state);
+  Object.assign(shape.state, state);
 }
 
 global.setStylesVars = function(shape, opts) {
   var state = getStylesVars(opts)
-  _.extend(shape.state, state);
+  Object.assign(shape.state, state);
 }
 
 global.setAllAnchors = function(path) {

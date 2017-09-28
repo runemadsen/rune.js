@@ -195,12 +195,13 @@ describe("Rendering", function() {
       var optionals = {
         fillRule: ["fill-rule", "evenodd"]
       }
-
-      _.each(optionals, function(val, func) {
+      var keys = Object.keys(optionals);
+      keys.forEach(function(key) {
+        var val = optionals[keys];
         var shape = r.path(10, 15);
         r.draw();
         expect(r.el.childNodes[0].getAttribute(val[0])).toBeNull();
-        shape[func](val[1]);
+        shape[key](val[1]);
         r.draw();
         expect(r.el.childNodes[0].getAttribute(val[0])).toEqual(val[1] + "");
       });
@@ -239,13 +240,14 @@ describe("Rendering", function() {
         letterSpacing: ["letter-spacing", 0.5],
         textDecoration: ["text-decoration", "underline"]
       }
-
-      _.each(optionals, function(v, k) {
+      var keys = Object.keys(optionals)
+      keys.forEach(function(key) {
+        var val = optionals[key];
         r.draw();
-        expect(r.el.childNodes[0].getAttribute(v[0])).toBeNull();
-        s[k](v[1]);
+        expect(r.el.childNodes[0].getAttribute(val[0])).toBeNull();
+        s[key](val[1]);
         r.draw();
-        expect(r.el.childNodes[0].getAttribute(v[0])).toEqual(v[1] + "");
+        expect(r.el.childNodes[0].getAttribute(val[0])).toEqual(val[1] + "");
       });
     });
 
@@ -257,7 +259,7 @@ describe("Rendering", function() {
           ["center", "middle"],
           ["right", "end"]
         ];
-        _.each(aligns, function(align) {
+        aligns.forEach(function(align) {
           s.textAlign(align[0]);
           r.draw();
           var jshape = r.el.childNodes[0];
@@ -480,7 +482,9 @@ describe("Rendering", function() {
       expect(child).toHaveTranslation(10, 15);
 
       expect(child.childNodes[0]).toBeTag('rect')
-      _.times(8, function(i) { expect(child.childNodes[i + 1]).toBeTag('line') });
+      for(var i = 0; i < 8; i++) {
+        expect(child.childNodes[i + 1]).toBeTag('line')
+      }
 
       expect(child.childNodes[0]).toHaveAttrs({x: 0, y: 0, width:115, height:130});
       expect(child.childNodes[1]).toHaveAttrs({x1: 25, y1: 0, x2:25, y2:grid.state.height});

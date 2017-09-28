@@ -81,7 +81,7 @@ describe("Rune.Styles", function() {
 
     it("sets the var value", function() {
       var funcs = ["strokeWidth", "strokeCap", "strokeJoin", "strokeMiterlimit", "strokeDash", "strokeDashOffset"]
-      _.each(funcs, function(func) {
+      funcs.forEach(function(func) {
         var res = m[func](5);
         expect(m.state[func]).toEqual(5)
         expect(m).toEqual(res);

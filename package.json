@@ -6,11 +6,6 @@
     "type": "git",
     "url": "git://github.com/runemadsen/rune.js"
   },
-  "scripts": {
-    "build": "node ./scripts/runBuild.js",
-    "test:node": "node ./scripts/testNode.js",
-    "test:browser": "node ./scripts/testBrowser.js"
-  },
   "main": "src/rune.js",
   "author": "runemadsen",
   "license": "MIT",
@@ -23,14 +18,5 @@
     "min-document": "^2.18.0",
     "virtual-dom": "2.1.1",
     "color-convert": "0.5.3"
-  },
-  "devDependencies": {
-    "connect": "^3.6.5",
-    "github": "^0.2.4",
-    "glob-all": "^3.1.0",
-    "jasmine": "^2.8.0",
-    "opn": "^5.1.0",
-    "serve-static": "^1.13.0",
-    "webpack": "^3.6.0"
   }
 }

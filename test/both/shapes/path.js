@@ -47,7 +47,7 @@ describe("Rune.Path", function() {
 
     it("sets the var value", function() {
       var funcs = ["fillRule"]
-      _.each(funcs, function(func) {
+      funcs.forEach(function(func) {
         var p = new Rune.Path();
         var res = p[func](5);
         expect(p.state[func]).toEqual(5)
@@ -74,7 +74,7 @@ describe("Rune.Path", function() {
     it("should return length of all subpaths", function() {
       expect(s.length()).toEqual(912.9528291563602);
     });
-    
+
   });
 
   describe("vectorAt()", function() {

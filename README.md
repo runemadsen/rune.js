@@ -7,11 +7,15 @@ Rune.js is a JavaScript library for programming graphic design systems with SVG.
 
 Follow [@runemadsen](https://twitter.com/runemadsen) for announcements.
 
-## Running the tests
+## Building and running tests
 
-1. Clone down this repo
-2. Run `npm install` from the repo folder
-3. Run `npm run test:node` or `npm run test:browser`
+This repo uses the `rune.plugin.js` package for building and running the tests in both node and the browser:
+
+```bash
+$ rune build
+$ rune test node
+$ rune test browser
+```
 
 ## Contributors
 

@@ -6,9 +6,13 @@ beforeEach(function () {
       return {
         compare: function (child, parent) {
 
-          var hasChild = _.any(parent.children, function(c) {
-            return c == child;
-          });
+          var hasChild = false;
+          for(var i = 0; i < parent.children.length; i++) {
+            if(parent.children[i] == child) {
+              hasChild = true;
+              break;
+            }
+          }
 
           var isChild = child.parent === parent;
           var pass = hasChild && isChild;
@@ -35,9 +39,13 @@ beforeEach(function () {
       return {
         compare: function (subset, full) {
 
-          var noMatches = _.filter(subset, function(v, k) {
-            return !_.isEqual(full[k], v);
-          });
+          var noMatches = [];
+          var keys = Object.keys(subset);
+          for(var i = 0; i < keys.length; i++) {
+            if(JSON.stringify(full[keys[i]]) !== JSON.stringify(subset[keys[i]])) {
+              noMatches.push(keys[i])
+            }
+          }
 
           var msg;
           var pass = noMatches.length == 0;
@@ -120,7 +128,7 @@ beforeEach(function () {
         compare: function (el, k, v) {
           var att = el.getAttribute(k);
           var result = {
-            pass: _.isUndefined(att) || att == null,
+            pass: !att,
             message: "something"
           }
           return result;
@@ -131,16 +139,32 @@ beforeEach(function () {
     toHaveAttrs : function() {
       return {
         compare: function (el, attrs) {
-          var result = {
-            message: ""
+
+          var missingOrWrong = [];
+
+          var keys = Object.keys(attrs);
+          for(var i = 0; i < keys.length; i++) {
+            var elAtt = el.getAttribute(keys[i]);
+            var testAtt = attrs[keys[i]];
+            if(!elAtt || elAtt != testAtt) {
+              missingOrWrong.push({
+                key: keys[i],
+                expected: testAtt,
+                real: elAtt
+              })
+            }
           }
-          result.pass = _.all(attrs, function(v, k) {
-            var att = el.getAttribute(k);
-            if(att != v + "")
-              result.message = "Attribute " + k + " with value " + att + " did not match " + v;
-            return att == v
-          });
-          return result;
+
+          if(missingOrWrong.length > 0) {
+            return {
+              pass: false,
+              message: "Attributes didnt match: " + JSON.stringify(missingOrWrong)
+            }
+          }
+
+          return {
+            pass: true
+          };
         }
       };
     },
@@ -195,8 +219,8 @@ beforeEach(function () {
           var pass = vector.command == a.command;
           pass = pass && vector.vec1.x == a.vec1.x;
           pass = pass && vector.vec1.y == a.vec1.y;
-          pass = pass && _.isUndefined(vector.vec2);
-          pass = pass && _.isUndefined(vector.vec3);
+          pass = pass && !vector.vec2;
+          pass = pass && !vector.vec3;
 
           if (pass) {
             msg = "Expected not to match";
@@ -224,8 +248,8 @@ beforeEach(function () {
           var pass = vector.command == a.command;
           pass = pass && vector.vec1.x == a.vec1.x;
           pass = pass && vector.vec1.y == a.vec1.y;
-          pass = pass && _.isUndefined(vector.vec2);
-          pass = pass && _.isUndefined(vector.vec3);
+          pass = pass && !vector.vec2;
+          pass = pass && !vector.vec3;
 
           if (pass) {
             msg = "Expected not to match";
@@ -250,7 +274,7 @@ beforeEach(function () {
           expected.vec2 = new Rune.Vector(c, d);
           expected.vec3 = new Rune.Vector(e, f)
           return {
-            pass: _.isEqual(anchor, expected),
+            pass: JSON.stringify(anchor) == JSON.stringify(expected),
             message: "Actual: " + JSON.stringify(anchor) + ", expected: " + JSON.stringify(expected)
           };
         }
@@ -265,7 +289,7 @@ beforeEach(function () {
           expected.vec1 = new Rune.Vector(a, b);
           expected.vec2 = new Rune.Vector(c, d);
           return {
-            pass: _.isEqual(anchor, expected),
+            pass: JSON.stringify(anchor) == JSON.stringify(expected),
             message: "Actual: " + JSON.stringify(anchor) + ", expected: " + JSON.stringify(expected)
           }
         }

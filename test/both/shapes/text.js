@@ -11,16 +11,17 @@ describe("Rune.Text", function() {
     "letterSpacing" : 0.5,
     "textDecoration" : "underline"
   };
+  var textVarKeys = Object.keys(textVars);
 
   function setTextVars(text) {
-    _.each(textVars, function(v, k) {
-      s[k](v);
+    textVarKeys.forEach(function(key) {
+      s[key](textVars[key]);
     });
   }
 
   function expectTextVars(text) {
-    _.each(textVars, function(v, k) {
-      expect(s.state[k]).toEqual(v);
+    textVarKeys.forEach(function(key) {
+      expect(s.state[key]).toEqual(textVars[key]);
     });
   }
 
@@ -36,8 +37,8 @@ describe("Rune.Text", function() {
     });
 
     it("is chainable", function() {
-      _.each(textVars, function(v, k) {
-        var res = s[k](v);
+      textVarKeys.forEach(function(key) {
+        var res = s[key](textVars[key]);
         expect(res).toBe(res);
       });
     });
