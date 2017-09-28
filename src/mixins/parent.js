@@ -18,9 +18,19 @@ var Parent = {
   },
 
   removeChild: function(child) {
+
+    if(child.parent !== this) {
+      return;
+    }
+
+    // check if it is in this parent
     this.renderedChildren.splice(child.childId, 1);
     this.children.splice(child.childId, 1);
-    this.changedChildren = without(this.changedChildren, child.childId);
+
+    var childIndex = this.changedChildren.indexOf(child.childId);
+    if(childIndex !== -1) {
+      this.changedChildren.splice(childIndex, 1);
+    }
 
     // Lower id's of all children above by one
     for(var i = child.childId; i < this.children.length; i++) {

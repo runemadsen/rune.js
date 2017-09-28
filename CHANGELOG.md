@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Calling `remove` on a group with a shape that is not in the group will not remove another shape in the group.
+
 ## 1.1.0
 
 - Fixed a giant bug with re-rendering of children if they were removed/added to a group.

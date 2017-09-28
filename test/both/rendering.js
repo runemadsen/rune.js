@@ -11,6 +11,7 @@ describe("Rendering", function() {
     expect(r.el.tagName).toEqual('svg');
     expect(r.el).toHaveAttr('width', "200");
     expect(r.el).toHaveAttr('height', "300");
+    expect(r.el).toHaveAttr('viewBox', "0 0 200 300");
   });
 
   describe("All shapes", function() {
@@ -369,9 +370,8 @@ describe("Rendering", function() {
     });
 
     it("should not render group if child was removed from group", function() {
-      var c = r.circle(10, 15, 100);
       var parent = r.group(10, 15);
-      parent.add(c);
+      var c = r.circle(10, 15, 100, parent);
       r.draw();
       parent.remove(c);
       r.draw();

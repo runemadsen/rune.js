@@ -47,6 +47,16 @@ describe("Rune.Group", function() {
       expect(s).not.toBeChildOf(g);
     });
 
+    it("does not remove child that is not in the group", function() {
+      var g = new Rune.Group();
+      var s1 = new Rune.Ellipse();
+      var s2 = new Rune.Rectangle();
+      g.add(s1);
+      g.remove(s2);
+      expect(s1).toBeChildOf(g);
+      expect(s2).not.toBeChildOf(g);
+    });
+
   });
 
   describe("copy()", function() {
