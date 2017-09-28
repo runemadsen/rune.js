@@ -1,3 +1,7 @@
+## 1.0.3
+
+- The npm package now has a `/dist/rune.js` folder packaged for the browser.
+
 ## 1.0.2
 
 - Actually fixing problem with re-rendering after removing child from group
