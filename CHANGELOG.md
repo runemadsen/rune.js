@@ -1,3 +1,8 @@
+## 1.1.0
+
+- After lots of shuffling around, there is now *finally* a consistent API for adding and removing shapes. Groups have `addChild()` and `removeChild()`, shapes have `removeParent()` and `addParent()`.
+- Fixed a giant bug with re-rendering of children.
+
 ## 1.0.3
 
 - The npm package now has a `/dist/rune.js` folder packaged for the browser.

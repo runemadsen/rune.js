@@ -324,6 +324,20 @@ describe("Rendering", function() {
       });
     });
 
+    it("should rerender if children were swapped", function() {
+      var g = r.group(10, 15);
+      var s1 = r.circle(20, 25, 100, g);
+      var s2 = r.rect(20, 25, 100, 100, g);
+      r.draw();
+      var jgroup = r.el.childNodes[0];
+      expect(jgroup.childNodes[0]).toBeTag("circle");
+      expect(jgroup.childNodes[1]).toBeTag("rect");
+      s1.removeParent().addTo(g);
+      r.draw();
+      expect(jgroup.childNodes[0]).toBeTag("rect");
+      expect(jgroup.childNodes[1]).toBeTag("circle");
+    });
+
     it("should not render if empty", function() {
       var g = r.group(10, 15);
       r.draw();
@@ -347,12 +361,12 @@ describe("Rendering", function() {
 
     });
 
-    // it("should render in group if moved from stage to group", function() {
-    //   var c = r.circle(10, 15, 100);
-    //   var parent = r.group(10, 15);
-    //   parent.add(c);
-    //   r.draw();
-    // });
+    it("should render in group if moved from stage to group", function() {
+      var c = r.circle(10, 15, 100);
+      var parent = r.group(10, 15);
+      parent.add(c);
+      r.draw();
+    });
 
     it("should not render group if child was removed from group", function() {
       var c = r.circle(10, 15, 100);
