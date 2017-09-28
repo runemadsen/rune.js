@@ -1,7 +1,6 @@
 ## 1.1.0
 
-- After lots of shuffling around, there is now *finally* a consistent API for adding and removing shapes. Groups have `addChild()` and `removeChild()`, shapes have `removeParent()` and `addParent()`.
-- Fixed a giant bug with re-rendering of children.
+- Fixed a giant bug with re-rendering of children if they were removed/added to a group.
 
 ## 1.0.3
 

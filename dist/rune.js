@@ -2631,7 +2631,8 @@ var Parent = {
   },
 
   removeChild: function(child) {
-    this.children = without(this.children, child);
+    this.renderedChildren.splice(child.childId, 1);
+    this.children.splice(child.childId, 1);
     this.changedChildren = without(this.changedChildren, child.childId);
 
     // Lower id's of all children above by one
