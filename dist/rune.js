@@ -2336,6 +2336,7 @@ var assign = __webpack_require__(1);
 var each = __webpack_require__(14);
 var map = __webpack_require__(18);
 var Shape = __webpack_require__(3);
+var Styles = __webpack_require__(4);
 var Parent = __webpack_require__(47);
 var Utils = __webpack_require__(0);
 var Vector = __webpack_require__(8);
@@ -2344,12 +2345,11 @@ var svg = __webpack_require__(2);
 var Group = function(x, y) {
   this.shape();
   this.setupParent();
-  if(typeof x !== 'undefined') this.state.x = x;
-  if(typeof y !== 'undefined') this.state.y = y;
-}
+  if (typeof x !== 'undefined') this.state.x = x;
+  if (typeof y !== 'undefined') this.state.y = y;
+};
 
 Group.prototype = {
-
   add: function(child) {
     this.addChild(child);
   },
@@ -2360,8 +2360,8 @@ Group.prototype = {
 
   copy: function(parent) {
     var copy = new Group();
-    for(var i = 0; i < this.children.length; i++) {
-      this.children[i].copy(copy)
+    for (var i = 0; i < this.children.length; i++) {
+      this.children[i].copy(copy);
     }
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
@@ -2378,14 +2378,14 @@ Group.prototype = {
   },
 
   render: function(opts) {
-    if(!this.children || this.children.length == 0) return;
+    if (!this.children || this.children.length == 0) return;
     var attr = this.shapeAttributes({});
+    this.stylesAttributes(attr);
     return svg('g', attr, this.renderChildren(opts));
   }
+};
 
-}
-
-assign(Group.prototype, Shape, Parent, {type: "group"});
+assign(Group.prototype, Shape, Styles, Parent, { type: 'group' });
 
 module.exports = Group;
 

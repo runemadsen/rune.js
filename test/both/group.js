@@ -1,8 +1,6 @@
-describe("Rune.Group", function() {
-
-  describe("Group()", function() {
-
-     it("should have optional x and y", function() {
+describe('Rune.Group', function() {
+  describe('Group()', function() {
+    it('should have optional x and y', function() {
       var g1 = new Rune.Group();
       expect(g1.state.x).toEqual(0);
       expect(g1.state.y).toEqual(0);
@@ -11,12 +9,10 @@ describe("Rune.Group", function() {
       expect(g2.state.x).toEqual(100);
       expect(g2.state.y).toEqual(101);
     });
-
   });
 
-  describe("add()", function() {
-
-    it("adds child to children and sets parent", function() {
+  describe('add()', function() {
+    it('adds child to children and sets parent', function() {
       var g = new Rune.Group();
       var s = new Rune.Ellipse();
       expect(s).not.toBeChildOf(g);
@@ -24,7 +20,7 @@ describe("Rune.Group", function() {
       expect(s).toBeChildOf(g);
     });
 
-    it("removes child from former parent", function() {
+    it('removes child from former parent', function() {
       var g1 = new Rune.Group();
       var g2 = new Rune.Group();
       var s = new Rune.Ellipse();
@@ -34,12 +30,10 @@ describe("Rune.Group", function() {
       expect(s).toBeChildOf(g2);
       expect(s).not.toBeChildOf(g1);
     });
-
   });
 
-  describe("remove()", function() {
-
-    it("removes child", function() {
+  describe('remove()', function() {
+    it('removes child', function() {
       var g = new Rune.Group();
       var s = new Rune.Ellipse();
       g.add(s);
@@ -47,7 +41,7 @@ describe("Rune.Group", function() {
       expect(s).not.toBeChildOf(g);
     });
 
-    it("does not remove child that is not in the group", function() {
+    it('does not remove child that is not in the group', function() {
       var g = new Rune.Group();
       var s1 = new Rune.Ellipse();
       var s2 = new Rune.Rectangle();
@@ -56,21 +50,19 @@ describe("Rune.Group", function() {
       expect(s1).toBeChildOf(g);
       expect(s2).not.toBeChildOf(g);
     });
-
   });
 
-  describe("copy()", function() {
-
+  describe('copy()', function() {
     var parent;
     var child;
 
     beforeEach(function() {
       parent = new Rune.Group();
       child = new Rune.Group();
-      parent.add(child)
+      parent.add(child);
     });
 
-    it("copies the object", function() {
+    it('copies the object', function() {
       var parentEllipse = new Rune.Circle(10, 15, 300);
       var childEllipse = new Rune.Circle(10, 15, 300);
       setMixinVars(parent);
@@ -85,39 +77,35 @@ describe("Rune.Group", function() {
       expect(copy).not.toBe(parent);
     });
 
-    it("adds copy to parent", function() {
+    it('adds copy to parent', function() {
       var copy = child.copy();
       expect(copy).toBeChildOf(parent);
     });
 
-    it("does not add copy to parent", function() {
+    it('does not add copy to parent', function() {
       var copy = child.copy(false);
       expect(copy).not.toBeChildOf(parent);
     });
-
   });
 
-  describe("stagepos()", function() {
-
-    it("returns absolute position if stage", function() {
+  describe('stagepos()', function() {
+    it('returns absolute position if stage', function() {
       var stage = new Rune.Group();
-      expect(stage.stagepos()).toEqualVector(0, 0);
+      expect(stage.stagepos()).toEqual(new Rune.Vector(0, 0));
     });
 
-    it("return absolute position if parent", function() {
+    it('return absolute position if parent', function() {
       var stage = new Rune.Group();
       var child = new Rune.Group(100, 50);
       var grandchild = new Rune.Group(30, 15);
       stage.add(child);
       child.add(grandchild);
-      expect(grandchild.stagepos()).toEqualVector(130, 65);
+      expect(grandchild.stagepos()).toEqual(new Rune.Vector(130, 65));
     });
-
   });
 
-  describe("scale()", function() {
-
-    it("scales children groups and shapes", function() {
+  describe('scale()', function() {
+    it('scales children groups and shapes', function() {
       var g = new Rune.Group(10, 15);
       var childGroup = new Rune.Group(20, 25);
       var childShape = new Rune.Circle(30, 35, 40);
@@ -132,7 +120,5 @@ describe("Rune.Group", function() {
       expect(childShape.state.y).toEqual(70);
       expect(childShape.state.radius).toEqual(80);
     });
-
   });
-
 });

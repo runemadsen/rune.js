@@ -1,3 +1,8 @@
+## 1.1.3
+
+- `Rune.Group` can now accept `fill()`, `stroke()`, and all other styling functions. This makes it easy to have a default style for all shapes in a group.
+- Massive rewrite of tests that tried to be too smart.
+
 ## 1.1.2
 
 - `Rune.Color` objects now accepts `rgb()` and `rgba()` strings.
