@@ -1,9 +1,9 @@
 // This code was adapted from the brilliant color lib by MoOx
 // See more here: https://github.com/MoOx/color
-var colorConvert = require('color-convert');
+var colorConvert = require("color-convert");
+var colorParse = require("parse-color");
 
 var Color = function(a, b, c, d, e) {
-
   this.values = {
     rgb: [0, 0, 0],
     hsl: [0, 0, 0],
@@ -11,48 +11,38 @@ var Color = function(a, b, c, d, e) {
     hwb: [0, 0, 0],
     cmyk: [0, 0, 0, 0],
     alpha: 1
-  }
+  };
 
   // COLOR
-  if(a instanceof Color) {
+  if (a instanceof Color) {
     return a;
-  }
-
-  // HSB
-  else if(a == 'hsv') {
-    this.setValues('hsv', {h:b % 360, s:c, v:d});
-    if(e) this.setValues('alpha', e);
-  }
-
-  // HEX
-  else if(typeof a === 'string') {
-
+  } else if (a == "hsv") {
+    // HSB
+    this.setValues("hsv", { h: b % 360, s: c, v: d });
+    if (e) this.setValues("alpha", e);
+  } else if (typeof a === "string") {
+    // HEX
     // convert HEX to RGB
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(a);
-    if(result) {
-      this.setValues('rgb', [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)])
+    var result = colorParse(a);
+    if (result.rgb) {
+      this.setValues("rgb", result.rgb);
+      if (result.rgba) this.setValues("alpha", result.rgba[3]);
     } else {
-      throw new Error("Unable to parse color from string \"" + a + "\"");
+      throw new Error('Unable to parse color from string "' + a + '"');
     }
-    if(b) this.setValues('alpha', b);
+    if (b) this.setValues("alpha", b);
+  } else if (typeof c === "undefined") {
+    // GRAYSCALE
+    this.setValues("rgb", { r: a, g: a, b: a });
+    if (b) this.setValues("alpha", b);
+  } else if (typeof a !== "undefined") {
+    // RGB
+    this.setValues("rgb", { r: a, g: b, b: c });
+    if (d) this.setValues("alpha", d);
   }
-
-  // GRAYSCALE
-  else if(typeof c === 'undefined') {
-    this.setValues('rgb', {r:a, g:a, b:a});
-    if(b) this.setValues('alpha', b);
-  }
-
-  // RGB
-  else if(typeof a !== 'undefined') {
-    this.setValues('rgb', {r:a, g:b, b:c});
-    if(d) this.setValues('alpha', d);
-  }
-
 };
 
 Color.prototype = {
-
   type: "color",
 
   rgb: function(vals) {
@@ -89,7 +79,7 @@ Color.prototype = {
 
   hwbArray: function() {
     if (this.values.alpha !== 1) {
-      return this.values.hwb.concat([this.values.alpha])
+      return this.values.hwb.concat([this.values.alpha]);
     }
     return this.values.hwb;
   },
@@ -110,7 +100,7 @@ Color.prototype = {
 
   alpha: function(val) {
     if (val === undefined) {
-       return this.values.alpha;
+      return this.values.alpha;
     }
     this.setValues("alpha", val);
     return this;
@@ -178,8 +168,8 @@ Color.prototype = {
     var lum = [];
     for (var i = 0; i < rgb.length; i++) {
       var chan = rgb[i] / 255;
-      lum[i] = (chan <= 0.03928) ? chan / 12.92
-                : Math.pow(((chan + 0.055) / 1.055), 2.4)
+      lum[i] =
+        chan <= 0.03928 ? chan / 12.92 : Math.pow((chan + 0.055) / 1.055, 2.4);
     }
     return 0.2126 * lum[0] + 0.7152 * lum[1] + 0.0722 * lum[2];
   },
@@ -189,24 +179,20 @@ Color.prototype = {
     var lum1 = this.luminosity();
     var lum2 = color2.luminosity();
     if (lum1 > lum2) {
-       return (lum1 + 0.05) / (lum2 + 0.05)
-    };
+      return (lum1 + 0.05) / (lum2 + 0.05);
+    }
     return (lum2 + 0.05) / (lum1 + 0.05);
   },
 
   level: function(color2) {
     var contrastRatio = this.contrast(color2);
-    return (contrastRatio >= 7.1)
-      ? 'AAA'
-      : (contrastRatio >= 4.5)
-       ? 'AA'
-       : '';
+    return contrastRatio >= 7.1 ? "AAA" : contrastRatio >= 4.5 ? "AA" : "";
   },
 
   dark: function() {
     // YIQ equation from http://24ways.org/2010/calculating-color-contrast
     var rgb = this.values.rgb,
-        yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
+      yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
     return yiq < 128;
   },
 
@@ -215,9 +201,9 @@ Color.prototype = {
   },
 
   negate: function() {
-    var rgb = []
+    var rgb = [];
     for (var i = 0; i < 3; i++) {
-       rgb[i] = 255 - this.values.rgb[i];
+      rgb[i] = 255 - this.values.rgb[i];
     }
     this.setValues("rgb", rgb);
     return this;
@@ -268,12 +254,12 @@ Color.prototype = {
   },
 
   clearer: function(ratio) {
-    this.setValues("alpha", this.values.alpha - (this.values.alpha * ratio));
+    this.setValues("alpha", this.values.alpha - this.values.alpha * ratio);
     return this;
   },
 
   opaquer: function(ratio) {
-    this.setValues("alpha", this.values.alpha + (this.values.alpha * ratio));
+    this.setValues("alpha", this.values.alpha + this.values.alpha * ratio);
     return this;
   },
 
@@ -298,16 +284,14 @@ Color.prototype = {
     var w = 2 * p - 1;
     var a = color1.alpha() - color2.alpha();
 
-    var w1 = (((w * a == -1) ? w : (w + a)/(1 + w*a)) + 1) / 2.0;
+    var w1 = ((w * a == -1 ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
     var w2 = 1 - w1;
 
-    return this
-      .rgb(
-        w1 * color1.red() + w2 * color2.red(),
-        w1 * color1.green() + w2 * color2.green(),
-        w1 * color1.blue() + w2 * color2.blue()
-      )
-      .alpha(color1.alpha() * p + color2.alpha() * (1 - p));
+    return this.rgb(
+      w1 * color1.red() + w2 * color2.red(),
+      w1 * color1.green() + w2 * color2.green(),
+      w1 * color1.blue() + w2 * color2.blue()
+    ).alpha(color1.alpha() * p + color2.alpha() * (1 - p));
   },
 
   toJSON: function() {
@@ -331,40 +315,36 @@ Color.prototype = {
   },
 
   setValues: function(space, vals) {
-
     var spaces = {
-      "rgb": ["red", "green", "blue"],
-      "hsl": ["hue", "saturation", "lightness"],
-      "hsv": ["hue", "saturation", "value"],
-      "hwb": ["hue", "whiteness", "blackness"],
-      "cmyk": ["cyan", "magenta", "yellow", "black"]
+      rgb: ["red", "green", "blue"],
+      hsl: ["hue", "saturation", "lightness"],
+      hsv: ["hue", "saturation", "value"],
+      hwb: ["hue", "whiteness", "blackness"],
+      cmyk: ["cyan", "magenta", "yellow", "black"]
     };
 
     var maxes = {
-      "rgb": [255, 255, 255],
-      "hsl": [360, 100, 100],
-      "hsv": [360, 100, 100],
-      "hwb": [360, 100, 100],
-      "cmyk": [100, 100, 100, 100]
+      rgb: [255, 255, 255],
+      hsl: [360, 100, 100],
+      hsv: [360, 100, 100],
+      hwb: [360, 100, 100],
+      cmyk: [100, 100, 100, 100]
     };
 
     var alpha = 1;
     if (space == "alpha") {
-       alpha = vals;
-    }
-    else if (vals.length) {
+      alpha = vals;
+    } else if (vals.length) {
       // [10, 10, 10]
       this.values[space] = vals.slice(0, space.length);
       alpha = vals[space.length];
-    }
-    else if (vals[space.charAt(0)] !== undefined) {
+    } else if (vals[space.charAt(0)] !== undefined) {
       // {r: 10, g: 10, b: 10}
       for (var i = 0; i < space.length; i++) {
         this.values[space][i] = vals[space.charAt(i)];
       }
       alpha = vals.a;
-    }
-    else if (vals[spaces[space][0]] !== undefined) {
+    } else if (vals[spaces[space][0]] !== undefined) {
       // {red: 10, green: 10, blue: 10}
       var chans = spaces[space];
       for (var i = 0; i < space.length; i++) {
@@ -372,26 +352,35 @@ Color.prototype = {
       }
       alpha = vals.alpha;
     }
-    this.values.alpha = Math.max(0, Math.min(1, (alpha !== undefined ? alpha : this.values.alpha) ));
+    this.values.alpha = Math.max(
+      0,
+      Math.min(1, alpha !== undefined ? alpha : this.values.alpha)
+    );
     if (space == "alpha") {
       return;
     }
 
     // cap values of the space prior converting all values
     for (var i = 0; i < space.length; i++) {
-      var capped = Math.max(0, Math.min(maxes[space][i], this.values[space][i]));
+      var capped = Math.max(
+        0,
+        Math.min(maxes[space][i], this.values[space][i])
+      );
       this.values[space][i] = Math.round(capped);
     }
 
     // convert to all the other color spaces
     for (var sname in spaces) {
       if (sname != space) {
-        this.values[sname] = colorConvert[space][sname](this.values[space])
+        this.values[sname] = colorConvert[space][sname](this.values[space]);
       }
 
       // cap values
       for (var i = 0; i < sname.length; i++) {
-        var capped = Math.max(0, Math.min(maxes[sname][i], this.values[sname][i]));
+        var capped = Math.max(
+          0,
+          Math.min(maxes[sname][i], this.values[sname][i])
+        );
         this.values[sname][i] = Math.round(capped);
       }
     }
@@ -422,8 +411,7 @@ Color.prototype = {
     this.setValues(space, this.values[space]);
     return this;
   }
-
-}
+};
 
 // Modules should be accessible through Color
 Color.Convert = colorConvert;

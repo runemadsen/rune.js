@@ -1,3 +1,7 @@
+## 1.1.2
+
+- `Rune.Color` objects now accepts `rgb()` and `rgba()` strings.
+
 ## 1.1.1
 
 - Calling `remove` on a group with a shape that is not in the group will not remove another shape in the group.
