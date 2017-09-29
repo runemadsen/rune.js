@@ -1,12 +1,10 @@
 var Vector = require('../vector');
-var Utils = require("../utils");
-var each = require("lodash/collection/each");
+var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
 var Shape = {
-
   changed: function() {
-    if(this.parent && !this.parentNotified) {
+    if (this.parent && !this.parentNotified) {
       // let the parent know that this child changed
       this.parent.changedChildren.push(this.childId);
       // let's not do it again
@@ -34,11 +32,11 @@ var Shape = {
 
   rotate: function(deg, x, y, relative) {
     this.state.rotation = deg;
-    if(x || y) {
+    if (x || y) {
       this.state.rotationX = x || 0;
       this.state.rotationY = y || 0;
     }
-    if(relative) {
+    if (relative) {
       this.state.rotationX += this.state.x;
       this.state.rotationY += this.state.y;
     }
@@ -52,13 +50,13 @@ var Shape = {
   },
 
   removeParent: function() {
-    if(this.parent) this.parent.remove(this);
+    if (this.parent) this.parent.remove(this);
     return this;
   },
 
   stagepos: function() {
     var vec = new Vector(this.state.x, this.state.y);
-    if(this.parent) {
+    if (this.parent) {
       vec = vec.add(this.parent.stagepos());
     }
     return vec;
@@ -68,32 +66,29 @@ var Shape = {
   // ---------------------------------------------------
 
   shapeAttributes: function(attr) {
-
     var strings = [];
 
-    if(this.state.rotation) {
-      var rot = "rotate(" + this.state.rotation;
-      if(this.state.rotationX || this.state.rotationY)
-        rot += " " + this.state.rotationX + " " + this.state.rotationY;
-      strings.push(rot + ")");
+    if (this.state.rotation) {
+      var rot = 'rotate(' + this.state.rotation;
+      if (this.state.rotationX || this.state.rotationY)
+        rot += ' ' + this.state.rotationX + ' ' + this.state.rotationY;
+      strings.push(rot + ')');
     }
 
-    if((this.type == "group" || this.type == "path" || this.type == "polygon" || this.type == "grid" || this.type == "triangle") && (this.state.x || this.state.y)) {
-      strings.push("translate(" + this.state.x + " " + this.state.y + ")");
+    if (
+      (this.type == 'group' ||
+        this.type == 'path' ||
+        this.type == 'polygon' ||
+        this.type == 'grid' ||
+        this.type == 'triangle') &&
+      (this.state.x || this.state.y)
+    ) {
+      strings.push('translate(' + this.state.x + ' ' + this.state.y + ')');
     }
 
-    if(strings.length > 0)
-      attr.transform = strings.join(" ").trim();
+    if (strings.length > 0) attr.transform = strings.join(' ').trim();
 
     return attr;
-  },
-
-  optionalAttributes: function(attr, keys) {
-    each(keys, function(attribute, variable) {
-      if(this.state[variable]) {
-        attr[attribute] = Utils.s(this.state[variable]);
-      }
-    }, this);
   },
 
   // Render Debug
@@ -104,7 +99,7 @@ var Shape = {
       cx: Utils.s(x),
       cy: Utils.s(y),
       r: Utils.s(4),
-      fill: "rgb(212, 18, 229)"
+      fill: 'rgb(212, 18, 229)'
     });
   },
 
@@ -114,8 +109,8 @@ var Shape = {
       y: Utils.s(y),
       width: Utils.s(width),
       height: Utils.s(height),
-      stroke: "rgb(212, 18, 229)",
-      fill: "none"
+      stroke: 'rgb(212, 18, 229)',
+      fill: 'none'
     });
   },
 
@@ -125,11 +120,10 @@ var Shape = {
       y1: Utils.s(y1),
       x2: Utils.s(x2),
       y2: Utils.s(y2),
-      stroke: "rgb(212, 18, 229)",
-      fill: "none"
+      stroke: 'rgb(212, 18, 229)',
+      fill: 'none'
     });
   }
-
 };
 
 module.exports = Shape;

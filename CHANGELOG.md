@@ -2,6 +2,7 @@
 
 - `fill()` and `stroke()` will now disable fill if the string 'none' is passed to them.
 - `fill()` and `stroke()` will no longer insert `file="none"` if set to false.
+- `Object.assign()` now used instead of lodash `assign`. This means that IE users need a polyfill.
 
 ## 1.1.3
 

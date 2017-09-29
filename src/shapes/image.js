@@ -1,7 +1,7 @@
-var assign = require("lodash/object/assign");
-var Shape = require("../mixins/shape");
-var Styles = require("../mixins/styles");
-var Box = require("../mixins/box");
+var assign = require('lodash/object/assign');
+var Shape = require('../mixins/shape');
+var Styles = require('../mixins/styles');
+var Box = require('../mixins/box');
 var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
@@ -13,10 +13,9 @@ var Image = function(url, x, y, width, height) {
   this.state.y = y;
   this.state.width = width;
   this.state.height = height;
-}
+};
 
 Image.prototype = {
-
   scale: function(scalar) {
     this.scaleBox(scalar);
     this.changed();
@@ -33,20 +32,17 @@ Image.prototype = {
 
   render: function(opts) {
     var attr = {
-      "xlink:href" : Utils.s(this.state.url),
+      'xlink:href': Utils.s(this.state.url),
       x: Utils.s(this.state.x),
       y: Utils.s(this.state.y)
-    }
-    this.optionalAttributes(attr, {
-      "width" : "width",
-      "height" : "height"
-    });
+    };
+    if (this.state.width) attr.width = Utils.s(this.state.width);
+    if (this.state.height) attr.height = Utils.s(this.state.height);
     this.shapeAttributes(attr);
     return svg('image', attr);
   }
+};
 
-}
-
-assign(Image.prototype, Shape, Box, { type: "image" });
+assign(Image.prototype, Shape, Box, { type: 'image' });
 
 module.exports = Image;

@@ -1,8 +1,8 @@
-var each = require("lodash/collection/each");
-var map = require("lodash/collection/map");
-var assign = require("lodash/object/assign");
-var Shape = require("../mixins/shape");
-var Styles = require("../mixins/styles");
+var each = require('lodash/collection/each');
+var map = require('lodash/collection/map');
+var assign = require('lodash/object/assign');
+var Shape = require('../mixins/shape');
+var Styles = require('../mixins/styles');
 var Anchor = require('../anchor');
 var Vector = require('../vector');
 var Polygon = require('./polygon');
@@ -13,12 +13,11 @@ var Path = function(x, y) {
   this.shape();
   this.styles();
   this.state.anchors = [];
-  if(typeof x !== 'undefined') this.state.x = x;
-  if(typeof y !== 'undefined') this.state.y = y;
-}
+  if (typeof x !== 'undefined') this.state.x = x;
+  if (typeof y !== 'undefined') this.state.y = y;
+};
 
 Path.prototype = {
-
   moveTo: function(x, y) {
     this.state.anchors.push(new Anchor().setMove(x, y));
     this.changed();
@@ -47,54 +46,59 @@ Path.prototype = {
   },
 
   startVector: function() {
-    return this.state.anchors[0] && this.state.anchors[0].command == 'move' ? this.state.anchors[0].vec1.copy() : new Vector(0, 0);
+    return this.state.anchors[0] && this.state.anchors[0].command == 'move'
+      ? this.state.anchors[0].vec1.copy()
+      : new Vector(0, 0);
   },
 
   subpaths: function(parent) {
     var subs = [];
     var lastSplit = 0;
 
-    each(this.state.anchors, function(anchor, i) {
+    each(
+      this.state.anchors,
+      function(anchor, i) {
+        var isMove = anchor.command == 'move';
+        var isAfterClose =
+          this.state.anchors[i - 1] &&
+          this.state.anchors[i - 1].command == 'close';
+        var isLast = i == this.state.anchors.length - 1;
 
-      var isMove = anchor.command == 'move';
-      var isAfterClose = this.state.anchors[i-1] && this.state.anchors[i-1].command == 'close'
-      var isLast = i == this.state.anchors.length-1;
-
-      if(i > lastSplit && (isMove || isAfterClose || isLast)) {
-        if(isLast) i++;
-        var sub = this.copy(parent);
-        sub.state.anchors = sub.state.anchors.slice(lastSplit, i);
-        subs.push(sub);
-        lastSplit = i;
-      }
-    }, this);
+        if (i > lastSplit && (isMove || isAfterClose || isLast)) {
+          if (isLast) i++;
+          var sub = this.copy(parent);
+          sub.state.anchors = sub.state.anchors.slice(lastSplit, i);
+          subs.push(sub);
+          lastSplit = i;
+        }
+      },
+      this
+    );
     return subs;
   },
 
   length: function() {
-
     var len = 0;
     var paths = this.subpaths(false);
 
-    for(var p = 0; p < paths.length; p++) {
-
+    for (var p = 0; p < paths.length; p++) {
       var anchors = paths[p].state.anchors;
 
       // find length of all anchors in subpath.
       // if last stop is close, use beginning
-      for(var i = 0; i < anchors.length-1; i++) {
+      for (var i = 0; i < anchors.length - 1; i++) {
         var start = anchors[i];
         var startVec = start.vec3 || start.vec2 || start.vec1;
-        var stop = anchors[i+1];
+        var stop = anchors[i + 1];
 
         // if stop is a close command, replace close anchor
         // with vector of first point in path.
-        if(stop.command == 'close') {
+        if (stop.command == 'close') {
           stop = paths[p].startVector();
         }
 
         var rel = stop.sub(startVec);
-        len += rel.length()
+        len += rel.length();
       }
     }
 
@@ -105,28 +109,27 @@ Path.prototype = {
     var tmpLen = 0;
     var paths = this.subpaths(false);
 
-    for(var p = 0; p < paths.length; p++) {
-
+    for (var p = 0; p < paths.length; p++) {
       var anchors = paths[p].state.anchors;
 
       // find length of all anchors in subpath.
       // if last stop is close, use beginning
-      for(var i = 0; i < anchors.length-1; i++) {
+      for (var i = 0; i < anchors.length - 1; i++) {
         var start = anchors[i];
         var startVec = start.vec3 || start.vec2 || start.vec1;
-        var stop = anchors[i+1];
+        var stop = anchors[i + 1];
 
         // if stop is a close command, replace close anchor
         // with vector of first point in path.
-        if(stop.command == 'close') {
+        if (stop.command == 'close') {
           var beginning = paths[p].startVector();
-          stop = new Anchor().setLine(beginning.x, beginning.y)
+          stop = new Anchor().setLine(beginning.x, beginning.y);
         }
 
-        var vec = stop.sub(startVec)
+        var vec = stop.sub(startVec);
         var veclen = vec.length();
 
-        if(tmpLen + veclen > len) {
+        if (tmpLen + veclen > len) {
           var remaining = len - tmpLen;
           return startVec.add(vec.vectorAt(remaining / veclen));
         }
@@ -143,27 +146,29 @@ Path.prototype = {
   },
 
   toPolygons: function(opts, parent) {
-
     var paths = this.subpaths(false);
     var polys = [];
 
     // if splitting the path into vectors with equal spacing
-    if(opts && opts.spacing) {
+    if (opts && opts.spacing) {
+      each(
+        paths,
+        function(path) {
+          var poly = new Polygon(path.state.x, path.state.y);
+          var len = path.length();
+          var num = len / opts.spacing;
+          for (var i = 0; i < num; i++) {
+            var vec = path.vectorAtLength(i * opts.spacing);
+            poly.lineTo(vec.x, vec.y);
+          }
 
-      each(paths, function(path) {
-        var poly = new Polygon(path.state.x, path.state.y);
-        var len = path.length();
-        var num = len / opts.spacing;
-        for(var i = 0; i < num; i++) {
-          var vec = path.vectorAtLength(i * opts.spacing);
-          poly.lineTo(vec.x, vec.y)
-        }
+          Utils.copyMixinVars(this, poly);
+          Utils.groupLogic(poly, this.parent, parent);
 
-        Utils.copyMixinVars(this, poly);
-        Utils.groupLogic(poly, this.parent, parent);
-
-        polys.push(poly);
-      }, this);
+          polys.push(poly);
+        },
+        this
+      );
     }
 
     return polys;
@@ -171,7 +176,9 @@ Path.prototype = {
 
   copy: function(parent) {
     var copy = new Path();
-    copy.state.anchors = map(this.state.anchors, function(a) { return a.copy(); });
+    copy.state.anchors = map(this.state.anchors, function(a) {
+      return a.copy();
+    });
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
@@ -195,76 +202,110 @@ Path.prototype = {
   // Paths must start with a moveTo. This function is checks if
   // there is a moveTo at the beginning, and adds one if not.
   checkStartMove: function() {
-    if(this.state.anchors.length == 0) {
+    if (this.state.anchors.length == 0) {
       this.moveTo(0, 0);
     }
   },
 
   render: function(opts) {
-
     var attr = this.shapeAttributes({});
     this.stylesAttributes(attr);
 
     attr.d = map(this.state.anchors, function(a) {
-      if(a.command == 'move') {
-        return "M " + a.vec1.x + " " + a.vec1.y;
+      if (a.command == 'move') {
+        return 'M ' + a.vec1.x + ' ' + a.vec1.y;
+      } else if (a.command == 'line') {
+        return 'L ' + a.vec1.x + ' ' + a.vec1.y;
+      } else if (a.command == 'cubic') {
+        return (
+          'C ' +
+          a.vec1.x +
+          ' ' +
+          a.vec1.y +
+          ' ' +
+          a.vec2.x +
+          ' ' +
+          a.vec2.y +
+          ' ' +
+          a.vec3.x +
+          ' ' +
+          a.vec3.y
+        );
+      } else if (a.command == 'quad' && typeof a.vec2 !== 'undefined') {
+        return (
+          'Q ' + a.vec1.x + ' ' + a.vec1.y + ' ' + a.vec2.x + ' ' + a.vec2.y
+        );
+      } else if (a.command == 'quad') {
+        return 'T ' + a.vec1.x + ' ' + a.vec1.y;
+      } else if (a.command == 'close') {
+        return 'Z';
       }
-      else if(a.command == 'line') {
-        return "L " + a.vec1.x + " " + a.vec1.y;
-      }
-      else if(a.command == 'cubic'){
-        return "C " + a.vec1.x + " " + a.vec1.y + " " + a.vec2.x + " " + a.vec2.y + " " + a.vec3.x + " " + a.vec3.y;
-      }
-      else if(a.command == 'quad' && typeof a.vec2 !== 'undefined') {
-        return "Q " + a.vec1.x + " " + a.vec1.y + " " + a.vec2.x + " " + a.vec2.y;
-      }
-      else if(a.command == 'quad'){
-        return "T " + a.vec1.x + " " + a.vec1.y;
-      }
-      else if(a.command == 'close'){
-        return "Z";
-      }
-    }).join(" ").trim();
+    })
+      .join(' ')
+      .trim();
 
-    this.optionalAttributes(attr, {
-      "fillRule" : "fill-rule"
-    });
+    if (this.state.fillRule) attr['fill-rule'] = this.state.fillRule;
 
-    var els = [
-      svg('path', attr)
-    ];
+    var els = [svg('path', attr)];
 
-    if(opts.debug) els = els.concat(this.renderDebug());
+    if (opts.debug) els = els.concat(this.renderDebug());
     return els;
   },
 
   renderDebug: function() {
-
     var t = this;
     var els = [];
 
     each(this.state.anchors, function(a, i) {
-      if(a.command == 'cubic'){
-        els.push(t.debugLine(t.state.x + a.vec1.x, t.state.y + a.vec1.y, t.state.x + a.vec3.x, t.state.y + a.vec3.y));
-        els.push(t.debugLine(t.state.x + a.vec2.x, t.state.y + a.vec2.y, t.state.x + a.vec3.x, t.state.y + a.vec3.y));
-        for(var i = 1; i < 4; i++) {
-          els.push(t.debugCircle(t.state.x + a["vec"+i].x, t.state.y + a["vec"+i].y))
+      if (a.command == 'cubic') {
+        els.push(
+          t.debugLine(
+            t.state.x + a.vec1.x,
+            t.state.y + a.vec1.y,
+            t.state.x + a.vec3.x,
+            t.state.y + a.vec3.y
+          )
+        );
+        els.push(
+          t.debugLine(
+            t.state.x + a.vec2.x,
+            t.state.y + a.vec2.y,
+            t.state.x + a.vec3.x,
+            t.state.y + a.vec3.y
+          )
+        );
+        for (var i = 1; i < 4; i++) {
+          els.push(
+            t.debugCircle(
+              t.state.x + a['vec' + i].x,
+              t.state.y + a['vec' + i].y
+            )
+          );
         }
-      }
-      else if(a.command == 'quad' && typeof a.vec2 !== 'undefined') {
-        els.push(t.debugLine(t.state.x + a.vec1.x, t.state.y + a.vec1.y, t.state.x + a.vec2.x, t.state.y + a.vec2.y));
-        for(var i = 1; i < 3; i++) {
-          els.push(t.debugCircle(t.state.x + a["vec"+i].x, t.state.y + a["vec"+i].y))
+      } else if (a.command == 'quad' && typeof a.vec2 !== 'undefined') {
+        els.push(
+          t.debugLine(
+            t.state.x + a.vec1.x,
+            t.state.y + a.vec1.y,
+            t.state.x + a.vec2.x,
+            t.state.y + a.vec2.y
+          )
+        );
+        for (var i = 1; i < 3; i++) {
+          els.push(
+            t.debugCircle(
+              t.state.x + a['vec' + i].x,
+              t.state.y + a['vec' + i].y
+            )
+          );
         }
       }
     });
 
     return els;
-
   }
+};
 
-}
-
-assign(Path.prototype, Shape, Styles, { type: "path"});
+assign(Path.prototype, Shape, Styles, { type: 'path' });
 
 module.exports = Path;

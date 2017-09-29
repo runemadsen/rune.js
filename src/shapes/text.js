@@ -1,6 +1,6 @@
-var assign = require("lodash/object/assign");
-var Shape = require("../mixins/shape");
-var Styles = require("../mixins/styles");
+var assign = require('lodash/object/assign');
+var Shape = require('../mixins/shape');
+var Styles = require('../mixins/styles');
 var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
@@ -11,18 +11,17 @@ var Text = function(text, x, y) {
   this.state.x = x;
   this.state.y = y;
   this.state.fontSize = 16;
-}
+};
 
 Text.prototype = {
-
   toPolygon: function() {
-    throw new Error("You need the Rune.Font plugin to convert text to polygon");
+    throw new Error('You need the Rune.Font plugin to convert text to polygon');
   },
 
   textAlign: function(textAlign) {
-    this.state.textAlign = textAlign; ;
+    this.state.textAlign = textAlign;
     this.changed();
-    return this
+    return this;
   },
 
   fontFamily: function(fontFamily) {
@@ -86,37 +85,35 @@ Text.prototype = {
   render: function(opts) {
     var attr = {
       x: Utils.s(this.state.x),
-      y: Utils.s(this.state.y),
-    }
+      y: Utils.s(this.state.y)
+    };
     this.shapeAttributes(attr);
     this.stylesAttributes(attr);
 
     // attributes that need specific handling
-    if(this.state.textAlign) {
-      var translate = { "left":"start", "center":"middle", "right":"end" };
-      attr["text-anchor"] = translate[this.state.textAlign];
+    if (this.state.textAlign) {
+      var translate = { left: 'start', center: 'middle', right: 'end' };
+      attr['text-anchor'] = translate[this.state.textAlign];
     }
 
-    this.optionalAttributes(attr, {
-      "fontFamily" : "font-family",
-      "textAlign" : "text-align",
-      "fontStyle" : "font-style",
-      "fontWeight" : "font-weight",
-      "fontSize" : "font-size",
-      "letterSpacing" : "letter-spacing",
-      "textDecoration" : "text-decoration"
-    });
-
-    if(this.state.textAlign) {
-      var translate = { "left":"start", "center":"middle", "right":"end" };
-      attr["text-anchor"] = translate[this.state.textAlign];
-    }
+    if (this.state.fontFamily)
+      attr['font-family'] = Utils.s(this.state.fontFamily);
+    if (this.state.textAlign)
+      attr['text-align'] = Utils.s(this.state.textAlign);
+    if (this.state.fontStyle)
+      attr['font-style'] = Utils.s(this.state.fontStyle);
+    if (this.state.fontWeight)
+      attr['font-weight'] = Utils.s(this.state.fontWeight);
+    if (this.state.fontSize) attr['font-size'] = Utils.s(this.state.fontSize);
+    if (this.state.letterSpacing)
+      attr['letter-spacing'] = Utils.s(this.state.letterSpacing);
+    if (this.state.textDecoration)
+      attr['text-decoration'] = Utils.s(this.state.textDecoration);
 
     return svg('text', attr, this.state.text);
   }
+};
 
-}
-
-assign(Text.prototype, Shape, Styles, { type: "text" });
+assign(Text.prototype, Shape, Styles, { type: 'text' });
 
 module.exports = Text;
