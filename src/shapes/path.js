@@ -1,6 +1,4 @@
-var each = require('lodash/collection/each');
-var map = require('lodash/collection/map');
-var assign = require('lodash/object/assign');
+var assign = require('object-assign');
 var Shape = require('../mixins/shape');
 var Styles = require('../mixins/styles');
 var Anchor = require('../anchor');
@@ -55,25 +53,22 @@ Path.prototype = {
     var subs = [];
     var lastSplit = 0;
 
-    each(
-      this.state.anchors,
-      function(anchor, i) {
-        var isMove = anchor.command == 'move';
-        var isAfterClose =
-          this.state.anchors[i - 1] &&
-          this.state.anchors[i - 1].command == 'close';
-        var isLast = i == this.state.anchors.length - 1;
+    for (var i = 0; i < this.state.anchors.length; i++) {
+      var isMove = this.state.anchors[i].command == 'move';
+      var isAfterClose =
+        this.state.anchors[i - 1] &&
+        this.state.anchors[i - 1].command == 'close';
+      var isLast = i == this.state.anchors.length - 1;
 
-        if (i > lastSplit && (isMove || isAfterClose || isLast)) {
-          if (isLast) i++;
-          var sub = this.copy(parent);
-          sub.state.anchors = sub.state.anchors.slice(lastSplit, i);
-          subs.push(sub);
-          lastSplit = i;
-        }
-      },
-      this
-    );
+      if (i > lastSplit && (isMove || isAfterClose || isLast)) {
+        if (isLast) i++;
+        var sub = this.copy(parent);
+        sub.state.anchors = sub.state.anchors.slice(lastSplit, i);
+        subs.push(sub);
+        lastSplit = i;
+      }
+    }
+
     return subs;
   },
 
@@ -151,24 +146,20 @@ Path.prototype = {
 
     // if splitting the path into vectors with equal spacing
     if (opts && opts.spacing) {
-      each(
-        paths,
-        function(path) {
-          var poly = new Polygon(path.state.x, path.state.y);
-          var len = path.length();
-          var num = len / opts.spacing;
-          for (var i = 0; i < num; i++) {
-            var vec = path.vectorAtLength(i * opts.spacing);
-            poly.lineTo(vec.x, vec.y);
-          }
+      for (var i = 0; i < paths.length; i++) {
+        var poly = new Polygon(paths[i].state.x, paths[i].state.y);
+        var len = paths[i].length();
+        var num = len / opts.spacing;
+        for (var j = 0; j < num; j++) {
+          var vec = paths[i].vectorAtLength(j * opts.spacing);
+          poly.lineTo(vec.x, vec.y);
+        }
 
-          Utils.copyMixinVars(this, poly);
-          Utils.groupLogic(poly, this.parent, parent);
+        Utils.copyMixinVars(this, poly);
+        Utils.groupLogic(poly, this.parent, parent);
 
-          polys.push(poly);
-        },
-        this
-      );
+        polys.push(poly);
+      }
     }
 
     return polys;
@@ -176,7 +167,7 @@ Path.prototype = {
 
   copy: function(parent) {
     var copy = new Path();
-    copy.state.anchors = map(this.state.anchors, function(a) {
+    copy.state.anchors = this.state.anchors.map(function(a) {
       return a.copy();
     });
     Utils.copyMixinVars(this, copy);
@@ -186,7 +177,7 @@ Path.prototype = {
 
   scale: function(scalar) {
     this.scaleStyles(scalar);
-    this.state.anchors = map(this.state.anchors, function(anchor) {
+    this.state.anchors = this.state.anchors.map(function(anchor) {
       return anchor.multiply(scalar);
     });
     this.changed();
@@ -211,36 +202,37 @@ Path.prototype = {
     var attr = this.shapeAttributes({});
     this.stylesAttributes(attr);
 
-    attr.d = map(this.state.anchors, function(a) {
-      if (a.command == 'move') {
-        return 'M ' + a.vec1.x + ' ' + a.vec1.y;
-      } else if (a.command == 'line') {
-        return 'L ' + a.vec1.x + ' ' + a.vec1.y;
-      } else if (a.command == 'cubic') {
-        return (
-          'C ' +
-          a.vec1.x +
-          ' ' +
-          a.vec1.y +
-          ' ' +
-          a.vec2.x +
-          ' ' +
-          a.vec2.y +
-          ' ' +
-          a.vec3.x +
-          ' ' +
-          a.vec3.y
-        );
-      } else if (a.command == 'quad' && typeof a.vec2 !== 'undefined') {
-        return (
-          'Q ' + a.vec1.x + ' ' + a.vec1.y + ' ' + a.vec2.x + ' ' + a.vec2.y
-        );
-      } else if (a.command == 'quad') {
-        return 'T ' + a.vec1.x + ' ' + a.vec1.y;
-      } else if (a.command == 'close') {
-        return 'Z';
-      }
-    })
+    attr.d = this.state.anchors
+      .map(function(a) {
+        if (a.command == 'move') {
+          return 'M ' + a.vec1.x + ' ' + a.vec1.y;
+        } else if (a.command == 'line') {
+          return 'L ' + a.vec1.x + ' ' + a.vec1.y;
+        } else if (a.command == 'cubic') {
+          return (
+            'C ' +
+            a.vec1.x +
+            ' ' +
+            a.vec1.y +
+            ' ' +
+            a.vec2.x +
+            ' ' +
+            a.vec2.y +
+            ' ' +
+            a.vec3.x +
+            ' ' +
+            a.vec3.y
+          );
+        } else if (a.command == 'quad' && typeof a.vec2 !== 'undefined') {
+          return (
+            'Q ' + a.vec1.x + ' ' + a.vec1.y + ' ' + a.vec2.x + ' ' + a.vec2.y
+          );
+        } else if (a.command == 'quad') {
+          return 'T ' + a.vec1.x + ' ' + a.vec1.y;
+        } else if (a.command == 'close') {
+          return 'Z';
+        }
+      })
       .join(' ')
       .trim();
 
@@ -256,7 +248,8 @@ Path.prototype = {
     var t = this;
     var els = [];
 
-    each(this.state.anchors, function(a, i) {
+    for (var j = 0; j < this.state.anchors.length; j++) {
+      var a = this.state.anchors[j];
       if (a.command == 'cubic') {
         els.push(
           t.debugLine(
@@ -300,7 +293,7 @@ Path.prototype = {
           );
         }
       }
-    });
+    }
 
     return els;
   }

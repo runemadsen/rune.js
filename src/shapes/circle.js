@@ -1,7 +1,7 @@
-var assign = require("lodash/object/assign");
-var Shape = require("../mixins/shape");
-var Styles = require("../mixins/styles");
-var Ellipse = require("./ellipse");
+var assign = require('object-assign');
+var Shape = require('../mixins/shape');
+var Styles = require('../mixins/styles');
+var Ellipse = require('./ellipse');
 var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
 
@@ -11,12 +11,16 @@ var Circle = function(x, y, radius) {
   this.state.x = x;
   this.state.y = y;
   this.state.radius = radius;
-}
+};
 
 Circle.prototype = {
-
   toPolygon: function(opts, parent) {
-    var ellipse = new Ellipse(this.state.x, this.state.y, this.state.radius*2, this.state.radius*2);
+    var ellipse = new Ellipse(
+      this.state.x,
+      this.state.y,
+      this.state.radius * 2,
+      this.state.radius * 2
+    );
     var poly = ellipse.toPolygon(opts, false);
     Utils.copyMixinVars(this, poly);
     Utils.groupLogic(poly, this.parent, parent);
@@ -49,14 +53,13 @@ Circle.prototype = {
       cx: Utils.s(this.state.x),
       cy: Utils.s(this.state.y),
       r: Utils.s(this.state.radius)
-    }
+    };
     this.shapeAttributes(attr);
     this.stylesAttributes(attr);
     return svg('circle', attr);
   }
+};
 
-}
-
-assign(Circle.prototype, Shape, Styles, { type: "circle" });
+assign(Circle.prototype, Shape, Styles, { type: 'circle' });
 
 module.exports = Circle;

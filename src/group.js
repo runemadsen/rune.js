@@ -1,6 +1,4 @@
-var assign = require('lodash/object/assign');
-var each = require('lodash/collection/each');
-var map = require('lodash/collection/map');
+var assign = require('object-assign');
 var Shape = require('./mixins/shape');
 var Styles = require('./mixins/styles');
 var Parent = require('./mixins/parent');
@@ -35,11 +33,11 @@ Group.prototype = {
   },
 
   scale: function(scalar) {
-    each(this.children, function(child) {
-      child.state.x *= scalar;
-      child.state.y *= scalar;
-      child.scale(scalar);
-    });
+    for (var i = 0; i < this.children.length; i++) {
+      this.children[i].state.x *= scalar;
+      this.children[i].state.y *= scalar;
+      this.children[i].scale(scalar);
+    }
     return this;
   },
 

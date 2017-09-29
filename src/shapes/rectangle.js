@@ -1,4 +1,4 @@
-var assign = require("lodash/object/assign");
+var assign = require("object-assign");
 var Shape = require("../mixins/shape");
 var Styles = require("../mixins/styles");
 var Box = require("../mixins/box");

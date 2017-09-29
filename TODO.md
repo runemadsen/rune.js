@@ -1,10 +1,8 @@
 # TODO
 
 - Rename `scale()` to `resize()` and add `scale()` that uses transform scale
-- Also add dimensions to `viewBox` attribute per #30
 - Docs: `start()` and `end()`
 - Rename circle.radius to diameter? Change toPolygon so they don't double in size
-- Remove lodash and use polyfills instead
 
 ## Backlog
 

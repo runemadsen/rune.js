@@ -1,8 +1,14 @@
-## UPCOMING
+## 1.1.4
 
 - `fill()` and `stroke()` will now disable fill if the string 'none' is passed to them.
 - `fill()` and `stroke()` will no longer insert `file="none"` if set to false.
-- `Object.assign()` now used instead of lodash `assign`. This means that IE users need a polyfill.
+- Replaced `lodash.each` with for loops for speed and size improvements.
+- Replaced `lodash.map` with native `map()` for speed and size improvements.
+- Replaced `lodash.flatten` with custom `flatten()` for speed and size improvements.
+- Replaced `lodash.defaults` with `lodash.assign` for size improvements.
+- Replaced `lodash.assign` with `object-assign` for size improvements.
+- Replaced `lodash.without` with custom `without` for size improvements.
+- Unminified size went from 215kb to 160kb
 
 ## 1.1.3
 

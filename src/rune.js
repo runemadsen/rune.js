@@ -1,22 +1,20 @@
-var defaults = require('lodash/object/defaults');
-var assign = require("lodash/object/assign");
-var each = require("lodash/collection/each");
-var Vector = require("./vector");
-var Anchor = require("./anchor");
-var Color = require("./color");
-var Group = require("./group");
-var Grid = require("./grid");
-var Utils = require("./utils");
-var Events = require("./events");
-var Circle = require("./shapes/circle");
-var Ellipse = require("./shapes/ellipse");
-var Line = require("./shapes/line");
-var Triangle = require("./shapes/triangle");
-var Path = require("./shapes/path");
-var Polygon = require("./shapes/polygon");
-var Rectangle = require("./shapes/rectangle");
-var Text = require("./shapes/text");
-var Image = require("./shapes/image");
+var assign = require('object-assign');
+var Vector = require('./vector');
+var Anchor = require('./anchor');
+var Color = require('./color');
+var Group = require('./group');
+var Grid = require('./grid');
+var Utils = require('./utils');
+var Events = require('./events');
+var Circle = require('./shapes/circle');
+var Ellipse = require('./shapes/ellipse');
+var Line = require('./shapes/line');
+var Triangle = require('./shapes/triangle');
+var Path = require('./shapes/path');
+var Polygon = require('./shapes/polygon');
+var Rectangle = require('./shapes/rectangle');
+var Text = require('./shapes/text');
+var Image = require('./shapes/image');
 var Box = require('./mixins/box');
 var Shape = require('./mixins/shape');
 var Styles = require('./mixins/styles');
@@ -31,35 +29,36 @@ var svg = require('virtual-dom/virtual-hyperscript/svg');
 // --------------------------------------------------
 
 var Rune = function(options) {
-
-  var params = defaults(options || {}, {
+  var params = assign(
+    {
       debug: false,
       frameRate: 60
-    }
+    },
+    options
   );
 
   var attrs = {
     xmlns: 'http://www.w3.org/2000/svg',
     'xmlns:xlink': 'http://www.w3.org/1999/xlink'
-  }
+  };
 
-  if(params.width)  {
+  if (params.width) {
     attrs.width = Utils.s(params.width);
     this.width = params.width;
   }
 
-  if(params.height) {
+  if (params.height) {
     attrs.height = Utils.s(params.height);
     this.height = params.height;
   }
 
-  if(attrs.width && attrs.height) {
+  if (attrs.width && attrs.height) {
     attrs.viewBox = '0 0 ' + attrs.width + ' ' + attrs.height;
   }
 
   var props = {
     attributes: attrs
-  }
+  };
 
   this.tree = svg('svg', props);
   this.el = createElement(this.tree);
@@ -68,44 +67,40 @@ var Rune = function(options) {
   this.frameCount = 1;
   this.frameRate = params.frameRate;
 
-  if(params.container && Utils.isBrowser()) {
-
-    if(typeof params.container === 'string') {
+  if (params.container && Utils.isBrowser()) {
+    if (typeof params.container === 'string') {
       params.container = document.querySelector(params.container);
     }
 
-    if(params.container) {
+    if (params.container) {
       this.appendTo(params.container);
       var bounds = this.el.getBoundingClientRect();
-      if(!this.width)   {
+      if (!this.width) {
         this.width = bounds.width;
         this.ignoreWidth = true;
       }
-      if(!this.height) {
+      if (!this.height) {
         this.height = bounds.height;
         this.ignoreHeight = true;
       }
     } else {
-      console.error("Container element not found");
+      console.error('Container element not found');
     }
   }
 
   // last resort to catch no dimensions
-  if(!this.width)   this.width = 640;
-  if(!this.height) this.height = 480;
+  if (!this.width) this.width = 640;
+  if (!this.height) this.height = 480;
 
   this.initEvents();
 };
 
 Rune.prototype = {
-
   // Helpers
   // --------------------------------------------------
 
   //
-  handleSize: function() {
-
-  },
+  handleSize: function() {},
 
   relativePos: function(pageX, pageY) {
     var bounds = this.el.getBoundingClientRect();
@@ -119,20 +114,20 @@ Rune.prototype = {
 
   initEvents: function() {
     // Specific browser events
-    if(typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       this.initMouseEvents();
     }
   },
 
   initMouseEvents: function() {
     var mouseEvents = ['mousemove', 'mousedown', 'mouseup', 'click'];
-    each(mouseEvents, function(mouseEvent) {
-      var that = this;
-      this.el.addEventListener(mouseEvent, function(e) {
+    var that = this;
+    for (var i = 0; i < mouseEvents.length; i++) {
+      this.el.addEventListener(mouseEvents[i], function(e) {
         var rel = that.relativePos(e.pageX, e.pageY);
-        that.trigger(mouseEvent, { x: rel.x, y: rel.y });
+        that.trigger(mouseEvents[i], { x: rel.x, y: rel.y });
       });
-    }, this);
+    }
   },
 
   // Shape functions
@@ -211,18 +206,18 @@ Rune.prototype = {
   // It has a check that delays the frame with a setTimeout if
   // the framerate is lower than 60 fps.
   play: function() {
-
-    if(this.pauseNext) {
+    if (this.pauseNext) {
       this.pauseNext = false;
       return;
     }
 
-    if(this.frameRate >= 60) {
+    if (this.frameRate >= 60) {
       this.playNow();
-    }
-    else {
+    } else {
       var that = this;
-      setTimeout(function() { that.playNow() }, 1000 / this.frameRate);
+      setTimeout(function() {
+        that.playNow();
+      }, 1000 / this.frameRate);
     }
   },
 
@@ -248,32 +243,32 @@ Rune.prototype = {
   },
 
   draw: function() {
-
     var attrs = {
       xmlns: 'http://www.w3.org/2000/svg',
       'xmlns:xlink': 'http://www.w3.org/1999/xlink'
-    }
+    };
 
-    if(!this.ignoreWidth)  attrs.width = Utils.s(this.width);
-    if(!this.ignoreHeight) attrs.height = Utils.s(this.height);
+    if (!this.ignoreWidth) attrs.width = Utils.s(this.width);
+    if (!this.ignoreHeight) attrs.height = Utils.s(this.height);
 
     var props = {
-       attributes: attrs
-    }
+      attributes: attrs
+    };
 
-    var newTree = svg('svg', props, [this.stage.renderChildren({ debug: this.debug })]);
+    var newTree = svg('svg', props, [
+      this.stage.renderChildren({ debug: this.debug })
+    ]);
     var diffTree = diff(this.tree, newTree);
     this.el = patch(this.el, diffTree);
     this.tree = newTree;
 
     this.frameCount += 1;
   }
-
-}
+};
 
 assign(Rune, Utils);
 assign(Rune.prototype, Utils);
-assign(Rune.prototype, Events)
+assign(Rune.prototype, Events);
 
 // Modules should be accessible through Rune
 Rune.Vector = Vector;
