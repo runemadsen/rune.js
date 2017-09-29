@@ -1,3 +1,8 @@
+## UPCOMING
+
+- `fill()` and `stroke()` will now disable fill if the string 'none' is passed to them.
+- `fill()` and `stroke()` will no longer insert `file="none"` if set to false.
+
 ## 1.1.3
 
 - `Rune.Group` can now accept `fill()`, `stroke()`, and all other styling functions. This makes it easy to have a default style for all shapes in a group.

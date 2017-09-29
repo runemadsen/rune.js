@@ -30,8 +30,8 @@ describe('Rendering', function() {
 
       var rect = r.el.childNodes[0];
       expect(rect.tagName).toEqual('rect');
-      expect(rect.getAttribute('fill')).toEqual('none');
-      expect(rect.getAttribute('stroke')).toEqual('none');
+      expect(rect.getAttribute('fill')).toBeFalsy();
+      expect(rect.getAttribute('stroke')).toBeFalsy();
       expect(rect.getAttribute('stroke-width')).toBeFalsy();
       expect(rect.getAttribute('stroke-linecap')).toBeFalsy();
       expect(rect.getAttribute('stroke-linejoin')).toBeFalsy();
