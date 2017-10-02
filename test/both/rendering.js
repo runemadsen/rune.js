@@ -46,6 +46,17 @@ describe('Rendering', function() {
       var rect = r.el.childNodes[0];
       expect(rect.getAttribute('transform')).toEqual('rotate(45 0 10)');
     });
+
+    it('renders fill and stroke with none', function() {
+      r
+        .rect(0, 0, 0, 0)
+        .fill('none')
+        .stroke('none');
+      r.draw();
+      var rect = r.el.childNodes[0];
+      expect(rect.getAttribute('fill')).toEqual('none');
+      expect(rect.getAttribute('stroke')).toEqual('none');
+    });
   });
 
   describe('Rune.Rectangle', function() {

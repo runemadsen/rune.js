@@ -111,6 +111,16 @@ var Utils = {
     if (a.styles && b.styles) b.styles(a);
   },
 
+  // A function that returns a simple setter on an object.
+  // Used to generate lots of setters based on a hashmap
+  getSetter: function(func) {
+    return function(val) {
+      this.state[func] = val;
+      this.changed();
+      return this;
+    };
+  },
+
   round: function(value, decimals) {
     return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
   },
@@ -439,6 +449,16 @@ module.exports = Shape;
 var Color = __webpack_require__(16);
 var Utils = __webpack_require__(0);
 
+var map = {
+  strokeWidth: 'stroke-width',
+  strokeCap: 'stroke-linecap',
+  strokeJoin: 'stroke-linejoin',
+  strokeMiterlimit: 'stroke-miterlimit',
+  strokeDash: 'stroke-dasharray',
+  strokeDashOffset: 'stroke-dashoffset'
+};
+var keys = Object.keys(map);
+
 var Styles = {
   styles: function(copy) {
     this.state = this.state || {};
@@ -446,70 +466,37 @@ var Styles = {
     this.state.stroke = new Color(0);
 
     if (copy) {
-      if (copy.state.fill === false) this.state.fill = false;
-      else if (copy.state.fill) this.state.fill = copy.state.fill.copy();
+      if (copy.state.fill === false || copy.state.fill === 'none') {
+        this.state.fill = copy.state.fill;
+      } else if (copy.state.fill) {
+        this.state.fill = copy.state.fill.copy();
+      }
 
-      if (copy.state.stroke === false) this.state.stroke = false;
-      else if (copy.state.stroke) this.state.stroke = copy.state.stroke.copy();
+      if (copy.state.stroke === false || copy.state.stroke === 'none') {
+        this.state.stroke = false;
+      } else if (copy.state.stroke) {
+        this.state.stroke = copy.state.stroke.copy();
+      }
 
-      if (copy.state.strokeWidth)
-        this.state.strokeWidth = copy.state.strokeWidth;
-      if (copy.state.strokeCap) this.state.strokeCap = copy.state.strokeCap;
-      if (copy.state.strokeJoin) this.state.strokeJoin = copy.state.strokeJoin;
-      if (copy.state.strokeMiterlimit)
-        this.state.strokeMiterlimit = copy.state.strokeMiterlimit;
-      if (copy.state.strokeDash) this.state.strokeDash = copy.state.strokeDash;
-      if (copy.state.strokeDashOffset)
-        this.state.strokeDashOffset = copy.state.strokeDashOffset;
+      // Copy basic attributes
+      for (var i = 0; i < keys.length; i++) {
+        if (copy.state[keys[i]]) {
+          this.state[keys[i]] = copy.state[keys[i]];
+        }
+      }
     }
   },
 
   fill: function(a, b, c, d, e) {
-    if (a === false || a === 'none') this.state.fill = false;
+    if (a === false || a === 'none') this.state.fill = a;
     else this.state.fill = new Color(a, b, c, d, e);
     this.changed();
     return this;
   },
 
   stroke: function(a, b, c, d, e) {
-    if (a === false || a === 'none') this.state.stroke = false;
+    if (a === false || a === 'none') this.state.stroke = a;
     else this.state.stroke = new Color(a, b, c, d, e);
-    this.changed();
-    return this;
-  },
-
-  strokeWidth: function(val) {
-    this.state.strokeWidth = val;
-    this.changed();
-    return this;
-  },
-
-  strokeCap: function(val) {
-    this.state.strokeCap = val;
-    this.changed();
-    return this;
-  },
-
-  strokeJoin: function(val) {
-    this.state.strokeJoin = val;
-    this.changed();
-    return this;
-  },
-
-  strokeMiterlimit: function(val) {
-    this.state.strokeMiterlimit = val;
-    this.changed();
-    return this;
-  },
-
-  strokeDash: function(val) {
-    this.state.strokeDash = val;
-    this.changed();
-    return this;
-  },
-
-  strokeDashOffset: function(val) {
-    this.state.strokeDashOffset = val;
     this.changed();
     return this;
   },
@@ -524,44 +511,53 @@ var Styles = {
 
   stylesAttributes: function(attr) {
     if (this.state.fill) {
-      attr.fill =
-        'rgb(' +
-        this.state.fill.values.rgb[0] +
-        ', ' +
-        this.state.fill.values.rgb[1] +
-        ', ' +
-        this.state.fill.values.rgb[2] +
-        ')';
-      var alpha = this.state.fill.values.alpha;
-      if (alpha < 1) attr['fill-opacity'] = Utils.s(alpha);
+      if (this.state.fill === 'none') {
+        attr.fill = 'none';
+      } else {
+        attr.fill =
+          'rgb(' +
+          this.state.fill.values.rgb[0] +
+          ', ' +
+          this.state.fill.values.rgb[1] +
+          ', ' +
+          this.state.fill.values.rgb[2] +
+          ')';
+        var alpha = this.state.fill.values.alpha;
+        if (alpha < 1) attr['fill-opacity'] = Utils.s(alpha);
+      }
     }
 
     if (this.state.stroke) {
-      attr.stroke =
-        'rgb(' +
-        this.state.stroke.values.rgb[0] +
-        ', ' +
-        this.state.stroke.values.rgb[1] +
-        ', ' +
-        this.state.stroke.values.rgb[2] +
-        ')';
-      var alpha = this.state.stroke.values.alpha;
-      if (alpha < 1) attr['stroke-opacity'] = Utils.s(alpha);
+      if (this.state.stroke === 'none') {
+        attr.stroke = 'none';
+      } else {
+        attr.stroke =
+          'rgb(' +
+          this.state.stroke.values.rgb[0] +
+          ', ' +
+          this.state.stroke.values.rgb[1] +
+          ', ' +
+          this.state.stroke.values.rgb[2] +
+          ')';
+        var alpha = this.state.stroke.values.alpha;
+        if (alpha < 1) attr['stroke-opacity'] = Utils.s(alpha);
+      }
     }
 
-    if (this.state.strokeWidth)
-      attr['stroke-width'] = Utils.s(this.state.strokeWidth);
-    if (this.state.strokeCap) attr['stroke-linecap'] = this.state.strokeCap;
-    if (this.state.strokeJoin) attr['stroke-linejoin'] = this.state.strokeJoin;
-    if (this.state.strokeMiterlimit)
-      attr['stroke-miterlimit'] = Utils.s(this.state.strokeMiterlimit);
-    if (this.state.strokeDash) attr['stroke-dasharray'] = this.state.strokeDash;
-    if (this.state.strokeDashOffset)
-      attr['stroke-dashoffset'] = Utils.s(this.state.strokeDashOffset);
+    for (var i = 0; i < keys.length; i++) {
+      if (this.state[keys[i]]) {
+        attr[map[keys[i]]] = Utils.s(this.state[keys[i]]);
+      }
+    }
 
     return attr;
   }
 };
+
+// Generate setters
+for (var i = 0; i < keys.length; i++) {
+  Styles[keys[i]] = Utils.getSetter(keys[i]);
+}
 
 module.exports = Styles;
 
@@ -5260,6 +5256,17 @@ var Styles = __webpack_require__(4);
 var Utils = __webpack_require__(0);
 var svg = __webpack_require__(1);
 
+var map = {
+  textAlign: 'text-align',
+  fontFamily: 'font-family',
+  fontStyle: 'font-style',
+  fontWeight: 'font-weight',
+  fontSize: 'font-size',
+  letterSpacing: 'letter-spacing',
+  textDecoration: 'text-decoration'
+};
+var keys = Object.keys(map);
+
 var Text = function(text, x, y) {
   this.shape();
   this.styles();
@@ -5274,58 +5281,12 @@ Text.prototype = {
     throw new Error('You need the Rune.Font plugin to convert text to polygon');
   },
 
-  textAlign: function(textAlign) {
-    this.state.textAlign = textAlign;
-    this.changed();
-    return this;
-  },
-
-  fontFamily: function(fontFamily) {
-    this.state.fontFamily = fontFamily;
-    this.changed();
-    return this;
-  },
-
-  fontStyle: function(fontStyle) {
-    this.state.fontStyle = fontStyle;
-    this.changed();
-    return this;
-  },
-
-  fontWeight: function(fontWeight) {
-    this.state.fontWeight = fontWeight;
-    this.changed();
-    return this;
-  },
-
-  fontSize: function(fontSize) {
-    this.state.fontSize = fontSize;
-    this.changed();
-    return this;
-  },
-
-  letterSpacing: function(letterSpacing) {
-    this.state.letterSpacing = letterSpacing;
-    this.changed();
-    return this;
-  },
-
-  textDecoration: function(textDecoration) {
-    this.state.textDecoration = textDecoration;
-    this.changed();
-    return this;
-  },
-
   copy: function(parent) {
     var copy = new Text();
     copy.state.text = this.state.text;
-    copy.state.textAlign = this.state.textAlign;
-    copy.state.fontFamily = this.state.fontFamily;
-    copy.state.fontStyle = this.state.fontStyle;
-    copy.state.fontWeight = this.state.fontWeight;
-    copy.state.fontSize = this.state.fontSize;
-    copy.state.letterSpacing = this.state.letterSpacing;
-    copy.state.textDecoration = this.state.textDecoration;
+    for (var i = 0; i < keys.length; i++) {
+      copy.state[keys[i]] = this.state[keys[i]];
+    }
     Utils.copyMixinVars(this, copy);
     Utils.groupLogic(copy, this.parent, parent);
     return copy;
@@ -5346,29 +5307,26 @@ Text.prototype = {
     this.shapeAttributes(attr);
     this.stylesAttributes(attr);
 
-    // attributes that need specific handling
-    if (this.state.textAlign) {
-      var translate = { left: 'start', center: 'middle', right: 'end' };
-      attr['text-anchor'] = translate[this.state.textAlign];
+    for (var i = 0; i < keys.length; i++) {
+      if (this.state[keys[i]]) {
+        attr[map[keys[i]]] = Utils.s(this.state[keys[i]]);
+      }
     }
 
-    if (this.state.fontFamily)
-      attr['font-family'] = Utils.s(this.state.fontFamily);
-    if (this.state.textAlign)
-      attr['text-align'] = Utils.s(this.state.textAlign);
-    if (this.state.fontStyle)
-      attr['font-style'] = Utils.s(this.state.fontStyle);
-    if (this.state.fontWeight)
-      attr['font-weight'] = Utils.s(this.state.fontWeight);
-    if (this.state.fontSize) attr['font-size'] = Utils.s(this.state.fontSize);
-    if (this.state.letterSpacing)
-      attr['letter-spacing'] = Utils.s(this.state.letterSpacing);
-    if (this.state.textDecoration)
-      attr['text-decoration'] = Utils.s(this.state.textDecoration);
+    // handle textalign conversion
+    if (attr['text-align']) {
+      var translate = { left: 'start', center: 'middle', right: 'end' };
+      attr['text-anchor'] = translate[attr['text-align']];
+    }
 
     return svg('text', attr, this.state.text);
   }
 };
+
+// Generate setters
+for (var i = 0; i < keys.length; i++) {
+  Text.prototype[keys[i]] = Utils.getSetter(keys[i]);
+}
 
 assign(Text.prototype, Shape, Styles, { type: 'text' });
 
@@ -5381,7 +5339,6 @@ module.exports = Text;
 
 var assign = __webpack_require__(2);
 var Shape = __webpack_require__(3);
-var Styles = __webpack_require__(4);
 var Box = __webpack_require__(13);
 var Utils = __webpack_require__(0);
 var svg = __webpack_require__(1);

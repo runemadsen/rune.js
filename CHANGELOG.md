@@ -1,3 +1,8 @@
+## 1.1.5
+
+- `fill()` and `stroke()` now support `false` (which renders no attribute) and `'none'` (which renders fill="none").
+- Smaller filesize by procedurally adding getters and setters.
+
 ## 1.1.4
 
 - `fill()` and `stroke()` will now disable fill if the string 'none' is passed to them.

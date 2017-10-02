@@ -1,15 +1,14 @@
-describe("Rune.Text", function() {
-
+describe('Rune.Text', function() {
   var s;
 
   var textVars = {
-    "textAlign" : "center",
-    "fontFamily" : "Georgia",
-    "fontStyle" : "italic",
-    "fontWeight" : "bold",
-    "fontSize" : 32,
-    "letterSpacing" : 0.5,
-    "textDecoration" : "underline"
+    textAlign: 'center',
+    fontFamily: 'Georgia',
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+    fontSize: 32,
+    letterSpacing: 0.5,
+    textDecoration: 'underline'
   };
   var textVarKeys = Object.keys(textVars);
 
@@ -26,41 +25,41 @@ describe("Rune.Text", function() {
   }
 
   beforeEach(function() {
-    s = new Rune.Text("Hello", 10, 15);
+    s = new Rune.Text('Hello', 10, 15);
   });
 
-  describe("Common text state", function() {
-
-    it("sets var", function() {
+  describe('Common text state', function() {
+    it('sets var', function() {
       setTextVars(s);
       expectTextVars(s);
     });
 
-    it("is chainable", function() {
+    it('is chainable', function() {
       textVarKeys.forEach(function(key) {
         var res = s[key](textVars[key]);
         expect(res).toBe(res);
       });
     });
-
   });
 
-  describe("toPolygon", function() {
-
-    it("throws error if Rune.Font is not present", function() {
-      expect( function(){ s.toPolygon() } ).toThrow(new Error("You need the Rune.Font plugin to convert text to polygon"));
+  describe('toPolygon', function() {
+    it('throws error if Rune.Font is not present', function() {
+      expect(function() {
+        s.toPolygon();
+      }).toThrow(
+        new Error('You need the Rune.Font plugin to convert text to polygon')
+      );
     });
-
   });
 
-  describe("copy()", function() {
-    it("has shared copy functionality", function() {
+  describe('copy()', function() {
+    it('has shared copy functionality', function() {
       setTextVars(s);
       expectCopy(s);
     });
   });
 
-  it("scales the rectangle", function() {
+  it('scales the rectangle', function() {
     spyOn(s, 'scaleStyles');
     s.scale(2);
     expect(s.state.x).toEqual(10);
@@ -68,5 +67,4 @@ describe("Rune.Text", function() {
     expect(s.state.fontSize).toEqual(32);
     expect(s.scaleStyles).toHaveBeenCalledWith(2);
   });
-
 });

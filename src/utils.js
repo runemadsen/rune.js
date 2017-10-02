@@ -41,6 +41,16 @@ var Utils = {
     if (a.styles && b.styles) b.styles(a);
   },
 
+  // A function that returns a simple setter on an object.
+  // Used to generate lots of setters based on a hashmap
+  getSetter: function(func) {
+    return function(val) {
+      this.state[func] = val;
+      this.changed();
+      return this;
+    };
+  },
+
   round: function(value, decimals) {
     return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
   },

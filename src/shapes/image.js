@@ -1,6 +1,5 @@
 var assign = require('object-assign');
 var Shape = require('../mixins/shape');
-var Styles = require('../mixins/styles');
 var Box = require('../mixins/box');
 var Utils = require('../utils');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
