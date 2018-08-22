@@ -16,11 +16,11 @@ This is the technical documentation for Rune.js. See [Getting started](index.htm
 
 Creates a new instance to be used for all drawing methods. You can use multiple instances on a single page. `options` is a JavaScript object that can hold the following properties.
 
-- `container` - String selector or DOM element used as container for the SVG.
-- `width` - The number width of the SVG (optional).
-- `height` - The number height of the SVG (optional).
-- `frameRate` - Number. The framerate used for the draw event
-- `debug` - Boolean. Enables debug mode
+* `container` - String selector or DOM element used as container for the SVG.
+* `width` - The number width of the SVG (optional).
+* `height` - The number height of the SVG (optional).
+* `frameRate` - Number. The framerate used for the draw event
+* `debug` - Boolean. Enables debug mode
 
 If `width` and/or `height` is not declared, Node will default to 640x480 while browsers will default to the rendered size of the SVG. This allows you to control the size of the SVG via CSS and still access the width and height inside your Rune.js sketch.
 
@@ -54,23 +54,27 @@ Shortcut to create a new polygon object and add it to a group. See above or the 
 
 ### `path(x, y, parent)`
 
-Shortcut to create a new path object and add it to a group. See above or the [`Rune.Path`](#runepath) documentation.
+Shortcut to create a new path object and add it to a group. See the [`Rune.Path`](#runepath) documentation.
 
 ### `text(text, x, y, parent)`
 
-Shortcut to create a new text object and add it to a group. See above or the [`Rune.Text`](#runetext) documentation.
+Shortcut to create a new text object and add it to a group. See the [`Rune.Text`](#runetext) documentation.
 
 ### `image(url, x, y, width, height)`
 
-Shortcut to create a new image object and add it to a group. See above or the [`Rune.Image`](#runeimage) documentation.
+Shortcut to create a new image object and add it to a group. See the [`Rune.Image`](#runeimage) documentation.
 
 ### `grid(options, parent)`
 
-Shortcut to create a new grid object and add it to a group. See above or the [`Rune.Grid`](#runegrid) documentation.
+Shortcut to create a new grid object and add it to a group. See the [`Rune.Grid`](#runegrid) documentation.
 
 ### `group(x, y, parent)`
 
-Shortcut to create a new group object and add it to a group. See above or the [`Rune.Group`](#runegroup)
+Shortcut to create a new group object and add it to a group. See the [`Rune.Group`](#runegroup)
+
+### `node(name, attributes, children)`
+
+Shortcut to create a new node object and add it to a group. See the [`Rune.Node`](#runenode)
 
 ### `play()`
 
@@ -85,8 +89,8 @@ Stop triggering the `draw` event.
 Used to listen to events. This is how you would listen to the `draw` even after calling `play()`.
 
 ```js
-r.on('draw', function() {
-  console.log("here")
+r.on("draw", function() {
+  console.log("here");
 });
 ```
 
@@ -136,7 +140,8 @@ fill('hsv', 360, 100, 100, 0.5) // HSVA
 fill("#FF000") // Hex string
 fill("#FF000", 0.5) // HEX string and alpha
 fill(new Rune.Color(...)) // Color object
-fill(false) // no fill
+fill('none') // Use for transparent fill
+fill(false) // No fill attribute in the SVG tag. Will inherit fill from parent if present.
 ```
 
 ### `stroke(...)`
@@ -173,7 +178,7 @@ Detaches the shape from its parent group, making it invisible.
 
 Converts the shape to a polygon by converting lines and curves to equally spaced vectors. `options` is a JavaScript object that currently only takes a single property.
 
-- `spacing` - Number. The number of pixels between each vector in the new polygon.
+* `spacing` - Number. The number of pixels between each vector in the new polygon.
 
 The `parent` parameter uses the same logic as the shorthand shape functions on the Rune instance: If not set, the new copy will be added to the same parent as the base shape. If `parent` is a group, the new copy will be added to this group. If `parent` is false, the new copy will not have a parent.
 
@@ -187,13 +192,13 @@ Sets the width of the stroke in pixels. Defaults to 1.
 
 Specifies the shape to be used at the end of open lines when they are stroked.
 
-- `type` - String. Options are `"butt"` (default), `"round"`, and `"square"`
+* `type` - String. Options are `"butt"` (default), `"round"`, and `"square"`
 
 ### `strokeJoin(type)`
 
 Specifies the shape to be used at the corners of paths or basic shapes when they are stroked.
 
-- `type` - String. Options are `"miter"` (default), `"round"`, and `"bevel"`
+* `type` - String. Options are `"miter"` (default), `"round"`, and `"bevel"`
 
 ### `strokeMiterlimit(num)`
 
@@ -203,19 +208,17 @@ When two lines meet at a sharp angle and `strokeJoin` has been set to `miter`, i
 
 Can be used to turn the stroke into dashes. See the [Mozilla Developer Documentation](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) for more info.
 
-- `dasharray` - String. Comma or whitespace-separated list of dasharray.
-
+* `dasharray` - String. Comma or whitespace-separated list of dasharray.
 
 ### `strokeDashOffset(offset)`
 
 Specifies the distance into the dash pattern to start the dash.
 
-- `offset` - Percentage string or number.
+* `offset` - Percentage string or number.
 
 ### `stagepos()`
 
 Returns the absolute position of the shape or group in relation to the canvas `0,0`. This is helpful if you have a lot of nested groups, and you want to find the position of a shape in relation to the canvas.
-
 
 ## Rune.Rectangle
 
@@ -227,8 +230,8 @@ Creates a new rectangle object. The new rectangle is not added to the stage.
 
 Gives the rectangle rounded corners.
 
-- `x` - x-axis radius of the ellipse used to round off the corners of the rectangle
-- `y` - (optional) y-axis radius of the ellipse used to round off the corners of the rectangle
+* `x` - x-axis radius of the ellipse used to round off the corners of the rectangle
+* `y` - (optional) y-axis radius of the ellipse used to round off the corners of the rectangle
 
 ### `width(num, relative)`
 
@@ -244,10 +247,10 @@ Changes the height of the rectangle. If the second argument is set to `true`, th
 
 Creates a new line object. The new line is not added to the stage.
 
-- `x1` - The x position of the start of the line
-- `y1` - The y position of the start of the line
-- `x2` - The x position of the end of the line
-- `y2` - The y position of the end of the line
+* `x1` - The x position of the start of the line
+* `y1` - The y position of the start of the line
+* `x2` - The x position of the end of the line
+* `y2` - The y position of the end of the line
 
 ## Rune.Circle
 
@@ -297,13 +300,13 @@ Returns the length of the polygon, calculated by combining the length of all vec
 
 Returns a `Rune.Vector` describing a point on the outline of the polygon.
 
-- `scalar` - A float between 0 and 1. Passing `0.5` will return the point midway on the outline of the polygon.
+* `scalar` - A float between 0 and 1. Passing `0.5` will return the point midway on the outline of the polygon.
 
 ### `vectorAtLength(length)`
 
 Returns a `Rune.Vector` describing a point on the outline of the polygon.
 
-- `length` - A number between 0 and `length()` of the polygon. Passing `100` will return the point 100 pixels along the outline of the polygon.
+* `length` - A number between 0 and `length()` of the polygon. Passing `100` will return the point 100 pixels along the outline of the polygon.
 
 ### `bounds()`
 
@@ -316,7 +319,6 @@ Returns a `Rune.Vector` holding the centroid of the shape. This is the internal 
 ### `contains(x, y)`
 
 Returns a boolean to indicate whether or not the `xy` point is inside the polygon. If the polygon belongs belongs to the stage, this will be calculated using the absolute position of the polygon to the stage. If the polygon does not belong to a group, this will be calculated using just the polygon position and outline.
-
 
 ## Rune.Path
 
@@ -364,19 +366,19 @@ Returns the combined length of all subpaths in the path.
 
 Returns a `Rune.Vector` describing a point on the outline of the path.
 
-- `scalar` - A float between 0 and 1. Passing `0.5` will return the point midway on the outline of the path.
+* `scalar` - A float between 0 and 1. Passing `0.5` will return the point midway on the outline of the path.
 
 ### `vectorAtLength(length)`
 
 Returns a `Rune.Vector` describing a point on the outline of the path.
 
-- `length` - A number between 0 and `length()` of the path. Passing `100` will return the point 100 pixels along the outline of the path.
+* `length` - A number between 0 and `length()` of the path. Passing `100` will return the point 100 pixels along the outline of the path.
 
 ### `fillRule(type)`
 
 Sets the fillrule for the subpaths. This can be used to add or subtract subpath from one another. See [Understanding the SVG fill-rule property](http://www.sitepoint.com/understanding-svg-fill-rule-property/) for more info.
 
-- `type` - String. Either `"nonzero"` or `"evenodd"`.
+* `type` - String. Either `"nonzero"` or `"evenodd"`.
 
 ## Rune.Text
 
@@ -384,15 +386,15 @@ Sets the fillrule for the subpaths. This can be used to add or subtract subpath 
 
 Creates a new text object. The new text is not added to the stage. The text object currently does not support bounds and multiple lines.
 
-- `text` - String to be displayed
-- `x` - x position of the text baseline
-- `y` - y position of the text baseline
+* `text` - String to be displayed
+* `x` - x position of the text baseline
+* `y` - y position of the text baseline
 
 ### `fontFamily(font)`
 
 Name of the font to use. You can use the names of all default system fonts, or any webfonts imported on the page, for example Google Fonts.
 
-- `font` - String. Set to font family name, e.g. `"Georgia`.
+* `font` - String. Set to font family name, e.g. `"Georgia`.
 
 ### `fontSize(size)`
 
@@ -446,23 +448,35 @@ Adds a child to the group. If the child has an existing parent, it will be remov
 
 Removes a child from the group.
 
+## Rune.Node
+
+### `new Rune.Node(name, attributes, children)`
+
+Creates a new node object. The node object can be used to add a custom SVG tag to the stage if `Rune.js` does not support it. For example, this shows how to create a custom SVG path node with an arc (which is not yet supported through the official API).
+
+```
+r.node('path', { d: 'M0 0 A 0 00 0 0 1 100 100' })
+```
+
+This will render a `<path>` element with the corresponding attribute.
+
 ## Rune.Grid
 
 ### `new Rune.Grid(options)`
 
 Creates a new grid object. The new grid is not added to the stage. `options` is a JavaScript object that can hold the following options.
 
-- `x` - Number. The x position of the grid
-- `y` - Number. The y position of the grid
-- `columns` - Number. Defines the number of columns in the grid. Defaults to 10.
-- `rows` - Number. Defines the number of rows in the grid. Defaults to 1
-- `gutterWidth` - Number. Defines the width of the space between modules
-- `gutterHeight` - Number. Defines the height of the space between modules
-- `gutter` - Number. Shorthand way to define the same gutter width and height
-- `moduleWidth` - Number. Defines the width of each module in the grid
-- `moduleHeight` - Number. Defines the height of each module in the grid
-- `width` - Number. Defines the full width of the grid, including the gutter and module widths. Do not use with `moduleWidth`.
-- `height` - Number. Defines the full height of the grid, including the gutter and module heights. Do not use with `moduleheight`.
+* `x` - Number. The x position of the grid
+* `y` - Number. The y position of the grid
+* `columns` - Number. Defines the number of columns in the grid. Defaults to 10.
+* `rows` - Number. Defines the number of rows in the grid. Defaults to 1
+* `gutterWidth` - Number. Defines the width of the space between modules
+* `gutterHeight` - Number. Defines the height of the space between modules
+* `gutter` - Number. Shorthand way to define the same gutter width and height
+* `moduleWidth` - Number. Defines the width of each module in the grid
+* `moduleHeight` - Number. Defines the height of each module in the grid
+* `width` - Number. Defines the full width of the grid, including the gutter and module widths. Do not use with `moduleWidth`.
+* `height` - Number. Defines the full height of the grid, including the gutter and module heights. Do not use with `moduleheight`.
 
 ### `add(child, column, row)`
 
@@ -501,25 +515,25 @@ cmykArray();
 The following chainable methods can be used to manipulate the color.
 
 ```js
-negate()         // rgb(0, 100, 255) -> rgb(255, 155, 0)
+negate(); // rgb(0, 100, 255) -> rgb(255, 155, 0)
 
-lighten(0.5)     // hsl(100, 50%, 50%) -> hsl(100, 50%, 75%)
-darken(0.5)      // hsl(100, 50%, 50%) -> hsl(100, 50%, 25%)
+lighten(0.5); // hsl(100, 50%, 50%) -> hsl(100, 50%, 75%)
+darken(0.5); // hsl(100, 50%, 50%) -> hsl(100, 50%, 25%)
 
-saturate(0.5)    // hsl(100, 50%, 50%) -> hsl(100, 75%, 50%)
-desaturate(0.5)  // hsl(100, 50%, 50%) -> hsl(100, 25%, 50%)
-greyscale()      // #5CBF54 -> #969696
+saturate(0.5); // hsl(100, 50%, 50%) -> hsl(100, 75%, 50%)
+desaturate(0.5); // hsl(100, 50%, 50%) -> hsl(100, 25%, 50%)
+greyscale(); // #5CBF54 -> #969696
 
-whiten(0.5)      // hwb(100, 50%, 50%) -> hwb(100, 75%, 50%)
-blacken(0.5)     // hwb(100, 50%, 50%) -> hwb(100, 50%, 75%)
+whiten(0.5); // hwb(100, 50%, 50%) -> hwb(100, 75%, 50%)
+blacken(0.5); // hwb(100, 50%, 50%) -> hwb(100, 50%, 75%)
 
-clearer(0.5)     // rgba(10, 10, 10, 0.8) -> rgba(10, 10, 10, 0.4)
-opaquer(0.5)     // rgba(10, 10, 10, 0.8) -> rgba(10, 10, 10, 1.0)
+clearer(0.5); // rgba(10, 10, 10, 0.8) -> rgba(10, 10, 10, 0.4)
+opaquer(0.5); // rgba(10, 10, 10, 0.8) -> rgba(10, 10, 10, 1.0)
 
-rotate(180)      // hsl(60, 20%, 20%) -> hsl(240, 20%, 20%)
-rotate(-90)      // hsl(60, 20%, 20%) -> hsl(330, 20%, 20%)
+rotate(180); // hsl(60, 20%, 20%) -> hsl(240, 20%, 20%)
+rotate(-90); // hsl(60, 20%, 20%) -> hsl(330, 20%, 20%)
 
-mix(new Rune.Color("#FFFF00")) // cyan -> rgb(128, 255, 128)
+mix(new Rune.Color("#FFFF00")); // cyan -> rgb(128, 255, 128)
 ```
 
 ### Luminosity
@@ -527,13 +541,13 @@ mix(new Rune.Color("#FFFF00")) // cyan -> rgb(128, 255, 128)
 Get the [WCAG luminosity](http://www.w3.org/TR/WCAG20/#relativeluminancedef) of the color. 0 is black, 1 is white.
 
 ```js
-luminosity();  // 0.412
+luminosity(); // 0.412
 ```
 
 Get the [WCAG contrast ratio](http://www.w3.org/TR/WCAG20/#contrast-ratiodef) to another color from 1 (same color) to 21 (white/black contrast).
 
 ```js
-contrast(new Rune.Color("#FF0000"))
+contrast(new Rune.Color("#FF0000"));
 ```
 
 Get whether the color is "light" or "dark", useful for deciding text color.
@@ -571,7 +585,7 @@ Multiplies `vector` with the base vector and returns a new vector. This does not
 
 ### `divide(vector)`
 
-Divides the base vector with  `vector` and returns a new vector. This does not change the original vectors.
+Divides the base vector with `vector` and returns a new vector. This does not change the original vectors.
 
 ### `distance(vector)`
 
@@ -585,7 +599,7 @@ Returns the distance squared between two vectors.
 
 Returns the linear interpolation of the two vectors by a `scalar` amount.
 
-- `Scalar`. Normalized float between 0 and 1.
+* `Scalar`. Normalized float between 0 and 1.
 
 ### `dot(vector)`
 
@@ -614,7 +628,6 @@ Rotates the vector relative to its current rotation.
 ### `copy()`
 
 Returns a copy of the vector.
-
 
 ## Rune.Anchor
 
