@@ -2146,7 +2146,7 @@ module.exports = function isObject(x) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
     typeof window !== 'undefined' ? window : {}
-var minDoc = __webpack_require__(59);
+var minDoc = __webpack_require__(60);
 
 var doccy;
 
@@ -2329,25 +2329,26 @@ var Anchor = __webpack_require__(15);
 var Color = __webpack_require__(16);
 var Group = __webpack_require__(18);
 var Grid = __webpack_require__(44);
+var Node = __webpack_require__(45);
 var Utils = __webpack_require__(0);
-var Events = __webpack_require__(45);
-var Circle = __webpack_require__(46);
+var Events = __webpack_require__(46);
+var Circle = __webpack_require__(47);
 var Ellipse = __webpack_require__(22);
-var Line = __webpack_require__(47);
-var Triangle = __webpack_require__(48);
-var Path = __webpack_require__(49);
+var Line = __webpack_require__(48);
+var Triangle = __webpack_require__(49);
+var Path = __webpack_require__(50);
 var Polygon = __webpack_require__(14);
-var Rectangle = __webpack_require__(50);
-var Text = __webpack_require__(51);
-var Image = __webpack_require__(52);
+var Rectangle = __webpack_require__(51);
+var Text = __webpack_require__(52);
+var Image = __webpack_require__(53);
 var Box = __webpack_require__(13);
 var Shape = __webpack_require__(3);
 var Styles = __webpack_require__(4);
 
-var h = __webpack_require__(53);
-var diff = __webpack_require__(54);
-var patch = __webpack_require__(57);
-var createElement = __webpack_require__(63);
+var h = __webpack_require__(54);
+var diff = __webpack_require__(55);
+var patch = __webpack_require__(58);
+var createElement = __webpack_require__(64);
 var svg = __webpack_require__(1);
 
 // Constructor
@@ -2363,8 +2364,8 @@ var Rune = function(options) {
   );
 
   var attrs = {
-    xmlns: 'http://www.w3.org/2000/svg',
-    'xmlns:xlink': 'http://www.w3.org/1999/xlink'
+    xmlns: "http://www.w3.org/2000/svg",
+    "xmlns:xlink": "http://www.w3.org/1999/xlink"
   };
 
   if (params.width) {
@@ -2378,14 +2379,14 @@ var Rune = function(options) {
   }
 
   if (attrs.width && attrs.height) {
-    attrs.viewBox = '0 0 ' + attrs.width + ' ' + attrs.height;
+    attrs.viewBox = "0 0 " + attrs.width + " " + attrs.height;
   }
 
   var props = {
     attributes: attrs
   };
 
-  this.tree = svg('svg', props);
+  this.tree = svg("svg", props);
   this.el = createElement(this.tree);
   this.stage = new Group();
   this.debug = params.debug;
@@ -2393,7 +2394,7 @@ var Rune = function(options) {
   this.frameRate = params.frameRate;
 
   if (params.container && Utils.isBrowser()) {
-    if (typeof params.container === 'string') {
+    if (typeof params.container === "string") {
       params.container = document.querySelector(params.container);
     }
 
@@ -2409,7 +2410,7 @@ var Rune = function(options) {
         this.ignoreHeight = true;
       }
     } else {
-      console.error('Container element not found');
+      console.error("Container element not found");
     }
   }
 
@@ -2439,13 +2440,13 @@ Rune.prototype = {
 
   initEvents: function() {
     // Specific browser events
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       this.initMouseEvents();
     }
   },
 
   initMouseEvents: function() {
-    var mouseEvents = ['mousemove', 'mousedown', 'mouseup', 'click'];
+    var mouseEvents = ["mousemove", "mousedown", "mouseup", "click"];
     var that = this;
     for (var i = 0; i < mouseEvents.length; i++) {
       this.el.addEventListener(mouseEvents[i], function(e) {
@@ -2457,6 +2458,12 @@ Rune.prototype = {
 
   // Shape functions
   // --------------------------------------------------
+
+  node: function(name, attr, children, parent) {
+    var n = new Node(name, attr, children);
+    Utils.groupLogic(n, this.stage, parent);
+    return n;
+  },
 
   group: function(x, y, parent) {
     var g = new Group(x, y);
@@ -2548,7 +2555,7 @@ Rune.prototype = {
 
   playNow: function() {
     var that = this;
-    this.trigger('update', { frameCount: this.frameCount });
+    this.trigger("update", { frameCount: this.frameCount });
     this.animationFrame = requestAnimationFrame(function() {
       that.play();
     });
@@ -2569,8 +2576,8 @@ Rune.prototype = {
 
   draw: function() {
     var attrs = {
-      xmlns: 'http://www.w3.org/2000/svg',
-      'xmlns:xlink': 'http://www.w3.org/1999/xlink'
+      xmlns: "http://www.w3.org/2000/svg",
+      "xmlns:xlink": "http://www.w3.org/1999/xlink"
     };
 
     if (!this.ignoreWidth) attrs.width = Utils.s(this.width);
@@ -2580,7 +2587,7 @@ Rune.prototype = {
       attributes: attrs
     };
 
-    var newTree = svg('svg', props, [
+    var newTree = svg("svg", props, [
       this.stage.renderChildren({ debug: this.debug })
     ]);
     var diffTree = diff(this.tree, newTree);
@@ -2600,6 +2607,7 @@ Rune.Vector = Vector;
 Rune.Anchor = Anchor;
 Rune.Color = Color;
 Rune.Group = Group;
+Rune.Node = Node;
 Rune.Grid = Grid;
 Rune.Circle = Circle;
 Rune.Ellipse = Ellipse;
@@ -4595,6 +4603,34 @@ module.exports = Grid;
 
 /***/ }),
 /* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assign = __webpack_require__(2);
+var Shape = __webpack_require__(3);
+var svg = __webpack_require__(1);
+
+// This Node class allows developers to inject random SVG nodes into
+// the scene graph if Rune.js does not support what they are trying to do.
+var Node = function(name, attr, children) {
+  this.shape();
+  this.state.name = name;
+  this.state.attr = attr;
+  this.state.children = children;
+};
+
+Node.prototype = {
+  render: function(opts) {
+    return svg(this.state.name, this.state.attr, this.state.children);
+  }
+};
+
+assign(Node.prototype, Shape, { type: "node" });
+
+module.exports = Node;
+
+
+/***/ }),
+/* 46 */
 /***/ (function(module, exports) {
 
 var Events = {
@@ -4637,7 +4673,7 @@ module.exports = Events;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assign = __webpack_require__(2);
@@ -4708,7 +4744,7 @@ module.exports = Circle;
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assign = __webpack_require__(2);
@@ -4793,7 +4829,7 @@ module.exports = Line;
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assign = __webpack_require__(2);
@@ -4856,7 +4892,7 @@ module.exports = Triangle;
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assign = __webpack_require__(2);
@@ -5166,7 +5202,7 @@ module.exports = Path;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assign = __webpack_require__(2);
@@ -5247,7 +5283,7 @@ module.exports = Rectangle;
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assign = __webpack_require__(2);
@@ -5334,7 +5370,7 @@ module.exports = Text;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assign = __webpack_require__(2);
@@ -5387,7 +5423,7 @@ module.exports = Image;
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var h = __webpack_require__(19)
@@ -5396,16 +5432,16 @@ module.exports = h
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var diff = __webpack_require__(55)
+var diff = __webpack_require__(56)
 
 module.exports = diff
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArray = __webpack_require__(9)
@@ -5417,7 +5453,7 @@ var isWidget = __webpack_require__(6)
 var isThunk = __webpack_require__(10)
 var handleThunk = __webpack_require__(24)
 
-var diffProps = __webpack_require__(56)
+var diffProps = __webpack_require__(57)
 
 module.exports = diff
 
@@ -5838,7 +5874,7 @@ function appendPatch(apply, patch) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(25)
@@ -5902,24 +5938,24 @@ function getPrototype(value) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var patch = __webpack_require__(58)
+var patch = __webpack_require__(59)
 
 module.exports = patch
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var document = __webpack_require__(26)
 var isArray = __webpack_require__(9)
 
 var render = __webpack_require__(27)
-var domIndex = __webpack_require__(60)
-var patchOp = __webpack_require__(61)
+var domIndex = __webpack_require__(61)
+var patchOp = __webpack_require__(62)
 module.exports = patch
 
 function patch(rootNode, patches, renderOptions) {
@@ -5997,13 +6033,13 @@ function patchIndices(patches) {
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 // Maps a virtual DOM tree onto a real DOM tree in an efficient manner.
@@ -6094,7 +6130,7 @@ function ascending(a, b) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var applyProperties = __webpack_require__(28)
@@ -6102,7 +6138,7 @@ var applyProperties = __webpack_require__(28)
 var isWidget = __webpack_require__(6)
 var VPatch = __webpack_require__(23)
 
-var updateWidget = __webpack_require__(62)
+var updateWidget = __webpack_require__(63)
 
 module.exports = applyPatch
 
@@ -6251,7 +6287,7 @@ function replaceRoot(oldRoot, newRoot) {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isWidget = __webpack_require__(6)
@@ -6272,7 +6308,7 @@ function updateWidget(a, b) {
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var createElement = __webpack_require__(27)

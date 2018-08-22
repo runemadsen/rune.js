@@ -1,29 +1,30 @@
-var assign = require('object-assign');
-var Vector = require('./vector');
-var Anchor = require('./anchor');
-var Color = require('./color');
-var Group = require('./group');
-var Grid = require('./grid');
-var Utils = require('./utils');
-var Events = require('./events');
-var Circle = require('./shapes/circle');
-var Ellipse = require('./shapes/ellipse');
-var Line = require('./shapes/line');
-var Triangle = require('./shapes/triangle');
-var Path = require('./shapes/path');
-var Polygon = require('./shapes/polygon');
-var Rectangle = require('./shapes/rectangle');
-var Text = require('./shapes/text');
-var Image = require('./shapes/image');
-var Box = require('./mixins/box');
-var Shape = require('./mixins/shape');
-var Styles = require('./mixins/styles');
+var assign = require("object-assign");
+var Vector = require("./vector");
+var Anchor = require("./anchor");
+var Color = require("./color");
+var Group = require("./group");
+var Grid = require("./grid");
+var Node = require("./node");
+var Utils = require("./utils");
+var Events = require("./events");
+var Circle = require("./shapes/circle");
+var Ellipse = require("./shapes/ellipse");
+var Line = require("./shapes/line");
+var Triangle = require("./shapes/triangle");
+var Path = require("./shapes/path");
+var Polygon = require("./shapes/polygon");
+var Rectangle = require("./shapes/rectangle");
+var Text = require("./shapes/text");
+var Image = require("./shapes/image");
+var Box = require("./mixins/box");
+var Shape = require("./mixins/shape");
+var Styles = require("./mixins/styles");
 
-var h = require('virtual-dom/h');
-var diff = require('virtual-dom/diff');
-var patch = require('virtual-dom/patch');
-var createElement = require('virtual-dom/create-element');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var h = require("virtual-dom/h");
+var diff = require("virtual-dom/diff");
+var patch = require("virtual-dom/patch");
+var createElement = require("virtual-dom/create-element");
+var svg = require("virtual-dom/virtual-hyperscript/svg");
 
 // Constructor
 // --------------------------------------------------
@@ -38,8 +39,8 @@ var Rune = function(options) {
   );
 
   var attrs = {
-    xmlns: 'http://www.w3.org/2000/svg',
-    'xmlns:xlink': 'http://www.w3.org/1999/xlink'
+    xmlns: "http://www.w3.org/2000/svg",
+    "xmlns:xlink": "http://www.w3.org/1999/xlink"
   };
 
   if (params.width) {
@@ -53,14 +54,14 @@ var Rune = function(options) {
   }
 
   if (attrs.width && attrs.height) {
-    attrs.viewBox = '0 0 ' + attrs.width + ' ' + attrs.height;
+    attrs.viewBox = "0 0 " + attrs.width + " " + attrs.height;
   }
 
   var props = {
     attributes: attrs
   };
 
-  this.tree = svg('svg', props);
+  this.tree = svg("svg", props);
   this.el = createElement(this.tree);
   this.stage = new Group();
   this.debug = params.debug;
@@ -68,7 +69,7 @@ var Rune = function(options) {
   this.frameRate = params.frameRate;
 
   if (params.container && Utils.isBrowser()) {
-    if (typeof params.container === 'string') {
+    if (typeof params.container === "string") {
       params.container = document.querySelector(params.container);
     }
 
@@ -84,7 +85,7 @@ var Rune = function(options) {
         this.ignoreHeight = true;
       }
     } else {
-      console.error('Container element not found');
+      console.error("Container element not found");
     }
   }
 
@@ -114,13 +115,13 @@ Rune.prototype = {
 
   initEvents: function() {
     // Specific browser events
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       this.initMouseEvents();
     }
   },
 
   initMouseEvents: function() {
-    var mouseEvents = ['mousemove', 'mousedown', 'mouseup', 'click'];
+    var mouseEvents = ["mousemove", "mousedown", "mouseup", "click"];
     var that = this;
     for (var i = 0; i < mouseEvents.length; i++) {
       this.el.addEventListener(mouseEvents[i], function(e) {
@@ -132,6 +133,12 @@ Rune.prototype = {
 
   // Shape functions
   // --------------------------------------------------
+
+  node: function(name, attr, children, parent) {
+    var n = new Node(name, attr, children);
+    Utils.groupLogic(n, this.stage, parent);
+    return n;
+  },
 
   group: function(x, y, parent) {
     var g = new Group(x, y);
@@ -223,7 +230,7 @@ Rune.prototype = {
 
   playNow: function() {
     var that = this;
-    this.trigger('update', { frameCount: this.frameCount });
+    this.trigger("update", { frameCount: this.frameCount });
     this.animationFrame = requestAnimationFrame(function() {
       that.play();
     });
@@ -244,8 +251,8 @@ Rune.prototype = {
 
   draw: function() {
     var attrs = {
-      xmlns: 'http://www.w3.org/2000/svg',
-      'xmlns:xlink': 'http://www.w3.org/1999/xlink'
+      xmlns: "http://www.w3.org/2000/svg",
+      "xmlns:xlink": "http://www.w3.org/1999/xlink"
     };
 
     if (!this.ignoreWidth) attrs.width = Utils.s(this.width);
@@ -255,7 +262,7 @@ Rune.prototype = {
       attributes: attrs
     };
 
-    var newTree = svg('svg', props, [
+    var newTree = svg("svg", props, [
       this.stage.renderChildren({ debug: this.debug })
     ]);
     var diffTree = diff(this.tree, newTree);
@@ -275,6 +282,7 @@ Rune.Vector = Vector;
 Rune.Anchor = Anchor;
 Rune.Color = Color;
 Rune.Group = Group;
+Rune.Node = Node;
 Rune.Grid = Grid;
 Rune.Circle = Circle;
 Rune.Ellipse = Ellipse;
