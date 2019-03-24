@@ -38,7 +38,7 @@ var Color = function(a, b, c, d, e) {
   } else if (typeof a !== "undefined") {
     // RGB
     this.setValues("rgb", { r: a, g: b, b: c });
-    if (d) this.setValues("alpha", d);
+    if (typeof d !== "undefined") this.setValues("alpha", d);
   }
 };
 
