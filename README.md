@@ -20,3 +20,4 @@ $ rune test browser
 ## Contributors
 
 - [Yining Shi](http://1023.io/)
+- [Jorge Moreno](https://www.moro.es/)
