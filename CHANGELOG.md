@@ -1,3 +1,7 @@
+## 1.1.8
+
+- Adding `limit()` to `Rune.Vector`
+
 ## 1.1.7
 
 - Fixing bug where updating a color with alpha `0` would keep it opaque (Jorge Moreno)
