@@ -19,7 +19,7 @@ To use in Node, [**install the package via NPM**](https://www.npmjs.com/package/
 
 ## Getting started
 
-If you want to run Rune.js in a browser, first download the latest release and move the file called  `rune.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
+If you want to run Rune.js in a browser, first download the latest release and move the file called `rune.js` next to your HTML document. Then, add a link to the file in the `<head>` tag of the document.
 
 ```html
 <head>
@@ -44,8 +44,7 @@ var r = new Rune({
   height: 400
 });
 
-r.rect(0, 0, 200, 200)
-  .fill(0, 0, 255);
+r.rect(0, 0, 200, 200).fill(0, 0, 255);
 
 r.draw();
 ```
@@ -104,7 +103,7 @@ The polygon is a shape made up of a number of straight lines connected to each o
 r.polygon(0, 0)
   .lineTo(0, 0)
   .lineTo(100, 100)
-  .lineTo(-100, 100)
+  .lineTo(-100, 100);
 ```
 
 The `lineTo()` function draws a line from the current position to the position passed into the function. Notice how the first `lineTo()` is used to tell the polygon where to start, and that we do not draw a line back to the beginning to close the triangle. Polygons are always closed shapes, so this will happen automatically.
@@ -112,10 +111,11 @@ The `lineTo()` function draws a line from the current position to the position p
 Polygons come with a number of helper functions to make it easier to do [geometry calculations](documentation.html). The following example uses the `vectorAt()` function to find the position midway on the outline of a polygon, and draw a circle at that point.
 
 ```js
-var tri = r.polygon(0, 0)
+var tri = r
+  .polygon(0, 0)
   .lineTo(0, 0)
   .lineTo(100, 100)
-  .lineTo(-100, 100)
+  .lineTo(-100, 100);
 
 var midway = tri.vectorAt(0.5);
 r.circle(midway.x, midway.y, 10);
@@ -191,15 +191,13 @@ r.circle(0, 0, 100)    // x:0 y:0
 The `rotate()` function can be used to change the rotation of a shape. If you just pass a degree to the function, the shape will rotate around its parent position. So even though a rectangle has a position in the middle of the screen, it will rotate around the top-left corner.
 
 ```js
-r.rect(100, 100, 100, 100)
-  .rotate(45);
+r.rect(100, 100, 100, 100).rotate(45);
 ```
 
 However, passing in a center for rotation will make it possible to rotate the rectangle around its own center.
 
 ```js
-r.rect(100, 100, 100, 100)
-  .rotate(45, 150, 150);
+r.rect(100, 100, 100, 100).rotate(45, 150, 150);
 ```
 
 If you pass a boolean as the last parameter of the function, the rotation will be relative to the current rotation.
@@ -219,15 +217,15 @@ Drawing is not fun without color. All shapes have a default stroke and fill colo
 ```js
 r.rect(0, 0, 100, 50)
   .stroke(255, 0, 0) // red
-  .fill(0, 255, 0) // green
+  .fill(0, 255, 0); // green
 ```
 
 The example above creates a rectangle with a red stroke and green fill, by using `RGB` values from 0 to 255. If you prefer to use `HSV`, this is easy too.
 
 ```js
 r.rect(0, 0, 100, 50)
-  .stroke('hsv', 0, 100, 100) // red
-  .fill('hsv', 120, 100, 100) // green
+  .stroke("hsv", 0, 100, 100) // red
+  .fill("hsv", 120, 100, 100); // green
 ```
 
 On top of that, all of the following inputs can be used for strokes and fills.
@@ -247,10 +245,10 @@ New color objects can be created via `new Rune.Color()`, and most of their funct
 
 ```js
 new Rune.Color(255, 0, 0)
-    .lighten(0.1)
-    .desaturate(0.3)
-    .rotate(120)
-    // a lot more in the docs!
+  .lighten(0.1)
+  .desaturate(0.3)
+  .rotate(120);
+// a lot more in the docs!
 ```
 
 You can also disable colors by passing `false` to the functions.
@@ -259,7 +257,7 @@ You can also disable colors by passing `false` to the functions.
 // you can't see me!
 r.rect(0, 0, 100, 50)
   .stroke(false)
-  .fill(false)
+  .fill(false);
 ```
 
 You can find a lot more example code in [the color examples](http://printingcode.runemadsen.com/examples/#color).
@@ -333,11 +331,11 @@ You can use the `play()` function to repeatedly draw the scene to the screen 60 
 ```js
 var rectangle = r.rect(0, 0, 100, 50);
 
-r.on('update', function() {
+r.on("update", function() {
   rectangle.move(1, 0, true);
 });
 
-r.play()
+r.play();
 ```
 
 It's very important to understand the difference between the code above that moves a single rectangle object, and the code below which adds a new rectangle to the stage on every frame. The code below will eventually slow down, so the above code is much better.
@@ -345,7 +343,7 @@ It's very important to understand the difference between the code above that mov
 ```js
 var x = 0;
 
-r.on('draw', function() {
+r.on("update", function() {
   r.rectangle(x, 0, 100, 50);
   x++;
 });
@@ -354,7 +352,7 @@ r.on('draw', function() {
 You can change the framerate by passing in the `frameRate` parameter when creating your `Rune.js` instance:
 
 ```js
-var r = new Rune({ frameRate: 10 })
+var r = new Rune({ frameRate: 10 });
 ```
 
 You can find a lot more example code in [the examples](http://printingcode.runemadsen.com/examples).
@@ -364,7 +362,7 @@ You can find a lot more example code in [the examples](http://printingcode.runem
 You can also use the `on()` function to listen to mouse events. The following code logs a simple message to the web developer console every time the mouse moves. As you can see, the listener function will receive a `mouse` object with the position of the mouse relative to the SVG.
 
 ```js
-r.on('mousemove', function(mouse) {
+r.on("mousemove", function(mouse) {
   console.log("the mouse moved to", mouse.x, mouse.y);
 });
 ```
