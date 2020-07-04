@@ -260,7 +260,7 @@ Creates a new circle object. The new circle is not added to the stage.
 
 ### `radius(length, relative)`
 
-Changes the radius of the rectangle. If the second argument is set to `true`, the value will be added to the radius of the shape.
+Changes the radius of the circle. If the second argument is set to `true`, the value will be added to the radius of the shape.
 
 ## Rune.Ellipse
 
